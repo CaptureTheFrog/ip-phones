@@ -1,0 +1,416 @@
+
+hwLoad: Failsafe flash reads are not available.
+hwLoad: Failsafe flash reads are not available.
+hwLoad: Failsafe flash reads are not available.
+Loading ESWITCH Net Driver
+Loading ESWITCH Net Driver
+The first token 3
+**** The unit being initialized is 3 *****
+Initializing net memory for eSwitch END Driver
+Memory setup complete
+hwLoad: FailhwLoad: Failsafe flash reads are not available.
+hwLoad: Failsafe flash reads are not available.
+sysStartType = 0x00000002
+dosChkLib : CLOCK_REALTIME is being reset to WED FEB 22 15:28:22 2023
+Value obtained from file system volume descriptor pointer: 0x95ffdf50
+The old setting was THU JAN 01 00:00:00 1970
+Accepted system dates are greater than THU DEC 27 00:00:00 1990
+/ffs0/  - Volume is OK
+utilFileSizeGet: Non compressed file /ffs0/hwdesc.bak does not exist
+hwDescFlashBackupValid: File /ffs0/hwdesc.bak does not exist or is empty.
+/rfs0/  - Volume is OK
+Setting time to stored time 1677079222
+Starting eSwitch End Driver
+
+
+Updater>utilEthFilterInit: VLAN Filter disabled, Storm Filter enabled
+ESWITCH device is up.
+sysStartType2 = 0x00000002
+Log render level set to 3
+All logs set to level 3
+Failed to bind ICMP 514 (errno: 49)
+000000.510|so   |*|01|---------- Initial log entry ----------
+000000.510|so   |*|01|+++ Note that Updater log times are in GMT +++
+000000.510|boot |*|01|Initial log entry. Current logging level 3
+000000.510|copy |*|01|Initial log entry. Current logging level 3
+000000.510|utilm|*|01|Initial log entry. Current logging level 4
+000000.510|hw   |*|01|Initial log entry. Current logging level 4
+000000.510|ethf |*|01|Initial log entry. Current logging level 4
+000000.510|dns  |*|01|Initial log entry. Current logging level 3
+000000.510|curl |*|01|Initial log entry. Current logging level 3
+000000.510|sec  |*|01|Initial log entry. Current logging level 4
+000000.520|wdog |*|01|Initial log entry. Current logging level 4
+000000.520|lldp |*|01|Initial log entry. Current logging level 3
+000000.520|cdp  |*|01|Initial log entry. Current logging level 3
+000000.520|key  |*|01|Initial log entry. Current logging level 4
+000000.520|so   |3|01|Platform: Model=SoundPoint IP 331, Assembly=2345-12365-001 Rev=B Region=
+000000.520|so   |3|01|Platform: Board=2345-12365-001 1 0
+000000.520|so   |3|01|Platform: MAC=0004f23e3725
+000000.520|so   |3|01|Platform: BootBlock=3.0.2.0024 (12365-001) 30-Nov-10 14:56
+000000.520|so   |3|01|Application, main: Label=Updater, Version=Azurite 5.0.15.0741 05-Feb-20 20:04
+000000.520|so   |3|01|Application, main: P/N=3150-11069-509
+000000.520|log  |*|01|Install file upload callback for 'Updater'
+
+000000.520|app1 |*|01|Initial log entry. Current logging level 3
+000000.535|cfg  |*|01|Initial log entry. Current logging level 2
+000000.550|app1 |3|01|Application, load: Type=SIP, Version=4.0.15.1047 13-Mar-20 17:25
+000000.585|boot |*|01|Using TFFS for flash load
+000000.610|boot |*|01|Code length:         0x003A623A
+000000.610|boot |*|01|Code checksum:       0x1D14C359
+000001.515|so   |3|01|Link status is Net down, PC down.
+000002.515|so   |3|01|Link status is Net up Speed 100 full Duplex, PC down.
+000016.405|app1 |4|01|Loaded application unknown from local system successfully.
+Starting at 0x94020000...
+
+Closing down the ESWITCH END unit
+tffsDrv succeeded!
+Polycom Management Shell (17:32:21, Mar 13 2020)
+
+dosChkLib : CLOCK_REALTIME is being reset to WED FEB 22 15:28:22 2023
+Value obtained from file system volume descriptor pointer: 0x95f5b050
+The old setting was THU JAN 01 00:00:00 1970
+Accepted system dates are greater than THU DEC 27 00:00:00 1990
+/ffs0/  - Volume is OK
+utilFileSizeGet: Non compressed file /ffs0/hwdesc.bak does not exist
+hwDescFlashBackupValid: File /ffs0/hwdesc.bak does not exist or is empty.
+Setting time to stored time 1677079237.
+Loading ESWITCH Net Driver
+Loading ESWITCH Net Driver
+The first token 3
+**** The unit being initialized is 3 *****
+Initializing net memory for eSwitch END Driver
+Memory setup complete
+Done loading ESWITCH END and returning endObj 95ec9110 and unit 3.
+Loading ESWITCH Net Driver
+Starting eSwitch End Driver
+utilEthFilterInit: VLAN Filter disabled, Storm Filter enabled
+ESWITCH device is up.
+
+User: RT|Network eth0 link went up
+RT|cfgRtNetInterfaceUpdate: Network not initialized
+RT|Setting VLAN id from FLASH config.
+RT|Disabling 802.1Q tagging.
+Attached TCP/IP interface to esw unit 3
+Attaching network interface lo0... done.
+
+
+            WDB: Ready.
+
+Simon was here but he was horribly maimed.
+Prm|Configuration file(s) were parsed
+Prm|Local configuration was parsed
+Prm|Web configuration was parsed
+uBLFCompressed: File /ffs0/Config/Local/phoneRam.cfg does not exist or is empty
+Prm|Error when decompressing configuration file /ffs0/Config/Local/phoneRam.cfg
+Prm|RAM configuration was parsed
+Prm|cfgParamCbGenericSet set CbProvPolling(33) to 944e69f0 0.
+Prm|cfgParamCbSet set CbCfgProvUserLogin(15) to 944ea940 0.
+Prm|Parameter sec.TLS.webServer.cipherList requested type 0 but is of type 4
+Prm|Type 0 4 0 for parameter sec.TLS.webServer.cipherList is not valid
+Prm|Parameter sec.TLS.exchangeServices.cipherList requested type 0 but is of type 4
+Prm|Type 0 4 0 for parameter sec.TLS.exchangeServices.cipherList is not valid
+Prm|cfgParamCbSet set CbUtilTlsSecurity(43) to 94662f8c 0.
+Prm|Parameter 0 is out of range
+Custom application CA certificate 1 is not present
+Custom application CA certificate 2 is not present
+Custom application CA certificate 3 is not present
+Custom application CA certificate 4 is not present
+Custom application CA certificate 5 is not present
+Custom application CA certificate 6 is not present
+Custom application CA certificate 7 is not present
+Polycom device certificate is a valid certificate
+/rfs0/  - Volume is OK
+Default device certificate is FactoryInstalled
+Custom platform device certificate 1 is not present
+Custom platform device certificate 2 is not present
+Custom application device certificate 1 is not present
+Custom application device certificate 2 is not present
+Custom application device certificate 3 is not present
+Custom application device certificate 4 is not present
+Custom application device certificate 5 is not present
+Custom application device certificate 6 is not present
+Custom application device certificate 7 is not present
+Prm|Array parameter sec.TLS.profile.x.caCert.defaultList index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.platform1 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.platform2 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application1 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application2 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application3 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application4 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application5 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application6 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application7 index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.deviceCert index 8 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.defaultList index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.platform1 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.platform2 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application1 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application2 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application3 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application4 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application5 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application6 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.caCert.application7 index 9 is out of range
+Prm|Array parameter sec.TLS.profile.x.deviceCert index 9 is out of range
+Prm|cfgParamCbSet set CbLog(22) to 94648684 0.
+UtilLogC::readUploadPosFromFile: Cannot open /ffs0/app.log.pos
+000007.264|log  |*|03|---------- Initial log entry ----------
+000007.266|so   |*|03|Platform: Model=SoundPoint IP 331, Assembly=2345-12365-001 Rev=B Region=
+000007.266|so   |*|03|Platform: Interface    eth0 MAC=0004f23e3725
+000007.266|so   |*|03|Platform: BootBlock=3.0.2.0024 (12365-001) 30-Nov-10 14:56
+000007.266|so   |*|03|Platform: Updater=5.0.15.0741 05-Feb-20 20:04
+000007.266|so   |*|03|Application, main: Label=SIP, Version=Mink 4.0.15.1047 13-Mar-20 17:25
+000007.268|so   |*|03|Application, main: P/N=3150-11530-409
+000007.268|rdisk|*|03|RAM disk created, size: 4,194,304 bytes
+000007.268|ocsp |*|03|O.C.S.P. Enabled = 0
+000007.270|tls  |*|03|Initial log entry. Current logging level 4
+000007.332|pmt  |*|03|Initial log entry. Current logging level 4
+000007.334|wdog |*|03|Initial log entry. Current logging level 4
+000007.334|ethf |*|03|Initial log entry. Current logging level 4
+000007.334|hw   |*|03|Initial log entry. Current logging level 4
+000007.334|ares |*|03|Initial log entry. Current logging level 4
+000007.334|dns  |*|03|Initial log entry. Current logging level 4
+000007.334|cfg  |*|03|Initial log entry. Current logging level 4
+000007.336|dot1x|*|03|Initial log entry. Current logging level 4
+000007.342|cfg  |5|03|RT|Error installing DHCP event hook.
+000007.402|lic  |*|03|Initial log entry. Current logging level 4
+000007.402|lic  |4|03|cfgCfsFlashKeyScratchLoad: key is blank
+000007.446|curl |*|03|Initial log entry. Current logging level 4
+000007.446|utilm|*|03|Initial log entry. Current logging level 4
+000007.446|copy |*|03|Initial log entry. Current logging level 4
+000007.446|rtos |*|03|Initial log entry. Current logging level 4
+000007.448|sec  |*|03|Initial log entry. Current logging level 4
+000007.450|so   |*|03|Configuration files:
+000007.508|log  |*|03|Log render level set to 1
+Skipping statistical tests on RNG
+
+000007.582|srtp |*|03|Initial log entry. Current logging level 4
+000007.584|res  |*|03|Initial log entry. Current logging level 4
+000007.588|httpa|*|03|Initial log entry. Current logging level 4
+000007.588|lldp |*|03|Initial log entry. Current logging level 4
+000007.588|cdp  |*|03|Initial log entry. Current logging level 4
+000007.588|sys  |*|03|Initial log entry. Current logging level 4
+000007.654|ssps |*|03|Initial log entry. Current logging level 4
+000007.656|so   |*|03|soCodecConfig: Explicitly Adding codecG722 for PTT
+000010.088|so   |*|03|System Info Reports:
+000010.088|so   |*|03|    CPU is TNETV1057/C55x, rev 2 running at 87.500MHz with memory at 87.500MHz.
+000010.088|so   |*|03|    Board is identified as PolycomSoundPointIP-SPIP_331.
+000010.088|so   |*|03|    DRAM_LO: 0x94000000.  DRAM_SIZE: 32 MB
+000010.088|so   |*|03|    Clocks are VBUSP: 87.500MHz, VBUS: 75.000MHz, USB: 25.000MHz, LCD: 87.500MHz, DSP: 87.500MHz.
+000010.088|so   |*|03|  NOR flash detected is 9
+000010.088|key  |*|03|Initial log entry. Current logging level 4
+000010.094|httpd|*|03|Initial log entry. Current logging level 4
+000010.096|poll |*|03|Initial log entry. Current logging level 4
+000010.096|push |*|03|Initial log entry. Current logging level 4
+000010.096|poll |*|03|Initial log entry. Current logging level 4
+000010.096|poll |*|03|Initial log entry. Current logging level 4
+000010.096|poll |*|03|Initial log entry. Current logging level 4
+000010.096|poll |*|03|Initial log entry. Current logging level 4
+000010.098|poll |*|03|Initial log entry. Current logging level 4
+000010.098|ht   |*|03|Initial log entry. Current logging level 4
+000010.098|dbuf |*|03|Initial log entry. Current logging level 4
+000010.102|ssps |*|03|Application, comp. 1: Label=PolyDSP Titan Mem1 FS4, Version=6.1.1.0010 11-Jul-12 19:00
+000010.102|ssps |*|03|Application, comp. 1: P/N=3150-11580-611.
+000010.102|pps  |*|03|Initial log entry. Current logging level 4
+000010.102|sip  |*|03|Initial log entry. Current logging level 4
+000010.104|ptt  |*|03|Initial log entry. Current logging level 4
+000010.394|so   |*|03|Using TCP IP Media Port, configured initial RTP port 2222
+000010.422|sshc |*|03|Initial log entry. Current logging level 4
+000010.426|cmp  |*|03|Initial log entry. Current logging level 4
+000010.426|wmgr |*|03|Initial log entry. Current logging level 4
+000010.520|slog |*|03|Initial log entry. Current logging level 3
+ldapCfg::initCfg: for cid 0
+ldapCfg::isDirFeatureEnabled: for 0 enabled 0
+000010.628|app1 |*|03|Initial log entry. Current logging level 4
+000010.628|app1 |4|03|Default StatusBar is disabled
+000010.632|app1 |4|03|mb.main.home parameter is empty
+000010.636|mb   |*|03|Initial log entry. Current logging level 4
+000010.646|app1 |*|03| is out of range, using 3600
+000010.646|app1 |*|03| is out of range, using 3600
+000010.720|ldap |*|03|Initial log entry. Current logging level 4
+000010.722|ldap |4|03|cDynamicData::cDynamicData:cDynamicData:Failed
+000010.748|efk  |*|03|Initial log entry. Current logging level 4
+000010.804|app1 |4|03|[AppUserLoginC::Init]:flushing user cache file failed
+000011.354|utilm|4|03|uBLFCompressed: File /ffs0/local/local-directory_xml.zzz does not exist or is empty
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+000021.908|cfg  |*|03|RT|cfgRtNetInterfaceUpdate: Network not initialized
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+0x9586d660 (tDhcpcStateTask): arp_check: No reply, addr not used
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+utilWdbErrorRtn: ****utilWdbErrorRtn****
+Did not receive boot server via primary DHCP.
+Querying alternate DHCP servers.
+000033.246|cfg  |*|03|RT|Do not do DHCP VLAN Discovery.
+000033.264|sys  |*|03|0x9586d660 (tDhcpcStateTask): arp_check: No reply, addr not used
+Did not receive boot server via alternate DHCP.
+000109.262|cfg  |*|03|RT|   Phone IP address is 192.168.32.85.
+000109.262|cfg  |*|03|RT|   Subnet mask is 255.255.255.0.
+000109.262|cfg  |*|03|RT|   Gateway address is 192.168.32.1.
+000109.264|cfg  |*|03|RT|DHCP: Alternate DNS server is not specified
+000109.264|cfg  |*|03|RT|   DNS server is 192.168.32.1.
+000109.266|dns  |*|03|DNS resolver servers are '192.168.32.1' '0.0.0.0'
+000109.266|dns  |*|03|DNS resolver search domain is ''
+000109.268|cfg  |*|03|RT|Primary IP changed to 192.168.32.85 subnet mask 255.255.255.0
+000109.268|cfg  |*|03|RT|cfgRtNetInterfaceUpdate: bfeng -- calling network status callback
+000109.268|cfg  |*|03|RT|cfgRtNetInterfaceUpdate: bfeng -- calling network status callback
+000109.306|so   |*|03|Network initialized. Starting network tasks.
+000109.308|log  |*|03|Install file upload callback for 'so'
+
+000109.330|app1 |*|03|?m?p?m?0?m?l is out of range, using 3600
+000109.330|app1 |*|03|?m?p?m?0?m?l is out of range, using 3600
+000109.354|sip  |*|03|Fast Boot Measurement Point: Ready for Call, uptime: 69.354 sec.
+000109.384|app1 |5|03|Corporate directory instance does not exists.
+000109.820|copy |4|03|Configuration of URL failed
+000109.824|utilm|4|03|uBLFCompressed: File /ffs0/local/local-directory_xml.zzz does not exist or is empty
+000109.828|copy |4|03|Configuration of URL failed
+000109.832|utilm|4|03|uBLFCompressed: File /ffs0/local/local-directory_xml.zzz does not exist or is empty
+000109.922|cfg  |*|03|Prov|Starting to update
+000109.942|so   |4|03|Could not find IP address for SNTP server. 86400
+000110.458|copy |4|03|Configuration of URL failed
+000110.462|copy |4|03|Configuration of URL failed
+000110.466|cfg  |4|03|Prov|Download of master configuration file failed
+000110.466|cfg  |4|03|Prov|Trying to boot from existing configuration
+000110.478|cfg  |4|03|Prov|Provisioning failed
+000110.486|cfg  |*|03|Prov|Finished updating configuration
+000110.496|copy |4|03|Configuration of URL failed
+000110.496|log  |4|03|UtilLogC::uploadFifoLog: upload error. protocol 0 result = 8
+000110.498|log  |4|03|Failed to upload boot log on start up.
+000110.504|copy |4|03|Configuration of URL failed
+000110.506|log  |4|03|UtilLogC::uploadFifoLog: upload error. protocol 0 result = 8
+
+Password:
+
+Login failure.
+000716.612|pmt  |4|03|Login failure.
+
+User: Polycom
+Password:
+
+Admin>help
+ -
+addScheduledLogEntry - Adds a command to be run periodically that outputs to the phone's log.
+appPrt - Show UI's call status.
+arpShow - Display the contents of the ARP table.
+auth - Change authentication level
+bmPrt - Show information about the bitmaps.
+cfgParamName - Show cfg Param info by passing param name
+cfgProvFileTemplateUpload - Uploads templates of the current non-default config to the boot server
+cfgProvFlashTemplateUpload - Uploads templates of the current flash config to the boot server
+checkStack - Checks the stack.
+configSyslogSet - Set Syslog parameters in the flash.
+                (Server Address, Server Type, Facility, Render level, Prepend MAC)
+confShow - Show conference info.
+coreAudio - Print core audio information.
+cpuLoadShow - Display CPU load (period (s), number of iterations).
+cpuUsageShow - Display CPU usage for each task [interval in seconds].
+date - Display the current date.
+dhcpcParamsShow - Show DHCP client parameters.
+dhcpcTimersShow - Show DHCP client timers.
+dnsCacheShow - Show DNS cache records.
+dosFsShow - Display file system statistics.
+dspLoadShow - Display DSP load (period (s), number of iterations).
+dump - Dump file to terminal, including decompressing compressed files
+endErrShow - Show END device error stats.
+eswitchPHYRegisterInfo - Register information for LAN and PC port PHYs.
+esw_getstat - Get ethernet driver status
+ethBufPoolShow - Display the state of the ethernet pool stack(no parameters)
+ethFilterShow - Show Ethernet ingress filter stats.
+help - Shows basic help for all commands.
+hostShow - Show host table.
+i - Display status of the specified process, or all running processes (Process_name (optional))
+icmpstatShow - Show ICMP statistics.
+ifShow - Display ethernet interface statistics (no parameters)
+inetstatShow - Show transport layer network status.
+iosFdShow - Show file descriptors in use.
+ipstatShow - Show IP layer network statistics.
+keyPrt - Shows information about the key mapping.
+la - List all files in the flash filesystem, including subdirectories.
+lfu - Send the logfiles to the provisioning server(no parameters).
+linkShow - Show link status.
+ll - List files in the flash filesystem (long format).
+logd - Dump the log, parameter is reverse order or not.
+logda - Print all available log modules and their current level.
+logl - Set the lowest log level which will be displayed (0-6)
+logs - Set the log level output for a given module ([module] [0-6])
+logsa - Set the log level output for all modules. ([0-6])
+logt - Set the log display type (0-2)
+ls - List files in the flash filesystem.
+mbShow - Show microbrowser memory pool.
+medSess - Show detailed information on the current media session(s),
+                related to active calls, offerings, or the free list(1, 2, 3 or 4)
+
+medSessStat - medSessStat - Show call statistics of the active media session(s)
+memShow - Display heap memory statistics.
+mRouteShow - Display IP routing table.
+ncasCb - Show detailed ncas information, related to either call services,
+                non-call services, or server information (1, 2, or 3)
+ncasMisc - Show misc. non-call information (no parameters)
+netCCB - Display open RTP ports and their status (no parameters)
+netRxShow - Show network receive stats summary.
+netStackDataPoolShow - Display the state of the data pool stack(no parameters)
+netStackSysPoolShow - Display the state of the system pool stack(no parameters)
+nslookup - Find the IP for a given hostname
+Hit q to quit, enter to continue.
+
+ping - Ping a given host (IP or DNS name) [,Data Len in Bytes]
+removeScheduledLogEntry - Remove a scheduled log entry.
+resPrt - Show information about the resource finder.
+routeShow - Display the contents of the routing table(no parameters)
+showBackupConfig - Display backup configuration as stored in flash (no parameters)
+showChannel - Display Ptt Page Channels information
+showEcho - Show acoustic echo cancellation/suppression status.
+showGains - Show acoustic termination gains.
+showHdPcm - Show Headset PCM channel status.
+showHfPcm - Show Hands-free (chassis) PCM channel status.
+showHsPcm - Show Handset PCM channel status.
+showPcmAll - Show all PCM channels status.
+showRunningConfig - Display the current running configuration (no parameters)
+showStoredConfig - Display configuration as stored in flash (no parameters)
+sipPrt - Show SIP stack status.
+sspsDspBuf - Request DSP buffer status.
+sspsMsgShow - Show msg hdi buffers.
+sspsShow - Show hdi buffers.
+sspsShowMix - Show mixer bindings.
+streams - Show detailed information on the active RTP streams
+
+syslogl - Set the lowest syslog level which will be displayed (0-6)
+syslogsr - Set the syslog server IP address or Hostname
+syslogtr - Set the syslog transport method [udp|tcp|none]
+tag8021QShow - Show 802.1PQ tagging.
+tcpstatShow - Show TCP network statistics.
+time - Show current time.
+TSID - Push the Tech Support Information Dump to the log (Does not reboot).
+udpstatShow - Show UDP network statictics.
+uploadCSR - Upload Generated private key and CSR [ Common Name Org Country State EmailAddress UploadPrivateKeyAllowed ]
+uptime - Show phone uptime.
+utilBufPoolStatus - Display RTP current memory usage.
+version - Display software and hardware version numbers.
+Admin>auth
+Usage: auth admin|techsupport|eng|exit
+Admin>auth eng
+
+Authentication at the Engineering level requires decryption of a single-use password.
+
+Encrypted password:
+QU+hys4gkVArdVGdqPuO0IIXBcBhKajxigcHUNON6ioD1E4IRQ8e7CqTKRL9sg6oGannEK6U7+UmSiHzIZKPbNG5wAkFaLOCNsBn+nAaaqhRUM6v6nYxzMooPGGMab6bLov8GdOlYW+xayckgA74QX4KfnWz2tC88lTalc9J2Q2zmakjBQJASPJqnPpapwpySRlMd0xRfQmqs7vJCJ7oKJZXAT486pKW/6cjDIia1IYUvVQMRoz8+V2OGSG2g4IcRzru6pQWpJbaXSEkyP3++WOqrQCsuUc0gPwZBZEXKlPZO5hI2m7HrMjIneeI7jir5BcV3Hi2WpWb9C9WieFmgA==
+
+Enter decrypted password:
+
+Enter decrypted password: 000932.490|pmt  |4|03|Unsuccessful authentication at Engineering level (attempt 1 of 3)
+
+
+Enter decrypted password: 000934.772|pmt  |4|03|Unsuccessful authentication at Engineering level (attempt 2 of 3)
+
+
+Admin>000935.216|pmt  |4|03|Unsuccessful authentication at Engineering level (attempt 3 of 3)
+000935.216|pmt  |4|03|Final unsuccessful auth attempt
+
+Admin>

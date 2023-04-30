@@ -1,0 +1,271 @@
+
+
+
+
+
+               @@@@@@@      *   @@@@@@@@@           *
+              @       @             @               *
+              @             *       @      ****     *
+               @@@@@@@      *       @     *    *    *
+        ___---        @     *       @     ******    *
+  ___---      @       @     *       @     *         *
+   -_          @@@@@@@  _   *       @      ****     *
+     -_                 _ -
+       -_          _ -
+         -_   _ -        s   e   m   i   c   o   n   d   u   c   t   o   r
+           -
+
+
+VTech VESA VSP715 16M bootloader 1.01 (Apr 28 2015 - 12:12:54)
+
+Runing on SC14452 SoC
+
+SiTelboot
+                code: 00f00000 -> 00f10d14
+                data: 00f14428 -> 00f16cd4
+DRAM Configuration:
+Bank #0: 00020000 15 MB
+Bank #1: 010a0000 15 MB
+WINBOND: W25Q128 (128-megabit)
+FLASH Configuration:
+Bank #0: 00000000 16 MB
+Hit any key to stop autoboot:  0
+SiTel # help
+go      - start application at address 'addr'
+run     - run commands in an environment variable
+bootm   - boot application image from memory
+bootp   - boot image via network using BootP/TFTP protocol
+tftpboot- boot image via network using TFTP protocol
+               and env variables ipaddr and serverip
+rarpboot- boot image via network using RARP/TFTP protocol
+upgrade - get an image via TFTP and write it to FLASH
+bootd   - boot default, i.e., run 'bootcmd'
+loads   - load S-Record file over serial line
+loadb   - load binary file over serial line (kermit mode)
+autoscr - run script from memory
+md      - memory display
+mm      - memory modify (auto-incrementing)
+nm      - memory modify (constant address)
+mw      - memory write (fill)
+cp      - memory copy
+ecp     - memory copy with Flash erase
+cmp     - memory compare
+crc32   - checksum calculation
+base    - print or set address offset
+printenv- print environment variables
+setenv  - set environment variables
+saveenv - save environment variables to persistent storage
+protect - enable or disable FLASH write protection
+erase   - erase FLASH memory
+flinfo  - print FLASH memory information
+bdinfo  - print Board Info structure
+iminfo  - print header information for application image
+loop    - infinite loop on address range
+mtest   - simple RAM test
+reset   - Perform RESET of the CPU
+echo    - echo args to console
+sleep   - delay execution for some time
+version - print monitor version
+help    - print online help
+?       - alias for 'help'
+SiTel # reset
+
+
+
+
+
+               @@@@@@@      *   @@@@@@@@@           *
+              @       @             @               *
+              @             *       @      ****     *
+               @@@@@@@      *       @     *    *    *
+        ___---        @     *       @     ******    *
+  ___---      @       @     *       @     *         *
+   -_          @@@@@@@  _   *       @      ****     *
+     -_                 _ -
+       -_          _ -
+         -_   _ -        s   e   m   i   c   o   n   d   u   c   t   o   r
+           -
+
+
+VTech VESA VSP715 16M bootloader 1.01 (Apr 28 2015 - 12:12:54)
+
+Runing on SC14452 SoC
+
+SiTelboot
+                code: 00f00000 -> 00f10d14
+                data: 00f14428 -> 00f16cd4
+DRAM Configuration:
+Bank #0: 00020000 15 MB
+Bank #1: 010a0000 15 MB
+WINBOND: W25Q128 (128-megabit)
+FLASH Configuration:
+Bank #0: 00000000 16 MB
+Hit any key to stop autoboot:  0
+
+....AutoBoot for SiTel 450 DK....
+
+Booting from flash memory...
+
+## Booting image at 00020000 ...
+## Copy image from flash 00020000 to ram 00900000 ...
+   Image Name:   vesa-vsp715a-1.1.5.C-0
+   Image Type:   CR16C+ 16 Bit Linux Kernel Image (gzip compressed)
+   Data Size:    5292215 Bytes = 5168 kB = 5 MB
+   Load Address: 00026000
+   Entry Point:  00026000
+   Verifying Checksum ... OK
+   Uncompressing Kernel Image ... OK
+commandline arguments position = 00020000
+commandline = 'ethaddr=14:ae:db:10:45:6e eth2addr=14:ae:db:10:45:6f board_rev=VT_VESA_VSP715_BOARD phone_port=1'
+
+Starting kernel ...
+
+[    0.000000] Linux version 2.6.19-uc1 (release@IAD-SERVER) (gcc version 4.1.2) #6 Mon Oct 17 16:08:33 HKT 2016
+[    0.000000] SC14450_VoIP version: v_1.0.29.1376 Tagged at: 2012-01-04 12:39
+[    0.000000] Version Status: REPOSITORY VERSION WITH LOCAL CHANGES
+[    0.000000] Local compilation
+[    0.000000] RAM size: 0x1fce000, memory_end = 0x1ff0000
+[    0.000000] freed bootmem ab6000 153a000
+[    0.000000] reserve bootmem ab6000 3e0
+[    0.000000] reserved memory range 00fed000-010affff
+[    0.000000] Setting up paging
+[    0.000000] commandline = 'root=/dev/mtdblock0 rootfstype=romfs ro init=/init earlyprintk=serial console=ttyS0 ethaddr=14:ae:db:10:45:6e eth2addr=14:ae:db:10:45:6f board_rev=VT_VESA_VSP715_BOARD phone_port=1'
+[    0.000000] Built 1 zonelists.  Total pages: 11700
+[    0.000000] Kernel command line: root=/dev/mtdblock0 rootfstype=romfs ro init=/init earlyprintk=serial console=ttyS0 ethaddr=14:ae:db:10:45:6e eth2addr=14:ae:db:10:45:6f board_rev=VT_VESA_VSP715_BOARD phone_port=1
+[    0.000000] PID hash table entries: 256 (order: 8, 1024 bytes)
+[    0.000000] platform_timer_setup () timer_int = 0x00013fd1
+[    0.000000] disabling early console
+[   0.000000] Linux version 2.6.19-uc1 (release@IAD-SERVER) (gcc version 4.1.2) #6 Mon Oct 17 16:08:33 HKT 2016
+[    0.000000] SC14450_VoIP version: v_1.0.29.1376 Tagged at: 2012-01-04 12:39
+[    0.000000] Version Status: REPOSITORY VERSION WITH LOCAL CHANGES
+[    0.000000] Local compilation
+[    0.000000] RAM size: 0x1fce000, memory_end = 0x1ff0000
+[    0.000000] freed bootmem ab6000 153a000
+[    0.000000] reserve bootmem ab6000 3e0
+[    0.000000] reserved memory range 00fed000-010affff
+[    0.000000] Setting up paging
+[    0.000000] commandline = 'root=/dev/mtdblock0 rootfstype=romfs ro init=/init earlyprintk=serial console=ttyS0 ethaddr=14:ae:db:10:45:6e eth2addr=14:ae:db:10:45:6f board_rev=VT_VESA_VSP715_BOARD phone_port=1'
+[    0.000000] Built 1 zonelists.  Total pages: 11700
+[    0.000000] Kernel command line: root=/dev/mtdblock0 rootfstype=romfs ro init=/init earlyprintk=serial console=ttyS0 ethaddr=14:ae:db:10:45:6e eth2addr=14:ae:db:10:45:6f board_rev=VT_VESA_VSP715_BOARD phone_port=1
+[    0.000000] PID hash table entries: 256 (order: 8, 1024 bytes)
+[    0.000000] platform_timer_setup () timer_int = 0x00013fd1
+[    0.000000] disabling early console
+[    0.010000] Console: SC1445x on-chip UART channel 0
+[    0.020000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+[    0.030000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.100000] Memory: 20516k/31744k available (1167k kernel code, 11228k reserved, 379k data, 56k init)
+[    0.340000] Mount-cache hash table entries: 512
+[    0.380000] NET: Registered protocol family 16
+[    0.400000] NET: Registered protocol family 2
+[    0.500000] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.510000] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.520000] TCP bind hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.520000] TCP: Hash tables configured (established 2048 bind 1024)
+[    0.530000] TCP reno registered
+[    0.540000] JFFS2 version 2.2. (NAND) (C) 2001-2006 Red Hat, Inc.
+[    0.550000] ROMFS MTD (C) 2007 Red Hat, Inc.
+[    0.550000] cryptodev : SC14452 HW Crypto engine  des(ecb/cbc) 3des(ecb/cbc) aes(ecb/cbc/ctr)
+[    0.560000] io scheduler noop registered
+[    0.570000] io scheduler anticipatory registered
+[    0.570000] io scheduler deadline registered
+[    0.580000] io scheduler cfq registered (default)
+[    0.580000] lcd_sc14450: driver for st7586s controller initialized with major devno: 251
+[    0.900000] SC1445x on-chip UART
+[    0.900000] ttyS0 at MMIO 0xd (irq = 5) is a sc1445x_uart
+[    0.920000] Probe for eth0
+[    0.920000] Probe for eth1
+[    0.930000] Probe for <NULL>
+[    0.930000] Probe for <NULL>
+[    0.930000] Probe for <NULL>
+[    0.940000] Probe for <NULL>
+[    0.940000] Probe for <NULL>
+[    0.940000] Probe for <NULL>
+[    0.950000] init_mtdram: __xip_romfs_start=001ba000, __xip_romfs_end=00aa0000
+[    0.960000] drivers/spi/sc1445x_spi.c, setup, 1415: spi->chip select number is 0
+[    0.970000] drivers/spi/sc1445x_spi.c, setup, 1518: chip select number is 0
+[    0.980000] m25p80 spi0.0: w25q128 (16384 Kbytes)
+[    0.980000] Creating 9 MTD partitions on "m25p80":
+[    0.990000] 0x00000000-0x00001000 : "Loader"
+[    0.990000] 0x00001000-0x00020000 : "Bootloader"
+[    1.000000] 0x00020000-0x00620000 : "uClinux Image"
+[    1.010000] 0x00620000-0x009ec000 : "File System"
+[    1.020000] 0x00fec000-0x00fee000 : "Manufacture Data"
+[    1.020000] 0x00ffe000-0x01000000 : "Enviroment Variables"
+[    1.050000] will reboot on crash
+[    1.050000] 0x00000000-0x01000000 : "All Flash Contents"
+[    1.060000] 0x009ec000-0x00fec000 : "Secondary uClinux Image"
+[    1.070000] 0x00000000-0x00020000 : "loader-Bootloader"
+[    1.070000] sc1445x-spi sc1445x-spi.0: SC1445x SPI Controller Driver, Version 1.0
+[    1.080000] drivers/spi/sc1445x_spi.c, setup, 1415: spi->chip select number is 7
+[    1.090000] drivers/spi/sc1445x_spi.c, setup, 1518: chip select number is 7
+[    1.100000] sc1445x-spi sc1445x-spi.1: SC1445x SPI Controller Driver, Version 1.0
+[    1.110000] Trying to initialize the led driver spi->cs#: 7
+[    1.110000] LED spi driver initialized, spi addr : 1fb3600
+[    1.120000]
+[    1.120000] init w55p241 port A & B, jiffy = 112, HZ: 100
+[    1.130000] Advanced Linux Sound Architecture Driver Version 1.0.13 (Tue Nov 28 14:07:24 2006 UTC).
+[    1.180000] ALSA device list:
+[    1.180000]   #0: SC1445x Audio Engine 1.227 (DSP1 1.64.158-1 DSP2 1.27.100-1)
+[    1.180000]
+[    1.190000] TCP cubic registered
+[    1.190000] NET: Registered protocol family 1
+[    1.200000] NET: Registered protocol family 17
+[    1.220000] VFS: Mounted root (romfs filesystem) readonly.
+[    1.230000] Freeing unused kernel memory: 56k freed
+init started:  BusyBox v1.2.2 (2014.02.20-22:47+0000) multi-call binary
+doing rcS
+Product: vesa-vsp715a-1.1.5.C-0
+Model: VSP715A
+Engineering Version: 1.39.13-0-ENG
+Marketing Version: 1.1.5.C-0
+Date: 2016-10-17-04:08:31 HKT
+mounting flash file system from /dev/mtdblock4...
+flash file system mounted OK
+Password file exists
+Application data exist in the flash
+nvs.bin exist in the flash
+SSL Certificates (BS and LDAP) directory exists in the flash
+SSL Certificates for Broadsoft Secure Connection exists in the flash
+Ldap CA Certificates exists in the flash
+Ldap Client Certificates exists in the flash
+Ldap Client key exists in the flash
+Disabling printks ...
+finished rcS
+
+
+BusyBox v1.2.2 (2014.02.20-22:47+0000) Built-in shell (msh)
+Enter 'help' for a list of built-in commands.
+
+# [  59.570000] natalie_dect: module license 'Proprietary, (c) RTX Telecom A/S' taints kernel.
+[   59.980000] SC14450 DECT Stack: Version: RHEA_NATALIE_V0520, Build date: 2015/07/08, 16:13
+[   59.990000] SC14450 DECT Stack: Waiting for user-space initialization
+[   64.070000] DECT MAC interrupthandler installed!
+
+# help
+
+Built-in commands:
+-------------------
+        . : break cd continue eval exec exit export help login newgrp
+        read readonly set shift times trap umask wait
+
+# ls /bin
+[                dumpleases       mkdir            sntp
+[[               echo             mkfifo           stty
+adduser          env              mknod            su
+awk              eraseall         mount            suotaapp
+busybox          false            msh              tail
+cat              free             mv               tar
+chmod            fuser            mw               test
+chown            grep             passwd           tftp
+commands.txt     kill             ping             time
+cp               kloned           ps               top
+date             lldpd            pwd              touch
+dectdbgd         logger           rasterisk.sh     true
+dectdbgd_socket  login            rm               umount
+deluser          ls               rmdir            uptime
+df               main             sed              vi
+dmesg            md               sh               who
+du               mime.types       sleep            whoami
+# ls /usr/bin
+ls: /usr/bin: No such file or directory
+#

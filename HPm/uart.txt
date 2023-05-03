@@ -1,0 +1,659 @@
+bootrom v3.0
+ * trying primary boot device ...
+     * checking preloader at 0x00000000... ok
+Bootastic v2.12-rc2
+Using DDR configuration nt5tu32m160g_ac_bl8_cl5_375
+
+
+U-Boot 2015.01-v2.12-rc2-svn9277 (Sep 08 2022 - 10:27:53) evb99-qspi, Build: jenkins-R65G_wildix_sdk212_beta-31
+
+CPU:   DVF99 (rev 16/2: BBC): 500 MHz (CSS@456, PCLK@166)
+BOARD: evb99-qspi
+DRAM:  DDR2 (375MHz)
+MEM:   64 MiB
+WARNING: Caches not enabled
+[dvf99_keypad_init][165]
+Flash: g_flash_jedec_id : ef4018
+CS 0: w25q128fv, base 0x80000000
+16 MiB
+logo:[307200]
+logolen:[153600]
+dvf99_rocktech_init reset !!!!
+[dvf99_rocktech_init][228] get lcdc 0 lcdc 04h id0 id1 id2 :[85] [85] [52]00
+In:    serial
+Out:   serial
+Err:   serial
+Net:   [board_eth_init][217] DVF99_SYSCFG_DRAMCTL_CFG0:[5c001c]
+gmac0@1000Mbps
+no key press, enter normal mode
+Hit Esc key to stop autoboot:  0
+DVF99 # help
+?       - alias for 'help'
+base    - print or set address offset
+bdinfo  - print Board Info structure
+bg_calibration- calibrate bandgap
+boot    - boot default, i.e., run 'bootcmd'
+bootd   - boot default, i.e., run 'bootcmd'
+bootm   - boot application image from memory
+bootp   - boot image via network using BOOTP/TFTP protocol
+cfg_mac_addr- cfg_mac_addr - Configure Ethernet MAC address.
+
+cfg_random_mac_addr- cfg_random_mac_addr - Assign random ethernet MAC address.
+
+chpart  - change active partition
+cls     - clear screen
+cmp     - memory compare
+cp      - memory copy
+crc32   - checksum calculation
+daif    - DVF9A (DAIF) sub-system
+dcdc_calibration- calibrate DCDC
+defenv  - defenv        - reset to default environment
+
+dhcp    - boot image via network using DHCP/TFTP protocol
+echo    - echo args to console
+editenv - edit environment variable
+env     - environment handling commands
+erase   - erase FLASH memory
+exit    - exit script
+fdt     - flattened device tree utility commands
+flinfo  - print FLASH memory information
+go      - start application at address 'addr'
+help    - print command description/usage
+iminfo  - print header information for application image
+imls    - list all images found in flash
+imxtract- extract a part of a multi-image
+loadb   - load binary file over serial line (kermit mode)
+loads   - load S-Record file over serial line
+loadx   - load binary file over serial line (xmodem mode)
+loady   - load binary file over serial line (ymodem mode)
+loop    - infinite loop on address range
+md      - memory display
+md5sum  - compute MD5 message digest
+mdc     - memory display cyclic
+memory_test- memory test enter start addr
+mm      - memory modify (auto-incrementing address)
+mtdparts- define flash/nand partitions
+mtest   - simple RAM read/write test
+mw      - memory write (fill)
+mwc     - memory write cyclic
+nfs     - boot image via network using NFS protocol
+nm      - memory modify (constant address)
+otpdisablejtag- Disable JTAG in OTP bits.
+
+otpdump - Dump OTP (eFuse) values.
+
+otpjtagreenable- Re-enable JTAG in OTP bits.
+
+otpsetdevid- program device id OTP bits.
+
+otpsetminswver- program minimum software version OTP bits.
+
+ping    - send ICMP ECHO_REQUEST to network host
+pll1_rate- Set rate of PLL1
+printenv- print environment variables
+protect - enable or disable FLASH write protection
+pubkeydump- Show u-boot internal public key digest.
+
+qspi    - QSPI support
+
+qspi_test- QSPI support
+
+reset   - Perform RESET of the CPU
+run     - run commands in an environment variable
+rxtune  - Tune DAIF_RXTUN and DAIF_CLKCTRL values.
+saveenv - save environment variables to persistent storage
+secretkey- Program the following data to the OTP (eFuse):
+        - device specific secret key + SECRET_KEY_BURNED bit.
+
+securedev- Secure this device and enforce secure boot from now on.
+Program the following data to the OTP (eFuse):
+        - public key sha256 + PUBLIC_KEY_DIGEST_BURNED bit.
+        - device specific secret key + SECRET_KEY_BURNED bit.
+        - ENFORCE_SB bit.
+
+setenv  - set environment variables
+setexpr - set environment variable as the result of eval expression
+showvar - print local hushshell variables
+source  - run script from memory
+test_timers- run timers test (countdown for 10 seconds)
+tftpboot- boot image via network using TFTP protocol
+version - print monitor, compiler and linker version
+DVF99 # reset
+resetting ...
+
+
+bootrom v3.0
+ * trying primary boot device ...
+     * checking preloader at 0x00000000... ok
+Bootastic v2.12-rc2
+Using DDR configuration nt5tu32m160g_ac_bl8_cl5_375
+
+
+U-Boot 2015.01-v2.12-rc2-svn9277 (Sep 08 2022 - 10:27:53) evb99-qspi, Build: jenkins-R65G_wildix_sdk212_beta-31
+
+CPU:   DVF99 (rev 16/2: BBC): 500 MHz (CSS@456, PCLK@166)
+BOARD: evb99-qspi
+DRAM:  DDR2 (375MHz)
+MEM:   64 MiB
+WARNING: Caches not enabled
+[dvf99_keypad_init][165]
+Flash: g_flash_jedec_id : ef4018
+CS 0: w25q128fv, base 0x80000000
+16 MiB
+logo:[307200]
+logolen:[153600]
+dvf99_rocktech_init reset !!!!
+[dvf99_rocktech_init][228] get lcdc 0 lcdc 04h id0 id1 id2 :[85] [85] [52]00
+In:    serial
+Out:   serial
+Err:   serial
+Net:   [board_eth_init][217] DVF99_SYSCFG_DRAMCTL_CFG0:[5c001c]
+gmac0@1000Mbps
+no key press, enter normal mode
+Hit Esc key to stop autoboot:  0
+first boot arp request upgrade
+## Warning: gatewayip needed but not set
+## Warning: gatewayip needed but not set
+## Warning: gatewayip needed but not set
+autoboot_command:320
+Unknown command 'mmc' - try 'help'
+test_timers - run timers test (countdown for 10 seconds)
+
+Usage:
+test_timers
+## Booting kernel from Legacy Image at 42000000 ...
+   Image Name:   Linux-4.9.221-v2.12-rc2+
+   Image Type:   ARM Linux Kernel Image (no loading done) (uncompressed)
+   Data Size:    2387704 Bytes = 2.3 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 43000000
+   Booting using the fdt blob at 0x43000000
+   XIP Kernel Image (no loading done) ... OK
+   Loading Device Tree to 43d12000, end 43d19fc4 ... OK
+
+Starting kernel ...
+
+Uncompressing Linux... done, booting the kernel.
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.9.221-v2.12-rc2+ (root@emb) (gcc version 9.3.0 (GCC) ) #1 PREEMPT Thu Sep 8 10:26:58 CST 2022
+[    0.000000] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5TEJ), cr=0005317f
+[    0.000000] CPU: VIVT data cache, VIVT instruction cache
+[    0.000000] OF: fdt:Machine model: DVF99 on EVB
+[    0.000000] Reserved memory: created DMA memory pool at 0x43f00000, size 1 MiB
+[    0.000000] OF: reserved mem: initialized node shared-dram, compatible id shared-dma-pool
+[    0.000000] Reserved memory: created DMA memory pool at 0x43400000, size 9 MiB
+[    0.000000] OF: reserved mem: initialized node css-dram, compatible id shared-dma-pool
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 13698
+[    0.000000] Kernel command line: console=ttyS1 root=/dev/mtdblock5 rootfstype=squashfs mtdparts=qspi0:320k(u-boot),64k(u-boot-env),320k(user-env),2816k(kernel),64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)
+[    0.000000] PID hash table entries: 256 (order: -2, 1024 bytes)
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Memory: 48024K/55296K available (4646K kernel code, 224K rwdata, 1132K rodata, 168K init, 276K bss, 7272K reserved, 0K cma-reserved)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
+[    0.000000]     vmalloc : 0xc4000000 - 0xff800000   ( 952 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xc3f00000   (  63 MB)
+[    0.000000]     modules : 0xbf000000 - 0xc0000000   (  16 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc0491e10   (4648 kB)
+[    0.000000]       .init : 0xc05d2000 - 0xc05fc000   ( 168 kB)
+[    0.000000]       .data : 0xc05fc000 - 0xc06343e0   ( 225 kB)
+[    0.000000]        .bss : 0xc06343e0 - 0xc067971c   ( 277 kB)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000]  Build-time adjustment of leaf fanout to 32.
+[    0.000000] NR_IRQS:16 nr_irqs:16 16
+[    0.000000] clocksource: dspg-tmr: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 183481014613 ns
+[    0.000000] sched_clock: 32 bits at 100 Hz, resolution 10000000ns, wraps every 21474836475000000ns
+[    0.000000] Console: colour dummy device 80x30
+[    0.160000] console [ttyS1] enabled
+[    0.160000] Calibrating delay loop... 249.44 BogoMIPS (lpj=1247232)
+[    0.240000] pid_max: default: 32768 minimum: 301
+[    0.240000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.250000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.260000] CPU: Testing write buffer coherency: ok
+[    0.260000] Setting up static identity map for 0x40008400 - 0x40008458
+[    0.270000] devtmpfs: initialized
+[    0.290000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.300000] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.310000] pinctrl core: initialized pinctrl subsystem
+[    0.320000] NET: Registered protocol family 16
+[    0.320000] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.340000] reset-dvf99 reset-controller: registered
+[    0.360000] dvf_gdmac 6400000.gdmac: found DSPG GDMAC DMA controller
+[    0.370000] dvf_gdmac 6400000.gdmac: successfully probed
+[    0.380000] dvf99-pinctrl 5000000.gpio-controller: successfully registered
+[    0.450000] ccu: unable to get clocks
+[    0.460000] ccu-0: n-writes-mode fifo-depth 16 successfully probed
+[    0.460000] ccu: unable to get clocks
+[    0.470000] ccu-1: n-writes-mode fifo-depth 16 successfully probed
+[    0.480000] SCSI subsystem initialized
+[    0.480000] usbcore: registered new interface driver usbfs
+[    0.490000] usbcore: registered new interface driver hub
+[    0.490000] usbcore: registered new device driver usb
+[    0.500000] pnx-i2c 6200000.i2c: could not register clock notifier
+[    0.510000] pps_core: LinuxPPS API ver. 1 registered
+[    0.510000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.520000] PTP clock support registered
+[    0.530000] Advanced Linux Sound Architecture Driver Initialized.
+[    0.530000] Bluetooth: Core ver 2.22
+[    0.540000] NET: Registered protocol family 31
+[    0.540000] Bluetooth: HCI device and connection manager initialized
+[    0.550000] Bluetooth: HCI socket layer initialized
+[    0.550000] Bluetooth: L2CAP socket layer initialized
+[    0.560000] Bluetooth: SCO socket layer initialized
+[    0.570000] clocksource: Switched to clocksource dspg-tmr
+[    0.600000] NET: Registered protocol family 2
+[    0.610000] TCP established hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.610000] TCP bind hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.620000] TCP: Hash tables configured (established 1024 bind 1024)
+[    0.630000] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.630000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.640000] NET: Registered protocol family 1
+[    0.650000] RPC: Registered named UNIX socket transport module.
+[    0.650000] RPC: Registered udp transport module.
+[    0.660000] RPC: Registered tcp transport module.
+[    0.660000] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.670000] workingset: timestamp_bits=30 max_order=14 bucket_order=0
+[    0.680000] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.690000] jffs2: version 2.2. (NAND) ?? 2001-2006 Red Hat, Inc.
+[    0.700000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+[    0.700000] io scheduler noop registered
+[    0.710000] io scheduler deadline registered (default)
+[    0.720000] dspgfb 6b00000.display: not using reserved memory area
+[    0.720000] dspgfb 6b00000.display: using DMA shared pool
+[    0.740000] dspgfb 6b00000.display: could not register clock notifier
+[    0.750000] dspgfb 6b00000.display: fb0: dspgfb frame buffer, rocktech (240x320, 16 bpp, 450k)
+[    0.760000] dspg-uart 5a00000.serial: could not register clock notifier
+[    0.760000] 5a00000.serial: ttyS0 at MMIO 0x5a00000 (irq = 24, base_baud = 0) is a DSPG_UART
+[    0.770000] dspg-uart 5a00000.serial: successfully probed
+[    0.780000] dspg-uart 5b00000.serial: disable clock enabled by console
+[    0.790000] dspg-uart 5b00000.serial: successfully probed
+[    0.830000] brd: module loaded
+[    0.850000] loop: module loaded
+[    0.860000] dvf9a-pmu 6300000.dvf9a:dvf9a-pmu: successfully registered
+[    0.870000] dvf9a-backlight 6300000.dvf9a:dvf9a-pwm-bl: successfully registered
+[    0.880000] dvf9a 6300000.dvf9a: successfully registered (DVF9A version 2)
+[    0.880000] jedec_id:ef4018 ext_id:0 name:w25q128fv
+[    0.890000] 9 cmdlinepart partitions found on MTD device qspi0
+[    0.900000] Creating 9 MTD partitions on "qspi0":
+[    0.900000] 0x000000000000-0x000000050000 : "u-boot"
+[    0.910000] 0x000000050000-0x000000060000 : "u-boot-env"
+[    0.920000] 0x000000060000-0x0000000b0000 : "user-env"
+[    0.930000] 0x0000000b0000-0x000000370000 : "kernel"
+[    0.930000] 0x000000370000-0x000000380000 : "devtree"
+[    0.940000] 0x000000380000-0x000000770000 : "rootfs"
+[    0.950000] 0x000000770000-0x0000007f0000 : "config"
+[    0.960000] 0x0000007f0000-0x000000870000 : "basic"
+[    0.970000] 0x000000870000-0x000001000000 : "app"
+[    0.980000] 0x000000000000-0x000001000000 : "whole flash"
+[    0.980000] dspg-qspic 5500000.qspic: cs0:w25q128fv
+[    0.990000] libphy: Fixed MDIO Bus: probed
+[    1.000000] tun: Universal TUN/TAP device driver, 1.6
+[    1.000000] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    1.010000] stmmaceth 6e00000.ethernet: no reset control found
+[    1.020000] stmmaceth 6e00000.ethernet: User ID: 0x20, Synopsys ID: 0x37
+[    1.030000] stmmaceth 6e00000.ethernet:      DWMAC1000
+[    1.030000] stmmaceth 6e00000.ethernet: DMA HW capability register supported
+[    1.040000] stmmaceth 6e00000.ethernet: RX Checksum Offload Engine supported
+[    1.050000] stmmaceth 6e00000.ethernet: COE Type 2
+[    1.050000] stmmaceth 6e00000.ethernet: TX Checksum insertion supported
+[    1.060000] stmmaceth 6e00000.ethernet: Wake-Up On Lan supported
+[    1.060000] stmmaceth 6e00000.ethernet: Normal descriptors
+[    1.070000] stmmaceth 6e00000.ethernet: Ring mode enabled
+[    1.080000] stmmaceth 6e00000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+[    1.080000] libphy: stmmac: probed
+[    1.090000] mdio_bus stmmac-0: /ethernet@06e00000/fixed-link has invalid PHY address
+[    1.100000] mdio_bus stmmac-0: scan phy fixed-link at address 0
+[    1.100000] mdio_bus stmmac-0: scan phy fixed-link at address 1
+[    1.110000] mdio_bus stmmac-0: scan phy fixed-link at address 2
+[    1.120000] mdio_bus stmmac-0: scan phy fixed-link at address 3
+[    1.120000] mdio_bus stmmac-0: scan phy fixed-link at address 4
+[    1.130000] mdio_bus stmmac-0: scan phy fixed-link at address 5
+[    1.140000] mdio_bus stmmac-0: scan phy fixed-link at address 6
+[    1.140000] mdio_bus stmmac-0: scan phy fixed-link at address 7
+[    1.150000] mdio_bus stmmac-0: scan phy fixed-link at address 8
+[    1.150000] mdio_bus stmmac-0: scan phy fixed-link at address 9
+[    1.160000] mdio_bus stmmac-0: scan phy fixed-link at address 10
+[    1.170000] mdio_bus stmmac-0: scan phy fixed-link at address 11
+[    1.170000] mdio_bus stmmac-0: scan phy fixed-link at address 12
+[    1.180000] mdio_bus stmmac-0: scan phy fixed-link at address 13
+[    1.190000] mdio_bus stmmac-0: scan phy fixed-link at address 14
+[    1.190000] mdio_bus stmmac-0: scan phy fixed-link at address 15
+[    1.200000] mdio_bus stmmac-0: scan phy fixed-link at address 16
+[    1.210000] mdio_bus stmmac-0: scan phy fixed-link at address 17
+[    1.210000] mdio_bus stmmac-0: scan phy fixed-link at address 18
+[    1.220000] mdio_bus stmmac-0: scan phy fixed-link at address 19
+[    1.230000] mdio_bus stmmac-0: scan phy fixed-link at address 20
+[    1.230000] mdio_bus stmmac-0: scan phy fixed-link at address 21
+[    1.240000] mdio_bus stmmac-0: scan phy fixed-link at address 22
+[    1.250000] mdio_bus stmmac-0: scan phy fixed-link at address 23
+[    1.250000] mdio_bus stmmac-0: scan phy fixed-link at address 24
+[    1.260000] mdio_bus stmmac-0: scan phy fixed-link at address 25
+[    1.270000] mdio_bus stmmac-0: scan phy fixed-link at address 26
+[    1.270000] mdio_bus stmmac-0: scan phy fixed-link at address 27
+[    1.280000] mdio_bus stmmac-0: scan phy fixed-link at address 28
+[    1.290000] mdio_bus stmmac-0: scan phy fixed-link at address 29
+[    1.290000] mdio_bus stmmac-0: scan phy fixed-link at address 30
+[    1.300000] mdio_bus stmmac-0: scan phy fixed-link at address 31
+[    1.310000] eth%d: No PHY found
+[    1.310000] stmmac_mdio_register:312 ---------------------------
+[    1.320000] PPP generic driver version 2.4.2
+[    1.320000] NET: Registered protocol family 24
+[    1.330000] usbcore: registered new interface driver cdc_ether
+[    1.330000] usbcore: registered new interface driver cdc_subset
+[    1.340000] usbcore: registered new interface driver cdc_ncm
+[    1.350000] usbcore: registered new interface driver usb-storage
+[    1.350000] usbcore: registered new interface driver usbserial
+[    1.360000] usbcore: registered new interface driver usbserial_generic
+[    1.370000] usbserial: USB Serial support registered for generic
+[    1.370000] usbcore: registered new interface driver pl2303
+[    1.380000] usbserial: USB Serial support registered for pl2303
+[    1.390000] dwc_otg: version 2.92a 15-NOV-2010 (IGX 2.1e DEC 2011)
+[    1.390000] dwc_otg 300000.usb: phy_get() failed
+[    1.400000] dwc_otg 300000.usb: cannot get reset
+[    1.410000] dwc_otg 300000.usb: cannot get reset
+[    1.410000] Core Release: 2.94a
+[    1.420000] Setting default values for core params
+[    1.520000] Using Buffer DMA mode
+[    1.530000] Periodic Transfer Interrupt Enhancement - disabled
+[    1.530000] Multiprocessor Interrupt Enhancement - disabled
+[    1.540000] OTG VER PARAM: 0, OTG VER FLAG: 0
+[    1.540000] Dedicated Tx FIFOs mode
+[    1.550000] dwc_otg 300000.usb: DWC OTG Controller
+[    1.550000] dwc_otg 300000.usb: new USB bus registered, assigned bus number 1
+[    1.560000] dwc_otg 300000.usb: irq 29, io mem 0x00000000
+[    1.570000] Init: Port Power? op_state=1
+[    1.570000] Init: Power Port off, setting it ON
+[    1.570000] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    1.580000] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.590000] usb usb1: Product: DWC OTG Controller
+[    1.590000] usb usb1: Manufacturer: Linux 4.9.221-v2.12-rc2+ dwc_otg_hcd
+[    1.600000] usb usb1: SerialNumber: 300000.usb
+[    1.610000] hub 1-0:1.0: USB hub found
+[    1.610000] hub 1-0:1.0: 1 port detected
+[    1.620000] usb1_cc_pin:[134] usb1_cc_irq:[55]
+[    1.620000] musb-fdrc: version 6.0, ?dma?, otg (peripheral+host)
+[    1.630000] usb_phy_generic.0.auto supply vcc not found, using dummy regulator
+[    1.640000] musb-fdrc musb-fdrc: MUSB FDRC host driver
+[    1.650000] musb-fdrc musb-fdrc: new USB bus registered, assigned bus number 2
+[    1.650000] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001
+[    1.660000] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.670000] usb usb2: Product: MUSB FDRC host driver
+[    1.670000] usb usb2: Manufacturer: Linux 4.9.221-v2.12-rc2+ musb-hcd
+[    1.680000] usb usb2: SerialNumber: musb-fdrc
+[    1.690000] hub 2-0:1.0: USB hub found
+[    1.690000] hub 2-0:1.0: 1 port detected
+[    1.700000] musb-fdrc musb-fdrc: USB Host mode controller at c42c0000 using PIO, IRQ 30
+[    1.700000] usb2_cc_pin:[104] usb2_cc_irq:[56]
+[    1.710000] dspg-keypad 50002b0.keypad: no dspg,discharge-us in dt, falling back to 100us
+[    1.720000] dspg-keypad 50002b0.keypad: no dspg,debounce-ms in dt, falling back to 50ms
+[    1.730000] input: DSPG keypad as /devices/platform/50002b0.keypad/input/input0
+[    1.740000] hook_sw_pin:[95] hook_irq:[57]
+[    1.740000] i2c /dev entries driver
+[    1.750000] dspg_wdt 5700000.watchdog: initialized, not started, period 100 seconds
+[    1.760000] Bluetooth: HCI UART driver ver 2.3
+[    1.760000] Bluetooth: HCI UART protocol H4 registered
+[    1.770000] Bluetooth: HCI UART protocol BCSP registered
+[    1.770000] usbcore: registered new interface driver usbhid
+[    1.780000] usbhid: USB HID core driver
+[    1.790000] random: fast init done
+[    1.790000] css 8000000.css: assigned reserved memory node css-dram
+[    1.800000] css 8000000.css: no reset control for tdm1
+[    1.800000] css 8000000.css: no reset control for tdm2
+[    1.810000] css 8000000.css: could not get clock 'app_cpu_clk'
+[    1.810000] css 8000000.css: successfully probed
+[    1.820000] NET: Registered protocol family 41
+[    1.830000] coma-dvf9a 6300000.dvf9a:dvf9a-coma: successfully registered
+[    1.830000]  sharedmem:mem0: assigned reserved memory node shared-dram
+[    1.840000] coma-sharedmem sharedmem: successfully registered
+[    1.850000] dspg-crypto 6c00000.secure: DSPG cryptographic security module (revision 5/0)
+[    1.860000] usbcore: registered new interface driver snd-usb-audio
+[    1.870000] Netfilter messages via NETLINK v0.30.
+[    1.880000] nf_conntrack version 0.5.0 (1024 buckets, 4096 max)
+[    1.880000] nf_tables: (c) 2007-2009 Patrick McHardy <kaber@trash.net>
+[    1.890000] ipip: IPv4 and MPLS over IPv4 tunneling driver
+[    1.900000] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    1.900000] arp_tables: arp_tables: (C) 2002 David S. Miller
+[    1.910000] NET: Registered protocol family 17
+[    1.910000] NET: Registered protocol family 15
+[    1.920000] Bluetooth: RFCOMM TTY layer initialized
+[    1.920000] Bluetooth: RFCOMM socket layer initialized
+[    1.930000] Bluetooth: RFCOMM ver 1.11
+[    1.940000] [ch425_drv_config_dt][60] ch425_i2c_clk:[158] ch425_i2c_dat:[159]
+[    1.950000] dvf99 hardware version : 1
+[    1.950000] otg_driver_vbus_power_disable
+[    1.950000] [RTK_test_init][2051]
+[    1.960000] [rtk_switch_probe][1047] data:[6511]
+[    2.130000] rtl8367 misc register
+[    2.130000] vbus1: disabling
+[    2.140000] vbus2: disabling
+[    2.140000] ALSA device list:
+[    2.140000]   No soundcards found.
+[    2.150000] VFS: Mounted root (squashfs filesystem) readonly on device 31:5.
+[    2.160000] devtmpfs: mounted
+[    2.160000] Freeing unused kernel memory: 168K
+[    2.170000] This architecture does not have kernel memory protection.
+[    4.490000] Generic PHY fixed-0:00: attached PHY driver [Generic PHY] (mii_bus:phy_addr=fixed-0:00, irq=-1)
+[    4.510000] stmmaceth 6e00000.ethernet eth0: No Safety Features support found
+[    4.510000] stmmaceth 6e00000.ethernet eth0: No MAC Management Counters available
+[    4.520000] stmmaceth 6e00000.ethernet eth0: PTP not supported by HW
+
+Please press Enter to activate this console. [    5.600000] stmmaceth 6e00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[   11.970000] css 8000000.css: loading DVF99 CSS image
+[   12.130000] voice: character device initialized (major=246)
+[   12.150000] snd-dvf99-mach-drv snd-dvf99-mach-drv: PCMHD_codec_dai <-> snd-cpu-dai mapping ok
+[   12.170000] snd-dvf99-mach-drv snd-dvf99-mach-drv: PCMFD1_codec_dai <-> snd-cpu-dai mapping ok
+[   12.190000] snd-dvf99-mach-drv snd-dvf99-mach-drv: PCMFD2_codec_dai <-> snd-cpu-dai mapping ok
+[   12.200000] snd-dvf99-mach-drv snd-dvf99-mach-drv: TRACE1_codec_dai <-> snd-cpu-dai mapping ok
+[   12.220000] snd-dvf99-mach-drv snd-dvf99-mach-drv: USB_plug <-> snd-cpu-dai mapping ok
+[   12.220000] snd-dvf99-mach-drv snd-dvf99-mach-drv: TRACE2_codec_dai <-> snd-cpu-dai mapping ok
+[   12.240000] snd-dvf99-mach-drv snd-dvf99-mach-drv: TRACE3_codec_dai <-> snd-cpu-dai mapping ok
+[   12.260000] snd-dvf99-mach-drv snd-dvf99-mach-drv: ANYFD_codec_dai <-> snd-cpu-dai mapping ok
+[   12.280000] snd-dvf99-mach-drv snd-dvf99-mach-drv: DVF99 ASoC card registered
+[   12.300000] css 8000000.css: successfully loaded CSS firmware
+g_csslogs_daemon = 1
+Error! opening file
+*******  app_dsp - Oct 29 2020 - 11:59:04 (UTC) *******
+
+shared mem allocated:     512 kiB @ 0xB6E22000
+
+dua_init is called
+CSS startup done, DSP:    0x12600024
+APP startup done, DSP:    0x12600024
+shared mem used:          0x000111b0 = 68.42 kB
+
+threads running...
+starting thread for BG level 1 @  4.0 ms (frame = 10.0 ms)
+starting thread for BG level 2 @  9.0 ms (frame = 20.0 ms)
+starting thread for BG level 3 @ 14.0 ms (frame = 30.0 ms)
+parsing 320k(u-boot),64k(u-boot-env),320k(user-env),2816k(kernel),64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)mtd0 size = 0x50000, total_size = 0x50000, buf = mtd0       0x00000000,0x00050000
+parsing 64k(u-boot-env),320k(user-env),2816k(kernel),64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)mtd1 size = 0x10000, total_size = 0x60000, buf = mtd1    0x00050000,0x00060000
+parsing 320k(user-env),2816k(kernel),64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)mtd2 size = 0x50000, total_size = 0xB0000, buf = mtd2    0x00060000,0x000B0000
+parsing 2816k(kernel),64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)mtd3 size = 0x2C0000, total_size = 0x370000, buf = mtd3 0x000B0000,0x00370000
+parsing 64k(devtree),4032k(rootfs),512k(config),512k(basic),-(app)mtd4 size = 0x10000, total_size = 0x380000, buf = mtd0x00370000,0x00380000
+parsing 4032k(rootfs),512k(config),512k(basic),-(app)mtd5 size = 0x3F0000, total_size = 0x770000, buf = mtd5    0x00380000,0x00770000
+parsing 512k(config),512k(basic),-(app)mtd6 size = 0x80000, total_size = 0x7F0000, buf = mtd6   0x00770000,0x007F0000
+parsing 512k(basic),-(app)mtd7 size = 0x80000, total_size = 0x870000, buf = mtd7        0x007F0000,0x00870000
+parsing -(app)mtd8 size = 0x790000, total_size = 0x1000000, buf = mtd8  0x00870000,0x01000000
+[   20.630000] random: crng init done
+ifconfig: invalid hw-addr HWA_0
+[   23.000000] Generic PHY fixed-0:00: attached PHY driver [Generic PHY] (mii_bus:phy_addr=fixed-0:00, irq=-1)
+[   23.020000] stmmaceth 6e00000.ethernet eth0: No Safety Features support found
+[   23.020000] stmmaceth 6e00000.ethernet eth0: No MAC Management Counters available
+[   23.030000] stmmaceth 6e00000.ethernet eth0: PTP not supported by HW
+0==Mode
+----
+LanVlanEnable:0
+PCType=1
+LANType=0
+LanVlanEnable:0
+LanVid:1
+LANType=0
+PCType=1
+[   24.080000] stmmaceth 6e00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+CpmacDriver=
+EswtichDriver=
+CurrenNetMode=255
+NetIfaceName=
+----
+PCType=1
+PCType=1
+LanVlanEnable:0
+LanVid:1
+LanPriority:0
+PcVlanEnable:0
+PcVid:1
+PcPriority:0
+Gtype:1
+Bridge mode
+0 0 being set
+[   24.710000] rtl8367 port16 rev all set
+[   24.710000] rtl8367 port1 rev all set
+[   24.720000] rtl8367 port3 rev all set
+[   24.720000] rtk_vlan_egrFilterEnable_set set 3
+minrtpport is:  11800
+maxrtpport is:  12000
+signalqosval is:  40
+rtpqosval is:  40
+RouterIP:10.0.0.1
+VPN_PARAM:vpn_enbale=[0]
+vpn is disabled.
+app drivers
+[   26.620000] 8821cu: loading out-of-tree module taints kernel.
+[   26.700000] usbcore: registered new interface driver rtl8821cu
+/app/scripts/drivers.sh: line 7: udevstart: not found
+------------------------DHCP Iptables setup-------------------------------------
+run pmonitor
+PCType=1
+LanVlanEnable:0
+LanVid:1
+EnableDHCP=1
+killall: wpa.sh: no process killed
+killall: wpa_supplicant: no process killed
+sh: /app/scripts/wifi_nat.sh: not found
+ifconfig: SIOCSIFADDR: No such device
+[   30.900000] Watchdog refreshed too fast
+voip_control_init:start
+[rtp_set_log_level] we are setting the log level to '0'
+voip_control_init:rtp_init
+[   31.300000] changing kvoice driver thread policy: 1,priority: 40
+voip_control_init:duasync_pre_init
+dua_pre_init : Priority is 90 and policy is 2
+voip_control_init:duasync_init
+dua_init is called
+unit_init:start
+whbf_unit_init:start
+whbf_unit_init:end
+voip_unit_init:start
+voip_unit_init:end
+spvoip_unit_init:start
+spvoip_unit_init:end
+trace_unit_init:start
+UID same as ELEM, set elem to -1
+UID same as ELEM, set elem to -1
+UID same as ELEM, set elem to -1
+trace_unit_init:end
+unit_init:end
+snd_init:start
+Inside dvf99_snd_ctl_open CardType : ALSA_CARD_CSS
+Card Number:0 Card Name:[dspgdvf99css]
+snd_init:end
+voip_call_init:start
+voip_call_init:end
+voip_control_init:end
+acgInit control_init
+control_init:start
+control_init:end
+acgInit voip_control_set_param
+voip_control_set_param:start
+ifconfig: SIOCGIFFLAGS: No such device
+1970-01-01 00:00:32: (network.c.622) SSL: error:00000000:lib(0):func(0):reason(0)
+----
+Iface=eth0
+voip_control_set_param:end
+acgInit acgSetMode
+UID same as ELEM, set elem to -1
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DCLASS_EN Control Value : 1
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: Input Mux0 Control Value : DIFFIN0
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DIFFIN0 Gain Control Value : 18
+hzcfor test mic=15
+acgInit acgSetVolume
+acgInit init finished!
+ifconfig: SIOCSIFADDR: No such device
+Client ID: 1
+after init
+erter dhcp state machine
+
+Listen...
+
+Sending discover...
+hzc for test set dns type=35
+mv: can't rename '/config/autop_retry_save.cfg': No such file or directory
+Waiting on select...: retval: 1
+
+Sending discover...
+Waiting on select...: retval: 1
+
+Received offer
+
+erter dhcp state machine
+
+Sending select for 192.168.32.19...
+Waiting on select...: retval: 1
+
+erter dhcp state machine
+
+Waiting on select...: retval: 1
+
+Lease of 192.168.32.19 obtained, lease time 43200
+deleting routers
+route: SIOCDELRT: No such process
+adding routers 192.168.32.1
+adding dns 192.168.32.1
+system call: <0, /app/scripts/default.script bound>
+00:00:42.418 os_core_unix.c !pj 2.0.1 for POSIX initialized
+Set dhcp option done.
+hzc for test set dns type=1
+00:00:43.444             pj  select() I/O Queue created (0x40e78)
+00:00:43.937                 ...Connected 192.168.32.19:54731 -> 34.240.34.119:443!
+00:00:43.950                 .....Cipher: AES128-CCM8
+00:00:43.956                 .....Remote certificate info:
+01:16:06.067
+  Version    : v3
+  Serial     : 04 1F F6 94 20 91 65 8B 64 04 63 73 79 FF 5C 45 91 C7
+  Subject    : auto.wildixin.com
+               /CN=auto.wildixin.com
+  Issuer     : R3
+               /C=US/O=Let's Encrypt/CN=R3
+  Valid from : Fri 2023-04-07 08:41:06.000 GMT
+  Valid to   : Thu 2023-07-06 08:41:05.000 GMT
+  subjectAltName extension
+         DNS : auto.wildixin.com
+
+01:16:06.111                 .....Remote certificate verification result:
+01:16:06.120                 ..... - The certificate is untrusted
+01:16:06.129                 ..... - The certificate has expired or not yet valid
+02:16:09.328                 ...Done!
+02:16:09.333                 .....Sent/recv: 145/331 bytes
+
+(none) login:
+(none) login:
+(none) login: Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DCLASS_EN Control Value : 0
+UID same as ELEM, set elem to -1
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DCLASS_EN Control Value : 0
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: Input Mux0 Control Value : DIFFIN1
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: Output0_diff Gain Control Value : 4
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: Output1_diff Gain Control Value : 4
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DIFFIN1 Gain Control Value : 16
+Inside dvf99_snd_ctl_write CardType : ALSA_CARD_CSS Control Name: DAC0_CURRENT_SCALE Control Value : 0dB
+hzcfor test mic=23
+libalsa_pcm_close: pthread channel=1 cancelled
+libalsa_pcm_close: USB channel=1 pcm handles closed
+libalsa_pcm_close: DSP Read FIFOs freed
+
+Login timed out after 60 seconds
+
+Please press Enter to activate this console.

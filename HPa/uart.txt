@@ -1,0 +1,256 @@
+CNU Ver 4.1(0.1); Build 9.3(1ES26.) Jan 26 2014 05:35:07 GMT
+Copyright (c) 2001-2006   Cisco Systems, Inc. All rights reserved.
+
+linearfs: find a image at: 0xB0060000
+linearfs: apps file CRC32=0x5B1EE626
+linearfs: amalloc block size=0x120000
+*====================================
+linearfs: init, lfs_state -> 0
+ip6_init called
+10/100 PHYs detected, PHYID = 0x143bc31 
+SYSMSG: Last reboot cause -> Power Loss
+-->init: ver 3.7(1.5b)
+-->init: featurebits 16
+-->init: hardware version 0x000c0000
+-->init: &bootInit.installHandlers
+-->init: Starting syslogd...
+-->syslogd: [2] ver 3.0 (2.0)
+-->syslogd: getsockopt SO_RCVBUF 8191 4 
+-->syslogd: waiting for filesystem...
+-->fsck: checking /dev/fd0a
+-->fsck: disk geometry
+-->fsck:   block size        = 512 (0x200)
+-->fsck:   sector size       = 131072 (0x20000)
+-->fsck:   number of sectors = 117 (0x75)
+-->fsck:   blocks/sector     = 256 (0x100)
+-->fsck:   total blocks      = 29952 (0x7500)
+-->fsck: disk contains 94 valid blockmaps
+-->fsck: disk contains 192 valid inodes
+-->fsck: block usage
+-->fsck:   used blocks  = 22223
+-->fsck:   free blocks  = 6205
+-->fsck:   dirty blocks = 1524
+-->fsck: complete
+-->fsck: complete
+-->fsck: checking /dev/fd1a
+-->fsck: disk geometry
+-->fsck:   block size        = 512 (0x200)
+-->fsck:   sector size       = 131072 (0x20000)
+-->fsck:   number of sectors = 1 (0x1)
+-->fsck:   blocks/sector     = 256 (0x100)
+-->fsck:   total blocks      = 256 (0x100)
+-->fsck: disk contains 1 valid blockmaps
+-->fsck: disk contains 21 valid inodes
+-->fsck: block usage
+-->fsck:   used blocks  = 41
+-->fsck:   free blocks  = 201
+-->fsck:   dirty blocks = 14
+-->fsck: complete
+-->fsck: complete
+-->syslogd: syslog continuing...
+-->syslogd: syslog config file -> fsize=20480 fcnt=5
+-->syslogd: Started strace [6]
+strace: PID = 6, ver A 
+|== Syslogd TNP== Sat Jan 25 23:35:08 2014
+==   7: NOT 05:35:08.824588 ESP: pid = 5 
+   8: DBG 05:35:08.827094 first GC 0
+   9: NOT 05:35:09.102434 init: Loading drivers from '/etc/sysdvrs.def'.
+  10: NOT 05:35:09.268488 init: Loading drivers from '/usr/local/etc/drivers.def'.
+  11: DBG 05:35:09.297401 pwr: maxPower = 6300 mwatts, alloc power = 6300, night power = 0 
+  12: DBG 05:35:09.380442 LCDSWInit: LCD initialized
+  13: DBG 05:35:09.400903 audev: driver  INSTALLED
+  14: DBG 05:35:09.436029 dsp: dirver installed, version 1A0 
+  15: DBG 05:35:09.437169  LED DRIVER: Model is: 7942
+  16: DBG 05:35:09.530191 linearfs: sysctl name=LFS_SWITCH_TO_FLASH0
+  17: DBG 05:35:09.530566 linearfs: switch to flash0
+INIT: hit ENTER to abort to shell
+  18: DBG 05:35:10.075974 linearfs: using existing /flash0/apps
+  19: DBG 05:35:10.076442 linearfs: lfs_state -> 1
+  20: NOT 05:35:10.078598 init: Extracting loadID's into environment...
+  21: NOT 05:35:10.080555 init: Starting applications from /etc/init.tab
+  22: NOT 05:35:10.083219 init: Sending termination signals to apps for pending restart.
+  23: DBG 05:35:10.158971 lcd_open: return success!
+  24: DBG 05:35:11.161899 lcd_close: return success!
+  25: NOT 05:35:11.165076 init: Starting /bin/cvw
+  26: NOT 05:35:11.167565 init: /bin/cvw started as pid=8
+  27: NOT 05:35:11.188566 SYSMSG: pid 8 (/bin/cvw) Normal Exit, status = 1
+  28: INF 05:35:11.188604           runtime = 0.020 secs
+  29: INF 05:35:11.188623          user cpu = 0.000619170 secs
+  30: INF 05:35:11.188641        system cpu = 0.014215920 secs
+  31: INF 05:35:11.188655    child user cpu = 0.000000000 secs
+  32: INF 05:35:11.188669     child sys cpu = 0.000000000 secs
+  33: INF 05:35:11.188700    sys interrupts = 0.000098970 secs for 3 interrupts
+  34: INF 05:35:11.188722 total cpu = 0.014835090 secs ( 50%      child sys cpu = 0.000000000 secs
+  41: INF 05:35:11.191507    sys interrupts = 0.000011460 secs for 1 interrupts
+  42: INF 05:35:11.191525 total cpu = 0.000000000 secs ( 0% utilization )
+  43: NOT 05:35:11.193311 init: Starting /usr/local/etc/tzunpack
+  44: NOT 05:35:11.195763 init: /usr/local/etc/tzunpack started as pid=10
+  45: NOT 05:35:11.196363 init: Starting /sbin/inetd
+  46: NOT 05:35:11.198798 init: /sbin/inetd started as pid=11
+  47: NOT 05:35:11.321766 INETD: pid = 11 
+  48: NOT 05:35:11.322339 INETD: vvlan = 0 will be initiazed to 4096 
+  49: NOT 05:35:11.324679 INETD: sshAccessReadConf: sshAccess = 1 
+  50: NOT 05:35:11.530102 init: Starting /sbin/imgauthd
+  51: NOT 05:35:11.532677 init: /sbin/imgauthd started as pid=17
+  52: NOT 05:35:11.533258 init: Starting /sbin/image
+  53: NOT 05:35:11.535811 init: /sbin/image started as pid=18
+  54: NOT 05:35:11.543968 CDP-D: pid = 14 
+  55: NOT 05:35:11.554016 DHCP6: COLDBOOT - wait 2 seconds... 
+  56: NOT 05:35:11.557488 PAE: pid = 16 
+  57: NOT 05:35:11.559073 PAE: phone is not single port
+  58: NOT 05:35:11.562182 PAE: /tmp/pae.stat does not exist 
+  59: WRN 05:35:11.563359 PAE: paeReadPCStatus: empty file 
+  60: NOT 05:35:11.563890 PAE: link-0 is UP
+  61: NOT 05:35:11.564356 PAE: starting supplicant
+  62: NOT 05:35:11.564824 PAE: E05:35:11.714413 IMG_AUTH: built-in platform RELEASE key is present
+  69: NOT 05:35:11.714928 IMG_AUTH: built-in common RELEASE key is present
+  70: NOT 05:35:11.715742 IMG_AUTH: /tmp/midlet.conf does not exist 
+  71: NOT 05:35:11.716991 IMG_AUTH: TNP, built-in keys  : Platform (curr), Common (curr)
+  72: NOT 05:35:11.724161 image: [18] ver 2.0 (0.1)
+  73: ERR 05:35:11.724783 image: image: current euid: 0
+  74: ERR 05:35:11.725267 image: image: current uid: 256
+  75: ERR 05:35:11.725753 image: image: current gid: 256
+  76: ERR 05:35:11.726252 image: image: current egid: 0
+  77: ERR 05:35:11.726729 image: image: current pid: 18
+  78: ERR 05:35:11.727215 image: image: current ppid: 1
+  79: NOT 05:35:11.728390 image: **PPID Mode Specified**
+  80: NOT 05:35:11.729064 image: PPID Rlog Option OFF
+  81: NOT 05:35:11.732537 image: Performing checksum of software load...
+
+
+setipcfg> Checking for inetd...
+setipcfg>   82: CRT 05:35:13.824228 init: To enter alternate command line: <return> only
+  83: CRT 05:35:13.824511 init: Starting alternate command line 
+
+setipcfg> 
+
+setipcfg> setipcfg> 
+setipcfg> help
+ 
+   To disable DHCP and set an IP address --- 
+      set the IP address, set the subnet mask, set the default gateway, then save the settings 
+   To erase all settings and enable DHCP --- enable 
+   To set an alternate tftp server --- altserver w.x.y.z 
+   To erase the alternate tftp server --- clearalt 
+      a save cmd is not necessary if you are only changing your alt tftp server 
+   To display current info --- getcfg 
+   To see the list of commands --- cmds 
+ 
+ 
+   list of commands 
+   cmds -------- displays the list of cmds - ex: cmds 
+   ip ---------- set an IP address - ex: ip 10.0.0.10 
+   gwy --------- set a default gateway - ex: gwy 10.0.0.1 
+   subnet ---urrent settings and enables DHCP - ex: enable 
+   disable6----- erases current settings and disalbe DHCP6 -ex disble6
+   enable6 ----- erases current settings and enables DHCP6 - ex: enable6 
+   q ----------- quit - exits the program 
+ 
+setipcfg> 
+setipcfg>   84: NOT 05:35:17.053355 image: Software load SIP42.9-3-1SR4-1S.loads validated.
+  85: NOT 05:35:17.058885 image: Image Run Complete: status=21
+  86: NOT 05:35:17.061141 SYSMSG: pid 18 (/sbin/image) Normal Exit, status = 21
+  87: INF 05:35:17.061180           runtime = 5.520 secs
+  88: INF 05:35:17.061201          user cpu = 0.753067140 secs
+  89: INF 05:35:17.061221        system cpu = 4.552269090 secs
+  90: INF 05:35:17.061235    child user cpu = 0.000000000 secs
+  91: INF 05:35:17.061249     child sys cpu = 0.000000000 secs
+  92: INF 05:35:17.061271    sys interrupts = 0.021868930 secs for 839 interrupts
+
+  93: INF 05:35:17.061294 total cpu = 5.305336230 secs ( 96% utilizasetipcfg> 
+setipcfg>   94: NOT 05:35:17.295588 CDP-D: Starting CFG_COMMAND_SMSme...367493120
+  95: NOT 05:35:17.342278 DHCP: pid = 20 
+  96: NOT 05:35:17.389800 DHCP: COLDBOOT - wait 2 seconds... 
+  97: ERR 05:35:18.280259 CDP-D: calling installHandlers
+  98: ERR 05:35:18.280826 CDP-D: calling cdpDrvrInit
+  99: ERR 05:35:18.281333 CDP-D: ----- The lenght of MAC address is 12 and value is  04C5A44C0411! 
+ 100: ERR 05:35:18.282623 ETH_SET_IPV6 call in6_if_brcm_reset
+ 101: ERR 05:35:18.283009 ETH_SET_IPV6 call in6_if_brcm_up
+ 102: ERR 05:35:18.283401 in6_ifattach_linklocal
+ 103: ERR 05:35:18.283435 in6_ifattach_linklocal call in6_update_ifa
+ 104: ERR 05:35:18.283482 	 routeList NULL
+ 105: ERR 05:35:18.283736 in6_ifattach_linklocal call in6ifa_ifpforlinklocal
+ 106: ERR 05:35:18.283792 nd6_ifattach_linklocal ndpr:plen:64 mask:ffff:ffff:ffff:ffff:: prefix:fe80::06c5:a4ff:fe4c:0411
+ch_linklocal call in6ifa_ifpforlinklocal
+ 114: ERR 05:35:18.284516 nd6_ifattach_linklocal ndpr:plen:64 mask:ffff:ffff:ffff:ffff:: prefix:fe80:0001::0001
+ 115: ERR 05:35:18.284596 nd6_ifattach_linklocal return 0
+ 116: ERR 05:35:18.284617 exit in6_if_loopback_up
+ 117: ERR 05:35:18.284629 ETH_SET_IPV6 returned from in6_if_loopback_up
+ 118: NOT 05:35:18.289076 CDP-D: NA power detected, max power = 6300 milliwatts 
+ 119: ERR 05:35:18.290423 CDP-D: My Nanme in dhcp's configuration is valid and it is: SEP04C5A44C0411 
+ 120: NOT 05:35:18.291880 CDP-D: Enable values LLDP:3 CDP:3
+ 121: NOT 05:35:18.293614 CDP-D: D: cdpSetPcportCfgRemote*** 7 
+ 127: NOT 05:35:18.314628 CDP-D: cdpSetPcportCfgRemote Value Sent to IOCTL  LOCAL[0] 1 
+ 128: NOT 05:35:18.319487 CDP-D: cdpPhyReCfg PC Type:0 LocalCfg:1  RemoteCfg:7
+ 129: NOT 05:35:18.329802 CDP-D: PHY 0 --> 100 MB LINK IS UP 
+ 130: NOT 05:35:18.335111 CDP-D: setVVLANConfig: VVLAN CHANGED --> NEW:4096 OLD:4096 4096
+ 131: NOT 05:35:18.340943 CDP-D: vlan Configured --> New:4096 old:4096 :4096
+ 132: NOT 05:35:18.342314 CDP-D: Sent SIGNINFO & SIGIPCFG
+ 133: NOT 05:35:18.343278 CDP-D: ----lldpProtoInfo[0].enableState 1 
+ 134: NOT 05:35:18.344342 CDP-D: Entering Hold/Trigger Mo140: ERR 05:35:18.350484 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 141: NOT 05:35:18.356417 PAE: SIGIPCFG received...
+ 142: NOT 05:35:18.385187 INETD: inetdSSH tid 61 
+ 143: NOT 05:35:18.389826 PAE: SIGIPCFG received...
+ 144: NOT 05:35:18.395556 DNS: pid = 22 
+ 145: WRN 05:35:18.398858 ESP: espInfoUpdate() dropped 
+ 146: WRN 05:35:18.399494 ESP: espInfoUpdate() dropped 
+ 147: NOT 05:35:18.410139 CDP-D: catchipcfg:getdhcpinfo IP:0 domain: chngVal:0 150: NOT 05:35:18.470149 CDP-D: catchipcfg:getdhcpinfo IP:0 domain: chngVal:0 
+ 151: NOT 05:35:18.490141 CDP-D: catchipcfg:getdhcpinfo IP:0 domain: chngVal:0 
+ 152: NOT 05:35:18.510140 CDP-D: catchipcfg:getdhcpinfo IP:0 domain: chngVal:0 
+ 153: NOT 05:35:18.530120 CDP-D: catchipcfg:getdhcpinfo IP:0 domain: chngVal:0 
+ 154: NOT 05:35:18.530863 CDP-D: cdpGetPortCfg SPANTOPC CFG:11
+ 155: NOT 05:35:18.532997 CDP-D: cdpGetPortCfg SPANTOPC CFG:11
+ 156: NOT 05:35:18.534723 INETD: siginfoThrd=> cdpState:0, link0:15, cdpStatus:0 
+ 157: ERR 05:35:18.535581an:-1->4095 advvlan:-1->4095 vvlanState=0
+ 162: ERR 05:35:18.542038 RTSOLD: LINK -> LINK
+ 163: ALT 05:35:19.280134 ESP: PC Port is not responding. Assuming link down...
+			ESPD still running but may be degraded...
+ 164: NOT 05:35:19.280815 ESP: sending startup trigger
+ 165: NOT 05:35:19.284313 ESP: send ADMIN, logging = 1, shell = 0, ipconfig = 1 
+ 166: ERR 05:35:19.350504 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 167: ERR 05:35:20.350513 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 168: ERR 05:35:21.350516 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 169: ERR 05:35:22.350506 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 170: ERR 05:35:23.350517 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 171: ERR 05:35:24.350507 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 172: ERR 05:35:25.350469 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 173: ERR 05:35:26.350514 CDP-D: ----- cdpSend ----- Phone's MAC address is SEP04C5A44C0411 
+ 174: NOT 05:35:27.350903 CDP-D: Cfg_Wait_EvCdpDone_XWait_Cond():Stay in Wait. vvlanId 4096: vlanId 4096 
+ 175: NOT 05:35:32.340468 CDP-D: lldp_Sw_Trigger_EvHoldTmrExp_XTrig: Trigger FastStart from HoldExpire
+ 176: NOT 05:35:32.341027 CDP-D: LLDP - HoldTimerExpired Exiting Hold/Trigger Mode .... CDPMsg ttl:-1 lldpRcvMsgFlg:0
+ 177: NOT 05:35:35.340982 CDP-D: configSelectVLAN: 1 OP_USE_ADMIN_DFLT:5 oper:4095(vlanId:4096) cdp:4096 lldp:4096 admin:4096 mac:0:0:0:0:0:0
+ 178: WRN 05:35:35.341647 CDP-D: lldp 4096 & oper 4095 same no change
+ 179: NOT 05:35:35.342146 CDP-D: Operational Vvlan:4095 Vlan:4096 SrcMac:0:0:0:0:0:0
+ 180: NOT 05:35:35.342729 CDP-D: cdpIntrestIdx: OP:5 idx:0 notify:0 oper.idxOfInterest:0 
+ 181: NOT 05:35:35.343254 CDP-D: getCdpExtraInfo: OP:5 Cos:0 Trust:1 lldp.idxOfInterest:-1 
+ 182: WRN 05:35:35.343843 CDP-D: cdpSetCos T:1 C:0 
+ 183: NOT 05:35:35.349336 CDP-D: setVVLANConfig: VVLAN CHANGED --> NEW:4095 OLD:4096 4095
+ 184: NOT 05:35:35.350457 CDP-D: setVVLANConfig: VVLAN  really did not cha190: NOT 05:35:35.367112 CDP-D: Update IPv6 stack with link status : 1
+ 191: NOT 05:35:35.369329 PAE: SIGIPCFG received...
+ 192: NOT 05:35:35.372638 DHCP6: sockTos = 0x0 
+ 193: NOT 05:35:35.374368 DHCP6: Waiting to receive RA to start protocol
+ 194: NOT 05:35:35.375867 DHCP6: sockTos = 0x60 
+ 195: NOT 05:35:35.377084 CDP-D: cdpGetPortCfg SPANTOPC CFG:11
+ 196: NOT 05:35:35.379382 DHCP: vvlan:4095, dhcpInfo.vvlan:4095
+ 197: NOT 05:35:35.380613 DHCP: DHCP enabled... 
+ 198: NOT 05:35:35.386556 DHCP:  dhcpSendReq: status 0x12300000,state:2 
+ 199: NOT 05:35:35.387144 DHCP: Sending Request... 
+ 200:.394861 PAE: SIGIPCFG received...
+ 206: NOT 05:35:35.396893 ESP: send ADMIN, logging = 1, shell = 0, ipconfig = 1 
+ 207: NOT 05:35:35.399903 DHCP: ACK received 
+ 208: WRN 05:35:35.400797 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 209: WRN 05:35:35.401342 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 210: WRN 05:35:35.401837 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 211: WRN 05:35:35.402366 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 212: WRN 05:35:35.402858 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 213: WRN 05:35:35.403336 DHCP: dhcpValidateIP(): invalid ip 0x0
+ 214: WRN 05:35:35.403812 DHCP: dhcpValidateIP(): invalidD: cdpGetPortCfg SPANTOPC CFG:11
+ 221: NOT 05:35:35.436749 DHCP: IP Address -- 192.168.32.41 
+ 222: NOT 05:35:35.437324 DHCP: Subnet Mask - 255.255.255.0 
+ 223: NOT 05:35:35.437813 DHCP: Default Gwy - 192.168.32.1 
+ 224: NOT 05:35:35.441853 PAE: SIGIPCFG received...
+ 225: NOT 05:35:35.470160 CDP-D: catchipcfg:getdhcpinfo IP:c0a82029 domain: chngVal:1 
+ 226: NOT 05:35:35.471333 CDP-D: cdpGetPortCfg SPANTOPC CFG:11
+ 227: ERR 05:35:35.472489 RTSOLD: opvvlan:4095->4095 advvlan:4095->4095 vvlanState=1
+ 228: ERR 05:35:35.475002 RTSOLD: LINK -> LINK
+ 229: ERR 05:35:35.479368 RTSOLD: opvvlan:4095->4095 advvl

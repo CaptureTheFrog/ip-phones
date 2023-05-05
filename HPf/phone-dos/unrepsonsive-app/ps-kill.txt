@@ -1,0 +1,93 @@
+BusyBox v1.2.2 (2014.02.20-22:47+0000) Built-in shell (msh)
+Enter 'help' for a list of built-in commands.
+
+# ps
+  PID  Uid     VmSize Stat Command
+    1 root            SW  init
+    2 root            SWN [ksoftirqd/0]
+    3 root            SW< [events/0]
+    4 root            SW< [khelper]
+    5 root            SW< [kthread]
+    6 root            SW< [kblockd/0]
+    7 root            SW  [pdflush]
+    8 root            SW  [pdflush]
+    9 root            SW< [kswapd0]
+   10 root            SW< [aio/0]
+   11 root            SW  [mtdblockd]
+   12 root            SW< [platform]
+   13 root            SW< [platform]
+   14 root            SW< [set_tx_rx_filte]
+   15 root            SW  [dsp_cmd]
+   35 root            SWN [jffs2_gcd_mtd4]
+   59 root            SW  /bin/main
+   65 root            SW  /bin/main
+   66 root            SW  /bin/main
+   68 root            SW  /bin/main
+   69 root            SW  /bin/busybox klogd -n
+   70 root            SW  /bin/main
+   71 root            SW  /bin/main
+   72 root            SW  lldpd -f -t 30 -i eth0
+   73 root            SW  /bin/main
+   74 root            SW  /bin/main
+   75 root            SW  busybox syslogd -n -S -m -0 -O /tmp/system.log -s 128
+   76 root            SW  /bin/main
+   77 root            SW  /bin/main
+   78 root            SW  /bin/main
+   79 root            SW  /bin/main
+   80 root            SW  /bin/main
+   81 root            SW  /bin/main
+   82 root            SW  /bin/main
+   83 root            SW  /bin/main
+   84 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   93 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   94 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   95 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   96 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   97 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   98 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   99 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+  100 root            SW  /bin/main
+  101 root            SW  /bin/main
+  149 root            SW  /bin/main
+  150 root            SW  /bin/main
+  151 root            SW< []
+  217 root            SW< [lanlinkq]
+  218 root            SW  udhcpc -t 5 -i eth0 -p /var/udhcp.pid -b -w 3 -s /etc
+  338 root            SW  /bin/sh
+  340 root            RW  ps
+# kill 59
+# ps
+  PID  Uid     VmSize Stat Command
+    1 root            SW  init
+    2 root            SWN [ksoftirqd/0]
+    3 root            SW< [events/0]
+    4 root            SW< [khelper]
+    5 root            SW< [kthread]
+    6 root            SW< [kblockd/0]
+    7 root            SW  [pdflush]
+    8 root            SW  [pdflush]
+    9 root            SW< [kswapd0]
+   10 root            SW< [aio/0]
+   11 root            SW  [mtdblockd]
+   12 root            SW< [platform]
+   13 root            SW< [platform]
+   14 root            SW< [set_tx_rx_filte]
+   15 root            SW  [dsp_cmd]
+   35 root            SWN [jffs2_gcd_mtd4]
+   69 root            SW  /bin/busybox klogd -n
+   72 root            SW  lldpd -f -t 30 -i eth0
+   75 root            SW  busybox syslogd -n -S -m -0 -O /tmp/system.log -s 128
+   84 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   93 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   94 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   95 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   96 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   97 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   98 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+   99 root            SW  kloned -p /var/kloned.pid -f /tmp/kloned.conf
+  151 root            SW< []
+  217 root            SW< [lanlinkq]
+  218 root            SW  udhcpc -t 5 -i eth0 -p /var/udhcp.pid -b -w 3 -s /etc
+  338 root            SW  /bin/sh
+  342 root            RW  ps
+#

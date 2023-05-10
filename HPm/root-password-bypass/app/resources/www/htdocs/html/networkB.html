@@ -1,0 +1,827 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="networkB";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+var ipTouch = false;
+function DoF5Jump()
+{
+	Relocate('do?id=2&id=1');
+}
+var PageRefDesURL = 'do?id=2&id=1';
+function LoadCfg()
+{	
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cDHCPServerStatus.options.add(new Option(Disabled, "0"));
+	f1.cDHCPServerStatus.options.add(new Option(Enabled, "1"));
+	
+//Anroid	
+	f1.cWifiSSID.options.add(new Option("Off", ""));
+	f1.cWifiSSID.options.add(new Option("WifiTest1", "WifiTest1"));
+	f1.cWifiSSID.options.add(new Option("WifiTest2", "WifiTest2"));
+	f1.cWlanEnable.options.add(new Option(Disabled, "0"));
+	f1.cWlanEnable.options.add(new Option(Enabled, "1"));
+	
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+	if(1 == f2.hcCheckIpResult.value)
+	{
+		alert(SubnetOrGateWayInvalid);
+		f2.hcCheckIpResult.value = 0;
+	}
+	if(MODELID)
+	{
+		if("50" == MODELID)
+		{
+			document.getElementById("NetworkB_divPCPort").style.display = "none";
+		}	
+	}
+}
+
+function LoadLang()
+{
+	var tmp = Network+"-"+Basic;
+	LoadCommonResources(tmp);
+	document.getElementById("tHost").innerHTML = Host;
+	document.getElementById("tHostName").innerHTML = HostName;
+	document.getElementById("tLANPort").innerHTML = LANPort;
+	document.getElementById("tStaticIP").innerHTML = StaticIP;
+	document.getElementById("tIPAddress").innerHTML = document.getElementById("tIPAddress1").innerHTML = IPAddress;
+	document.getElementById("tSubnetMask").innerHTML = document.getElementById("tSubnetMask1").innerHTML = SubnetMask;
+	document.getElementById("tDefaultGateway").innerHTML = DefaultGageway;
+	document.getElementById("tPrimaryDNS").innerHTML = PrimaryDNS;
+	document.getElementById("tSecondaryDNS").innerHTML = SecondaryDNS;
+	document.getElementById("tPCPort").innerHTML = PCPortLabel;
+	document.getElementById("tAsBridge").innerHTML = AsBridge;
+	document.getElementById("tAsRouter").innerHTML = AsRouter;
+	document.getElementById("tStartIPAddr").innerHTML = StartIPAddr;
+	document.getElementById("tEndIPAddr").innerHTML = EndIPAddr;
+	document.getElementById("tDHCPServerStatus").innerHTML = DHCPServerStatus;
+	document.getElementById("tPPPOE").innerHTML = PPPOE;
+	document.getElementById("tUser").innerHTML = UserName;
+	document.getElementById("tPassword").innerHTML = PasswordLabel;	
+}
+	
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var hLANPortType = f2.hcLANPortType.value;
+	var hPCPortType = f2.hcPCPortType.value;
+	if(hLANPortType == "1" ) 
+	{
+		 f1.cLANPortType[2].checked = true;
+	}
+	else
+	{
+		//LAN Port 0:DHCP 1:STATIC IP 2:PPPOE
+		if(hLANPortType == "0")// configVal1 0:DHCP 1:PPPoE 2:STATIC IP
+		{
+			f1.cLANPortType[0].checked = true;
+		}
+		else
+		{
+			f1.cLANPortType[1].checked = true;
+		}
+	}
+	
+	//PC Port 0:Router 1:Bridge
+	if(hPCPortType == "0" ) 
+	{
+		 f1.cPCPortType[1].checked =true ;
+	}
+	else
+	{
+		if(hPCPortType == "1")
+		{
+			f1.cPCPortType[0].checked = true;
+		}
+	}
+	
+	f1.cHostName.value = document.forms["hiddenValForm"].hcHostName.value;
+	f1.cLANIPAddr.value = document.forms["hiddenValForm"].hcLANIPAddr.value;
+	f1.cLANSubnetMask.value = document.forms["hiddenValForm"].hcLANSubnetMask.value;
+	f1.cDefaultGateWay.value = document.forms["hiddenValForm"].hcDefaultGateWay.value;
+	f1.cPrimaryDNS.value = document.forms["hiddenValForm"].hcPrimaryDNS.value;
+	f1.cSecondryDNS.value = document.forms["hiddenValForm"].hcSecondryDNS.value;
+	f1.cLANPortConnection.value = TransEmptyStrTo0(document.forms["hiddenValForm"].hcLANPortConnection.value);
+	f1.cPPPOEUserName.value = document.forms["hiddenValForm"].hcPPPOEUserName.value;
+	f1.cPPPOEUserPwd.value = "********";
+	f1.cRouterIPAddr.value = document.forms["hiddenValForm"].hcRouterIPAddr.value;
+	f1.cRouterSubnetMask.value = document.forms["hiddenValForm"].hcRouterSubnetMask.value;
+	f1.cStartIPAddr.value = document.forms["hiddenValForm"].hcStartIPAddr.value;
+	f1.cEndIPAddr.value = document.forms["hiddenValForm"].hcEndIPAddr.value;
+	f2.hcDHCPServerStatus.value = TransEmptyStrTo(f2.hcDHCPServerStatus.value,"1");
+	f1.cDHCPServerStatus.value = f2.hcDHCPServerStatus.value;
+	f1.cPCPortConnection.value = TransEmptyStrTo0(document.forms["hiddenValForm"].hcPCPortConnection.value);
+	
+/*	f1.cWlanEnable.value = f2.hcWlanEnable.value;
+	document.getElementById("tAuthTypeLabel").innerHTML = "WEP";
+	if("1" == f1.cWlanEnable.value)
+	{	
+		document.getElementById("WlanEnable").style.display = "";	
+	}
+*/	
+	for(var i=0; i < PwdKeyFirst.length; i++)
+	{PwdKeyFirst[i] = true;}
+	
+	DoChangeLANType();
+	DoChangePCType();
+	
+	ResetAllInputColor();
+}
+
+function ResetAllInputColor()
+{
+	var f1 = document.forms["body_form"];
+	for(var i = 0; i < f1.length; i ++)
+	{
+		if("text" == f1.elements[i].type || "password" == f1.elements[i].type )
+		{
+			f1.elements[i].style.backgroundColor = "";
+			f1.elements[i].onclick = function () { return onInputEdit(this.id); };	
+			f1.elements[i].onfocus = function () { return onInputEdit(this.id); };	
+		}	
+		document.getElementById("WarningDiv").innerHTML = "";
+	}
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var flag = false;
+	var strSubmData = "";
+	var ipTypeChanged = false;
+	var dataChangedWarnFlag = false;
+	ipTouch = false;
+	//LANPort
+	var tmpPortType = "0";
+	if( f1.cLANPortType[0].checked == true ) 
+	{
+		tmpPortType = "0";
+	}
+	else if(f1.cLANPortType[1].checked == true)
+	{
+		tmpPortType = "2";
+	}
+	else
+	{
+		tmpPortType = "1";
+	}
+	
+	if(tmpPortType != f2.hcLANPortType.value)
+	{
+		strSubmData = strSubmData + "&cLANPortType=" + tmpPortType;
+		ipTypeChanged = true;
+		dataChangedWarnFlag = true;
+	}
+	if(f1.cLANIPAddr.value != f2.hcLANIPAddr.value || 
+			f1.cLANSubnetMask.value != f2.hcLANSubnetMask.value ||
+			f1.cDefaultGateWay.value != f2.hcDefaultGateWay.value ||
+			f1.cPrimaryDNS.value != f2.hcPrimaryDNS.value ||
+			f1.cSecondryDNS.value != f2.hcSecondryDNS.value ||
+			f1.cPPPOEUserName.value != f2.hcPPPOEUserName.value ||
+			"********" != f1.cPPPOEUserPwd.value)
+		{
+			dataChangedWarnFlag = true;
+		}	
+	//PCPort
+	var tmpPCPortType = 0;
+	if( f1.cPCPortType[0].checked == true ) 
+	{
+		 tmpPCPortType = "1";
+	}
+	else if(f1.cPCPortType[1].checked == true)
+	{
+		tmpPCPortType = "0";
+	}
+	if(tmpPCPortType != f2.hcPCPortType.value)
+	{
+		dataChangedWarnFlag = true;
+	}	
+	if(f1.cDHCPServerStatus.value != f2.hcDHCPServerStatus.value)
+	{
+		dataChangedWarnFlag = true;
+	}
+	if(f1.cEndIPAddr.value != f2.hcEndIPAddr.value
+			|| f1.cRouterIPAddr.value != f2.hcRouterIPAddr.value
+			|| f1.cRouterSubnetMask.value != f2.hcRouterSubnetMask.value
+			|| f1.cStartIPAddr.value != f2.hcStartIPAddr.value)
+	{
+		dataChangedWarnFlag = true;
+	}
+/*	if(f1.cWlanEnable.value != f2.hcWlanEnable.value)
+	{
+		dataChangedWarnFlag = true;
+	}*/
+//	if(f1.cLANPortConnection.value != f2.hcLANPortConnection.value)
+//	{
+//		strSubmData = strSubmData + "&cLANPortConnection=" + f1.cLANPortConnection.value;
+//	}
+//	if(f1.cPCPortConnection.value != f2.hcPCPortConnection.value)
+//	{
+//		strSubmData = strSubmData + "&cPCPortConnection=" + f1.cPCPortConnection.value;
+//	}
+//	if(f1.cHostName.value != f2.hcHostName.value)
+//	{
+//		if(!IsHostNameValid(f1.cHostName.value, "cHostName"))
+//		{
+//			flag = true;
+//		}
+//		strSubmData = strSubmData + "&cHostName=" + f1.cHostName.value;
+//	}
+
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+function CheckDataChangedDel(destURL)
+{
+	var f3 = document.forms["submit_form"];
+	var strSubmData = CheckCommitData();
+	if("" == strSubmData)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	var confirmStr = SavePageConfirm;
+	if(DataCheckResult == strSubmData)
+	{
+		confirmStr = confirmStr+"\n"+PleaseCorrectWarning;
+	}
+	else if(true == ipTouch)
+	{
+		confirmStr = confirmStr+"\n"+CheckIPWarning;		
+	}
+	if(confirm(confirmStr))
+	{
+		if(DataCheckResult == strSubmData)
+		{
+			return false;
+		}
+		var encDestURL = PostEncode(destURL);
+		strSubmData = "begin&Operation=Submit&DestURL=" + destURL + strSubmData + "&SubmitData=end";
+		f3.SubmitData.value = strSubmData;
+		PageRefDesURL = destURL;
+		DoForm3SubmitPageChange(f3);
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+function CheckValidSubNetMask()
+{
+	/* This function used to check whether LAN IP and PC IP is in the same network segment*/
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var	curLANIP = f1.cLANIPAddr.value.split(".");
+	var	curLANNetMask = f1.cLANSubnetMask.value.split(".");
+	var	curRouterIP = f1.cRouterIPAddr.value.split(".");
+	var	curRouterNetMask = f1.cRouterSubnetMask.value.split(".");
+	if(f1.cLANPortType[1].checked == true)
+	{
+		for(var i = 0; i < 4; i ++)
+		{
+			if( (curLANIP[i] & curLANNetMask[i]) != (curRouterIP[i] &  curRouterNetMask[i]))
+			{
+				return true;
+			}
+		}
+	}
+	else 
+	{
+		return true;
+	}
+	return false;
+}
+
+var NeedReboot = false;
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var flag = false;
+	var strSubmData = "";
+	var ipTypeChanged = false;
+	ipTouch = false;
+
+	//default value 0:dhcp  1:pppoe  2:static
+	var tmpPortType = "0";
+	if( f1.cLANPortType[0].checked == true ) 
+	{
+		tmpPortType = "0";
+	}
+	else if(f1.cLANPortType[1].checked == true)
+	{
+		tmpPortType = "2";
+	}
+	else
+	{
+		tmpPortType = "1";
+	}
+
+	//VLAN开启时PortType不能为pppoe模式
+	if(tmpPortType == "1" && (f2.hcVLANLANActive.value == "1" || f2.hcVLANPCActive.value == "1"))
+	{
+		//提示
+		alert(WarningVLANExcludePPPOE);
+		flag = true;
+	}
+	
+	if(tmpPortType != f2.hcLANPortType.value)
+	{
+		strSubmData = strSubmData + "&cLANPortType=" + tmpPortType;
+		ipTypeChanged = true;
+	}
+	
+	if( true == ipTypeChanged && f1.cLANPortType[0].checked == true ) 
+	{
+		tmpPortType = "0";
+		strSubmData = strSubmData + "&cLANIPAddr=";
+		strSubmData = strSubmData + "&cLANSubnetMask=";
+		strSubmData = strSubmData + "&cDefaultGateWay=";
+		strSubmData = strSubmData + "&cPrimaryDNS=";
+		strSubmData = strSubmData + "&cSecondryDNS=";
+		ipTouch = true;
+	}
+	else if(f1.cLANPortType[1].checked == true)
+	{
+		tmpPortType = "2";
+		if(0 == f1.cLANIPAddr.value.length)
+		{
+			SetInputBGColor("cLANIPAddr");
+			flag = true;
+		}
+		
+		if(0 == f1.cLANSubnetMask.value.length)
+		{
+			SetInputBGColor("cLANSubnetMask");
+			flag = true;
+		}		
+		
+		if(0 == f1.cDefaultGateWay.value.length)
+		{
+			SetInputBGColor("cDefaultGateWay");
+			flag = true;
+		}		
+		
+		if((true == ipTypeChanged) || (f1.cLANIPAddr.value != f2.hcLANIPAddr.value || f1.cLANSubnetMask.value != f2.hcLANSubnetMask.value || 
+			f1.cDefaultGateWay.value != f2.hcDefaultGateWay.value || f1.cPrimaryDNS.value != f2.hcPrimaryDNS.value ||
+			f1.cSecondryDNS.value != f2.hcSecondryDNS.value))
+		{
+			if (false == ipTypeChanged)
+			{
+					strSubmData = strSubmData + "&cLANPortType=" + tmpPortType;	
+			}
+			strSubmData = strSubmData + "&cLANPortType=" + tmpPortType;
+			if(!CheckIpAddr(f1.cLANIPAddr.value, "cLANIPAddr"))
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cLANIPAddr=" + f1.cLANIPAddr.value;
+			ipTouch = true;
+
+			if(!CheckIpAddr(f1.cLANSubnetMask.value, "cLANSubnetMask"))
+			{
+				flag = true;
+			}		
+			strSubmData = strSubmData + "&cLANSubnetMask=" + f1.cLANSubnetMask.value;
+			ipTouch = true;
+
+			if(!CheckIpAddr(f1.cDefaultGateWay.value, "cDefaultGateWay"))
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cDefaultGateWay=" + f1.cDefaultGateWay.value;
+			if(!CheckIpAddr(f1.cPrimaryDNS.value, "cPrimaryDNS") && 0 != f1.cPrimaryDNS.value.length)
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cPrimaryDNS=" + f1.cPrimaryDNS.value;
+			if(!CheckIpAddr(f1.cSecondryDNS.value, "cSecondryDNS") && 0 != f1.cSecondryDNS.value.length)
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cSecondryDNS=" + f1.cSecondryDNS.value;
+			ipTouch = true;
+			if(CheckIpAddr(f1.cLANIPAddr.value, "cLANIPAddr") && !CheckSubMaskV4(f1.cLANIPAddr.value, f1.cLANSubnetMask.value))
+			{
+				flag = true;
+				SetInputBGColor("cLANSubnetMask");
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+SubnetOrGateWayInvalid;
+			}
+		}
+	}
+/*				
+		if(f1.cPrimaryDNS.value != f2.hcPrimaryDNS.value)
+		{
+			if(!CheckIpAddr(f1.cPrimaryDNS.value, "cPrimaryDNS") && 0 != f1.cPrimaryDNS.value.length)
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cPrimaryDNS=" + f1.cPrimaryDNS.value;
+		}
+		
+		if(f1.cSecondryDNS.value != f2.hcSecondryDNS.value)
+		{
+			if(!CheckIpAddr(f1.cSecondryDNS.value, "cSecondryDNS") && 0 != f1.cSecondryDNS.value.length)
+			{
+				flag = true;
+			}
+			strSubmData = strSubmData + "&cSecondryDNS=" + f1.cSecondryDNS.value;
+		}
+*/		
+	else if(f1.cLANPortType[2].checked == true)	
+	{
+		if(f1.cPPPOEUserName.value != f2.hcPPPOEUserName.value)
+		{		
+			if(!NotContainInvalid(f1.cPPPOEUserName.value))
+			{
+						SetInputBGColor("cPPPOEUserName");
+						flag = true;
+			}
+			ipTouch = true;		
+			strSubmData = strSubmData + "&cPPPOEUserName=" + f1.cPPPOEUserName.value;
+		}
+		if(!PwdKeyFirst[0] && "********" != f1.cPPPOEUserPwd.value)
+		{
+			if(!NotContainInvalid(f1.cPPPOEUserPwd.value))
+			{
+				SetInputBGColor("cPPPOEUserPwd");
+				flag = true;
+			}
+			ipTouch = true;	
+			strSubmData = strSubmData + "&cPPPOEUserPwd=" + PostEncode(f1.cPPPOEUserPwd.value);
+		}
+		if(true == ipTypeChanged)  ipTouch = true;	
+	}
+	//PCPort
+	var tmpPCPortType = "0"; //tmpPortType = "0";
+	// 0:router  1:bridge
+	if( f1.cPCPortType[0].checked == true ) 
+	{
+		tmpPCPortType = "1"; //tmpPortType
+	}
+	else if(f1.cPCPortType[1].checked == true)
+	{
+		 tmpPCPortType = "0";  //tmpPortType = "0";
+	}
+	if(tmpPCPortType != f2.hcPCPortType.value)  //if(tmpPortType != f2.hcPCPortType.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cPCPortType=" + tmpPCPortType; // tmpPortType;
+	}	
+	// generated by code
+	if(f1.cDHCPServerStatus.value != f2.hcDHCPServerStatus.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cDHCPServerStatus=" + f1.cDHCPServerStatus.value;
+	}
+	if(f1.cEndIPAddr.value != f2.hcEndIPAddr.value)
+	{
+		NeedReboot = true;
+		if(!CheckIpAddr(f1.cEndIPAddr.value, "cEndIPAddr"))
+		{
+			flag = true;
+		}
+		strSubmData = strSubmData + "&cEndIPAddr=" + f1.cEndIPAddr.value;
+	}
+//	if(f1.cHostName.value != f2.hcHostName.value)
+//	{
+//		if(!IsHostNameValid(f1.cHostName.value, "cHostName"))
+//		{
+//			flag = true;
+//		}
+//		strSubmData = strSubmData + "&cHostName=" + f1.cHostName.value;
+//	}
+	
+	if(f1.cRouterIPAddr.value != f2.hcRouterIPAddr.value)
+	{
+		NeedReboot = true;
+		if(!CheckIpAddr(f1.cRouterIPAddr.value, "cRouterIPAddr"))
+		{
+			flag = true;
+		}		
+		strSubmData = strSubmData + "&cRouterIPAddr=" + f1.cRouterIPAddr.value;
+	}
+	if(f1.cRouterSubnetMask.value != f2.hcRouterSubnetMask.value)
+	{
+		NeedReboot = true;
+		if(!CheckIpAddr(f1.cRouterSubnetMask.value, "cRouterSubnetMask"))
+		{
+			flag = true;
+		}	
+		strSubmData = strSubmData + "&cRouterSubnetMask=" + f1.cRouterSubnetMask.value;
+	}
+	
+	if(f1.cStartIPAddr.value != f2.hcStartIPAddr.value)
+	{
+		NeedReboot = true;
+		if(!CheckIpAddr(f1.cStartIPAddr.value, "cStartIPAddr"))
+		{
+			flag = true;
+		}		
+		strSubmData = strSubmData + "&cStartIPAddr=" + f1.cStartIPAddr.value;
+	}
+/*	if(document.getElementById("cWifiPwd").value != "")
+	{
+		strSubmData = strSubmData + "&cWifiPwd=" + f1.cWifiPwd.value;
+	}
+	if(f1.cWifiSSID.value != "")
+	{
+		strSubmData = strSubmData + "&cWifiSSID=" + f1.cWifiSSID.value;
+		strSubmData = strSubmData + "&cAuthType=" + "0";
+	}
+	if(f1.cWlanEnable.value != f2.hcWlanEnable.value)
+	{
+		strSubmData = strSubmData + "&cWlanEnable=" + f1.cWlanEnable.value;
+	}*/
+
+//	if(f1.cLANPortConnection.value != f2.hcLANPortConnection.value)
+//	{
+//		strSubmData = strSubmData + "&cLANPortConnection=" + f1.cLANPortConnection.value;
+//	}
+//	if(f1.cPCPortConnection.value != f2.hcPCPortConnection.value)
+//	{
+//		strSubmData = strSubmData + "&cPCPortConnection=" + f1.cPCPortConnection.value;
+//	}
+
+	if(true == flag)
+	{
+		return DataCheckResult;
+	}
+	else
+	{
+		if(true == NeedReboot) {strSubmData = "&NeedReboot=1"+strSubmData;NeedReboot=false;}
+	}
+	return strSubmData;
+}
+
+function OnSubmitWithWarn()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var tmpRes = CheckCommitData();
+	var strSubmData = tmpRes;
+	NeedReboot=false;
+
+	var tmpPCPortType = "0";
+	if( f1.cPCPortType[0].checked == true ) 
+	{
+		 tmpPCPortType = "1";
+	}
+	else if(f1.cPCPortType[1].checked == true)
+	{
+		tmpPCPortType = "0";
+	}
+	if(tmpPCPortType != f2.hcPCPortType.value)
+	{
+		NeedReboot = true;
+	}	
+	// generated by code
+	if(f1.cDHCPServerStatus.value != f2.hcDHCPServerStatus.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cEndIPAddr.value != f2.hcEndIPAddr.value)
+	{
+		NeedReboot = true;
+	}
+	
+//	if(f1.cHostName.value != f2.hcHostName.value)
+//	{
+//		if(!IsHostNameValid(f1.cHostName.value, "cHostName"))
+//		{
+//			flag = true;
+//		}
+//		strSubmData = strSubmData + "&cHostName=" + f1.cHostName.value;
+//	}
+	
+	if(f1.cRouterIPAddr.value != f2.hcRouterIPAddr.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cRouterSubnetMask.value != f2.hcRouterSubnetMask.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cStartIPAddr.value != f2.hcStartIPAddr.value)
+	{
+		NeedReboot = true;
+	}
+	if("0" == tmpPCPortType )
+	{
+		if(!CheckValidSubNetMask())
+		{
+			SetInputBGColor("cRouterIPAddr");
+			SetInputBGColor("cRouterSubnetMask");
+			alert(WarningInvalidNetworkSegment);
+			return;
+		}	
+	}
+	
+	if(DataCheckResult != tmpRes && true == NeedReboot)
+	{
+		NeedReboot = false;
+		if(!confirm("Router Setting: "+EffectAfterRebootWarning))
+		{
+			return;
+		}
+	}
+	
+	if(DataCheckResult == strSubmData)
+	{
+		return;
+	}
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	if(true == ipTouch)
+	{alert(CheckIPWarning);}
+	DoForm3Submit(f3);
+}
+document.onkeypress = onChangeBPAction;      
+document.onkeydown = onChangeBPAction; 
+$(function() {
+	SetPageMenuAction("#aMenu3", "tMenu31");
+});
+
+function WifiVerify()
+{
+	document.getElementById("WifiVerify").style.display = "";
+}
+
+function WlanEnable()
+{
+	if("1" == document.getElementById("cWlanEnable").value)
+	{
+		document.getElementById("WlanEnable").style.display = "";
+	}
+	else
+	{
+		document.getElementById("WlanEnable").style.display = "none";
+		document.getElementById("WifiVerify").style.display = "none";
+		document.getElementById("cWifiList").value = "0";
+	}
+}
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>
+			<div class="mid_cont" id="mid_cont2" style="display:none">
+		<form method="post" name="body_form" action="">
+				
+			<div style="display:none" class="div_border">
+			<div style="display:none" class="div_head"><label id='tHost'></label></div>
+			<table style="display:none" class="table_style">	
+				<tr style="display:none"> <td class="Second_td1"><label id='tHostName'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cHostName" name="cHostName" value=""><label id="tLimOfHost">(64 chars)</label></td></tr>
+			</table>
+		  </div>	
+		  
+		<div class="div_border">
+			<div class="div_head"><label id='tLANPort'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><input type="radio" name="cLANPortType" onClick="DoChangeLANType()">
+                    <label id='tDHCP'>DHCP</label></td></tr>
+        <tr><td class="Second_td"><input type="radio" name="cLANPortType" onClick="DoChangeLANType()">
+                    <label id='tStaticIP'>Static IP</label> </td></tr>
+        <div id="StaticIPParts">
+        <tr><td class="Second_td2"><label id='tIPAddress'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cLANIPAddr" name="cLANIPAddr" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tSubnetMask'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cLANSubnetMask" name="cLANSubnetMask" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tDefaultGateway'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cDefaultGateWay" name="cDefaultGateWay" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tPrimaryDNS'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cPrimaryDNS" name="cPrimaryDNS" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tSecondaryDNS'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cSecondryDNS" name="cSecondryDNS" value=""></td></tr>
+      	</div>
+		
+		<tbody id="NetworkB_tbodyPPPoE">
+        <tr><td class="Second_td"><input type="radio" name="cLANPortType" onClick="DoChangeLANType()">
+			<label id='tPPPOE'>PPPOE</label> </td></tr>
+        <tr><td class="Second_td2"><label id='tUser'>User</label></td> <td class="Third_td"><input class="def_input" type="text" id="cPPPOEUserName" name="cPPPOEUserName" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tPassword'>Password</label></td> <td class="Third_td"><input class="def_input"  id="cPPPOEUserPwd" type="password" name="cPPPOEUserPwd" value="" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)"></td>
+		</tr>
+        <tr style="display:none">
+		<td class="Second_td2"><label id='tLANConnection'>LAN Connection</label></td> 
+		<td class="Third_td"><select class="def_input" name="cLANPortConnection">
+				<option value="0" selected>Auto Negotiation</option>
+				<option value="1">FDX，10MBPS</option>
+				<option value="2">FDX，100MBPS</option>
+				<option value="3">HDX，10MBPS</option>
+				<option value="4">HDX，100MBPS</option>
+        					</select></td>
+		</tr>
+		</tbody>
+				
+			</table>
+		</div>
+		 
+		<div class="div_border" id="NetworkB_divPCPort">
+		<div class="div_head"><label id='tPCPort'></label></div>
+		<table class="table_style">
+				<tr><td class="Second_td"><input type="radio" NAME="cPCPortType" onClick="DoChangePCType()">
+                    <label id='tAsBridge'>As Bridge</label></td></tr>
+        <tr><td class="Second_td"><input type="radio" NAME="cPCPortType" onClick="DoChangePCType()">
+                    <label id='tAsRouter'>As Router</label> </td></tr>
+        <tr><td class="Second_td2"><label id='tIPAddress1'>IP Address</label></td> <td class="Third_td"><input class="def_input" type="text" id="cRouterIPAddr" name="cRouterIPAddr" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tSubnetMask1'>Subnet Mask</label></td> <td class="Third_td"><input class="def_input" type="text" name="cRouterSubnetMask" id="cRouterSubnetMask" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tDHCPServerStatus'>DHCP Server Status</label></td> <td class="Third_td"><select class="Select_format1" name="cDHCPServerStatus"> </select></td></tr>
+        <tr><td class="Second_td2"><label id='tStartIPAddr'>Start IP Address</label></td> <td class="Third_td"><input class="def_input" type="text" name="cStartIPAddr" id="cStartIPAddr" value=""></td></tr>
+        <tr><td class="Second_td2"><label id='tEndIPAddr'>End IP Address</label></td> <td class="Third_td"><input class="def_input" type="text" name="cEndIPAddr" id="cEndIPAddr" value=""></td></tr>
+        <tr style="display:none"><td class="Second_td1"><label id='tPCConnection'>PC Connection</label></td> <td class="Third_td">
+        	<select class="def_input" name="cPCPortConnection">
+             <option value="0" selected>Auto Negotiation</option>
+					   <option value="1">FDX，10MBPS</option>
+					   <option value="2">FDX，100MBPS</option>
+					   <option value="3">HDX，10MBPS</option>
+					   <option value="4">HDX，100MBPS</option>
+			</select></td>
+        </tr>
+		</table>
+		</div>
+		<div class="div_border" id="NetworkB_divWifi">
+		<div class="div_head"><label id='tWifi'></label></div>
+		<table class="table_style">
+		<tr>     			
+		<td class="Second_td2"><label id='tWLanEnable'>Wlan Enalbe</label></td> 
+		<td class="Third_td"><select class="Select_format1" id="cWlanEnable" onChange = "WlanEnable()"></select></td>
+		</tr> 
+			<tbody id="WlanEnable" >    		     		
+			<tr>
+				<td class="Second_td2"><label id='tWifiList'>Wifi List</label></td> 
+				<td class="Third_td"><select class="Select_format1" id="cWifiSSID" onChange = "WifiVerify()"></select></td>
+			</tr>
+			<tbody style="display:none" id="WifiVerify" >
+			<tr>
+				<td class="Second_td2"><label id='tAuthType'>AuthType</label></td> 
+				<td class="Third_td"><label id='tAuthTypeLabel'></label><input style="display:none" id= 'cAuthType'></td> 
+			</tr>  
+			<tr>
+				<td class="Second_td2"><label id='tWifiPwd'>Password</label></td> 
+				<td class="Third_td"><input class="def_input" type="password" id="cWifiPwd"></select></td>
+			</tr>     			
+			</tbody>
+			</tbody>
+		</table>
+		</div>
+		</form>
+		
+		<form method="post" name="submit_form" id="submit_form" action="">
+			<div align="center">
+				<table width="70%" style="text-align:center">
+		          <br/>
+		          <input type="hidden" name="SubmitData" value="">
+		          <tr>
+				  <td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmitWithWarn()"></td>
+				  <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td>
+				  </tr>
+		        </table>  
+	        </div>
+		</form>
+								
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

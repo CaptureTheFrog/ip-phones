@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+        style="none"
+        Timeout="0"
+        LocalData="yes"
+        RollMode="yes"
+        DivPosPix="110"
+        LockIn="yes">
+  <title wrap="no" showlistcount="yes">Phone Status</title>
+	<MenuItem LocalData="yes"><Prompt>Model:</Prompt><DataID>DID_Status_GENERAL_Model</DataID></MenuItem>
+	<MenuItem LocalData="yes"><Prompt>Hardware:</Prompt><DataID>DID_Status_GENERAL_Hardware</DataID></MenuItem>
+	<MenuItem LocalData="yes"><Prompt>Firmware:</Prompt><DataID>DID_Status_GENERAL_Firmware</DataID></MenuItem>
+
+	<SoftKey index="1"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+	<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="4"><Label></Label><URI></URI></SoftKey>
+</IPPhoneTextMenu>

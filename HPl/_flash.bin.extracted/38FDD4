@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phone-settings e="2">
+<language perm="RW" c="1">English</language>
+<setting_server perm="R" c="1">http://provisioning.voicehost.co.uk/Snom.xml?mac={mac}&amp;key=MiT70N9H1YjLAUi29n6A</setting_server>
+<ip_adr perm="RW" c="1">10.112.7.103</ip_adr>
+<netmask perm="RW" c="1">255.255.255.0</netmask>
+<dns_domain perm="RW" c="1">etcvenues.co.uk</dns_domain>
+<dns_server1 perm="RW" c="1">91.143.64.55</dns_server1>
+<dns_server2 perm="RW" c="1">87.236.128.54</dns_server2>
+<gateway perm="RW" c="1">10.112.7.1</gateway>
+<utc_offset perm="" c="1">0</utc_offset>
+<ntp_server perm="R" c="1">0.uk.pool.ntp.org</ntp_server>
+<http_user perm="" c="1">admin</http_user>
+<http_pass perm="" c="1">1234</http_pass>
+<dst perm="" c="1">3600 03.05.07 02:00:00 10.05.07 03:00:00</dst>
+<timezone perm="RW" c="1">GBR-0</timezone>
+<sip_retry_t1 perm="RW" c="1">500</sip_retry_t1>
+<network_id_port perm="" c="1">6405</network_id_port>
+<challenge_response perm="RW" c="1">off</challenge_response>
+<fi

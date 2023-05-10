@@ -1,0 +1,806 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<style type="text/css">
+	.td_ValueAuto{	width:auto; height:20px; text-align:center; }
+</style>
+<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+	var PageRemoteNum = 5;
+	var PageModifyOpen = false;
+	var PageRefDesURL = 'do?id=4&id=7';
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+function LoadCfg()
+{
+	var arrRules = new Array(ReplaceRule, DialNow, BlockOut);
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;
+  for(var i = 1; i <= PageRuleItemNum; i++)
+  {
+    if(i%2)
+	  {
+	  	var itemHtml = "<tr bgcolor='#F9FAFC'>" + "<td width='2%' align='center' height='20px'><label id='cIndex" + i + "'></label></td>" +
+		       					 "<td class='td_ValueAuto' id='tdAccount" + i + "'><label id='cRuleAccount" + i + "'></label></td>" +
+		                 "<td class='td_ValueAuto'><label id='cRuleValue1" + i + "'></label></td>" +
+		              	 "<td class='td_ValueAuto'><label style='display:none' id='cRuleValue2" + i + "'></label></td>" +
+		               	 "<td class='td_ValueAuto'><input id='cCheck" + i + "' onClick='OnEachCheckClicked()' type='checkbox' value='Check" + i + "'></td></tr>";
+	  }
+    else
+	  {
+	    var itemHtml = "<tr bgcolor='#DCE3E8'>"+
+		            		 "<td width='2%' align='center' height='20px'><label id='cIndex" + i + "'></label></td>" +
+		              	 "<td class='td_ValueAuto' id='tdAccount" + i + "'><label id='cRuleAccount" + i + "'></label></td>" +
+		              	 "<td class='td_ValueAuto'><label id='cRuleValue1" + i + "'></label></td>" +
+		              	 "<td class='td_ValueAuto'><label style='display:none' id='cRuleValue2" + i + "'></label></td>" +
+		              	 "<td class='td_ValueAuto'><input id='cCheck" + i + "' onClick='OnEachCheckClicked()' type='checkbox' value='Check" + i + "'></td></tr>";
+	  }
+   	$("#tableRules").append(itemHtml);
+  }
+	
+	for(var i = 0; i < 2; i++)
+	{
+		document.getElementById("cCurGroup").options.add(new Option(arrRules[i], i));
+	}
+	
+	document.getElementById("cEditAccount").options.add(new Option(Auto, 0));
+	f1.cAreaCodeAccount.options.add(new Option(Auto, 0));
+	for(var i=1; i <= f2.hcAccountNum.value; i++)
+	{
+		document.getElementById("cEditAccount").options.add(new Option(Account+i, i));
+		f1.cAreaCodeAccount.options.add(new Option(Account+i, i));
+	}
+	document.getElementById("cDialAllDelay").options.add(new Option(Disabled,"0"));
+	document.getElementById("cDialAllDelay").options.add(new Option(Enabled, "1"));
+	//0: replace rules   1:dial-now rules
+	if(0 == f2.hcCurGroup.value)
+	{
+		document.getElementById("tValue2").style.display = "";
+		for(var i = 1; i <= PageRuleItemNum; i++)
+		{
+			var tmpDomName = "cRuleValue2" + i;
+			document.getElementById(tmpDomName).style.display = "";
+		}
+		document.getElementById("tEditValue2").style.display = "";
+		document.getElementById("cEditValue2").style.display = "";
+	}
+	else if(1 == f2.hcCurGroup.value)
+	{
+		document.getElementById("DialPlan_divDialNDelay").style.display = "";
+	}
+	for(var i = 1; i <= PageRuleItemNum; i++)
+	{
+		var tmpDomName = "cIndex" + i;
+		document.getElementById(tmpDomName).innerHTML = i;
+	}
+	document.getElementById("cCurGroup").value = f2.hcCurGroup.value;
+	if("undefined" != typeof(MODELID))
+	{
+		if("51" == MODELID || "50" == MODELID)
+		{
+			document.getElementById("trEditAccount").style.display = "none";
+			document.getElementById("trAccount1").style.display = "none";	
+			document.getElementById("tdAccount").style.display = "none";	
+			for(var i = 1; i <= PageRuleItemNum; i ++)
+			{
+				tmpId = "tdAccount" + i ;
+				document.getElementById(tmpId).style.display = "none";	
+			}
+		}
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+	AutoHeightOfBody();
+}
+	
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	DisplayRulesData();
+	f1.cAreaCodeCode.value = f2.hcAreaCodeCode.value;
+	f1.cAreaCodeMinLength.value = f2.hcAreaCodeMinLength.value;
+	f1.cAreaCodeMaxLength.value = f2.hcAreaCodeMaxLength.value;
+	f1.cAreaCodeAccount.value = TransEmptyStrTo0(f2.hcAreaCodeAccount.value);
+	document.getElementsByName("cDialNowDelay")[0].value = TransEmptyStrTo(f2.hcDialNowDelay.value, "4");
+	document.getElementById("cDialAllDelay").value = f2.hcDialAllDelay.value = TransEmptyStrTo0(f2.hcDialAllDelay.value);
+	ResetAllInputColor();
+	CheckButtonStatus();
+	
+	if(-1 == f2.hcAddRuleResult.value)
+	{
+		alert(WarningRuleAddedFailed);
+	}
+	// ADD_RULE_RES_EXIST_PREFIX=7,
+	else if(7 == f2.hcAddRuleResult.value)
+	{
+		alert(AddRuleExistWarning);
+	}
+	else if(10 ==f2.hcAddRuleResult.value )
+	{
+		alert(WarningRuleReachMax);
+	}
+	f2.hcAddRuleResult.value = 0;
+}
+
+function LoadLang()
+{
+	tmp = DialPlan;
+	LoadCommonResources(tmp);
+	document.getElementById("tIndex").innerHTML = Index;
+	document.getElementById("tRules").innerHTML = Rules;
+	
+	document.getElementById("tAccount").innerHTML = document.getElementById("tAccount1").innerHTML = document.getElementById("tEditAccount").innerHTML = Account;
+	if(0 == document.getElementById("cCurGroup").value)
+	{
+		document.getElementById("tValue1").innerHTML = document.getElementById("tEditValue1").innerHTML = Prefix;
+		document.getElementById("tValue2").innerHTML = document.getElementById("tEditValue2").innerHTML = Replace;
+	}
+	else if(1 == document.getElementById("cCurGroup").value)
+	{
+		document.getElementById("tValue1").innerHTML = document.getElementById("tEditValue1").innerHTML = DialNowRule;
+		document.getElementById("tValue2").innerHTML = document.getElementById("tEditValue2").innerHTML = None;
+	}	
+	else
+	{
+		document.getElementById("tValue1").innerHTML = document.getElementById("tEditValue1").innerHTML = BlockNumber;
+		document.getElementById("tValue2").innerHTML = document.getElementById("tEditValue2").innerHTML = None;
+	}
+	
+	document.getElementById("tRuleModify").innerHTML = RuleModify+" >>";
+	document.getElementById("tAreaCode").innerHTML = AreaCode;
+	document.getElementById("tCode").innerHTML = Code;
+	document.getElementById("tMinLength").innerHTML = MinLength;
+	document.getElementById("tMaxLength").innerHTML = MaxLength;
+	
+	document.getElementById("Add").value = AddLabel;
+	document.getElementById("Edit").value = EditLabel;
+	document.getElementById("Delete").value = DeleteLabel;
+	
+	document.getElementById("rulesSubmit").value = SubmitLabel;
+	document.getElementById("rulesCancel").value = CancelLabel;
+	document.getElementById("tLimOfAreaCode").value = "<= 10digits";
+	document.getElementById("tDialNowDelay").innerHTML = DialNowDelay;
+	document.getElementById("tDialNowDelayTime").innerHTML = DialNowDelay;
+	document.getElementById("tDialAllDelay").innerHTML = ("undefined" != typeof(DialAllDelay))?DialAllDelay:"Dial All Delay";
+		
+	return;
+}
+
+function DisplayRulesData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrRAccount = f2.hcRuleAccount.value.split(SplitSymbol);
+	var arrRValue1 = f2.hcRuleValue1.value.split(SplitSymbol);
+	var arrRValue2 = f2.hcRuleValue2.value.split(SplitSymbol);
+	var arrRId = f2.hcRuleId.value.split(SplitSymbol);
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;
+
+	for(var i = 1; i <= f2.hcRuleNumOfPage.value; i++)
+	{
+		var tmpDomName = "cRuleValue1" + i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(arrRValue1[i-1], 16);
+		tmpDomName = "cRuleValue2" + i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(arrRValue2[i-1], 16);
+
+		tmpDomName = "cRuleAccount" + i;
+		var tmpLine;
+
+		if(arrRAccount[i-1] == "0")
+		{
+			tmpLine = Auto;
+		}
+		else
+		{
+			tmpLine = Account+arrRAccount[i-1];
+		}
+		document.getElementById(tmpDomName).innerHTML = tmpLine;
+
+	}
+	for(var i = Number(f2.hcRuleNumOfPage.value)+1; i <=PageRuleItemNum; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		document.getElementById(tmpDomName).disabled = true;
+	}
+}
+
+function CheckButtonStatus()
+{
+	if(0 == CheckCheckedNumofRule())
+	{
+		document.getElementById("Edit").disabled = true;
+		document.getElementById("Delete").disabled = true;	
+	}
+	else
+	{
+		document.getElementById("Edit").disabled = false;
+		document.getElementById("Delete").disabled = false;
+	}	
+}
+
+function OnAllCheckClicked()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcRuleNumOfPage.value)+1;
+	if(document.getElementById("cCheck0").checked == true)
+	{
+		for(var i = 1; i<st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = true;
+		}
+	}
+	else{
+		for(var i = 1; i<st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = false;
+		}
+	}
+	
+	CheckButtonStatus();
+}
+
+function OnEachCheckClicked()
+{
+	CheckButtonStatus();
+}
+
+function CheckCheckedNumofRule()
+{
+	var sum = 0;
+	var f2 = document.forms["hiddenValForm"];
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;
+	for(var i=1; i<=PageRuleItemNum; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			sum++;			
+		}
+	}
+	return sum;
+}
+
+function FindNumOfChecked()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;
+	for(var i=1; i<=PageRuleItemNum; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			return i;
+		}
+	}		
+}
+
+function FindNumOfCheckedGroup()
+{
+	for(var i=1; i<=5; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			return i;
+		}
+	}		
+}
+
+function OnAddRule()
+{	
+	PageModifyOpen = true;
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("divRulePanel").style.display = "";
+	if(1 == f2.hcCurGroup.value)
+	{
+		document.getElementById("trEditValue2").style.display = "none";	
+	}
+	document.getElementById("cEditAccount").value = "0";
+	document.getElementById("cEditValue1").value = "";
+	document.getElementById("cEditValue2").value = "";
+	document.getElementById("RuleMType").value = "Add";
+}
+
+function OnEditRule()
+{
+	PageModifyOpen = true;
+	if(CheckCheckedNumofRule() >= 2)
+	{
+		alert(DuplicatedChooseWarning);
+		return;
+	}
+	if(CheckCheckedNumofRule() <= 0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	var f2 = document.forms["hiddenValForm"];
+	if(1 == f2.hcCurGroup.value)
+	{
+		document.getElementById("trEditValue2").style.display = "none";	
+	}
+	var findNum = FindNumOfChecked();
+	document.getElementById("divRulePanel").style.display = "";
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrRAccount = f2.hcRuleAccount.value.split(SplitSymbol);
+	var arrRValue1 = f2.hcRuleValue1.value.split(SplitSymbol);
+	var arrRValue2 = f2.hcRuleValue2.value.split(SplitSymbol);
+	var arrRId = f2.hcRuleId.value.split(SplitSymbol);
+	findNum--;
+	document.getElementById("cEditAccount").value = arrRAccount[findNum];
+	document.getElementById("cEditValue1").value = arrRValue1[findNum];
+	document.getElementById("cEditValue2").value = arrRValue2[findNum];
+	document.getElementById("cEditId").value = arrRId[findNum];
+	
+	document.getElementById("RuleMType").value = "Edit";
+}
+
+function setSelectValueByText(selectDom, desText, itemNum)
+{
+	var i =0;
+	while(i < itemNum)	
+	{
+		if(desText == document.getElementById(selectDom).options[i].text)
+		{
+			break;
+		}
+		i++;
+	}
+	if(i == itemNum)
+	{
+		document.getElementById(selectDom).value = 0;
+	}
+	else
+	{
+		document.getElementById(selectDom).value = i;
+	}
+}
+var strSubmDataSpec = "";
+function CheckCommitData(tmpFlag)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var Flag2 = false;
+	
+	if(true == PageModifyOpen)
+	{
+		strSubmData = strSubmData + "&RulesModify=true";
+	}
+	
+	if(Number(f1.cAreaCodeMinLength.value) > Number(f1.cAreaCodeMaxLength.value) 
+	&& f1.cAreaCodeMinLength.value != ""
+	&& f1.cAreaCodeMaxLength.value != "")
+	{
+		alert(MinMaxLengthWarning);
+		return DataCheckResult;
+	}
+	if(f1.cAreaCodeCode.value != f2.hcAreaCodeCode.value)
+	{
+		
+		if(!IsAnInterger(f1.cAreaCodeCode.value))
+		{
+			SetInputBGColor("cAreaCodeCode");
+			ErrFlag = true;
+		}
+		if(!CheckLengthOfData(f1.cAreaCodeCode.value, 0, 10))
+		{
+			SetInputBGColor("cAreaCodeCode");
+			ErrFlag = true;
+		}
+		var tmpVal;
+		if("" != f1.cAreaCodeCode.value)
+		{
+			tmpVal = PostEncode(f1.cAreaCodeCode.value);
+		}
+		else
+		{
+			tmpVal = "";
+		}
+		strSubmData = strSubmData + "&cAreaCodeCode=" + tmpVal;
+	}
+	if(f1.cAreaCodeMinLength.value != f2.hcAreaCodeMinLength.value)
+	{
+		if(!CheckRangeOfNumber(f1.cAreaCodeMinLength.value, 1, 15))
+		{
+			SetInputBGColor("cAreaCodeMinLength");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cAreaCodeMinLength=" + Number(f1.cAreaCodeMinLength.value);
+	}
+	else if("" == f1.cAreaCodeMinLength.value)
+	{
+		if(2 != tmpFlag)
+		{SetInputBGColor("cAreaCodeMinLength");}
+		Flag2 = true;
+	}
+	
+	if(f1.cAreaCodeMaxLength.value != f2.hcAreaCodeMaxLength.value)
+	{
+		if(!CheckRangeOfNumber(f1.cAreaCodeMaxLength.value, 1, 15))
+		{
+			SetInputBGColor("cAreaCodeMaxLength");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cAreaCodeMaxLength=" + Number(f1.cAreaCodeMaxLength.value);
+	}
+	else if("" == f1.cAreaCodeMaxLength.value)
+	{
+		if(2 != tmpFlag)
+		{SetInputBGColor("cAreaCodeMaxLength");}
+		Flag2 = true;
+	}
+	
+	if(f1.cAreaCodeAccount.value != f2.hcAreaCodeAccount.value)
+	{
+		strSubmData = strSubmData + "&cAreaCodeAccount=" + f1.cAreaCodeAccount.value;
+	}
+	
+	var tmp = document.getElementsByName("cDialNowDelay")[0].value;
+	if(tmp != f2.hcDialNowDelay.value)
+	{
+		if(!CheckRangeOfNumber(tmp, 0, 15) || "" == tmp)
+		{
+			SetInputBGColor("cDialNowDelay");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDialNowDelay=" + Number(tmp);
+	}
+	if(document.getElementById("cDialAllDelay").value != f2.hcDialAllDelay.value)
+	{
+		strSubmData = strSubmData + "&cDialAllDelay=" + document.getElementById("cDialAllDelay").value;
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	
+	if(true == Flag2)
+	{
+		strSubmDataSpec = strSubmData;
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChangedMultiDel(destURL)
+{
+	var f3 = document.forms["submit_form"];
+	var strSubmData = CheckCommitData(2);
+
+	if("" == strSubmData)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	else if(DataCheckResult == strSubmData && "" == strSubmDataSpec)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	
+	if(confirm(SavePageConfirm))
+	{
+		alert(PleaseSubmitManually);
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+function OnCheckEditDupRules()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var curRuleValue;
+	var curEditedValue;
+	var arrCurrentRuleValues =  f2.hcRuleValue1.value.split(SplitSymbol);
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;	
+	for(var i = 1; i <= PageRuleItemNum; i++)
+	{
+		if(document.getElementById("cCheck" + i).checked == true)	
+		{
+			curRuleValue = arrCurrentRuleValues[i-1];
+		}
+	}
+	curEditedValue = document.getElementById("cEditValue1").value;
+	if(curEditedValue != curRuleValue && document.getElementById("cEditValue1").value != "")
+	{
+		for(var i = 0; i < arrCurrentRuleValues.length; i++)
+		{
+			if( document.getElementById("cEditValue1").value ==  arrCurrentRuleValues[i] )
+			{
+				alert(AddRuleExistWarning);
+				SetInputBGColor("cEditValue1");
+				return false;	
+			}
+		}
+	}
+}
+function OnCheckAddDupRules()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var arrCurrentRuleValues =  f2.hcRuleValue1.value.split(SplitSymbol);
+	for(var i = 0; i < arrCurrentRuleValues.length; i ++)
+	{
+		if( document.getElementById("cEditValue1").value ==  arrCurrentRuleValues[i] 
+			&& document.getElementById("cEditValue1").value != "")
+		{
+			alert(AddRuleExistWarning);
+			SetInputBGColor("cEditValue1");
+			return false;	
+		}
+	}
+}
+function OnRuleModify()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["ruleSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	var ErrFlag;
+
+	if("Edit" == document.getElementById("RuleMType").value)
+	{
+		if(OnCheckEditDupRules() == false)
+		{
+			ErrFlag = true;
+		}
+		strSubmData += "&cRuleEdit=";
+		strSubmData = strSubmData + document.getElementById("cEditId").value + "/";
+	}
+	else if("Add" == document.getElementById("RuleMType").value)
+	{
+		if(OnCheckAddDupRules() == false)
+		{
+			ErrFlag = true;
+		}
+		strSubmData += "&cRuleAdd=";
+	}
+	else
+	{
+		return;
+	}
+
+	strSubmData = strSubmData + document.getElementById("cEditAccount").value + "/";
+	var tmp1 = document.getElementById("cEditValue1").value;
+	if(!IsAValidDialedNumber(tmp1) || !CheckLengthOfNumber(tmp1, 1, 63))
+	{
+		SetInputBGColor("cEditValue1");
+		ErrFlag = true;
+	}
+
+	strSubmData = strSubmData + tmp1 + "/";
+	if(0 == f2.hcCurGroup.value)
+	{
+		var tmp2 = document.getElementById("cEditValue2").value;
+		if(!IsAValidDialedNumber(tmp2) || !CheckLengthOfNumber(tmp2, 1, 63))
+		{
+			SetInputBGColor("cEditValue2");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + tmp2 + "/";
+	}
+	if(true == ErrFlag)
+	{
+		return;
+	}
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.RuleSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnDelRule()
+{
+	if(CheckCheckedNumofRule() <=0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}	
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["ruleSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cRuleDelete=";
+				
+	var tmpData = FindCheckedRulesId();
+	strSubmData += tmpData;
+	
+	f3.RuleSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function FindCheckedRulesId()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var data = "";
+	var arrContId = f2.hcRuleId.value.split(SplitSymbol);
+	var PageRuleItemNum = Number(f2.hcRuleNumOfPage.value) > 10 ? Number(f2.hcRuleNumOfPage.value) : 10 ;
+	for(var i=1; i<=PageRuleItemNum; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			data = data + arrContId[i-1] + "/";
+		}
+		
+	}
+	return data;
+}
+
+function ChangeRuleGroup()
+{
+	var f3 = document.forms["ruleSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cCurGroup=";
+	strSubmData += document.getElementById("cCurGroup").value;
+	f3.RuleSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function CancelRuleModify()
+{
+	document.getElementById("divRulePanel").style.display = "none";
+	PageModifyOpen = false;
+	onInputEdit("cEditValue1");
+	onInputEdit("cEditValue2");
+	document.getElementById("WarningDiv").innerHTML = "";
+}
+
+function CheckDataChanged(destURL)
+{
+	return CheckDataChangedMulti(destURL);
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu47");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">   	
+    			
+    		<div class="div_border" >
+				<table class="table_style">		
+    			<table>
+    				<tr>
+    					<td class="First_td"><label id='tRules'>Rules</label></td>
+    					<td><select id='cCurGroup' onChange="ChangeRuleGroup()"></select></td>
+    				</tr>
+    			</table>
+          <table id="tableRules"  width="95%" height="20px" align="center" cellpadding="0" cellspacing="1">
+            <tr bgcolor='#a5a9af'>
+              <td width='7%' align='center' height='20px'><label id='tIndex'></label></td>
+              <td class="td_ValueAuto" id='tdAccount'><label id='tAccount'></label></td>
+              <td class="td_ValueAuto"><label id='tValue1'></label></td>
+              <td class="td_ValueAuto"><label id='tValue2' style='display:none'></label></td>
+              <td class='td_ValueAuto'><input id='cCheck0' type='checkbox' value='Check0' onClick='OnAllCheckClicked()'></td>
+            </tr>
+          </table>
+          <table width="95%" id="tableRulesModify" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor='#a5a9af'>
+            	<td  align='center' height='20px'><input id='Add' class="Nice_Btn" type='button' value="Add" onClick="OnAddRule()" /></td>
+              <td  align='center' height='20px'><input id='Edit' class="Nice_Btn" type='button' value="Edit" onClick="OnEditRule()" /></td>
+              <td  align='center' height='20px'><input id='Delete' class="Nice_Btn" type='button' value="Delete" onClick="OnDelRule()" /></td>              
+            </tr>
+          </table>
+    	  <div style="margin-bottom:10px;"></div>
+
+          <div id="divRulePanel" style="display:none; text-align:center; margin-bottom:10px;" align="center">
+     			<table>
+    				<tr><td class="First_td"><label id='tRuleModify'></label></td></tr>
+    			</table>         	
+          <table width="70%" id="tableRulePanel" align="center" style="text-align:center" cellpadding="0" cellspacing="0">
+            <tr id='trEditAccount' align="center" style="text-align:center">
+            	<td class="Second_td" height='20px'><label id='tEditAccount'></label></td><td class="Third_td"><select class="Select_format" id='cEditAccount'></select></td>
+            </tr>
+         	 	<tr align="center" style="text-align:center">
+            	<td class="Second_td" height='20px'><label id='tEditValue1'></label></td><td class="Third_td"><input class="def_input" id='cEditValue1' type='text' onfocus='onInputEdit(this.id)' /></td>
+            </tr>
+         	 	<tr align="center" style="text-align:center" id='trEditValue2'>
+            	<td class="Second_td" height='20px'><label id='tEditValue2'></label></td>
+            	<td class="Third_td"><input class='def_input' id='cEditValue2' type='text' onfocus='onInputEdit(this.id)'/>
+            	<input class="ip_input" id='cEditId' type='hidden' /></td>
+            </tr>
+            <tr><td>&nbsp</td></tr>
+          </table>
+                  
+					<table width="70%" align="center" style="text-align:center" cellpadding="0" cellspacing="0">
+        
+<form method="post" name="ruleSubmitForm" action="">
+					<input type="hidden" name="RuleSubmitData" id="RuleSubmitData" value="" />
+					<input type="hidden" name="RuleMType" id="RuleMType" value="" />
+						<tr>
+							<td><input id="rulesSubmit" name="Confirm" class="Nice_Btn" type="button" value="Confirm" onClick="OnRuleModify()" /></td>
+							<td><input id="rulesCancel" name="Cancel" class="Nice_Btn" type="button" value="Cancel" onClick="CancelRuleModify()" /></td>
+						</tr>
+</form>
+					</table>
+					</div>
+				</table>
+    		</div>		
+<form name="body_form">
+			<div class="div_border" id="DialPlan_divDialNDelay" style="display:none;">
+				<div class="div_head"><label id='tDialNowDelay'></label></div>
+				<table class="table_style">
+					<tr>
+					<td class="Second_td"><label id='tDialAllDelay'></label></td>
+					<td class="Third_td"><select class="Select_format1" name="cDialAllDelay" id="cDialAllDelay" /></td>
+					</tr>
+					<tr>
+					<td class="Second_td"><label id='tDialNowDelayTime'></label></td>
+					<td class="Third_td"><input class="def_input" type="text" name="cDialNowDelay" id="4" />(0~15s)</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="div_border" id="DialPlan_divAreaCode">
+			<div class="div_head"><label id='tAreaCode'></label></div>
+			<table class="table_style">		
+	        <tr><td class="Second_td"><label id='tCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAreaCodeCode" id="1"><label id="tLimOfAreaCode"></label></td></tr>
+	        <tr><td class="Second_td"><label id='tMinLength'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAreaCodeMinLength" value="" id="2"><label id='t1'>(1~15)</label></td></tr>
+	        <tr><td class="Second_td"><label id='tMaxLength'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAreaCodeMaxLength" value="" id="3"><label id='t2'>(1~15)</label></td></tr>
+	        <tr id='trAccount1'><td class="Second_td"><label id='tAccount1'></label></td> <td class="Third_td"><select class="Select_format1" id='cAreaCodeAccount'></select></td></tr>
+			</table>
+			</div>
+        
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div id="DialPlan_divSubmit" style="text-align:center" align="center">
+				<table width="70%" align="center" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="" />
+          <tr>
+          	<td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()" /></td>
+        		<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()" /></td>
+        	</tr>
+        </table>  
+        </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

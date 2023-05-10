@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<TimeZone>
+    <DST Id="0" TimeZone="-11" Name="Samoa" />
+    <DST Id="1" TimeZone="-10" Name="United States-Hawaii-Aleutian" />
+    <DST Id="2" TimeZone="-10" Name="United States-Alaska-Aleutian" />
+    <DST Id="3" TimeZone="-9" Name="United States-Alaska Time" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="4" TimeZone="-8" Name="Canada(Vancouver,Whitehorse)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="5" TimeZone="-8" Name="Mexico(Tijuana,Mexicali)" Type="1" Start="4/1/7/0" End="10/5/7/0" Offset="60" />
+    <DST Id="6" TimeZone="-8" Name="United States-Pacific Time" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="7" TimeZone="-7" Name="Canada(Edmonton,Calgary)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="8" TimeZone="-7" Name="Mexico(Mazatlan,Chihuahua)" Type="1" Start="4/1/7/0" End="10/5/7/0" Offset="60" />
+    <DST Id="9" TimeZone="-7" Name="United States-Mountain Time" />
+    <DST Id="10" TimeZone="-7" Name="United States-MST no DST" />
+    <DST Id="11" TimeZone="-6" Name="Canada-Manitoba(Winnipeg)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="12" TimeZone="-6" Name="Chile(Easter Islands)" Type="1" Start="10/2/6/0" End="2/2/6/0" Offset="60" />
+    <DST Id="13" TimeZone="-6" Name="Mexico(Mexico City,Acapulco)" Type="1" Start="4/1/7/0" End="10/5/7/0" Offset="60" />
+    <DST Id="14" TimeZone="-6" Name="United States-Central Time" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="15" TimeZone="-5" Name="Bahamas(Nassau)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="16" TimeZone="-5" Name="Canada(Montreal,Ottawa,Quebec)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="17" TimeZone="-5" Name="Cuba(Havana)" Type="1" Start="3/2/7/0" End="10/5/7/0" Offset="60" />
+    <DST Id="18" TimeZone="-5" Name="United States-Eastern Time" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="19" TimeZone="-4:30" Name="Venezuela(Caracas)" />
+    <DST Id="20" TimeZone="-4" Name="Canada(Halifax,Saint John)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="21" TimeZone="-4" Name="Chile(Santiago)" Type="1" Start="10/2/6/0" End="2/2/6/0" Offset="60" />
+    <DST Id="22" TimeZone="-4" Name="Paraguay(Asuncion)" Type="1" Start="10/3/7/0" End="3/2/7/0" Offset="60" />
+    <DST Id="23" TimeZone="-4" Name="United Kingdom-Bermuda(Bermuda)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="24" TimeZone="-4" Name="United Kingdom(Falkland Islands)" Type="1" Start="9/1/7/2" End="4/1/7/2" Offset="60" />
+    <DST Id="25" TimeZone="-4" Name="Trinidad&amp;Tobago" />
+    <DST Id="26" TimeZone="-4" Name="Curaçao" />
+    <DST Id="27" TimeZone="-3:30" Name="Canada-New Foundland(St.Johns)" Type="1" Start="3/2/7/2" End="11/1/7/2" Offset="60" />
+    <DST Id="28" TimeZone="-3" Name="Denmark-Greenland(Nuuk)" Type="1" Start="3/5/7/1" End="10/5/7/1" Offset="60" />
+    <DST Id="29" TimeZone="-3" Name="Argentina(Buenos Aires)" />
+    <DST Id="30" TimeZone="-3" Name="Brazil(no DST)" />
+    <DST Id="31" TimeZone="-3" Name="Brazil(DST)" Type="1" Start="10/3/7/0" End="2/3/7/0" Offset="60" />
+    <DST Id="32" TimeZone="-2" Name="Brazil(no DST)" />
+    <DST Id="33" TimeZone="-1" Name="Portugal(Azores)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="34" TimeZone="0" Name="GMT" />
+    <DST Id="35" TimeZone="0" Name="Greenland" Type="1" Start="3/5/7/1" End="10/5/7/1" Offset="60" />
+    <DST Id="36" TimeZone="0" Name="Denmark-Faroe Islands(Torshaven)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="37" TimeZone="0" Name="Ireland(Dublin)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="38" TimeZone="0" Name="Portugal(Lisboa,Porto,Funchal)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="39" TimeZone="0" Name="Spain-Canary Islands(Las Palmas)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="40" TimeZone="0" Name="United Kingdom(London)" Type="1" Start="3/5/7/1" End="10/5/7/2" Offset="60" />
+    <DST Id="41" TimeZone="0" Name="Morocco" Type="0" Start="6/1/0" End="8/21/0" Offset="60" />
+    <DST Id="106" TimeZone="+1" Name="Poland(Warsaw)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="42" TimeZone="+1" Name="Albania(Tirane)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="43" TimeZone="+1" Name="Austria(Vienna)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="44" TimeZone="+1" Name="Belgium(Brussels)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="45" TimeZone="+1" Name="Caicos" Type="1" Start="4/4/5/0" End="8/4/5/0" Offset="60" />
+    <DST Id="46" TimeZone="+1" Name="Chatham" />
+    <DST Id="47" TimeZone="+1" Name="Croatia(Zagreb)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="48" TimeZone="+1" Name="Czech Republic(Prague)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="49" TimeZone="+1" Name="Denmark(Copenhagen)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="50" TimeZone="+1" Name="France(Paris)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="51" TimeZone="+1" Name="Germany(Berlin)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="52" TimeZone="+1" Name="Hungary(Budapest)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="53" TimeZone="+1" Name="Italy(Rome)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="54" TimeZone="+1" Name="Luxembourg(Luxembourg)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="55" TimeZone="+1" Name="Makedonia(Skopje)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="56" TimeZone="+1" Name="Netherlands(Amsterdam)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="57" TimeZone="+1" Name="Namibia(Windhoek)" Type="1" Start="9/1/7/2" End="4/1/7/2" Offset="60" />
+    <DST Id="58" TimeZone="+2" Name="Estonia(Tallinn)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="59" TimeZone="+2" Name="Finland(Helsinki)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="60" TimeZone="+2" Name="Gaza Strip(Gaza)" Type="1" Start="3/5/5/0" End="9/1/4/2" Offset="60" />
+    <DST Id="61" TimeZone="+2" Name="Greece(Athens)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="62" TimeZone="+2" Name="Israel(Tel Aviv)" Type="0" Start="3/27/2" End="9/27/2" Offset="60" />
+    <DST Id="63" TimeZone="+2" Name="Jordan(Amman)" Type="1" Start="3/5/5/0" End="10/5/5/1" Offset="60" />
+    <DST Id="64" TimeZone="+2" Name="Latvia(Riga)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="65" TimeZone="+2" Name="Lebanon(Beirut)" Type="1" Start="3/5/7/0" End="10/5/7/0" Offset="60" />
+    <DST Id="66" TimeZone="+2" Name="Moldova(Kishinev)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="67" TimeZone="+2" Name="Russia(Kaliningrad)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="68" TimeZone="+2" Name="Romania(Bucharest)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="69" TimeZone="+2" Name="Syria(Damascus)" Type="1" Start="3/5/6/0" End="11/1/7/0" Offset="60" />
+    <DST Id="70" TimeZone="+2" Name="Turkey(Ankara)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="71" TimeZone="+2" Name="Ukraine(Kyiv,Odessa)" Type="1" Start="3/5/7/3" End="10/5/7/4" Offset="60" />
+    <DST Id="72" TimeZone="+3" Name="East Africa Time" />
+    <DST Id="73" TimeZone="+3" Name="Iraq(Baghdad)" />
+    <DST Id="74" TimeZone="+3" Name="Russia(Moscow)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="75" TimeZone="+3:30" Name="Iran(Teheran)" Type="0" Start="3/22/0" End="9/22/0" Offset="60" />
+    <DST Id="76" TimeZone="+4" Name="Armenia(Yerevan)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="77" TimeZone="+4" Name="Azerbaijan(Baku)" Type="1" Start="3/5/7/4" End="10/5/7/5" Offset="60" />
+    <DST Id="78" TimeZone="+4" Name="Georgia(Tbilisi)" />
+    <DST Id="79" TimeZone="+4" Name="Kazakstan(Aqtau)" />
+    <DST Id="80" TimeZone="+4" Name="Russia(Samara)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="81" TimeZone="+5" Name="Kazakstan(Aqtobe)" />
+    <DST Id="82" TimeZone="+5" Name="Kyrgyzstan(Bishkek)" />
+    <DST Id="83" TimeZone="+5" Name="Pakistan(Islamabad)" Type="0" Start="4/15/0" End="11/1/0" Offset="60" />
+    <DST Id="84" TimeZone="+5" Name="Russia(Chelyabinsk)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="85" TimeZone="+5" Name="Russia(Yekaterinburg)" />
+    <DST Id="86" TimeZone="+5:30" Name="India(Calcutta)" />
+    <DST Id="87" TimeZone="+6" Name="Kazakstan(Astana,Almaty)" />
+    <DST Id="88" TimeZone="+6" Name="Russia(Novosibirsk,Omsk)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="89" TimeZone="+7" Name="Russia(Krasnoyarsk)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="90" TimeZone="+7" Name="Thailand(Bangkok)" />
+    <DST Id="91" TimeZone="+8" Name="China(Beijing)" />
+    <DST Id="92" TimeZone="+8" Name="Singapore(Singapore)" />
+    <DST Id="93" TimeZone="+8" Name="Australia(Perth)" Type="1" Start="10/1/7/2" End="3/5/7/3" Offset="60" />
+    <DST Id="94" TimeZone="+9" Name="Korea(Seoul)" />
+    <DST Id="95" TimeZone="+9" Name="Japan(Tokyo)" />
+    <DST Id="96" TimeZone="+9:30" Name="Australia(Adelaide)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+    <DST Id="97" TimeZone="+9:30" Name="Australia(Darwin)" />
+    <DST Id="98" TimeZone="+10" Name="Australia(Sydney,Melbourne,Canberra)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+    <DST Id="99" TimeZone="+10" Name="Australia(Brisbane)" />
+    <DST Id="100" TimeZone="+10" Name="Australia(Hobart)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+    <DST Id="101" TimeZone="+10" Name="Russia(Vladivostok)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+    <DST Id="102" TimeZone="+10:30" Name="Australia(Lord Howe Islands)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+    <DST Id="103" TimeZone="+11" Name="New Caledonia(Noumea)" />
+    <DST Id="104" TimeZone="+12" Name="New Zealand(Wellington,Auckland)" Type="1" Start="9/5/7/3" End="4/1/7/2" Offset="60" />
+    <DST Id="105" TimeZone="+12:45" Name="New Zealand(Chatham Islands)" Type="1" Start="9/5/7/4" End="4/1/7/3" Offset="60" />
+    <DST Id="106" TimeZone="+13" Name="Tonga(Nukualofa)" />
+</TimeZone>

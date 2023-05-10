@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE><?ssi snom_type?></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META http-equiv=Pragma content=no-cache>
+<LINK href="normal.css" type=text/css rel=stylesheet>
+<LINK href="fox.css" type=text/css rel=stylesheet>
+</HEAD>
+<?ssi skipon NOT_NTLM?>
+<BODY style="BACKGROUND-IMAGE: url(img/head_ocs.png); background-repeat:no-repeat; BACKGROUND-COLOR: #ffffff; margin: 0">
+<?ssi skipoff NOT_NTLM?>
+<?ssi skipon NTLM?>
+<BODY style="BACKGROUND-IMAGE: url(img/head.png); background-repeat:no-repeat; BACKGROUND-COLOR: #ffffff; margin: 0">
+<?ssi skipoff NTLM?>
+<?ssi skipon PAGE_IS_PROTECTED?>
+<div style="position: absolute;
+ top: 0px; right: 0px;
+ background-image: url(img/keinpasswort.png);
+ background-position:7px 0px;
+ background-repeat: no-repeat;
+ width: 241px; height: 24px;
+ padding-top:2px;
+ padding-right: 6px;
+ text-align: right;
+ font-family: arial; font-weight: bold; color: white; 
+ font-size: 12px; ">
+   <?ssi password_not_set?>
+</div>
+<?ssi skipoff PAGE_IS_PROTECTED?>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 <?ssi text_direction?>>
+  <TBODY>
+  <TR>
+    <td height="120" valign="bottom">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="95"><img src="img/clr.gif" width="16" height="16"></td>
+          <td class="headerText" width="705"><?ssi readtitle?></td>
+        </tr>
+        <tr>
+          <td height="60" width="16"><img src="img/clr.gif" width="16" height="16"></td>
+          <td height="60" width="600"><img src="img/clr.gif" width="16" height="16"></td>
+          <td height="60">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </TR>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 border=0><!-- main -->
+        <TBODY>
+        <TR vAlign=top>
+          <TD vAlign=top width=175 bgColor=#ffffff>
+            <TABLE cellSpacing=0 cellPadding=0 width=175 border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign=top><?ssi file leftnav.htm?>
+                      </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
+          <TD width=1><IMG src="img/separater.png"></TD>
+          <TD class=background width="100%" height="1000">
+            <TABLE cellSpacing=0 cellPadding=0 width=588 border=0>
+              <TBODY>
+              <TR>
+                <TD width=16><IMG height=16 src="img/clr.gif" width=16></TD>
+                <TD>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+<?ssi skipon NO_REBOOT_DESIRED?>
+<FORM method="post">
+<?ssi hidden_tag?>
+<TR><TD class="normalText">&nbsp;</TD></TR>
+<TR><td class="normalText"><img src="img/warning.gif"> <B><?lng web_confirm_apply_set_change?></B>
+<input type="submit" value="<?lng advanced_rebootbutton?>" name="CONFIRM_REBOOT" class="button"></td>
+</TR>
+</FORM>
+<?ssi skipoff NO_REBOOT_DESIRED?>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<?ssi skipon EVERYTHING_STORED?>
+<FORM method="post">
+<?ssi hidden_tag?>
+<TR><TD class="normalText">&nbsp;</TD></TR>
+<TR><td class="normalText"><img src="img/warning.gif"> <B><?lng unsaved_settings?></B>
+<input type="submit" value="<?lng advanced_savebutton?>" name="STORE_SETTINGS" class="button">
+<input type="submit" value="<?lng view_changes_button?>" name="SHOW_CHANGED_SETTINGS" class="button">
+<a href="http://wiki.snom.com/FAQ/How_do_snom_phones_handle_setting_changes"><img border="0" alt="edit" src="img/help.gif"></a
+</td>
+</TR>
+</FORM>
+<?ssi skipoff EVERYTHING_STORED?>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>

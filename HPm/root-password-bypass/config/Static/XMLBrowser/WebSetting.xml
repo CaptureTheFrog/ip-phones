@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="combox" defaultIndex="1" Timeout="0" LockIn="no" LocalData="yes" InputType="1aB">
+    <Title>WebServer Setting</Title>
+    <Prompt>Active:</Prompt>
+    <DataID>DID_Setting_WEB_LOGIN_STATUS_Active</DataID>
+    <Default>0</Default>
+    <option text="Disable">0</option>
+    <option text="Enable">1</option>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

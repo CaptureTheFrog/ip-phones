@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu style="none" Timeout="0" LocalData="yes" RollMode="yes" LockIn="no" DivPosPix="64">
+    <title wrap="no" showlistcount="yes">Accounts Status</title>
+    <MenuItem LocalData="yes">
+        <Prompt DataID="DID_AllAccount_GENERAL_Label">LocalData</Prompt>
+        <DataID>DID_Status_ACCOUNTAll</DataID>
+        <option text="Disable">0</option>
+        <option text="Registering">1</option>
+        <option text="Registered">2</option>
+        <option text="Reg Failed">3</option>
+        <option text="Unknown">-1</option>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

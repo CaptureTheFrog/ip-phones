@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" LockIn="no">
+    <title wrap="no" showlistcount="yes">Basic Setting</title>
+    <MenuItem>
+        <Prompt>Language</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/LanguageSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Date &amp; Time</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/TimeSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Ring Tones</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/RingSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Phone Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeMenu.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Backlight</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/BacklightSetting.xml</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

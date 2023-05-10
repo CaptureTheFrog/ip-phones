@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu style="numbered" Timeout="0" LocalData="yes" RollMode="no" LockIn="no">
+    <title wrap="no" showlistcount="yes">Status</title>
+    <MenuItem>
+        <Prompt>Network</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/NetworkStatus.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Phone</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/PhoneStatus.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Accounts</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/AccountStatus.xml</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

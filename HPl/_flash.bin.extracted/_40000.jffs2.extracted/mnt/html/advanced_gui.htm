@@ -1,0 +1,185 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+  <TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+  <TR>
+    <TD vAlign="top">
+      <FORM method="post">
+        <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+          <TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+  <TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<TR><TD></TD><TD></TD><TD width="48%"></TD><TD width="50%"></TD>
+<TR><TD></TD><TD class="normalText" colspan=2><B><?lng advanced_line_info_layer?></B></TD><TD class="normalText">
+<?lng advanced_ssi_show?>: 
+<input type="submit" value="<?lng advanced_on?>" name="lil_allways" tabindex=1 class="button">
+<input type="submit" value="<?lng advanced_off?>" name="lil_never" tabindex=2 class="button">
+<input type="submit" value="<?lng advanced_lil_smart?>" name="lil_smart" tabindex=3 class="button">
+ &nbsp; <a href=http://wiki.snom.com/wiki/index.php/Settings/line_info_layer><img src="img/help.gif" border="0" alt="edit"></a>
+</TD></TR>
+<tr><TD></TD></tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_idle?></td><td>
+  <select name="line_info_at_idle" <?ssi disabled line_info_at_idle?> size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_idle off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_idle on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_idle smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_idle?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_registration?></td><td>
+  <select name="line_info_at_registration" ID="Select2" <?ssi disabled line_info_at_registration?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_registration off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_registration on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_registration smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_registration?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_presence?></td><td>
+  <select name="line_info_at_presence" ID="Select3" <?ssi disabled line_info_at_presence?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_presence off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_presence on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_presence smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_presence?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_buddies?></td><td>
+  <select name="line_info_at_buddies" ID="Select4" <?ssi disabled line_info_at_buddies?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_buddies off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_buddies on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_buddies smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_buddies?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_minibrowser?></td><td>
+  <select name="line_info_at_minibrowser" ID="Select5" <?ssi disabled line_info_at_minibrowser?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_minibrowser off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_minibrowser on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_minibrowser smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_minibrowser?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_directory?></td><td>
+  <select name="line_info_at_directory" ID="Select6" <?ssi disabled line_info_at_directory?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_directory off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_directory on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_directory smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_directory?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_edit_number?></td><td>
+  <select name="line_info_at_edit_number" ID="Select7" <?ssi disabled line_info_at_edit_number?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_edit_number off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_edit_number on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_edit_number smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_edit_number?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_ringing?></td><td>
+  <select name="line_info_at_ringing" ID="Select8" <?ssi disabled line_info_at_ringing?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_ringing off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_ringing on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_ringing smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_ringing?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_calling?></td><td>
+  <select name="line_info_at_calling" ID="Select9" <?ssi disabled line_info_at_calling?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_calling off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_calling on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_calling smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_calling?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_call_completion?></td><td>
+  <select name="line_info_at_call_completion" ID="Select10" <?ssi disabled line_info_at_call_completion?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_call_completion off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_call_completion on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_call_completion smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_call_completion?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_auto_redial?></td><td>
+  <select name="line_info_at_auto_redial" ID="Select11" <?ssi disabled line_info_at_auto_redial?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_auto_redial off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_auto_redial on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_auto_redial smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_auto_redial?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_connected?></td><td>
+  <select name="line_info_at_connected" ID="Select12" <?ssi disabled line_info_at_connected?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_connected off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_connected on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_connected smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_connected?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_conference?></td><td>
+  <select name="line_info_at_conference" <?ssi disabled line_info_at_conference?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_conference off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_conference on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_conference smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_conference?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_transfer?></td><td>
+  <select name="line_info_at_transfer" ID="Select14" <?ssi disabled line_info_at_transfer?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_transfer off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_transfer on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_transfer smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_transfer?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_holding?></td><td>
+  <select name="line_info_at_holding" ID="Select15" <?ssi disabled line_info_at_holding?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_holding off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_holding on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_holding smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_holding?>
+</td>
+</tr>
+<tr><TD></TD><TD></TD>
+  <td class="normalText"><?lng advanced_lil_terminated?></td><td>
+  <select name="line_info_at_terminated" ID="Select16" <?ssi disabled line_info_at_terminated?>size="1" <?ssi tabindex?> class="select3">
+  <option value="off"<?ssi selected line_info_at_terminated off?>><?lng advanced_off?></option>
+  <option value="on"<?ssi selected line_info_at_terminated on?>><?lng advanced_on?></option>
+  <option value="smart"<?ssi selected line_info_at_terminated smart?>><?lng advanced_lil_smart?></option>
+</select><?ssi help line_info_at_terminated?>
+</td>
+</tr>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD colspan=2><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+  <TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+  <TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+          </TBODY></TABLE>
+      </FORM>
+    </TD>
+  </TR>
+  
+<?ssi file common9.htm?></HTML>

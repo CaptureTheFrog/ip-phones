@@ -1,0 +1,397 @@
+<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+var PageAddressNum = 10;
+function DoF5Jump()
+{
+	Relocate('do?id=5&id=3');
+}
+
+function DrawTableList()
+{
+	var drawTable = $('#tableMulticast');
+	var oriHtml = drawTable.html();
+	var appendHtml = "";
+	for(var i=0; i < PageAddressNum; i++)
+	{
+  	if(0 == i%2)
+  	{
+  		appendHtml += "<tr bgcolor=\'#F9FAFC\'><td style='text-align: center;' align='center' height='25px'><label id='cIPAddress"+i+"'></label></td>"+
+    	"<td style='text-align: center; width: 300px;'><input style='width: 200px;' id='cListeningAddr"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+    	"<td style='text-align: center; width: 130px;'><input style='width: 100px;' id='cListeningLabel"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+  		"<td style='text-align: center;' align='center' height='30px'><label style='width: 80px;'id='cPriority"+i+"'</label></td></tr>";
+  	}
+    else
+  	{
+      appendHtml += "<tr bgcolor=\'#DCE3E8\'><td style='text-align: center;' align='center' height='25px'><label id='cIPAddress"+i+"'></label></td>"+
+      "<td style='text-align: center; width: 300px;'><input style='width: 200px;' id='cListeningAddr"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+      "<td style='text-align: center; width: 130px;'><input style='width: 100px;' id='cListeningLabel"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+    	"<td style='text-align: center;' align='center' height='30px'><label style='width: 80px;'id='cPriority"+i+"'</label></td></tr>";
+	  }   
+	}
+	
+	drawTable.html(oriHtml + appendHtml);
+}
+
+function DrawBarge() 
+{
+ 	var checkValue=$("#cPagingBarge").val();
+	var tr_barge = $("#tr_barge");
+ 	if (null != tr_barge)
+ 	{
+ 		tr_barge.remove();
+ 	}
+ 	if(0 != checkValue)
+ 	{
+		var dstTr= $('#tableMulticast tr').eq(checkValue);//#febb2a//#003586//#a5a9af
+		dstTr.after('<tr id="tr_barge" bgcolor="#febb2a" style="text-align: center; width: 180px; height:3px;">'+
+	        	'<td></td><td></td><td></td><td></td></tr>');
+  }
+}
+
+var PageRefDesURL = 'do?id=4&id=12';
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu412");
+	DrawTableList();
+	LoadCfg();
+	DrawBarge();
+});
+
+function LoadLang()
+{
+	var tmp = Multicast;
+	LoadCommonResources(tmp);
+	document.getElementById("tPagingBarge").innerHTML = ("undefined" != typeof(PagingBarge))?PagingBarge:"Paging Barge";
+	document.getElementById("tPagingPriorityActive").innerHTML = ("undefined" != typeof(PagingPriorityActive))?PagingPriorityActive:"Paging Priority Active";
+	document.getElementById("tIPAddress").innerHTML = ("undefined" != typeof(IPAddress))?IPAddress:"IP Address";
+	document.getElementById("tListeningAddr").innerHTML = ("undefined" != typeof(ListeningAddress))?ListeningAddress:"Listening Address";
+	document.getElementById("tLabel").innerHTML = ("undefined" != typeof(Label))?Label:"Label";
+	document.getElementById("tPriority").innerHTML = ("undefined" != typeof(Priority))?Priority:"Priority";
+	document.getElementById("tMulticastSetting").innerHTML = ("undefined" != typeof(MulticastSetting))?MulticastSetting:"Multicast Setting";
+	document.getElementById("tPriorityList").innerHTML = ("undefined" != typeof(PriorityList))?PriorityList:"Priority List";	
+	
+	for(var i=0; i < PageAddressNum; i++)
+	{document.getElementById("cListeningAddr"+i).maxLength=127;}
+}
+function LoadCfg()
+{
+	LoadLang();
+	DelayShow();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	f1.cPagingBarge.options.add(new Option(Disabled, 0));
+	for(var i=1; i <= PageAddressNum; i++)
+	{f1.cPagingBarge.options.add(new Option(i, i));}
+	f1.cPagingPriorityActive.options.add(new Option(Disabled, 0));
+	f1.cPagingPriorityActive.options.add(new Option(Enabled, 1));
+		
+	SubLoadCfg();
+}
+function SubLoadCfg()
+{
+	for(var i=0; i < PageAddressNum; i++)
+	{
+		var tmpDomName = "cIPAddress"+i;
+		document.getElementById(tmpDomName).innerHTML = i+1+" "+IPAddress;
+		tmpDomName = "cPriority"+i;
+		document.getElementById(tmpDomName).innerHTML = i+1;
+	}
+
+	LoadListeningData();
+	ResetAllInputsColor();
+	DrawBarge();
+}
+function LoadListeningData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];	
+	var arrListeningAddr = f2.hcListeningAddr.value.split(SplitSymbol);
+	var arrListeningLabel = f2.hcListeningLabel.value.split(SplitSymbol);
+	
+	f1.cPagingBarge.value = f2.hcPagingBarge.value = TransEmptyStrTo0(f2.hcPagingBarge.value);
+	f1.cPagingPriorityActive.value = f2.hcPagingPriorityActive.value = TransEmptyStrTo0(f2.hcPagingPriorityActive.value);
+	
+	for(var i=0; i < PageAddressNum; i++)
+	{
+		document.getElementById("cListeningAddr"+i).value = ShowDecode(arrListeningAddr[i]);
+		document.getElementById("cListeningLabel"+i).value = ShowDecode(arrListeningLabel[i]);
+	}
+}
+
+function GetAllPort(arrListeningPort)
+{
+	var f2 = document.forms["hiddenValForm"];
+	var listenAddr;
+	var startPost, stopPost;
+	
+	for(var i=0; i < f2.hcIPAddrCnt.value; i++)
+	{
+		listenAddr = document.getElementById("cListeningAddr"+i).value;
+		if("" == listenAddr)
+		{
+			arrListeningPort.push("");
+		}
+		else
+		{		
+			startPost = listenAddr.indexOf(":");
+			if(-1 != startPost)
+			{
+				stopPost = listenAddr.length;
+				arrListeningPort.push(listenAddr.substring(Number(parseInt(startPost)+parseInt(1)), stopPost));
+			}
+			else
+			{
+				arrListeningPort.push("");
+			}
+		}
+	}
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var arrListeningAddr = f2.hcListeningAddr.value.split(SplitSymbol);
+	var arrListeningLabel = f2.hcListeningLabel.value.split(SplitSymbol);
+	var arrListeningPort = new Array();
+	var alertflag = false;
+	
+	if(f1.cPagingBarge.value != f2.hcPagingBarge.value)
+	{
+		strSubmData = strSubmData + "&cPagingBarge=" + f1.cPagingBarge.value;
+	}
+	if(f1.cPagingPriorityActive.value != f2.hcPagingPriorityActive.value)
+	{
+		strSubmData = strSubmData + "&cPagingPriorityActive=" + f1.cPagingPriorityActive.value;
+	}
+	
+	GetAllPort(arrListeningPort);//获取当前所有监听地址使用到的端口
+	for(var i=0; i < f2.hcIPAddrCnt.value; i++)
+	{
+		var tmpD = document.getElementById("cListeningAddr"+i).value;
+		tmpD1 = tmpD;
+		arrListeningAddr[i] = ShowDecode(arrListeningAddr[i]);
+		if(tmpD != arrListeningAddr[i] && tmpD != "")
+		{
+			//当前url的端口要与所有当前页面其他端口进行比较，验证是否有重复端口
+			for(var j=0; j < f2.hcIPAddrCnt.value; j++)
+			{
+				if(i != j)
+				{
+					if(arrListeningPort[i] != "" && arrListeningPort[i] == arrListeningPort[j])
+					{
+						if(false == alertflag)
+						{
+							alert(WarningSamePortExist);
+							alertflag = true;
+						}
+						SetInputBGColor("cListeningAddr"+i);
+						return DataCheckResult;
+					}
+				}
+			}
+			
+			if(!(IsPort(arrListeningPort[i]) && ( arrListeningPort[i] >= 1024)))
+			{
+				SetInputBGColor("cListeningAddr"+i);
+				alert("The port is unavailable!");
+				return DataCheckResult;
+			}
+			
+			comparedPort = f2.hcPortTypeSIP.value.split(SplitSymbol);
+			comparingPort = Number(arrListeningPort[i]) + "~" + Number(arrListeningPort[i]);
+			if(true == IsPortUsed(comparingPort, comparedPort))
+			{
+				SetInputBGColor("cListeningAddr"+i);
+				alert(WarningPortUsedAlready + WarningCurrentUsedPorts + f2.hcPortTypeSIP.value.split(SplitSymbol));
+				return DataCheckResult;
+			}	
+			
+			if(!CheckLengthOfData(tmpD, 0, 127))
+			{
+				SetInputBGColor("cListeningAddr"+i);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + "&cListeningAddr"+i+"="+ PostEncode(tmpD);
+		}
+		//清空直接提交
+		else if(tmpD != arrListeningAddr[i] && tmpD == "")
+		{
+			strSubmData = strSubmData + "&cListeningAddr"+i+"="+ tmpD;
+		}
+		else{
+		}
+		
+		tmpD = document.getElementById("cListeningLabel"+i).value;
+		arrListeningLabel[i] = ShowDecode(arrListeningLabel[i]);
+		if(tmpD != arrListeningLabel[i])
+		{
+			if(!NotContainInvalid(tmpD))
+			{
+				SetInputBGColor("cListeningLabel"+i);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + "&cListeningLabel"+i+"="
+			+ PostEncode(tmpD);
+		}
+		if("" == tmpD1 && "" != tmpD)
+		{
+			SetInputBG_2Exits("cListeningAddr"+i);
+			ErrFlag = true;
+		}
+	}
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = false;
+	var arrListeningAddr = f2.hcListeningAddr.value.split(SplitSymbol);
+	var arrListeningLabel = f2.hcListeningLabel.value.split(SplitSymbol);
+	for(var i=0; i < f2.hcIPAddrCnt.value; i++)
+	{
+		var tmpD = document.getElementById("cListeningAddr"+i).value;
+		tmpD1 = tmpD;
+		arrListeningAddr[i] = ShowDecode(arrListeningAddr[i]);
+		if(tmpD != arrListeningAddr[i])
+		{
+			dataChangedWarnFlag = true;
+		}
+		tmpD = document.getElementById("cListeningLabel"+i).value;
+		if(tmpD != arrListeningLabel[i])
+		{
+			dataChangedWarnFlag = true;
+		}
+		if("" == tmpD1 && "" != tmpD)
+		{
+			SetInputBG_2Exits("cListeningAddr"+i);
+			dataChangedWarnFlag = true;
+		}
+	}
+	
+	if(f1.cPagingBarge.value != f2.hcPagingBarge.value
+			|| f1.cPagingPriorityActive.value != f2.hcPagingPriorityActive.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	
+	if(0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+function SetInputBG_2Exits(idStr)
+{
+	SetInputBGColor(idStr);
+	var tSave = document.getElementById("WarningDiv").innerHTML;
+	document.getElementById("WarningDiv").innerHTML += ("<br>"+Remote2itemsWarning);
+}
+
+function ResetAllInputsColor()
+{
+	var i = 0;
+	var MaxID = PageAddressNum;
+	for(; i < MaxID; i++)
+	{
+		tmp = "cListeningAddr"+i;
+		onInputEdit(tmp);
+		tmp = "cListeningLabel"+i;
+		onInputEdit(tmp);
+	}
+	document.getElementById("WarningDiv").innerHTML = "";
+}
+</script>
+
+<body>
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">    		
+				
+      <div style="height:12px;"></div>
+      <div class="div_border">
+			<div class="div_head"><label id="tMulticastSetting">Multicast Setting</label></div>
+			<table class="table_style">
+			<tr>
+			<td class="Second_td"><label id='tPagingBarge'></label></td>
+			<td class="Third_td"><select id="cPagingBarge" class="Select_format1" name="cPagingBarge" onChange="DrawBarge()"></select></td>
+			</tr>
+			<tr>
+			<td class="Second_td"><label id='tPagingPriorityActive'></label></td>
+			<td class="Third_td"><select class="Select_format1" name="cPagingPriorityActive"></select></td>
+			</tr>
+			</table>
+	  </div>
+	  
+	  <div class="div_border">
+		<div class="div_head"><label id="tPriorityList">Priority List</label></div>
+		<table class="table_style">	
+		<table width="95%" id="tableMulticast" align="center" cellpadding="0" cellspacing="1">
+          <tr bgcolor='#a5a9af'>            	
+            <td style='text-align: center; width: 180px;' align='center' height='30px'><label id='tIPAddress'></label></td>
+            <td style='text-align: center; width: 180px;' ><label id='tListeningAddr'></label></td>
+            <td style='text-align: center; width: 100px;' ><label id='tLabel'></label></td>
+            <td style='text-align: center; width: 80px;' ><label id='tPriority'></label></td>
+          </tr>
+		  </table>
+		  </table>
+	  </div>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

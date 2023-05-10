@@ -1,0 +1,153 @@
+<?ssi title index_ssi_title?>
+<?ssi file common1.htm?>
+<?ssi skipon WITHOUT_ADVERTISEMENT?>
+<IFRAME SRC="<?ssi advertisement_url?>" WIDTH="100%" HEIGHT="110" marginheight="0" marginwidth="0" frameborder="0">
+If you can see this, your browser doesn't understand IFRAME. But we <A HREF="<?ssi advertisement_url?>">link</A> you to the file.
+</IFRAME>
+<?ssi skipoff WITHOUT_ADVERTISEMENT?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+
+<?ssi skipon NO_DIALING?>
+<TR>
+  <TD>
+    <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 ID="Table1">
+      <TBODY>
+            <TR><TD><SPAN class=pageInfoText><?lng index_infotext?><br>
+</SPAN></TD></TR></TBODY></TABLE></TD></TR>
+<TR><TD vAlign=top height=5><IMG height=5 src="img/clr.gif" width=12></TD></TR>
+
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<TR><TD></TD><TD class="normalText"><B><?lng index_dialnumber?></B></TD></TR>
+<TR><TD></TD><TD class="normalText"><input type="text" name="NUMBER" class="inputbig">
+<input type="submit" hidefocus value="<?lng index_dialnumberbutton?>" name="DIAL"  class="button">
+<input type="submit" hidefocus value="<?lng index_hangupbutton?>" name="HANGUP"  class="button"></td>
+</TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng index_outgoingident?></B></TD></TR>
+<tr><TD></TD>
+<td width="100%">
+<select name="active_line" size="1" class="select4">
+<?ssi skiponv user_name1 user_host1?><option value="1"<?ssi selected active_line 1?>><?ssi variable user_name1?>@<?ssi variable user_host1?></option><?ssi skipoffv user_name1 user_host1?>
+<?ssi skiponv user_name2 user_host2?><option value="2"<?ssi selected active_line 2?>><?ssi variable user_name2?>@<?ssi variable user_host2?></option><?ssi skipoffv user_name2 user_host2?>
+<?ssi skiponv user_name3 user_host3?><option value="3"<?ssi selected active_line 3?>><?ssi variable user_name3?>@<?ssi variable user_host3?></option><?ssi skipoffv user_name3 user_host3?>
+<?ssi skiponv user_name4 user_host4?><option value="4"<?ssi selected active_line 4?>><?ssi variable user_name4?>@<?ssi variable user_host4?></option><?ssi skipoffv user_name4 user_host4?>
+<?ssi skipon SNOM300?>
+<?ssi skipon SNOM710?>
+<?ssi skiponv user_name5 user_host5?><option value="5"<?ssi selected active_line 5?>><?ssi variable user_name5?>@<?ssi variable user_host5?></option><?ssi skipoffv user_name5 user_host5?>
+<?ssi skiponv user_name6 user_host6?><option value="6"<?ssi selected active_line 6?>><?ssi variable user_name6?>@<?ssi variable user_host6?></option><?ssi skipoffv user_name6 user_host6?>
+<?ssi skiponv user_name7 user_host7?><option value="7"<?ssi selected active_line 7?>><?ssi variable user_name7?>@<?ssi variable user_host7?></option><?ssi skipoffv user_name7 user_host7?>
+<?ssi skiponv user_name8 user_host8?><option value="8"<?ssi selected active_line 8?>><?ssi variable user_name8?>@<?ssi variable user_host8?></option><?ssi skipoffv user_name8 user_host8?>
+<?ssi skiponv user_name9 user_host9?><option value="9"<?ssi selected active_line 9?>><?ssi variable user_name9?>@<?ssi variable user_host9?></option><?ssi skipoffv user_name9 user_host9?>
+<?ssi skiponv user_name10 user_host10?><option value="10"<?ssi selected active_line 10?>><?ssi variable user_name10?>@<?ssi variable user_host10?></option><?ssi skipoffv user_name10 user_host10?>
+<?ssi skiponv user_name11 user_host11?><option value="11"<?ssi selected active_line 11?>><?ssi variable user_name11?>@<?ssi variable user_host11?></option><?ssi skipoffv user_name11 user_host11?>
+<?ssi skiponv user_name12 user_host12?><option value="12"<?ssi selected active_line 12?>><?ssi variable user_name12?>@<?ssi variable user_host12?></option><?ssi skipoffv user_name12 user_host12?>
+<?ssi skipoff SNOM710?>
+<?ssi skipoff SNOM300?>
+</select>
+<input type="submit" hidefocus value="<?lng index_setbutton?>" name="SETTINGS"  class="button">
+</td>
+</tr>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+<?ssi skipoff NO_DIALING?>
+
+<?ssi skipon WITH_FLASH?>	
+<tr>
+<td class="normalText"><a href="#list_dialed" title="<?lng index_dialednumbers?>"><?lng index_dialed?></a>, <a href="#list_missed" title="<?lng index_missedcalls?>"><?lng index_missed?></a>, <a href="#list_received" title="<?lng index_receivedcalls?>"><?lng index_received?></a>
+<br>
+<br>
+<br>
+</td>
+</tr>
+
+<tr>
+<td>
+<br>
+<table border="0" cellpadding="1" cellspacing="1" width="100%">
+<tr><td colspan="4" class="normalText"><a name="list_dialed"><?lng index_dialednumbers?></a>
+<a href="index.htm?dialeddel=-1<?ssi hidden_tag_qs?>"><img src="img/delete.gif" width="12" height="12" border="0" alt="delete"></a>
+</td></tr>
+<tr>
+<td width="100" class="normalText"><?lng index_date?></td>
+<td class="normalText"><?lng index_time?></td>
+<td class="normalText"><?lng index_duration?></td>
+<td class="normalText"><?lng index_costs?></td>
+<td class="normalText"><?lng index_local_identity?></td>
+<td class="normalText"><?lng index_number?></td>
+</tr>
+<?ssi listinclude lastcalls?>
+</table>
+<br>
+<br>
+<table border="0" cellpadding="1" cellspacing="1" width="100%">
+<tr><td colspan="4" class="normalText"><a name="list_missed"><?lng index_missedcalls?></a>
+<a href="index.htm?misseddel=-1<?ssi hidden_tag_qs?>"><img src="img/delete.gif" width="12" height="12" border="0" alt="delete"></a>
+</td></tr>
+<tr>
+<td width="100" class="normalText"><?lng index_date?></td>
+<td class="normalText"><?lng index_time?></td>
+<td class="normalText"><?lng index_missed?></td>
+<td class="normalText"><?lng index_local_identity?></td>
+<td class="normalText"><?lng index_number?></td>
+</tr>
+<?ssi listinclude missedcalls?>
+</table>
+<br>
+<br>
+<table border="0" cellpadding="1" cellspacing="1" width="100%">
+<tr><td colspan="4" class="normalText"><a name="list_received"><?lng index_receivedcalls?></a>
+<a href="index.htm?receiveddel=-1<?ssi hidden_tag_qs?>"><img src="img/delete.gif" width="12" height="12" border="0" alt="delete"></a>
+</td></tr>
+<tr>
+<td width="100" class="normalText"><?lng index_date?></td>
+<td class="normalText"><?lng index_time?></td>
+<td class="normalText"><?lng index_duration?></td>
+<td class="normalText"><?lng index_costs?></td>
+<td class="normalText"><?lng index_local_identity?></td>
+<td class="normalText"><?lng index_number?></td>
+</tr>
+<?ssi listinclude takencalls?>
+</table>
+</td>
+</tr>
+<?ssi skipoff WITH_FLASH?>	
+
+<?ssi skipon WITHOUT_FLASH?>
+</table>
+<body bgcolor="#d7def8">
+<!--url's used in the movie-->
+<!--text used in the movie-->
+<!--
+<p align="left"></p>
+--><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="750" height="2000" id="snomControl" align="middle" VIEWASTEXT>
+<param name="allowScriptAccess" value="always" />
+<param name="movie" value="snomControl.swf" />
+<param name="quality" value="high" />
+<param name="salign" value="lt" />
+<param name="bgcolor" value="#FFFFFF" />
+<embed src="snomControl.swf" quality="high" salign="lt" bgcolor="#FFFFFF" width="750" height="2000" name="snomControl" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+</object>
+</body>
+<?ssi skipoff WITHOUT_FLASH?>
+
+<?ssi file common9.htm?></HTML>

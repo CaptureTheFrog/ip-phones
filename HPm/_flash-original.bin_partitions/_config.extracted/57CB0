@@ -1,0 +1,526 @@
+
+[ LINEKEY1 ]
+Type=14
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY2 ]
+Type=14
+Label=
+Param1=
+Param2=2
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY3 ]
+Type=14
+Label=
+Param1=
+Param2=3
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY4 ]
+Type=14
+Label=
+Param1=
+Param2=4
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY5 ]
+Type=14
+Label=
+Param1=
+Param2=5
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY6 ]
+Type=14
+Label=
+Param1=
+Param2=6
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY7 ]
+Type=14
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ LINEKEY8 ]
+Type=14
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ SOFTKEY01 ]
+Type=21
+Label=History
+Param1=
+Param2=
+Param3=
+
+[ SOFTKEY02 ]
+Type=21
+Label=Book
+Param1=
+Param2=
+Param3=
+
+[ SOFTKEY03 ]
+Type=21
+Label=Featur.
+Param1=
+Param2=
+Param3=
+
+[ SOFTKEY04 ]
+Type=25
+Label=Menu
+Param1=
+Param2=0
+Param3=
+
+[ HOME ]
+Type=5
+Param1=
+Param2=0
+Param3=
+
+[ UP ]
+Type=
+Param1=
+Param2=0
+Param3=
+
+[ DOWN ]
+Type=
+Param1=
+Param2=0
+Param3=
+
+[ LEFT ]
+Type=
+Param1=
+Param2=0
+Param3=
+
+[ RIGHT ]
+Type=
+Param1=
+Param2=0
+Param3=
+
+[ OK ]
+Type=4
+Param1=
+Param2=0
+Param3=
+
+[ CANCEL ]
+Type=0
+Param1=
+Param2=0
+Param3=
+
+[ FWD ]
+Type=6
+Param1=
+Param2=0
+Param3=
+
+[ BOOK ]
+Type=21
+Param1=
+Param2=
+Param3=
+  
+[ MUTE ]
+Type=0
+Param1=
+Param2=0
+Param3=
+
+[ REDIAL ]
+Type=21
+Param1=
+Param2=
+Param3=
+
+[ VOICEMESSAGE ]
+Type=21
+Label=
+Param1=http://akuvox2.wildixin.com:443/?action=getxmlbrowser&get=vmaccess&menu=main
+Param2=
+Param3=
+
+[ TRANSFER ]
+Type=27
+Param1=
+Param2=
+Param3=
+
+[ DSSKEY01 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY02 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY03 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY04 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY05 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY06 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY07 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY08 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY09 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+[ DSSKEY10 ]
+Type=0
+Label=
+Param1=
+Param2=1
+Param3=
+Param4=
+Param5=
+Param6=
+
+
+[ LINEKEY30 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY29 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY28 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY27 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY26 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY25 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY24 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY23 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY22 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY21 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY20 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY19 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY18 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY17 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY16 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY15 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY14 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY13 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY12 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY11 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY10 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ LINEKEY09 ]
+Type=
+Param6=
+Param5=
+Param4=
+Param3=
+Param2=1
+Param1=
+Label=
+
+[ STAR ]
+Type=1
+LongPress=1
+Param4=
+Param3=
+Param2=
+Param1=
+
+[ NUM09 ]
+Type=
+LongPress=
+Param4=
+Param3=
+Param2=
+Param1=
+
+[ NUM08

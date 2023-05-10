@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="edit"
+        password = "yes"
+        defaultIndex="1"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="ReturnPassword"
+        InputType="1aB">
+    <Title showlistcount="yes">
+        Enter Password
+    </Title>
+
+		<Prompt>Password:</Prompt>
+		<DataID>Combine_ReturnPassword</DataID>
+		<Default></Default>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

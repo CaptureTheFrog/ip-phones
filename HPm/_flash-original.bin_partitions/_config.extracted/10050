@@ -1,0 +1,29 @@
+DataID>Combine_TimeSntp_TimeZone</DataID>
+		<Default></Default>
+		<option text="FakeAll">0</option>
+	    <InputField
+					type = "edit">
+			<Prompt>Primary Server:</Prompt>
+			<DataID>Combine_TimeSntp_PrimaryServer</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "edit">
+			<Prompt>Secondary Server:</Prompt>
+			<DataID>Combine_TimeSntp_SecondaryServer</DataID>
+			<Default></Default>
+	    </InputField>	    
+	    <InputField
+					type = "combox">
+			<Prompt>Daylight Saving:</Prompt>
+			<DataID>Combine_TimeSntp_DaylightSaving</DataID>
+			<option text="Disable">0</option>
+			<option text="Enable">1</option>
+			<option text="Auto">2</option>
+			<Default>0</Default>
+	    </InputField>	    
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

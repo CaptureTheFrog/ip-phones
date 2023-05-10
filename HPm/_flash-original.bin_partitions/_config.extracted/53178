@@ -1,0 +1,72 @@
+[ General ]
+Enable = 0
+Verison = 0
+ResetFactory = 1
+ServerType = 0
+
+[ DeviceInfo ]
+ProvisioningCode = 
+DeviceName = 
+Password = 
+ErrorNumber = 
+LongConnection = 
+Description = 
+LongConnectionAddr = 
+
+[ ManagementServer ]
+URL = 
+Username = 
+Password = 
+PeriodicInformEnable = 
+PeriodicInformInterval = 1800
+PeriodicInformTime = 
+ParameterKey = 
+ConnectionRequestURL = 
+ConnectionRequestUsername = 
+ConnectionRequestPassword = 
+STUNEnable = 0
+STUNServerAddress = 
+STUNServerPort = 
+STUNUsername = 
+STUNPassword = 
+STUNMaximumKeepAlivePeriod = 
+STUNMinimumKeepAlivePeriod = 
+NATDetected = 0
+UDPConnectionRequestAddress = 
+UDPConnectionRequestAddressNotificationLimit = 
+UpgradesManaged = 
+
+
+[ Reboot ]
+CmdKey=
+
+
+[ Download ]
+Enable=
+CmdKey=
+StartTime=
+
+[ UserInfo ]
+SubID = 
+AuthenticationType = 
+
+[ IMSAKA_Ki ]
+KiValue = 
+TemplateID = 
+
+[ IMSAKA_OPc ]
+OPcValue = 
+TemplateID = 
+
+[ IMPU ]
+Priority = 
+Service = 
+Port = 
+
+[ IRS ]
+IMPU = 
+
+[ WildcardedRegInfo ]
+WildcardedGroupID = 
+WildcardedIndication = 
+

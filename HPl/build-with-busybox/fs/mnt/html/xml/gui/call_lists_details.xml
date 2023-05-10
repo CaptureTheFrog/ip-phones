@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneText dtmf="off" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <Title>$(lang:lang_list_details): $(lang:$(var:calllist_title))</Title>
+  <If condition="$(var:calllist_type)!=Parked">
+    <SoftKeyItem>
+      <Name>F1</Name>
+      <Label>F_EDIT</Label>
+      <Url>snom://mb_exit#calllistprepare2dial=$(var:calllist_type),$(lastsel)</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F2</Name>
+      <If condition="$(display_type)==color_touch">
+        <Label>KEY_F_EDIT_ADR_BOOK</Label>
+      </If>
+      <Else>
+        <Label>F_ADD_PHONEBOOK</Label>
+      </Else>
+      <Url>file:///xml/gui/call_lists_list.xml#calllistsave=$(var:calllist_type),$(lastsel)</Url>
+    </SoftKeyItem>
+  </If>
+  <SoftKeyItem>
+    <Name>F3</Name>
+    <Label>F_DELETE</Label>
+    <Url>file:///xml/gui/call_lists_list.xml#calllistdelete=$(var:calllist_type),$(lastsel)</Url>
+  </SoftKeyItem>
+  <If condition="$(display_type)!=color_touch">
+    <SoftKeyItem>
+      <Name>F4</Name>
+      <Label>F_ABORT</Label>
+    </SoftKeyItem>
+  </If>
+  <SoftKeyItem>
+    <Name>ENTER</Name>
+    <Url>snom://mb_exit#calllistdial=$(var:calllist_type),$(lastsel)</Url>
+  </SoftKeyItem>
+  <SoftKeyItem>
+    <Name>OFFHOOK</Name>
+    <Url>snom://mb_exit#calllistdial=$(var:calllist_type),$(lastsel)</Url>
+  </SoftKeyItem>
+  <SoftKeyItem>
+    <Name>SPEAKER</Name>
+    <Url>snom://mb_exit#calllistdial=$(var:calllist_type),$(lastsel)</Url>
+  </SoftKeyItem>
+  <Text>$(call_list_details:$(var:calllist_type),$(lastsel))</Text>
+</SnomIPPhoneText>

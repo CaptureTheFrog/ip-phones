@@ -1,0 +1,302 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>')
+</script>
+<style type="text/css">
+</style>
+<script type='text/javascript'>
+	var rebootflag = 0;
+	var desRebootPage = '/fcgi/do?id=6&id=1';
+	//enum UPGRADE_STATUS_E
+	//{
+	//	UPGRADE_TIMEOUT = -5,
+	//	UPGRADE_TAKING = -4,
+	//	UPGRADE_DUP = -3,
+	//	UPGRADE_FAILED = -2,
+	//	UPGRADE_PREPARED_FAILED = -1,	
+	//	UPGRADE_FINISHED = 0,
+	//	UPGRADE_PREPARED_OK = 1,
+	//	UPGRADE_STATUS_MAX
+	//};
+	var check=function(e, destURL){	e = e||window.event;
+																	if((e.which||e.keyCode)==116)
+																	{ 
+																		if(e.preventDefault){ e.preventDefault();	}  
+																		else{ event.keyCode = 0;	e.returnValue=false;	}
+																	}}
+
+function LoadCfg()
+{
+	var f2 = document.forms["hiddenValForm"];
+	LoadLang();
+	DelayShow();
+	if(document.getElementById("hcWebDisabledFlag"))
+	{
+		if(1 == document.getElementById("hcWebDisabledFlag").value)
+		{
+			document.getElementById("tPhoneUsingStatus").innerHTML = document.getElementById("tHelpContent").innerHTML = WebDisabledWarning;
+			return;
+		}
+	}
+	if(1 == f2.hcPhoneUsing.value)
+	{
+		setTimeout("JumpEncodeURL()", 2500);
+		document.getElementById("tPhoneUsingStatus").innerHTML = PhoneTalkingWarning;
+		document.getElementById("tHelpContent").innerHTML = PhoneTalkingWarning;
+	}
+	else if(2 == f2.hcPhoneUsing.value)
+	{
+		//setTimeout("Relocate('/fcgi/do?id=1')", 90000);
+		ReStartCheckUpgrade();
+		interObj[1] = setInterval("LongCheckStatus('divUpgradeStatus')", 4000);
+		document.getElementById("tPhoneUsingStatus").innerHTML = PhoneUpgradingWarning;
+	}
+	else if(4 == f2.hcPhoneUsing.value)
+	{
+		//setTimeout("Relocate('/fcgi/do?id=1')", 90000);
+		ReStartCheckUpgrade();
+		interObj[1] = setInterval("LongCheckStatus('divUpgradeStatus')", 4000);
+		document.getElementById("tPhoneUsingStatus").innerHTML = AUTOPGoingOnWarning;
+	}
+	else if(5 == f2.hcPhoneUsing.value)
+	{
+		// 101 timeout=0
+		var t=1500;
+		if(!document.getElementById("hcUploadFileResult") || f2.hcUploadFileResult.value != 100)
+		{
+			if(101 == f2.hcUploadFileResult.value){t=0};		
+			setTimeout("JumpToURLWithRand()", t);
+			document.getElementById("tPhoneUsingStatus").innerHTML = ProcessNotice;
+		}
+		else
+		{
+			document.getElementById("tPhoneUsingStatus").innerHTML = RebootingWithSucWarning;
+			desRebootPage = "/fcgi/do?"+ShowDecode(document.getElementById("hcDestURL").value);
+			setTimeout("OnReboot()", 2000);
+		}
+	}
+	else if(3 == f2.hcPhoneUsing.value)
+	{
+		setTimeout("ReStartCheckUpgrade()", 2000);
+		document.getElementById("tableReboot").style.display = "";
+		var tmp = "";
+		if(-5 == f2.hcPhoneUpgradeFaildReason.value)
+		{
+			tmp = UploadTimeOutWarning;
+		}
+		else if(-3 == f2.hcPhoneUpgradeFaildReason.value)
+		{
+			tmp = ROMDuplicatedWarning;
+		}
+		else if(-1 == f2.hcPhoneUpgradeFaildReason.value)
+		{
+			tmp = CheckingROMFailedWarning;
+		}
+		var testHTML = UpgradeFailedWarning+" <br>" + tmp;
+		if(-6 == f2.hcPhoneUpgradeFaildReason.value) testHTML = WarningUploadFailed + " <br>" + tmp;
+		document.getElementById("tPhoneUsingStatus").innerHTML = testHTML;
+	}
+	else
+	{
+		document.getElementById("tPhoneUsingStatus").innerHTML = Unknown;
+		setTimeout("Relocate('/fcgi/do?id=1')", 500);
+	}
+}
+
+function JumpURL()
+{
+	Relocate("/fcgi/do?"+document.getElementById("hcDestURL").value);
+}
+
+function JumpEncodeURL()
+{
+	Relocate("/fcgi/do?"+ShowDecode(document.getElementById("hcDestURL").value));
+}
+
+function JumpToURLWithRand()
+{
+	var destURL = "/fcgi/do?"+ShowDecode(document.getElementById("hcDestURL").value);
+	if(document.getElementById("hcReturnBackRand"))
+	{
+		Relocate(destURL, document.getElementById("hcReturnBackRand").value);
+	}
+	else
+	{
+		Relocate(destURL, GetRandNum());
+	}
+}
+
+function LoadLang()
+{
+	document.getElementById("failedReboot").value = RebootLabel;
+	document.getElementById("tHelp").innerHTML = Help;
+	//document.getElementById("tHelpContent").innerHTML = PhoneIsBusyWarning;
+	AttachKeyEvent();
+	return;
+}
+var RebootForceFlag = false;
+function OnReboot_Force()
+{
+	RebootForceFlag = true;
+	document.getElementById("tableReboot").style.display = "none";
+	OnRebootCom('do?id=9&id=1&Operation=ForceReboot');
+}
+
+function OnReboot()
+{
+	document.getElementById("tableReboot").style.display = "none";
+	OnRebootCom();
+	setTimeout("Relocate(desRebootPage)", 68000);
+}
+
+function DoRebootConflict()
+{
+	document.getElementById("tPhoneUsingStatus").innerHTML = PhoneTalkingNoRebootWarning;
+	setTimeout("JumpToURLWithRand()", 2500);
+}
+
+function DoRebootNotConflict()
+{
+	if(RebootingWithSucWarning != document.getElementById("tPhoneUsingStatus").innerHTML)
+	{document.getElementById("tPhoneUsingStatus").innerHTML = RebootingWarning;}
+	return;
+}
+
+function ReStartCheckReboot()
+{
+	if(true == RebootForceFlag)
+	{
+		return;
+	}
+	setTimeout("StatusCheck('divRebootStatus')", 3000);
+}
+
+function ReStartCheckUpgrade()
+{
+	setTimeout("StatusCheck('divUpgradeStatus')", 3000);
+}
+
+function StatusCheck(strDivName)
+{
+	var desURL = 'do?id=6&id=1&Operation=GetDivContent&DivName=' + strDivName;
+	$.ajax({
+		url: desURL,
+		cache: false,
+		success: function(html){
+			ResetNotGetResponse();
+			if("" == html)
+			{
+				//clearInterval(RebootCheckObj);
+				if(strDivName == "divRebootStatus")
+				{					
+					ReStartCheckReboot();
+				}
+				else if(strDivName == "divUpgradeStatus")
+				{
+					ReStartCheckUpgrade();
+				}
+				return;
+			}
+			
+			if(strDivName == "divRebootStatus")
+			{
+				OnStsActOfReboot(html);
+				ReStartCheckReboot()
+			}
+			else if(strDivName == "divUpgradeStatus")
+			{
+				OnStsActOfUpgrade(html);
+				ReStartCheckUpgrade();
+			}
+		},
+		error: function(html){
+			//clearInterval(RebootCheckObj);
+			ResetNotGetResponse();
+			if(strDivName == "divRebootStatus")
+			{
+				ReStartCheckReboot();
+			}
+			else if(strDivName == "divUpgradeStatus")
+			{
+				ReStartCheckUpgrade();
+			}
+		}
+	});
+}
+
+function OnStsActOfReboot(html)
+{
+	$("#divRebootStatus").append(html);
+	if(document.getElementById("hcRebootStatus_Div") && 
+	document.getElementById("hcRebootStatus_Div").value == 0)
+	{
+		SetPageCookie();
+		if(0 == rebootflag)
+		{
+			rebootflag = 1;
+			setTimeout("Relocate(desRebootPage)", 7000);
+		}
+	}
+	ResetDivInnerHTML("divRebootStatus");
+}
+
+function OnStsActOfUpgrade(html)
+{
+	if('/fcgi/do?id=6&id=1' != desRebootPage)
+	{
+		return;
+	}
+	var tmpIdx = html.indexOf("<body onLoad='LoadCfg()'>");
+	if(-1 != tmpIdx)
+	{return;}
+	ResetDivInnerHTML("divUpgradeStatus");
+	$("#divUpgradeStatus").append(html);
+	if(document.getElementById("hcStatus_Div") && 
+	document.getElementById("hcStatus_Div").value == 0)
+	{
+		SetPageCookie();
+		if(0 == rebootflag)
+		{
+			rebootflag = 1;
+			setTimeout("JumpToURLWithRand()", 7000);
+		}
+	}
+	ResetDivInnerHTML("divUpgradeStatus");
+}
+</script>
+<body onLoad="LoadCfg()">
+<form name="body_form">
+<div class="headline"></div>
+<div class="phone1">
+	<div class="top"></div>
+	<div class="head"></div>
+	<div class="main">
+		<div id="leftMenu" class="left"><div id="wrapper"><ul class="menu"></ul></div></div>
+				
+		<div class="corner"></div>
+		<div id="divForceReboot" style="display:none"></div>
+		<div id="divRebootStatus" style="display:none"></div>
+		<div id="divUpgradeStatus" style="display:none"></div>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"></div>
+    	<div class="mid_cont" style="text-align: center; font-size: 25px">
+    	<table align="center" height="150">
+				<tr style="text-align: center;"><td style="text-align: center;"><strong id="tPhoneUsingStatus"></strong></td></tr>
+			</table>
+    	<table id="tableReboot" style="display:none; text-align: center" align="center" >
+				<tr style="text-align: center"><td><input type="button" id="failedReboot" name="failedReboot" value="Submit" onClick ="OnReboot_Force()"></td></tr>
+			</table>
+			</div>
+		</div>
+		<div class="right">
+			<div class="right_top"><label id="tHelp"></label></div>
+			<div id="rightHelpCont" class="right_cont">&nbsp&nbsp <label id="tHelpContent"></label></div>
+		</div>
+	<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"></div>		
+	</div>	
+</div>
+</form>
+<FCGI_INCLUDE FILE=bottom.html>

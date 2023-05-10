@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Message>
+    <InboxData Total="0" Unread="0" />
+    <OutboxData Total="0" Draft="0" Sent="0" Out="0" />
+    <SentboxData Total="2">
+        <Sentbox ID="1" FromDisplay="" FromUser="207" Server="192.168.32.1" Port="5060" ToDisplay="" ToUser="2 " Content="2 " Status="0" Date="03/27/2023" Time="15:52:27" />
+        <Sentbox ID="2" FromDisplay="" FromUser="207" Server="192.168.32.1" Port="5060" ToDisplay="" ToUser="200" Content="200" Status="0" Date="03/27/2023" Time="15:52:43" />
+    </SentboxData>
+</Message>

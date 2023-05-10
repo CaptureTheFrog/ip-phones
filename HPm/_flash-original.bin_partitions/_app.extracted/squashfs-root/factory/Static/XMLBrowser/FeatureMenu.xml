@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        LockIn="no">
+  <title wrap="no" showlistcount="yes">Features</title>
+	<MenuItem><Prompt>Call Forward</Prompt><URI>local://app/factory/Static/XMLBrowser/ForwardFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>Call Waiting</Prompt><URI>local://app/factory/Static/XMLBrowser/WaitingFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>Auto Redial</Prompt><URI>local://app/factory/Static/XMLBrowser/RedialFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>DND Code</Prompt><URI>local://app/factory/Static/XMLBrowser/DNDMenu.xml</URI></MenuItem>
+	<MenuItem><Prompt>Programmable Keys</Prompt><URI>local_real://KeyTypeMenuDlg</URI></MenuItem>
+	<MenuItem><Prompt>Hot Line</Prompt><URI>local://app/factory/Static/XMLBrowser/HotlineFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>Intercom</Prompt><URI>local://app/factory/Static/XMLBrowser/IntercomFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>Key As Send</Prompt><URI>local://app/factory/Static/XMLBrowser/KeySendFeature.xml</URI></MenuItem>
+	<MenuItem><Prompt>Call Completion</Prompt><URI>local://app/factory/Static/XMLBrowser/CallCompFeature.xml</URI></MenuItem>
+
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

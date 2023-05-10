@@ -1,0 +1,265 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<script type="text/javascript">
+	var ThisPage = "";
+	document.write('<script src="../js/version.js?ver=' + Math.random() + '"></s' + 'cript>');
+</script>
+<script type="text/javascript">
+	function DoF5Jump()
+	{
+		Relocate("do?id=888");
+	}
+	
+	var PageRefDesURL = 'do?id=888';	
+	var tmpVar = ["cHandFreeSendMidVol", "cHandFreeRecMidVol" , "cHandFreeToneMidVol" ,
+								"cHeadsetSendMidVol", "cHeadsetRecMidVol", "cHeadsetToneMidVol",
+								"cHandSetSendMidVol", "cHandSetRecMidVol", "cHandSetToneMidVol"];	
+	
+	function LoadCfg()
+	{
+		LoadLang();
+		var hiddenHtml;
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		for(var i = 4;i <= 12; i ++)
+		{
+			f1.cContrast.options.add(new Option(i, i));
+		}
+		DelayShow();
+		SubLoadCfg();
+	}
+	
+	function LoadLang()
+	{
+		var tmp = HiddenPage;
+		LoadCommonResources(tmp);
+		document.getElementById("tHandFree").innerHTML = HandFree;
+		document.getElementById("tHandFreeSendMidVol").innerHTML = SendMidVol;
+		document.getElementById("tHandFreeRecMidVol").innerHTML = RecMidVol;
+		document.getElementById("tHandFreeToneMidVol").innerHTML = ToneMidVol;
+		
+		document.getElementById("tHeadset").innerHTML = Headset;
+		document.getElementById("tHeadsetSendMidVol").innerHTML = SendMidVol;
+		document.getElementById("tHeadsetRecMidVol").innerHTML = RecMidVol;
+		document.getElementById("tHeadsetToneMidVol").innerHTML = ToneMidVol;
+		
+		document.getElementById("tHandSet").innerHTML = HandSet;
+		document.getElementById("tHandSetSendMidVol").innerHTML = SendMidVol;
+		document.getElementById("tHandSetRecMidVol").innerHTML = RecMidVol;
+		document.getElementById("tHandSetToneMidVol").innerHTML = ToneMidVol;	
+		document.getElementById("tContrastTitle").innerHTML = LCDContrast;
+		document.getElementById("tContrastLabel").innerHTML = LCDContrast;
+		
+		return;
+	}
+
+	function SubLoadCfg()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		f2.hcHandFreeSendMidVol.value = TransEmptyStrTo(f2.hcHandFreeSendMidVol.value , "15")
+		f1.cHandFreeSendMidVol.value = f2.hcHandFreeSendMidVol.value;
+		f2.hcHandFreeRecMidVol.value = TransEmptyStrTo(f2.hcHandFreeRecMidVol.value , "15")
+		f1.cHandFreeRecMidVol.value = f2.hcHandFreeRecMidVol.value;
+		f2.hcHandFreeToneMidVol.value = TransEmptyStrTo(f2.hcHandFreeToneMidVol.value , "15")
+		f1.cHandFreeToneMidVol.value = f2.hcHandFreeToneMidVol.value;
+		
+		f2.hcHeadsetSendMidVol.value = TransEmptyStrTo(f2.hcHeadsetSendMidVol.value , "15")
+		f1.cHeadsetSendMidVol.value = f2.hcHeadsetSendMidVol.value;
+		f2.hcHeadsetRecMidVol.value = TransEmptyStrTo(f2.hcHeadsetRecMidVol.value , "15")
+		f1.cHeadsetRecMidVol.value = f2.hcHeadsetRecMidVol.value;
+		f2.hcHeadsetToneMidVol.value = TransEmptyStrTo(f2.hcHeadsetToneMidVol.value , "15")
+		f1.cHeadsetToneMidVol.value = f2.hcHeadsetToneMidVol.value;
+		
+		f2.hcHandSetSendMidVol.value = TransEmptyStrTo(f2.hcHandSetSendMidVol.value , "15")
+		f1.cHandSetSendMidVol.value = f2.hcHandSetSendMidVol.value;
+		f2.hcHandSetRecMidVol.value = TransEmptyStrTo(f2.hcHandSetRecMidVol.value , "15")
+		f1.cHandSetRecMidVol.value = f2.hcHandSetRecMidVol.value;
+		f2.hcHandSetToneMidVol.value = TransEmptyStrTo(f2.hcHandSetToneMidVol.value , "15")
+		f1.cHandSetToneMidVol.value = f2.hcHandSetToneMidVol.value;
+		
+		f2.hcContrast.value = TransEmptyStrTo(f2.hcContrast.value , "8")
+		f1.cContrast.value = f2.hcContrast.value;
+		
+		ResetAllInputColor();
+	}
+	
+	function ResetAllInputColor()
+	{
+		var f1 = document.forms["body_form"];
+		for(var i = 0; i < f1.length; i ++)
+		{
+			if("text" == f1.elements[i].type || "password" == f1.elements[i].type )
+			{
+				f1.elements[i].style.backgroundColor = "";
+				f1.elements[i].onclick = function () { return onInputEdit(this.id); };	
+				f1.elements[i].onfocus = function () { return onInputEdit(this.id); };	
+			}	
+			document.getElementById("WarningDiv").innerHTML = "";
+		}
+	}
+	
+	$(function() { SetPageMenuAction("#aMenu1", "tMenu11");});
+	
+	function CheckCommitData()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var strSubmData = "";
+		var ErrFlag = false;
+		var NeedReboot = false;
+		 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value, tmpID) 
+						|| !(IsAnInterger(document.getElementById(tmpID).value))
+						|| !(Number(document.getElementById(tmpID).value) >= 13 && Number(document.getElementById(tmpID).value) <= 23))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				if("" == document.getElementById(tmpID).value)
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+					document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+				}
+				NeedReboot = true;
+				strSubmData = strSubmData + "&" + tmpID + "=" + document.getElementById(tmpID).value;	
+			}	
+		}
+		
+		if(f1.cContrast.value != f2.hcContrast.value)
+		{
+			NeedReboot = true;
+			strSubmData = strSubmData + "&cContrast" + "=" + f1.cContrast.value;
+		}
+		
+		if(true == ErrFlag)
+		{
+			return DataCheckResult;
+		}
+		else
+		{
+			if(true == NeedReboot)
+			{strSubmData = "&NeedReboot=1"+strSubmData; NeedReboot=false;}
+		}
+		return strSubmData;
+	}
+
+	function OnSubmitWithWarn()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var tmpRes = CheckCommitData();
+		var ErrFlag = false;
+		var NeedReboot = false;	
+						 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				NeedReboot = true;
+			}	
+		}
+		if(f1.cContrast.value != f2.hcContrast.value)   NeedReboot = true;
+
+		if(DataCheckResult != tmpRes && true == NeedReboot)
+		{
+			NeedReboot = false;
+			if(!confirm(ConfigChange+ ":" + EffectAfterRebootWarning))
+			{
+				return;
+			}
+		}
+		OnSubmit();
+	}
+	function CheckDataChanged()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var dataChangedWarnFlag = 0;	
+						 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				dataChangedWarnFlag = 1;
+			}	
+		}
+		if(f1.cContrast.value != f2.hcContrast.value)   dataChangedWarnFlag = 1;
+
+		if( 0 == dataChangedWarnFlag)
+		{
+			Relocate(destURL);
+			return false;
+		}
+		if(!confirm(SavePageConfirm))
+		{
+			return false;
+		}
+		else
+		{
+			Relocate(destURL);
+			return false;
+		}
+	}
+</script>
+<body onLoad="LoadCfg()">
+	<div class="headline"></div>
+	<div class="phone1">
+		<FCGI_INCLUDE FILE=top.html>
+			<div class="main">
+			<FCGI_INCLUDE FILE=left.html>
+				<div id="midWhole" class="mid">
+					<div class="mid_top"><label id="tInnerTitle"></label></div>
+					<div class="mid_cont" id="mid_cont1"></div>
+					<div class="mid_cont" id="mid_cont2" style="display:none;">
+						<form name="body_form">
+							<table id="tableVolumeSetting">
+								<tr><td class="First_td"><label  id='tHandFree'></label></td></tr>
+								<tr><td class="Second_td"><label id='tHandFreeSendMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" id="cHandFreeSendMidVol" name="cHandFreeSendMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHandFreeRecMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHandFreeRecMidVol" id="cHandFreeRecMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHandFreeToneMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHandFreeToneMidVol" id="cHandFreeToneMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								
+								<tr><td class="First_td"><label  id='tHeadset'></label></td></tr>
+								<tr><td class="Second_td"><label id='tHeadsetSendMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHeadsetSendMidVol" id="cHeadsetSendMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHeadsetRecMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHeadsetRecMidVol" id="cHeadsetRecMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHeadsetToneMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHeadsetToneMidVol" id="cHeadsetToneMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								
+								<tr><td class="First_td"><label  id='tHandSet'></label></td></tr>
+								<tr><td class="Second_td"><label id='tHandSetSendMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHandSetSendMidVol" id="cHandSetSendMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHandSetRecMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHandSetRecMidVol" id="cHandSetRecMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								<tr><td class="Second_td"><label id='tHandSetToneMidVol'></label></td><td class="Third_td"><input class="def_input" type="text" name="cHandSetToneMidVol" id="cHandSetToneMidVol" value="" />&nbsp&nbsp(13~23)</td></tr>
+								
+								<tr><td class="First_td"><label  id='tContrastTitle'></label></td></tr>
+								<tr><td class="Second_td"><label id='tContrastLabel'></label></td><td class="Third_td"><select class="Select_format1" name="cContrast" id="cContrast" value=""></select></td></tr>
+							</table>
+						</form>
+						<form method="post" name="submit_form" id="submit_form" action="">
+							<div align = "center">
+								<table width="70%" style="text-align:center">
+									<br />
+									<input type="hidden" name="SubmitData" value="" />
+									<tr>
+										<td><input id="PageSubmit" name= "PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick = "OnSubmitWithWarn()"></td>
+										<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td>
+									</tr>
+								</table>
+							</div>	
+						</form>
+					</div>
+				</div>
+		<FCGI_INCLUDE FILE=help.html>
+		<FCGI_INCLUDE FILE=rightMir.html>
+		</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

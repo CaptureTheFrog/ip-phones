@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="ipaddr" defaultIndex="1" style="none" Timeout="0" LockIn="no" LocalData="yes" CombineData="Router" InputType="123">
+    <Title showlistcount="yes">Router Setting</Title>
+    <Prompt>IP</Prompt>
+    <DataID>Combine_Router_IPAddr</DataID>
+    <Default />
+    <InputField type="ipaddr">
+        <Prompt>Subnet Mask:</Prompt>
+        <DataID>Combine_Router_SubnetMask</DataID>
+        <Default />
+        <option text="Disable" />
+    </InputField>
+    <InputField type="combox" password="no">
+        <Prompt>DHCP Server:</Prompt>
+        <DataID>Combine_Router_DHCPServer</DataID>
+        <option text="Disable">0</option>
+        <option text="Enable">1</option>
+        <Default>0</Default>
+    </InputField>
+    <InputField type="ipaddr">
+        <Prompt>Start IP:</Prompt>
+        <DataID>Combine_Router_StartIP</DataID>
+        <Default />
+    </InputField>
+    <InputField type="ipaddr">
+        <Prompt>End IP:</Prompt>
+        <DataID>Combine_Router_EndIP</DataID>
+        <Default />
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label>123</Label>
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label>Delete</Label>
+    <URI>SoftKey:BackSpace</URI>
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

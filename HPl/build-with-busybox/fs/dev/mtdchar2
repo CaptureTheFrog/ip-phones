@@ -1,0 +1,6 @@
+#!/bin/bash
+
+/inca_scripts/incadsp start
+/inca_scripts/incaport start
+/inca_scripts/incakey start
+/inca_scripts/incaled start inv=1

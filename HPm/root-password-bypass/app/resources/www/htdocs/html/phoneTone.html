@@ -1,0 +1,593 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+function DoF5Jump()
+{
+	Relocate('do?id=4&id=6');
+}
+var PageRefDesURL = 'do?id=4&id=6';
+var MaxID = 26;
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrCountryList = f2.hcTonesCountryList.value.split(SplitSymbol);
+	var tCountryNum = f2.hcTonesCountryNum.value;
+	f1.cSelectCountry.options.add(new Option(Custom, 0));
+	for(var i=1; i < tCountryNum; i++)
+	{
+		f1.cSelectCountry.options.add(new Option(arrCountryList[2*i+1], arrCountryList[2*i]));
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+}
+
+function SubLoadCfg()
+{	
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];	
+	f1.cSelectCountry.value = f2.hcSelectCountry.value;
+	if(f1.cSelectCountry.value == 0)
+	{
+		f1.cDial.value = f2.hcDial.value;
+		f1.cCallWaiting.value = f2.hcCallWaiting.value;
+		f1.cRingBack.value = f2.hcRingBack.value;
+	}
+	else
+	{
+		f1.cDial.value = "";
+		f1.cCallWaiting.value = "";
+		f1.cRingBack.value = "";
+	}
+	f1.cBusy.value = f2.hcBusy.value;
+	f1.cCongestion.value = f2.hcCongestion.value;
+	f1.cDTMF0.value = f2.hcDTMF0.value;
+	f1.cDTMF1.value = f2.hcDTMF1.value;
+	f1.cDTMF2.value = f2.hcDTMF2.value;
+	f1.cDTMF3.value = f2.hcDTMF3.value;
+	f1.cDTMF4.value = f2.hcDTMF4.value;
+	f1.cDTMF5.value = f2.hcDTMF5.value;
+	f1.cDTMF6.value = f2.hcDTMF6.value;
+	f1.cDTMF7.value = f2.hcDTMF7.value;
+	f1.cDTMF8.value = f2.hcDTMF8.value;
+	f1.cDTMF9.value = f2.hcDTMF9.value;
+	f1.cDTMFA.value = f2.hcDTMFA.value;
+	f1.cDTMFB.value = f2.hcDTMFB.value;
+	f1.cDTMFC.value = f2.hcDTMFC.value;
+	f1.cDTMFD.value = f2.hcDTMFD.value;
+	f1.cDTMFPound.value = f2.hcDTMFPound.value;
+	f1.cDTMFStar.value = f2.hcDTMFStar.value;
+	f1.cDisConnect.value = f2.hcDisConnect.value;
+	f1.cRecord.value = f2.hcRecord.value;
+	f1.cSpecialDial.value = f2.hcSpecialDial.value;
+	f1.cSpecialInfo.value = f2.hcSpecialInfo.value;
+	f1.cStutterDial.value = f2.hcStutterDial.value;
+	ResetAllInputColorById(MaxID);
+	SetValuesEnabledOrNot();
+	
+	// 提交数据出错之后回来页面的处理
+	if(-1 == f2.hcToneResult.value)
+	{
+		arrToneResultNames = f2.hcToneResultName.value.split(SplitSymbol);
+		arrErrResNameValue = f2.hcerrToneResultNameValue.value.split(SplitSymbol);
+		for(var i=0; i < arrErrResNameValue.length; i++)
+		{
+			var arrTmp = arrErrResNameValue[i].split("=");
+			(document.getElementsByName(arrTmp[0]))[0].value = arrTmp[1];
+		}
+		SetValuesEnabledOrNot();
+		for(var i=0; i < arrToneResultNames.length; i++)
+		{
+			SetInputBGColor(arrToneResultNames[i]);
+		}
+		alert(DataFormatWarning);
+	}
+	f2.hcToneResult.value = "";
+}
+
+function LoadLang()
+{
+	LoadCommonResources(Tone);
+	document.getElementById("tSelectCountry").innerHTML = SelectCountry;
+	document.getElementById("tBusy").innerHTML = Busy;
+	document.getElementById("tRingBack").innerHTML = RingBack;
+	document.getElementById("tCongestion").innerHTML = Congestion;
+	document.getElementById("tDial").innerHTML = Dial;
+	document.getElementById("tDisConnect").innerHTML = Disconnect;
+	
+	document.getElementById("tCallWaiting").innerHTML = CallWaiting;
+	document.getElementById("tRecord").innerHTML = Record;
+	document.getElementById("tSpecialDial").innerHTML = SpecialDial;
+	document.getElementById("tSpecialInfo").innerHTML = SpecialInformation;
+	document.getElementById("tStutterDial").innerHTML = StutterDial;
+	document.getElementById("pageDescription").innerHTML = PhonToneInfo1
+																													+"<br>"
+																													+PhonToneInfo2
+																													+"<br>freq1[(amp1)][+freq2[(amp2)]][+freq3[(amp3)]][+freq4[(amp4)]][/duration]<br>[,freq1[(amp1)][+freq2[(amp2)]][+freq3[(amp3)]][+freq4[(amp4)]][/duration]]";
+	
+	for(var i=0; i < 10; i++)
+	{
+		var tmpObjName = "tDTMF"+i;
+		document.getElementById(tmpObjName).innerHTML = "DTMF "+(i);
+	}
+	document.getElementById("tDTMFA").innerHTML = "DTMF A";
+	document.getElementById("tDTMFB").innerHTML = "DTMF B";
+	document.getElementById("tDTMFC").innerHTML = "DTMF C";
+	document.getElementById("tDTMFD").innerHTML = "DTMF D";
+	document.getElementById("tDTMFStar").innerHTML = "DTMF *";
+	document.getElementById("tDTMFPound").innerHTML = "DTMF #";
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	
+	if(f1.cSelectCountry.value != f2.hcSelectCountry.value)
+	{
+//		if(!NotContainInvalid(f1.cSelectCountry.value))
+//		{
+//			SetInputBGColor("cSelectCountry");
+//			ErrFlag = true;
+//		}
+		if("" == f2.hcSelectCountry.value && 0 == f1.cSelectCountry.value)
+		{}
+		else
+		{strSubmData = strSubmData + "&cSelectCountry=" + f1.cSelectCountry.value;}
+	}
+	
+	if(f1.cBusy.value != f2.hcBusy.value)
+	{
+		if(!NotContainInvalid(f1.cBusy.value))
+		{
+			SetInputBGColor("cBusy");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cBusy=" + PostEncode(f1.cBusy.value);
+	}
+	if((f1.cCallWaiting.value != f2.hcCallWaiting.value) && (f1.cSelectCountry.value == 0))
+	{
+		if(!NotContainInvalid(f1.cCallWaiting.value))
+		{
+			SetInputBGColor("cCallWaiting");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cCallWaiting=" + PostEncode(f1.cCallWaiting.value);
+	}
+	if(f1.cCongestion.value != f2.hcCongestion.value)
+	{
+		if(!NotContainInvalid(f1.cCongestion.value))
+		{
+			SetInputBGColor("cCongestion");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cCongestion=" + PostEncode(f1.cCongestion.value);
+	}
+	if(f1.cDTMF0.value != f2.hcDTMF0.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF0.value))
+		{
+			SetInputBGColor("cDTMF0");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF0=" + PostEncode(f1.cDTMF0.value);
+	}
+	if(f1.cDTMF1.value != f2.hcDTMF1.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF1.value))
+		{
+			SetInputBGColor("cDTMF1");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF1=" + PostEncode(f1.cDTMF1.value);
+	}
+	if(f1.cDTMF2.value != f2.hcDTMF2.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF2.value))
+		{
+			SetInputBGColor("cDTMF2");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF2=" + PostEncode(f1.cDTMF2.value);
+	}
+	if(f1.cDTMF3.value != f2.hcDTMF3.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF3.value))
+		{
+			SetInputBGColor("cDTMF3");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF3=" + PostEncode(f1.cDTMF3.value);
+	}
+	if(f1.cDTMF4.value != f2.hcDTMF4.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF4.value))
+		{
+			SetInputBGColor("cDTMF4");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF4=" + PostEncode(f1.cDTMF4.value);
+	}
+	if(f1.cDTMF5.value != f2.hcDTMF5.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF5.value))
+		{
+			SetInputBGColor("cDTMF5");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF5=" + PostEncode(f1.cDTMF5.value);
+	}
+	if(f1.cDTMF6.value != f2.hcDTMF6.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF6.value))
+		{
+			SetInputBGColor("cDTMF6");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF6=" + PostEncode(f1.cDTMF6.value);
+	}
+	if(f1.cDTMF7.value != f2.hcDTMF7.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF7.value))
+		{
+			SetInputBGColor("cDTMF7");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF7=" + PostEncode(f1.cDTMF7.value);
+	}
+	if(f1.cDTMF8.value != f2.hcDTMF8.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF8.value))
+		{
+			SetInputBGColor("cDTMF8");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF8=" + PostEncode(f1.cDTMF8.value);
+	}
+	if(f1.cDTMF9.value != f2.hcDTMF9.value)
+	{
+		if(!NotContainInvalid(f1.cDTMF9.value))
+		{
+			SetInputBGColor("cDTMF9");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMF9=" + PostEncode(f1.cDTMF9.value);
+	}
+	if(f1.cDTMFA.value != f2.hcDTMFA.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFA.value))
+		{
+			SetInputBGColor("cDTMFA");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMFA=" + PostEncode(f1.cDTMFA.value);
+	}
+	if(f1.cDTMFB.value != f2.hcDTMFB.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFB.value))
+		{
+			SetInputBGColor("cDTMFB");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMFB=" + PostEncode(f1.cDTMFB.value);
+	}
+	if(f1.cDTMFC.value != f2.hcDTMFC.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFC.value))
+		{
+			SetInputBGColor("cDTMFC");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMFC=" + PostEncode(f1.cDTMFC.value);
+	}
+	if(f1.cDTMFD.value != f2.hcDTMFD.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFD.value))
+		{
+			SetInputBGColor("cDTMFD");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDTMFD=" + PostEncode(f1.cDTMFD.value);
+	}
+	if(f1.cDTMFPound.value != f2.hcDTMFPound.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFPound.value))
+		{
+			SetInputBGColor("cDTMFPound");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMFPound=" + PostEncode(f1.cDTMFPound.value);
+	}
+	if(f1.cDTMFStar.value != f2.hcDTMFStar.value)
+	{
+		if(!NotContainInvalid(f1.cDTMFStar.value))
+		{
+			SetInputBGColor("cDTMFStar");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDTMFStar=" + PostEncode(f1.cDTMFStar.value);
+	}
+	if((f1.cDial.value != f2.hcDial.value) && (f1.cSelectCountry.value == 0))
+	{
+		if(!NotContainInvalid(f1.cDial.value))
+		{
+			SetInputBGColor("cDial");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDial=" + PostEncode(f1.cDial.value);
+	}
+	if(f1.cDisConnect.value != f2.hcDisConnect.value)
+	{
+		if(!NotContainInvalid(f1.cDisConnect.value))
+		{
+			SetInputBGColor("cDisConnect");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDisConnect=" + PostEncode(f1.cDisConnect.value);
+	}
+	if(f1.cRecord.value != f2.hcRecord.value)
+	{
+		if(!NotContainInvalid(f1.cRecord.value))
+		{
+			SetInputBGColor("cRecord");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cRecord=" + PostEncode(f1.cRecord.value);
+	}
+	if((f1.cRingBack.value != f2.hcRingBack.value) && (f1.cSelectCountry.value == 0))
+	{
+		if(!NotContainInvalid(f1.cRingBack.value))
+		{
+			SetInputBGColor("cRingBack");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cRingBack=" + PostEncode(f1.cRingBack.value);
+	}
+	if(f1.cSpecialDial.value != f2.hcSpecialDial.value)
+	{
+		if(!NotContainInvalid(f1.cSpecialDial.value))
+		{
+			SetInputBGColor("cSpecialDial");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cSpecialDial=" + PostEncode(f1.cSpecialDial.value);
+	}
+	if(f1.cSpecialInfo.value != f2.hcSpecialInfo.value)
+	{
+		if(!NotContainInvalid(f1.cSpecialInfo.value))
+		{
+			SetInputBGColor("cSpecialInfo");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cSpecialInfo=" + PostEncode(f1.cSpecialInfo.value);
+	}
+	if(f1.cStutterDial.value != f2.hcStutterDial.value)
+	{
+		if(!NotContainInvalid(f1.cStutterDial.value))
+		{
+			SetInputBGColor("cStutterDial");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cStutterDial=" + PostEncode(f1.cStutterDial.value);
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function DoChangeCountrySelect()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	SetValuesEnabledOrNot();
+	
+	if(f1.cSelectCountry.value != 0)
+	{
+		//ResetAllValues();
+		OnSubmit();
+	}
+	else
+	{
+		f1.cDial.value = f2.hcDial.value;
+		f1.cCallWaiting.value = f2.hcCallWaiting.value;
+		f1.cRingBack.value = f2.hcRingBack.value;
+	}
+}
+
+function SetValuesEnabledOrNot()
+{
+	var f1 = document.forms["body_form"];
+	if(f1.cSelectCountry.value != 0)
+	{
+		setDisabled(f1.cBusy, true);
+		setDisabled(f1.cCallWaiting, true);
+		setDisabled(f1.cCongestion, true);
+		setDisabled(f1.cDTMF0, true);
+		setDisabled(f1.cDTMF1, true);
+		setDisabled(f1.cDTMF2, true);
+		setDisabled(f1.cDTMF3, true);
+		setDisabled(f1.cDTMF4, true);
+		setDisabled(f1.cDTMF5, true);
+		setDisabled(f1.cDTMF6, true);
+		setDisabled(f1.cDTMF7, true);
+		setDisabled(f1.cDTMF8, true);
+		setDisabled(f1.cDTMF9, true);
+		setDisabled(f1.cDTMFA, true);
+		setDisabled(f1.cDTMFB, true);
+		setDisabled(f1.cDTMFC, true);
+		setDisabled(f1.cDTMFD, true);
+		setDisabled(f1.cDTMFPound, true);
+		setDisabled(f1.cDTMFStar, true);
+		setDisabled(f1.cDial, true);
+		setDisabled(f1.cDisConnect, true);
+		setDisabled(f1.cRecord, true);
+		setDisabled(f1.cRingBack, true);
+		setDisabled(f1.cSpecialDial, true);
+		setDisabled(f1.cSpecialInfo, true);
+		setDisabled(f1.cStutterDial, true);
+	}
+	else
+	{
+		setDisabled(f1.cBusy, false);
+		setDisabled(f1.cCallWaiting, false);
+		setDisabled(f1.cCongestion, false);
+		setDisabled(f1.cDTMF0, true);
+		setDisabled(f1.cDTMF1, true);
+		setDisabled(f1.cDTMF2, true);
+		setDisabled(f1.cDTMF3, true);
+		setDisabled(f1.cDTMF4, true);
+		setDisabled(f1.cDTMF5, true);
+		setDisabled(f1.cDTMF6, true);
+		setDisabled(f1.cDTMF7, true);
+		setDisabled(f1.cDTMF8, true);
+		setDisabled(f1.cDTMF9, true);
+		setDisabled(f1.cDTMFA, true);
+		setDisabled(f1.cDTMFB, true);
+		setDisabled(f1.cDTMFC, true);
+		setDisabled(f1.cDTMFD, true);
+		setDisabled(f1.cDTMFPound, true);
+		setDisabled(f1.cDTMFStar, true);
+		setDisabled(f1.cDial, false);
+		setDisabled(f1.cDisConnect, false);
+		setDisabled(f1.cRecord, false);
+		setDisabled(f1.cRingBack, false);
+		setDisabled(f1.cSpecialDial, false);
+		setDisabled(f1.cSpecialInfo, false);
+		setDisabled(f1.cStutterDial, false);
+	}	
+}
+
+function ResetAllValues()
+{
+	f1.cBusy.value = "";
+	f1.cCallWaiting.value = "";
+	f1.cCongestion.value = "";
+	f1.cDTMF0.value = "";
+	f1.cDTMF1.value = "";
+	f1.cDTMF2.value = "";
+	f1.cDTMF3.value = "";
+	f1.cDTMF4.value = "";
+	f1.cDTMF5.value = "";
+	f1.cDTMF6.value = "";
+	f1.cDTMF7.value = "";
+	f1.cDTMF8.value = "";
+	f1.cDTMF9.value = "";
+	f1.cDTMFA.value = "";
+	f1.cDTMFB.value = "";
+	f1.cDTMFC.value = "";
+	f1.cDTMFD.value = "";
+	f1.cDTMFPound.value = "";
+	f1.cDTMFStar.value = "";
+	f1.cDial.value = "";
+	f1.cDisConnect.value = "";
+	f1.cRecord.value = "";
+	f1.cRingBack.value = "";
+	f1.cSpecialDial.value = "";
+	f1.cSpecialInfo.value = "";
+	f1.cStutterDial.value = "";
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu46");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			
+<!--------------------Begin of Middle Section--------------------------------------->			
+			
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+			<div class="mid_cont" id="mid_cont2" style="display:none">
+<form method="post" name="body_form" action="">
+	<div class="div_border">
+		<table class="table_style">		
+        <tr><td class="Second_td"><label id='tSelectCountry'></label></td> <td class="Third_td"><select class="def_input1" name="cSelectCountry" onChange="DoChangeCountrySelect()">
+                     </select></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tBusy'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cBusy" value="" id="1"></td></tr>
+        <tr><td class="Second_td"><label id='tRingBack'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cRingBack" value="" id="2"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tCongestion'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cCongestion" value="" id="3"></td></tr>
+        <tr><td class="Second_td"><label id='tDial'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDial" value="" id="4"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tDisConnect'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDisConnect" value="" id="5"></td></tr>
+
+        <tr><td class="Second_td"><label id='tCallWaiting'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cCallWaiting" value="" id="6"></td></tr>
+
+        <tr style="display:none"><td class="Second_td"><label id='tRecord'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cRecord" value="" id="7"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tSpecialDial'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cSpecialDial" value="" id="8"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tSpecialInfo'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cSpecialInfo" value="" id="9"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tStutterDial'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cStutterDial" value="" id="10"></td></tr>
+        
+        <tr><td class="Second_td"><label id='tDTMF0'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF0" value="" id="11"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF1'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF1" value="" id="12"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF2'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF2" value="" id="13"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF3'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF3" value="" id="14"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF4'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF4" value="" id="15"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF5'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF5" value="" id="16"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF6'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF6" value="" id="17"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF7'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF7" value="" id="18"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF8'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF8" value="" id="19"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMF9'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMF9" value="" id="20"></td></tr>        
+        <tr style="display:none"><td class="Second_td"><label id='tDTMFA'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFA" value="" id="21"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tDTMFB'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFB" value="" id="22"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tDTMFC'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFC" value="" id="23"></td></tr>
+        <tr style="display:none"><td class="Second_td"><label id='tDTMFD'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFD" value="" id="24"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMFStar'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFStar" value="" id="25"></td></tr>
+        <tr><td class="Second_td"><label id='tDTMFPound'></label></td> <td class="Third_td"><input class="def_input1" type="text" name="cDTMFPound" value="" id="26"></td></tr>
+
+		</table>
+	</div>
+
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+</form>
+								
+			</div>
+		</div>
+		
+
+<!--------------------End of Middle Section--------------------------------------->			
+
+		
+<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

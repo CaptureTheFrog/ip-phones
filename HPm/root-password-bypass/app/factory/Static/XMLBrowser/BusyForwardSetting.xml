@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        editable="yes"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        InputType="1aB"
+        CombineData="BusyForward">
+    <Title wrap="yes" showlistcount="yes">
+        Busy Forward
+    </Title>
+		<Prompt>Account:</Prompt>
+		<DataID>DID_XMLControl_FORWARDACCOUNT_select</DataID>
+		<option text="Phone">0</option>
+		<option text="Account All">1</option>
+		<Default></Default>
+	    <InputField
+					type = "combox">
+			<Prompt>Active:</Prompt>
+			<DataID>Combine_BusyForward_Enable</DataID>
+			<Default>0</Default>
+			<option text="Disable">0</option>
+			<option text="Enable">1</option>
+			</InputField>
+	    <InputField
+					type = "edit"
+					editable = "yes">
+			<Prompt>Forward To:</Prompt>
+			<Parameter emptyable="yes"></Parameter>
+			<DataID>Combine_BusyForward_ForwardTo</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "edit"
+					editable = "yes">
+			<Prompt>On Code:</Prompt>
+			<Parameter emptyable="yes"></Parameter>
+			<DataID>Combine_BusyForward_OnCode</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "edit"
+					editable = "yes">
+			<Prompt>Off Code:</Prompt>
+			<Parameter emptyable="yes"></Parameter>
+			<DataID>Combine_BusyForward_OffCode</DataID>
+			<Default></Default>
+	    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

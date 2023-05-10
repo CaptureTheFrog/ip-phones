@@ -1,0 +1,37 @@
+#!/bin/sh
+
+module="peb21554"
+device="oak"
+
+case "$1" in
+  start)
+    echo Starting INCA-IP DSP device driver...
+
+    if [ -e /dev/${device}cmd ]; then
+      rm -f /dev/${device}*
+    fi
+    insmod $module || exit 1
+    major=`cat /proc/devices | awk "\\$2==\"$device\" {print \\$1}"`
+    mknod /dev/${device}cmd c $major 1
+    mknod /dev/${device}voice0 c $major 2
+    mknod /dev/${device}voice1 c $major 3
+    ;;
+  stop)
+    echo Stopping INCA-IP DSP device driver...
+
+    if [ -e /dev/${device}cmd ]; then
+      rm -f /dev/${device}*
+    fi
+    rmmod $module
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

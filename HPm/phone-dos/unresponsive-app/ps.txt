@@ -1,0 +1,90 @@
+~ # ps -a
+PID   USER     TIME  COMMAND
+    1 root      0:02 init
+    2 root      0:00 [kthreadd]
+    3 root      0:00 [ksoftirqd/0]
+    4 root      0:00 [kworker/0:0]
+    5 root      0:00 [kworker/0:0H]
+    6 root      0:00 [kworker/u2:0]
+    7 root      0:00 [rcu_preempt]
+    8 root      0:00 [rcu_sched]
+    9 root      0:00 [rcu_bh]
+   10 root      0:00 [lru-add-drain]
+   11 root      0:00 [kdevtmpfs]
+   12 root      0:00 [oom_reaper]
+   13 root      0:00 [writeback]
+   14 root      0:00 [kcompactd0]
+   15 root      0:00 [crypto]
+   16 root      0:00 [bioset]
+   17 root      0:00 [kblockd]
+   18 root      0:01 [kworker/0:1]
+   19 root      0:00 [cfg80211]
+   20 root      0:00 [watchdogd]
+   21 root      0:00 [rpciod]
+   22 root      0:00 [xprtiod]
+   23 root      0:00 [kswapd0]
+   24 root      0:00 [nfsiod]
+   35 root      0:00 [bioset]
+   36 root      0:00 [bioset]
+   37 root      0:00 [bioset]
+   38 root      0:00 [bioset]
+   39 root      0:00 [bioset]
+   40 root      0:00 [bioset]
+   41 root      0:00 [bioset]
+   42 root      0:00 [bioset]
+   43 root      0:00 [bioset]
+   44 root      0:00 [bioset]
+   45 root      0:00 [bioset]
+   46 root      0:00 [bioset]
+   47 root      0:00 [bioset]
+   48 root      0:00 [bioset]
+   49 root      0:00 [bioset]
+   50 root      0:00 [bioset]
+   51 root      0:00 [bioset]
+   52 root      0:00 [bioset]
+   53 root      0:00 [bioset]
+   54 root      0:00 [bioset]
+   55 root      0:00 [bioset]
+   56 root      0:00 [bioset]
+   57 root      0:00 [bioset]
+   58 root      0:00 [bioset]
+   59 root      0:00 [bioset]
+   60 root      0:00 [bioset]
+   61 root      0:00 [bioset]
+   62 root      0:00 [bioset]
+   63 root      0:00 [bioset]
+   64 root      0:00 [bioset]
+   65 root      0:00 [bioset]
+   66 root      0:00 [bioset]
+   67 root      0:00 [bioset]
+   68 root      0:00 [bioset]
+   69 root      0:00 [kworker/u2:1]
+   72 root      0:00 [stmmac_wq]
+   73 root      0:00 [dwc_otg]
+   83 root      0:00 [krfcommd]
+   84 root      0:00 [kworker/0:1H]
+   96 root      0:00 [jffs2_gcd_mtd6]
+  101 root      0:00 -sh
+  126 root      0:00 [coma]
+  127 root      0:00 [tdm]
+  128 root      0:00 [kvoice]
+  129 root      0:00 [voice]
+  130 root      0:00 [dvf9a]
+  131 root      0:00 [alsa]
+  134 root      0:00 [sharedmem]
+  137 root      0:00 app_dsp
+  148 root      0:00 [dua]
+  188 root      0:00 syslogd -S -O /tmp/Messages -s 100 -b2
+  319 root      0:00 sh /app/scripts/pmonitor.sh
+  324 root      0:00 /app/bin/pmonitor
+  339 root      0:00 /usr/sbin/telnetd
+  342 root      0:05 /app/bin/netconfig
+  354 root      0:19 /app/bin/phone
+  364 root      0:02 {va_main} /app/bin/vaMain
+  377 root      0:00 /app/bin/lighttpd -D -f /app/config/web/lighttpd.conf -m /
+  432 root      0:00 [rtp-event]
+  440 root      0:01 /app/bin/sip -a 0
+  442 root      0:02 /app/bin/fcgiserver.fcgi
+  444 root      0:03 /app/bin/autop
+  789 root      0:01 /app/bin/netcast
+  907 root      0:00 ps -a

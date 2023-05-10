@@ -1,0 +1,350 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<script type="text/javascript">
+	var ThisPage = "";
+	document.write('<script src="../js/version.js?ver=' + Math.random() + '"></s' + 'cript>');
+</script>
+<script type="text/javascript">
+	function DoF5Jump()
+	{
+		Relocate("do?id=889");
+	}
+	
+	var PageRefDesURL = 'do?id=889';
+	
+	function LoadCfg()
+	{
+		LoadLang();
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		
+		DelayShow();
+		SubLoadCfg();
+		if(-4 == f2.hcImportPNGWebLogo.value)
+		{
+			alert(FileFormatWarning);
+		}
+		else if(1 == f2.hcImportPNGWebLogo.value)
+		{
+			alert(FileUploadWarning);
+		}
+		f2.hcImportPNGWebLogo.value = 0;
+	}
+	
+	function LoadLang()
+	{
+		var tmp = "Web Custom Hidden";
+		LoadCommonResources(tmp);
+		document.getElementById("tWebLogoCustom").innerHTML = CustomWebLogo;
+		document.getElementById("tUploadLogoFile").innerHTML = Upload+"("+MaxSize+": 50K)(1075*80 PNG)";
+		document.getElementById("uploadSubmit").value = document.getElementById("uploadSubmit1").value = document.getElementById("uploadSubmit2").value = document.getElementById("uploadSubmit3").value = Upload;
+		document.getElementById("uploadCancel").value = document.getElementById("uploadCancel1").value = document.getElementById("uploadCancel2").value = document.getElementById("uploadCancel3").value = CancelLabel;
+		document.getElementById("tWebCustom").innerHTML = Custom;
+		document.getElementById("tModel").innerHTML = ProductReleaseName;
+		document.getElementById("tWebTitle").innerHTML = WebTitle;
+		document.getElementById("tPhoneLanguageResourcesTest").innerHTML = PhoneLanguageResourcesTest;
+		document.getElementById("tWebMainPart").innerHTML = WebMainPart;
+		document.getElementById("tWebNote").innerHTML = WebNote;
+		document.getElementById("tPhoneLangRcsTestDesc").innerHTML = WarningResetWebLangCustom;
+		
+		return;
+	}
+
+	function SubLoadCfg()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+
+		f1.cModel.value = f2.hcModel.value ;
+		f1.cWebTitle.value = f2.hcWebTitle.value ;
+		
+		ResetAllInputColor();
+	}
+	
+	function ResetAllInputColor()
+	{
+		var f1 = document.forms["body_form"];
+		for(var i = 0; i < f1.length; i ++)
+		{
+			if("text" == f1.elements[i].type || "password" == f1.elements[i].type )
+			{
+				f1.elements[i].style.backgroundColor = "";
+				f1.elements[i].onclick = function () { return onInputEdit(this.id); };	
+				f1.elements[i].onfocus = function () { return onInputEdit(this.id); };	
+			}	
+			document.getElementById("WarningDiv").innerHTML = "";
+		}
+	}
+	
+	$(function() { SetPageMenuAction("#aMenu1", "tMenu11");});
+	
+	function CheckCommitData()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var strSubmData = "";
+		var ErrFlag = false;
+		var NeedReboot = false;
+		
+		var tmpVar = ["cModel", "cWebTitle"];
+						 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value, tmpID))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				NeedReboot = true;
+				strSubmData = strSubmData + "&" + tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}	
+		}
+
+		if(true == ErrFlag)
+		{
+			return DataCheckResult;
+		}
+		else
+		{
+			if(true == NeedReboot)
+			{strSubmData = "&NeedReboot=1"+strSubmData;NeedReboot=false;}
+		}
+		return strSubmData;
+	}
+
+	function OnSubmitWithWarn()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var tmpRes = CheckCommitData();
+		var ErrFlag = false;
+		var NeedReboot = false;
+		
+		var tmpVar = ["cModel", "cWebTitle"];
+						 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				NeedReboot = true;
+			}	
+		}
+
+		if(DataCheckResult != tmpRes && true == NeedReboot)
+		{
+			NeedReboot = true;
+			if(!confirm("Custom Settings: "+EffectAfterRebootWarning))
+			{
+				return;
+			}
+		}
+		OnSubmit();
+	}
+	function CheckDataChanged()
+	{
+		var f1 = document.forms["body_form"];
+		var f2 = document.forms["hiddenValForm"];
+		var dataChangedWarnFlag = 0;
+		
+		var tmpVar = ["cModel", "cWebTitle"];
+						 
+		for(var i = 0; i < Number(tmpVar.length); i++)
+		{
+			var tmpID = tmpVar[i];
+			var htmpID = "h" + tmpVar[i];
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+			{
+				dataChangedWarnFlag = 1;
+			}	
+		}
+
+		if( 0 == dataChangedWarnFlag)
+		{
+			Relocate(destURL);
+			return false;
+		}
+		if(!confirm(SavePageConfirm))
+		{
+			return false;
+		}
+		else
+		{
+			Relocate(destURL);
+			return false;
+		}
+	}
+function OnAddWebLogo()
+{
+	return OnUploadFile_WebCustom("WebLOGO");
+}
+function OnUploadFile_WebCustom(desTarg)
+{
+	var f1 = document.forms["uploadForm"];
+	
+	var fileArr;
+	var uploadFileName;
+	if(desTarg)
+	{
+		if("WebMainPart" == desTarg)
+		{
+			f1 = document.forms["uploadForm1"];
+			fileArr = f1.uploadFile1.value.split("\\");
+		}
+		else if("WebNote" == desTarg)
+		{
+			f1 = document.forms["uploadForm2"];
+			fileArr = f1.uploadFile2.value.split("\\");
+		}
+		else if("LCD" == desTarg)
+		{
+			f1 = document.forms["uploadForm3"];
+			fileArr = f1.uploadFile3.value.split("\\");
+		}			
+		else if("WebLOGO" == desTarg)
+		{
+			fileArr = f1.uploadFile.value.split("\\");
+		}
+	}
+	else
+		return;
+	uploadFileName = fileArr[fileArr.length-1];
+	
+	if(uploadFileName != "")
+	{
+		if("WebLOGO" == desTarg)
+		{
+			if(!CheckFileFormat(uploadFileName, ".PNG", 4))
+			{
+				alert(FileFormatWarning);
+				return false;
+			}
+			if(!confirm("Custom Settings: "+EffectAfterRebootWarning))
+			{
+				return;
+			}
+		}
+		else
+		{
+			if(!CheckFileFormat(uploadFileName, ".TXT", 4) && !CheckFileFormat(uploadFileName, ".JS", 3))
+			{
+				alert(FileFormatWarning);
+				return false;
+			}			
+		}
+		document.getElementById("uploadSubmit").disabled = document.getElementById("uploadSubmit1").disabled = document.getElementById("uploadSubmit2").disabled = document.getElementById("uploadSubmit3").disabled = true;
+		f1.uploadType.value = "&Operation=Upload&DestUpFile=";
+		f1.uploadType.value += PostEncode(desTarg);
+		f1.uploadType.value += "&";
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		f1.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		f1.submit();
+		setTimeout("BeforeUpTO('/fcgi/do?id=889')", 30000);
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnCancelAdd(desTarg)
+{
+	var f1 = document.forms["uploadForm"];
+	if(desTarg)
+	{
+		if("WebMainPart" == desTarg)
+		{
+			f1 = document.forms["uploadForm1"];
+		}
+		else if("WebNote" == desTarg)
+		{
+			f1 = document.forms["uploadForm2"];
+		}
+		else if("LCD" == desTarg)
+		{
+			f1 = document.forms["uploadForm3"];
+		}
+	}
+	f1.reset();
+}	
+</script>
+<body onLoad="LoadCfg()">
+	<div class="headline"></div>
+	<div class="phone1">
+		<FCGI_INCLUDE FILE=top.html>
+			<div class="main">
+			<FCGI_INCLUDE FILE=left.html>
+				<div id="midWhole" class="mid">
+					<div class="mid_top"><label id="tInnerTitle"></label></div>
+					<div class="mid_cont" id="mid_cont1"></div>
+					<div class="mid_cont" id="mid_cont2" style="display:none;">
+			<table id="tableRingsModify" width="100%">
+ 	        <form id="uploadForm1" enctype="multipart/form-data" action="" method="post">
+ 	        	<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr>
+					<td class="First_td"><label id='tPhoneLanguageResourcesTest'>Phone Language Resources Test</label></td>
+					</tr>
+					<tr><td class="Second_td"><label id='tWebMainPart'>Web Main Part</label></td>
+						<td class="Third_td"><input name="uploadFile1" type="file"></td></tr>							
+	        <tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit1' value="Upload" onClick ="OnUploadFile_WebCustom('WebMainPart')">
+	        	<input class="Nice_Btn" type="button" id='uploadCancel1' value="Cancel" onClick ="OnCancelAdd('WebMainPart')"></td></tr>
+</form>
+<form id="uploadForm2" enctype="multipart/form-data" action="" method="post"><input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr><td class="Second_td"><label id='tWebNote'>Web Note</label></td>
+						<td class="Third_td"><input name="uploadFile2" type="file"></td></tr>							
+	        <tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit2' value="Upload" onClick ="OnUploadFile_WebCustom('WebNote')">
+	        	<input class="Nice_Btn" type="button" id='uploadCancel2' value="Cancel" onClick ="OnCancelAdd('WebNote')"></td></tr>
+</form>
+<form id="uploadForm3" enctype="multipart/form-data" action="" method="post"><input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr><td class="Second_td"><label id='tLCD'>LCD</label></td>
+						<td class="Third_td"><input name="uploadFile3" type="file"></td></tr>							
+	        <tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit3' value="Upload" onClick ="OnUploadFile_WebCustom('LCD')">
+	        	<input class="Nice_Btn" type="button" id='uploadCancel3' value="Cancel" onClick ="OnCancelAdd('LCD')"></td></tr>
+</form>
+<form id="uploadForm" enctype="multipart/form-data" action="" method="post"><input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr>
+					<td class="First_td"><label id='tWebLogoCustom'>Custom Web Logo</label></td>
+					</tr>
+					<tr><td class="Second_td"><label id='tUploadLogoFile'>Upload(Support size: 50K)</label></td>
+						<td class="Third_td"><input name="uploadFile" type="file"></td></tr>							
+	        <tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit' value="Upload" onClick ="OnAddWebLogo()">
+	        	<input class="Nice_Btn" type="button" id='uploadCancel' value="Cancel" onClick ="OnCancelAdd('WebLOGO')"></td></tr>
+	        <!--<tr><td class="Second_td"><label id='tRingFileLimit'></label></td></tr>-->         
+</form>
+				<tr><td class="Gap_td1">&nbsp</td> </tr>
+			</table>
+			<table>
+					<tr>
+					<td><label id='tPhoneLangRcsTestDesc'></label></td>
+					</tr>
+			</table>
+			<form name="body_form">							
+							<table id="tableVolumeSetting">
+								<tr><td class="First_td"><label id='tWebCustom'>Custom</label></td></tr>
+								<tr><td class="Second_td"><label id='tModel'>Model</label></td><td class="Third_td"><input class="def_input" type="text" id="cModel" name="cModel" value="" /></td></tr>
+								<tr><td class="Second_td"><label id='tWebTitle'>WebTitle</label></td><td class="Third_td"><input class="def_input" type="text" name="cWebTitle" id="cWebTitle" value="" /></td></tr>
+							</table>
+						</form>
+						<form method="post" name="submit_form" id="submit_form" action="">
+							<div align = "center">
+								<table width="70%" style="text-align:center">
+									<br />
+									<input type="hidden" name="SubmitData" value="" />
+									<tr>
+										<td><input id="PageSubmit" name= "PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick = "OnSubmitWithWarn()"></td>
+										<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td>
+									</tr>
+								</table>
+							</div>	
+						</form>
+					</div>
+				</div>
+		<FCGI_INCLUDE FILE=help.html>
+		<FCGI_INCLUDE FILE=rightMir.html>
+		</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

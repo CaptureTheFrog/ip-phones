@@ -1,0 +1,1179 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<style type="text/css">
+.NetA0_td{ 
+	text-align:left; text-indent:25px; font-size:15px; font-weight:bold;
+	width: 100px;	padding-top:9px; padding-bottom:6px;
+}
+.NetA1_td{ text-align:left; text-indent:40px; width:140px; }
+.NetA2_td{ text-align:left; text-indent:10px; width:120px; }
+.NetA3_td{ text-align:left; text-indent:30px; width:270px; }
+</style>
+<FCGI_INCLUDE FILE=langjs>
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}		
+	
+function DoF5Jump()
+{
+	Relocate('do?id=2&id=2');
+}
+var PageRefDesURL = 'do?id=2&id=2';
+function ResetAllInputColor()
+{
+	var f1 = document.forms["body_form"];
+	for(var i = 0; i < f1.length; i ++)
+	{
+		if("text" == f1.elements[i].type || "password" == f1.elements[i].type )
+		{
+			f1.elements[i].style.backgroundColor = "";
+			f1.elements[i].onclick = function () { return onInputEdit(this.id); };	
+			f1.elements[i].onfocus = function () { return onInputEdit(this.id); };	
+		}
+		document.getElementById("WarningDiv").innerHTML = "";
+	}
+}
+function CheckDDNSType()
+{
+	var f1 = document.forms["body_form"];
+	var desType = f1.cDDNSType.value;
+	if("0" == desType)
+	{
+		f1.cDDNSAccount.disabled = true;
+		f1.cDDNSPwd.disabled = true;
+		f1.cDDNSDomainName.disabled = true;
+	}
+	else if("1" == desType)
+	{
+		f1.cDDNSAccount.disabled = false;
+		f1.cDDNSPwd.disabled = false;
+		f1.cDDNSDomainName.disabled = true;
+	}		
+	else
+	{
+		f1.cDDNSAccount.disabled = false;
+		f1.cDDNSPwd.disabled = false;
+		f1.cDDNSDomainName.disabled = false;		
+	}
+}
+function LoadCfg()
+{
+	LoadLang();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+
+	f1.cLLDPActive.options.add(new Option(Disabled, "0"));
+	f1.cLLDPActive.options.add(new Option(Enabled, "1"));
+	f1.cSNMPActive.options.add(new Option(Disabled, "0"));
+	f1.cVLANLANActive.options.add(new Option(Disabled, "0"));
+	f1.cVLANPCActive.options.add(new Option(Disabled, "0"));
+	f1.cSNMPActive.options.add(new Option(Enabled, "1"));
+	f1.cVLANLANActive.options.add(new Option(Enabled, "1"));
+	f1.cVLANPCActive.options.add(new Option(Enabled, "1"));
+	document.getElementById("cDot1xMode").options.add(new Option(Disabled, "0"));
+	document.getElementById("cDot1xMode").options.add(new Option(EAPMD5, "1"));
+	document.getElementById("cDot1xMode").options.add(new Option("EAP-TLS", "2"));
+	document.getElementById("cDot1xMode").options.add(new Option("EAP-TTLS/EAP-MSCHAPV2", "3"));
+	document.getElementById("cDot1xMode").options.add(new Option("EAP-TTLS/EAP-GTC", "4"));
+	document.getElementById("cDot1xMode").options.add(new Option("EAP-PEAP/EAP-MSCHAPV2", "5"));
+	document.getElementById("cDot1xMode").options.add(new Option("EAP-PEAP/EAP-GTC", "6"));
+	
+	document.getElementById("cVPNActive").add(new Option(Disabled, "0"));
+	document.getElementById("cVPNActive").add(new Option(Enabled, "1"));
+	f1.cTR069Active.options.add(new Option(Disabled, "0"));
+	f1.cTR069InformPerActive.options.add(new Option(Disabled, "0"));
+	f1.cTR069Version.options.add(new Option("1.0", "0"));
+	f1.cTR069Version.options.add(new Option("1.1", "1"));
+	f1.cTR069Active.options.add(new Option(Enabled, "1"));
+	f1.cTR069InformPerActive.options.add(new Option(Enabled, "1"));
+	f1.cDDNSType.options.add(new Option(Disabled, "0"));
+	f1.cDDNSType.options.add(new Option(EnableEasyDDNS, "1"));
+	f1.cDDNSType.options.add(new Option(EnableDynamicDDNS, "2"));
+	f1.cDDNSProvider.options.add(new Option("PlannetDDNS.com", "PlannetDDNS.com"));	
+	f1.cDDNSProvider.disabled = true;
+	f1.cTelnetActive.options.add(new Option(Disabled,"0"));
+	f1.cTelnetActive.options.add(new Option(Enabled,"1"));
+//Android	
+	document.getElementById("cVsipIsOpenQos").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenQos").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipEnableAcl").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipEnableAcl").options.add(new Option(Enabled, 1));
+	
+	var priLevVLAN=8;
+	for(var i=0; i < priLevVLAN; i++)
+	{f1.cLANPrior.options.add(new Option(i, i));f1.cPCPrior.options.add(new Option(i, i));}
+	// to do
+	f1.cWebType.options.add(new Option(Disabled, "0"));
+	f1.cWebType.options.add(new Option(HttpAndHttps, "1"));
+	f1.cWebType.options.add(new Option(Http, "2"));
+	f1.cWebType.options.add(new Option(Https, "3"));
+	
+	if("undefined" != typeof(MODELID))
+	{	
+		if("50" == MODELID)
+		{
+			document.getElementById("NetworkA_divDot1x").style.display = "none";
+			document.getElementById("NetworkA_divLLDP").style.display = "none";
+		}
+	}
+	
+	DelayShow();
+	SubLoadCfg();
+	//if(-5 == f2.hcVPNUploadResult.value)
+	//{
+		//alert(RingFileTooManyWarning);
+	//}	
+	if(-4 == f2.hcVPNUploadResult.value)
+	{
+		alert(FileFormatWarning);
+	}
+	else if(-3 == f2.hcVPNUploadResult.value)
+	{
+		alert(WarningVPNFileTooBig);
+	}
+	else if(-2 == f2.hcVPNUploadResult.value)
+	{
+		alert(FileNameSizeWarning);
+	}
+	else if(-1 == f2.hcVPNUploadResult.value)
+	{
+		alert(FileUploadFailedWarning);
+	}	
+	else if(1 == f2.hcVPNUploadResult.value)
+	{
+		// 上传成功
+		alert(FileUploadWarning);		
+	}
+	f2.hcVPNUploadResult.value = 0;
+
+}
+
+function SubLoadCfg()
+{	
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+
+	f1.cMaxRTPPort.value = f2.hcMaxRTPPort.value;
+	f1.cMinRTPPort.value = f2.hcMinRTPPort.value;
+	PortRangeMax = f2.hcUpLimitOfLocalRTPPort.value;
+	PortRangeMin = f2.hcLowLimitOfLocalRTPPort.value;
+	var tStrPortRange = "("+PortRangeMin+"~"+PortRangeMax+")";	
+	document.getElementById("tMaxRTPPortRange").innerHTML = tStrPortRange;
+	document.getElementById("tMinRTPPortRange").innerHTML = tStrPortRange;
+
+	f1.cSNMPActive.value = f2.hcSNMPActive.value = TransEmptyStrTo0(f2.hcSNMPActive.value);
+	f1.cSNMPPort.value = f2.hcSNMPPort.value;
+	f1.cSNMPTrustedIPAddr.value = f2.hcSNMPTrustedIPAddr.value;
+
+	f1.cHttpPort.value = f2.hcHttpPort.value;
+	f1.cHttpsPort.value = f2.hcHttpsPort.value;
+	f1.cLLDPActive.value = f2.hcLLDPActive.value = TransEmptyStrTo0(f2.hcLLDPActive.value);
+	
+	f1.cVLANLANActive.value = f2.hcVLANLANActive.value = TransEmptyStrTo0(f2.hcVLANLANActive.value);
+	f1.cLANVID.value = f2.hcLANVID.value;
+	f1.cLANPrior.value = f2.hcLANPrior.value = TransEmptyStrTo0(f2.hcLANPrior.value);
+	
+	f1.cVLANPCActive.value = f2.hcVLANPCActive.value = TransEmptyStrTo0(f2.hcVLANPCActive.value);
+	f1.cPCVID.value = f2.hcPCVID.value;
+	f1.cPCPrior.value = f2.hcPCPrior.value = TransEmptyStrTo0(f2.hcPCPrior.value);
+	
+	document.getElementById("cDot1xMode").value = f2.hcDot1xMode.value = TransEmptyStrTo0(f2.hcDot1xMode.value);
+	document.getElementById("cDot1xIdentity").value = f2.hcDot1xIdentity.value;
+	document.getElementById("cDot1xPasswd").value = "********";
+	
+	f1.cTelnetActive.value = f2.hcTelnetActive.value = TransEmptyStrTo0(f2.hcTelnetActive.value);
+	
+	//VPN Section
+	document.getElementById("cVPNActive").value =  f2.hcVPNActive.value = TransEmptyStrTo0(f2.hcVPNActive.value);	
+
+	f1.cSIPQoS.value = f2.hcSIPQoS.value;
+	f1.cVoiceQoS.value = f2.hcVoiceQoS.value;
+	f1.cVsipIsOpenQos.value = f2.hcVsipIsOpenQos.value = TransEmptyStrTo0(f2.hcVsipIsOpenQos.value);
+	var QosRangeMax = f2.hcUpLimitOfQos.value;
+	var QosRangeMin = f2.hcLowLimitOfQos.value;
+	var tStrQosRange = "("+QosRangeMin+"~"+QosRangeMax+")";	
+	document.getElementById("tSIPQosRange").innerHTML = tStrQosRange;
+	document.getElementById("tVoiceQoSRange").innerHTML = tStrQosRange;
+	
+	f1.cPacketInterval.value = f2.hcPacketInterval.value;
+	f1.cTR069Active.value = f2.hcTR069Active.value = TransEmptyStrTo0(f2.hcTR069Active.value);
+	f1.cTR069Version.value = f2.hcTR069Version.value = TransEmptyStrTo0(f2.hcTR069Version.value);
+	f1.cTR069InformPerActive.value = f2.hcTR069InformPerActive.value = TransEmptyStrTo0(f2.hcTR069InformPerActive.value);
+	f1.cTR069ACSURL.value = f2.hcTR069ACSURL.value;
+	f1.cTR069ACSUser.value = f2.hcTR069ACSUser.value;
+	f1.cTR069ACSPWD.value = "********";
+	f1.cTR069CPEURL.value = f2.hcTR069CPEURL.value;
+	f1.cTR069CPEUser.value = f2.hcTR069CPEUser.value;
+	f1.cTR069CPEPWD.value = "********";
+	f1.cTR069InformPeriod.value = f2.hcTR069InformPeriod.value;
+	
+	f1.cDDNSType.value = f2.hcDDNSType.value = TransEmptyStrTo0(f2.hcDDNSType.value);
+	document.getElementById("cDDNSEasyDomainName").innerHTML = f2.hcDDNSEasyDomainName.value;
+	f1.cDDNSAccount.value = f2.hcDDNSAccount.value;
+	f1.cDDNSPwd.value = "********";
+	f1.cDDNSDomainName.value = f2.hcDDNSDomainName.value;
+	f1.cDDNSProvider.value = f2.hcDDNSProvider.value;
+
+	f1.cWebType.value = f2.hcWebType.value = TransEmptyStrTo0(f2.hcWebType.value);
+	document.getElementById("cVsipEnableAcl").value = f2.hcVsipEnableAcl.value = TransEmptyStrTo0(f2.hcVsipEnableAcl.value);
+	ResetAllInputColor();
+	for(var i=0; i < PwdKeyFirst.length; i++) { PwdKeyFirst[i] = true; }
+	OnCancelUpload();
+	CheckDDNSType();
+}
+
+function LoadLang()
+{
+	var tmp = Network+"-"+Advance;
+	LoadCommonResources(tmp);
+	document.getElementById("tLLDPActive").innerHTML = LLDPActive;
+	document.getElementById("tPacketInterval").innerHTML = PacketInterval;
+	document.getElementById("tPacketIntervalRange").innerHTML = "(10~3600" + SecondAbbr + ")";
+	document.getElementById("tQOS").innerHTML = QoS;
+	document.getElementById("tVoiceQoS").innerHTML = VoiceQoS;
+	document.getElementById("tSIPQoS").innerHTML = SIPQoS;
+	document.getElementById("tVPN").innerHTML = VPN;
+	document.getElementById("tVPNActive").innerHTML = Active;
+	document.getElementById("tUploadVPN").innerHTML = UploadVPNConfig +"(<50K)";
+	document.getElementById("uploadSubmit").value = Upload;
+	document.getElementById("tLocalRTP").innerHTML = LocalRTP;
+	document.getElementById("tMaxRTPPort").innerHTML = MaxRTPPort;
+	document.getElementById("tMinRTPPort").innerHTML = MinRTPPort;
+	document.getElementById("tSNMP").innerHTML = SNMP;
+	document.getElementById("tSNMPActive").innerHTML = FunctionActive;
+	document.getElementById("tSNMPPort").innerHTML = Port;
+	document.getElementById("tSNMPTrustedIPAddr").innerHTML = TrustedIPAddr;
+	document.getElementById("tWebType").innerHTML = Web;
+	document.getElementById("tHttpPort").innerHTML = HttpPort;
+	document.getElementById("tHttpsPort").innerHTML = HttpsPort;
+	document.getElementById("tLLDP").innerHTML = LLDP;
+	document.getElementById("tType").innerHTML = Type;
+	document.getElementById("tLANPort").innerHTML = LANPort;
+	document.getElementById("tPCPort").innerHTML = PCPortLabel;
+	document.getElementById("tPrior1").innerHTML = document.getElementById("tPrior2").innerHTML = Priority;
+	document.getElementById("tDot1x").innerHTML = Dot1xLabel;
+	document.getElementById("tDot1xMode").innerHTML = Dot1xMode;
+	document.getElementById("tDot1xIdentity").innerHTML = Dot1xIdentity;
+	document.getElementById("tDot1xPasswd").innerHTML = Dot1xPasswd;
+	document.getElementById("tVLANActive1").innerHTML = document.getElementById("tVLANActive2").innerHTML
+	=document.getElementById("tTR069Active").innerHTML = document.getElementById("tTR069InformPerActive").innerHTML = FunctionActive;
+	document.getElementById("tTR069InformPer").innerHTML = PeriodicInform;
+	document.getElementById("tTR069InformPerActive").innerHTML = FunctionActive;
+	document.getElementById("tTR069InformPeriod").innerHTML = PeriodInterval;
+	document.getElementById("tTR069InformPeriodRange").innerHTML = "(3~24×3600" + SecondAbbr + ")";
+	document.getElementById("tTR069Version").innerHTML = Version;
+	document.getElementById("tTR069ACSUser").innerHTML = document.getElementById("tTR069CPEUser").innerHTML = UserName;
+	document.getElementById("tTR069ACSPWD").innerHTML = document.getElementById("tTR069CPEPWD").innerHTML = PasswordLabel;
+	document.getElementById("tDDNSType").innerHTML = Type;
+	document.getElementById("tDDNSEasyDomainName").innerHTML = ("undefined" != typeof(EasyDomainName))?EasyDomainName:"Easy Domain Name";
+	document.getElementById("tDDNSProvider").innerHTML = Provider;
+	document.getElementById("tDDNSAccount").innerHTML = Account;
+	document.getElementById("tDDNSPwd").innerHTML = PasswordLabel;
+	document.getElementById("tOthers").innerHTML = (("undefined" != typeof(Others))?Others:"Others");
+	document.getElementById("tTelnetActive").innerHTML = (("undefined" != typeof(Telnet))?Telnet:"Telnet");
+	//802.1x
+	document.getElementById("tCACertificates").innerHTML = (("undefined" != typeof(CACert))?CACert+"(.crt)":"CA Certificate(.crt)");
+	document.getElementById("tDeviceCertificates").innerHTML = (("undefined" != typeof(DeviceCert))?DeviceCert+"(.pem)":"Device Certificate(.pem)");
+//Android
+	document.getElementById("tVsipIsOpenQos").innerHTML = ("undefined" != typeof(EnableQoS))?EnableQoS:"Enable QoS";
+	document.getElementById("tACL").innerHTML = ("undefined" != typeof(ACL))?ACL:"ACL";
+	document.getElementById("tVsipEnableAcl").innerHTML = ("undefined" != typeof(ACL))?ACL:"ACL";
+	document.getElementById("tMinRTPPort").innerHTML = ("undefined" != typeof(RTPPort))?RTPPort:"Starting RTP Port";
+}
+function OnUploadCACert()
+{
+	var f1 = document.forms["uploadCAForm"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var fileArr = f1.uploadCACert.value.split("\\");
+	uploadFileName = fileArr[fileArr.length-1];	
+	if(uploadFileName != "")
+	{
+		if(!CheckFileFormat(uploadFileName, ".CRT", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		document.getElementById("uploadSubmit").disabled = true;
+		f1.uploadCA.value = "&Operation=Upload&DestUpFile=CACert&";
+		f1.uploadCA.value += PostEncode(uploadFileName);
+		f1.uploadCA.value += "&";
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		f1.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		f1.submit();
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnUploadDevCert()
+{
+	var f1 = document.forms["uploadClientForm"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var fileArr = f1.uploadDeviceCert.value.split("\\");
+	uploadFileName = fileArr[fileArr.length-1];	
+	if(uploadFileName != "")
+	{
+		if(!CheckFileFormat(uploadFileName, ".PEM", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		document.getElementById("uploadSubmit").disabled = true;
+		f1.uploadClient.value = "&Operation=Upload&DestUpFile=DeviceCert&";
+		f1.uploadClient.value += PostEncode(uploadFileName);
+		f1.uploadClient.value += "&";
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		f1.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		f1.submit();
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnUploadVPNCFG()
+{
+	var f1 = document.forms["uploadForm"];     //special for uploadForm
+	var f2 = document.forms["hiddenValForm"];
+	var fileArr = f1.uploadVPNCFG.value;
+	
+	var fileArr = f1.uploadVPNCFG.value.split("\\");
+	uploadFileName = fileArr[fileArr.length-1];	
+	if(uploadFileName != "")
+	{
+		if(!CheckFileFormat(uploadFileName, ".TAR", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		document.getElementById("uploadSubmit").disabled = true;
+		f1.uploadType.value = "&Operation=Upload&DestUpFile=VPNCfg&";
+		f1.uploadType.value += PostEncode(uploadFileName);
+		f1.uploadType.value += "&";
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		f1.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		f1.submit();
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnCancelUpload()
+{
+	var f1 = document.forms["uploadForm"];
+	f1.reset();
+	document.forms["uploadCAForm"].reset();
+	document.forms["uploadClientForm"].reset();
+}
+
+var SNMPFlag = false;
+var QOSSettingChanged = false;
+var NeedReboot = false;
+function CheckCommitData()
+{    
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+
+//	if(f1.cHttpPort.value != f2.hcHttpPort.value)
+//	{
+//		if(!IsPort(f1.cHttpPort.value))
+//		{
+//			return "";
+//		}
+//		strSubmData = strSubmData + "&cHttpPort=" + f1.cHttpPort.value;
+//	}
+//	if(f1.cHttpsPort.value != f2.hcHttpsPort.value)
+//	{
+//		if(!IsPort(f1.cHttpsPort.value))
+//		{
+//			return "";
+//		}		
+//		strSubmData = strSubmData + "&cHttpsPort=" + f1.cHttpsPort.value;
+//	}
+	if(f1.cLLDPActive.value != f2.hcLLDPActive.value)
+	{
+		strSubmData = strSubmData + "&cLLDPActive=" + f1.cLLDPActive.value;
+		NeedReboot = true;
+	}
+	if(f1.cPacketInterval.value != f2.hcPacketInterval.value)
+	{
+		if(!CheckRangeOfNumber(f1.cPacketInterval.value, 10, 3600))
+		{
+			SetInputBGColor("cPacketInterval");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cPacketInterval=" + Number(f1.cPacketInterval.value);
+	}
+	if(f1.cMaxRTPPort.value != f2.hcMaxRTPPort.value)
+	{
+		if(!IsPort(f1.cMaxRTPPort.value))
+		{
+			SetInputBGColor("cMaxRTPPort");
+			ErrFlag = true;
+		}		
+		if(!CheckRangeOfNumber(f1.cMaxRTPPort.value, 1024, 65535))
+		{
+			SetInputBGColor("cMaxRTPPort");
+			ErrFlag = true;			
+		}
+		strSubmData = strSubmData + "&cMaxRTPPort=" + Number(f1.cMaxRTPPort.value);
+	}
+	if(f1.cMinRTPPort.value != f2.hcMinRTPPort.value)
+	{
+		if(!IsPort(f1.cMinRTPPort.value))
+		{
+			SetInputBGColor("cMinRTPPort");
+			ErrFlag = true;
+		}	
+		if(!CheckRangeOfNumber(f1.cMinRTPPort.value, Number(PortRangeMin), Number(PortRangeMax)))
+		{
+			SetInputBGColor("cMinRTPPort");
+			ErrFlag = true;			
+		}	
+		strSubmData = strSubmData + "&cMinRTPPort=" + Number(f1.cMinRTPPort.value);
+	}
+	if(f1.cSIPQoS.value != f2.hcSIPQoS.value)
+	{
+		if(!CheckRangeOfNumber(f1.cSIPQoS.value, Number(f2.hcLowLimitOfQos.value), Number(f2.hcUpLimitOfQos.value)))
+		{
+			SetInputBGColor("cSIPQoS");
+			ErrFlag = true;
+		}		
+		QOSSettingChanged = true;
+		strSubmData = strSubmData + "&cSIPQoS=" + Number(f1.cSIPQoS.value);
+	}
+	if(f1.cVoiceQoS.value != f2.hcVoiceQoS.value)
+	{
+		if(!CheckRangeOfNumber(f1.cVoiceQoS.value, Number(f2.hcLowLimitOfQos.value), Number(f2.hcUpLimitOfQos.value)))
+		{
+			SetInputBGColor("cVoiceQoS");
+			ErrFlag = true;
+		}		
+		QOSSettingChanged = true;
+		strSubmData = strSubmData + "&cVoiceQoS=" + Number(f1.cVoiceQoS.value);
+	}
+	if(f1.cVsipIsOpenQos.value != f2.hcVsipIsOpenQos.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenQos=" + f1.cVsipIsOpenQos.value;
+	}	
+	if(document.getElementById("cDot1xMode").value != f2.hcDot1xMode.value)
+	{
+		strSubmData = strSubmData + "&cDot1xMode=" + PostEncode(document.getElementById("cDot1xMode").value);
+		NeedReboot = true;
+	}
+	if(document.getElementById("cDot1xIdentity").value != f2.hcDot1xIdentity.value)
+	{
+		if(!NotContainInvalid(document.getElementById("cDot1xIdentity").value))
+		{
+			SetInputBGColor("cDot1xIdentity");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDot1xIdentity=" + PostEncode(document.getElementById("cDot1xIdentity").value);
+		NeedReboot = true;
+	}
+	if(!PwdKeyFirst[2] && "********" != document.getElementById("cDot1xPasswd").value)
+	{
+		if(!NotContainInvalid(document.getElementById("cDot1xPasswd").value))
+		{
+			SetInputBGColor("cDot1xPasswd");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDot1xPasswd=" + PostEncode(document.getElementById("cDot1xPasswd").value);
+		NeedReboot = true;
+	}
+	if(document.getElementById("cVPNActive").value != f2.hcVPNActive.value)
+	{
+		strSubmData = strSubmData + "&cVPNActive=" + document.getElementById("cVPNActive").value;
+		NeedReboot = true;
+	}
+
+	if(f1.cSNMPActive.value != f2.hcSNMPActive.value)
+	{
+		SNMPFlag = true;
+		strSubmData = strSubmData + "&cSNMPActive=" + f1.cSNMPActive.value;
+	}
+	if(f1.cSNMPPort.value != f2.hcSNMPPort.value)
+	{
+		if(!(IsPort(f1.cSNMPPort.value) && (f1.cSNMPPort.value >= 1024)) && "" != f1.cSNMPPort.value)
+		{
+			SetInputBGColor("cSNMPPort");
+			ErrFlag = true;
+		}
+		SNMPFlag = true;
+		strSubmData = strSubmData + "&cSNMPPort=" + Number(f1.cSNMPPort.value);
+	}
+	if(f1.cSNMPTrustedIPAddr.value != f2.hcSNMPTrustedIPAddr.value)
+	{
+		if(!CheckIpAddr_Simp(f1.cSNMPTrustedIPAddr.value) && "" != f1.cSNMPTrustedIPAddr.value)
+		{
+			SetInputBGColor("cSNMPTrustedIPAddr");
+			ErrFlag = true;
+		}
+		SNMPFlag = true;
+		strSubmData = strSubmData + "&cSNMPTrustedIPAddr=" + f1.cSNMPTrustedIPAddr.value;
+	}	
+	// TR069
+	if(f1.cTR069Active.value != f2.hcTR069Active.value)
+	{
+		strSubmData = strSubmData + "&cTR069Active=" + f1.cTR069Active.value;
+	}
+	if(f1.cTR069InformPerActive.value != f2.hcTR069InformPerActive.value)
+	{
+		strSubmData = strSubmData + "&cTR069InformPerActive=" + f1.cTR069InformPerActive.value;
+	}
+	if(f1.cTR069Version.value != f2.hcTR069Version.value)
+	{	
+		strSubmData = strSubmData + "&cTR069Version=" + f1.cTR069Version.value;
+	}
+	if(f1.cTR069ACSURL.value != f2.hcTR069ACSURL.value)
+	{
+		if(!NotContainInvalid(f1.cTR069ACSURL.value))
+		{
+			SetInputBGColor("cTR069ACSURL");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069ACSURL=" + f1.cTR069ACSURL.value;
+	}
+	if(f1.cTR069ACSUser.value != f2.hcTR069ACSUser.value)
+	{
+		if(!NotContainInvalid(f1.cTR069ACSUser.value))
+		{
+			SetInputBGColor("cTR069ACSUser");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069ACSUser=" + f1.cTR069ACSUser.value;
+	}
+	if(!PwdKeyFirst[0] && "********" != f1.cTR069ACSPWD.value)
+	{
+		if(!NotContainInvalid(f1.cTR069ACSPWD.value))
+		{
+			SetInputBGColor("cTR069ACSPWD");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069ACSPWD=" + PostEncode(f1.cTR069ACSPWD.value);
+	}
+	if(f1.cTR069CPEURL.value != f2.hcTR069CPEURL.value)
+	{
+		if(!NotContainInvalid(f1.cTR069CPEURL.value))
+		{
+			SetInputBGColor("cTR069CPEURL");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069CPEURL=" + f1.cTR069CPEURL.value;
+	}
+	if(f1.cTR069CPEUser.value != f2.hcTR069CPEUser.value)
+	{
+		if(!NotContainInvalid(f1.cTR069CPEUser.value))
+		{
+			SetInputBGColor("cTR069CPEUser");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069CPEUser=" + f1.cTR069CPEUser.value;
+	}
+	if(!PwdKeyFirst[1] && "********" != f1.cTR069CPEPWD.value)
+	{
+		if(!NotContainInvalid(f1.cTR069CPEPWD.value))
+		{
+			SetInputBGColor("cTR069CPEPWD");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069CPEPWD=" + PostEncode(f1.cTR069CPEPWD.value);
+	}
+	if(f1.cTR069InformPeriod.value != f2.hcTR069InformPeriod.value)
+	{
+		if(!CheckRangeOfNumber(f1.cTR069InformPeriod.value, 3, 86400))
+		{
+			SetInputBGColor("cTR069InformPeriod");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cTR069InformPeriod=" + Number(f1.cTR069InformPeriod.value);
+	}
+	if(f1.cDDNSType.value != f2.hcDDNSType.value)
+	{
+		strSubmData = strSubmData + "&cDDNSType=" + f1.cDDNSType.value;
+	}
+	if(f1.cDDNSAccount.value != f2.hcDDNSAccount.value)
+	{
+		if(!CheckStrByRange(f1.cDDNSAccount.value, re_alpha_digit, 63))
+		{
+			SetInputBGColor("cDDNSAccount");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDDNSAccount=" + PostEncode(f1.cDDNSAccount.value);
+	}
+	if(!PwdKeyFirst[3] && "********" != f1.cDDNSPwd.value)
+	{
+		if(!CheckStrByRange(f1.cDDNSPwd.value, re_alpha_digit, 63))
+		{
+			SetInputBGColor("cDDNSPwd");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDDNSPwd=" + PostEncode(f1.cDDNSPwd.value);
+	}
+	if(f1.cDDNSDomainName.value != f2.hcDDNSDomainName.value)
+	{
+		if(!CheckStrByRange(f1.cDDNSDomainName.value, re_alpha_digit_dot_line, 63))
+		{
+			SetInputBGColor("cDDNSDomainName");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDDNSDomainName=" + PostEncode(f1.cDDNSDomainName.value);
+	}
+	//LAN SETTING
+	//pppoe模式下无法开启VLAN
+	if((f1.cVLANLANActive.value == "1" || f1.cVLANPCActive.value == "1") && f2.hcLANPortType.value == "1")
+	{
+	//提示
+		alert(WarningPPPOEExcludeVLAN);
+		ErrFlag = true;
+	}
+	if(f1.cVLANLANActive.value != f2.hcVLANLANActive.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cVLANLANActive=" + f1.cVLANLANActive.value;
+	}
+	if(f1.cLANVID.value != f2.hcLANVID.value)
+	{
+		NeedReboot = true;
+		if(!CheckRangeOfNumber(f1.cLANVID.value, 1, 4094))
+		{
+			SetInputBGColor("cLANVID");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cLANVID=" + Number(f1.cLANVID.value);
+	}
+	if(f1.cLANPrior.value != f2.hcLANPrior.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cLANPrior=" + f1.cLANPrior.value;
+	}
+	//PC SETTING
+	if(f1.cVLANPCActive.value != f2.hcVLANPCActive.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cVLANPCActive=" + f1.cVLANPCActive.value;
+	}
+	if(f1.cPCVID.value != f2.hcPCVID.value)
+	{
+		NeedReboot = true;
+		if(!CheckRangeOfNumber(f1.cPCVID.value, 1, 4094))
+		{
+			SetInputBGColor("cPCVID");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cPCVID=" + Number(f1.cPCVID.value);
+	}	
+	if(f1.cPCPrior.value != f2.hcPCPrior.value)
+	{
+		NeedReboot = true;
+		strSubmData = strSubmData + "&cPCPrior=" + f1.cPCPrior.value;
+	}
+	if(f1.cTelnetActive.value != f2.hcTelnetActive.value)
+	{
+		strSubmData = strSubmData + "&cTelnetActive=" + f1.cTelnetActive.value;
+	}
+//	if(f1.cWebType.value != f2.hcWebType.value)
+//	{
+//		strSubmData = strSubmData + "&cWebType=" + f1.cWebType.value;
+//	}
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	else
+	{
+		if(true == SNMPFlag)
+		{strSubmData = "&SNMPChanged=1"+strSubmData;SNMPFlag=false;}
+		if(true == NeedReboot)
+		{strSubmData = "&NeedReboot=1"+strSubmData;NeedReboot=false;}
+	}
+	if(true == QOSSettingChanged)
+	{
+		strSubmData = "&QOSSettingChanged=1"+strSubmData;
+		QOSSettingChanged = false;
+	}
+	if(f2.hcVsipEnableAcl.value != document.getElementById("cVsipEnableAcl").value)
+	{
+		strSubmData = strSubmData + "&cVsipEnableAcl=" + document.getElementById("cVsipEnableAcl").value;
+	}
+	return strSubmData;
+}
+function IsRTPPortUsed()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	comparedPort = f2.hcPortTypeRTP.value.split(SplitSymbol);
+	comparingPort = Number(f1.cMinRTPPort.value) + "~" + Number(f1.cMaxRTPPort.value);
+	if(true == IsPortUsed(comparingPort, comparedPort) ) return true;
+	
+	return false;	
+}
+
+function IsSNMPPortUsed()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	comparedPort = f2.hcPortTypeSNMP .value.split(SplitSymbol);
+	comparingPort = Number(f1.cSNMPPort.value) + "~" + Number(f1.cSNMPPort.value);
+	if(true == IsPortUsed(comparingPort, comparedPort) ) return true;
+
+	return false;
+}
+
+function OnSubmitWithWarn()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+
+	var tmpRes = CheckCommitData();
+	var strSubmData = tmpRes;
+	var portinterval = 4;
+	
+	if(IsAnInterger(f1.cMinRTPPort.value) && IsAnInterger(f1.cMaxRTPPort.value))
+	{
+		if("undefined" != typeof(PLATFORMID) && PLATFORMID == "3")
+		{			
+			if(Number(f1.cMaxRTPPort.value)%2 !=0 || Number(f1.cMinRTPPort.value)%2 !=0)
+			{
+				portinterval = 6;
+			}
+			if(portinterval > (Number(f1.cMaxRTPPort.value)-Number(f1.cMinRTPPort.value)))
+			{
+				SetInputBGColor("cMaxRTPPort");
+				SetInputBGColor("cMinRTPPort");
+				if(6 == portinterval)
+				alert(WarningInvalidAndroidRTPSetting+"6!");
+				else
+				alert(WarningInvalidAndroidRTPSetting+"4!");	
+				return DataCheckResult;
+			}	
+		}
+		else
+		{
+			if((Number(f1.cMaxRTPPort.value)-Number(f1.cMinRTPPort.value)) < 2)
+			{
+				alert(WarningInvalidRTPSetting);
+				SetInputBGColor("cMinRTPPort");	
+				SetInputBGColor("cMaxRTPPort");
+				return DataCheckResult;
+			}
+		}
+	}
+	if(f1.cMinRTPPort.value != f2.hcMinRTPPort.value || f1.cMaxRTPPort.value != f2.hcMaxRTPPort.value)
+	{
+		if(IsRTPPortUsed()) 
+		{
+			SetInputBGColor("cMinRTPPort");	
+			SetInputBGColor("cMaxRTPPort");
+			alert(WarningPortUsedAlready + WarningCurrentUsedPorts + f2.hcPortTypeRTP.value.split(SplitSymbol));
+			return DataCheckResult;
+		}
+	}
+	if(1 == f1.cSNMPActive.value)
+	{
+		if(IsSNMPPortUsed())
+		{
+			SetInputBGColor("cSNMPPort");
+			alert(WarningPortUsedAlready + WarningCurrentUsedPorts + f2.hcPortTypeSNMP.value.split(SplitSymbol));
+			return DataCheckResult;
+		}
+		if( Number(f1.cMinRTPPort.value) <=  Number(f1.cSNMPPort.value) &&
+			  Number(f1.cSNMPPort.value) <= Number(f1.cMaxRTPPort.value) )
+		{
+			SetInputBGColor("cMinRTPPort");	
+			SetInputBGColor("cMaxRTPPort");
+			SetInputBGColor("cSNMPPort");
+			alert(WarningPortSettingConflict);
+			return DataCheckResult;			
+		}
+	}
+	
+	if(1 == document.getElementById("cVPNActive").value)
+	{
+		if("" == f2.hcVPNCFGFileName.value)
+		{
+			VPNCfgNoExistFlag = true;
+			alert(WarningVPNFileNoExist);
+			return DataCheckResult;
+		}
+	}
+	if("1" == document.getElementById("cDot1xMode").value)
+	{
+		var emptyFlag = 0;
+		if("" == document.getElementById("cDot1xPasswd").value)
+		{
+			emptyFlag = 1;
+			SetInputBGColor("cDot1xPasswd");
+		}
+		if("" == document.getElementById("cDot1xIdentity").value)
+		{
+			emptyFlag = 1;
+			SetInputBGColor("cDot1xIdentity");
+		}
+		if(emptyFlag) 
+		{ 
+			alert(WarningIdentityOrPasswdEmpty);
+			return DataCheckResult; 
+		}
+	}
+	NeedReboot=false;
+	if(f1.cLLDPActive.value != f2.hcLLDPActive.value)
+	{
+		NeedReboot = true;
+	}
+	if(document.getElementById("cDot1xMode").value != f2.hcDot1xMode.value || 
+			document.getElementById("cDot1xIdentity").value != f2.hcDot1xIdentity.value ||
+			(!PwdKeyFirst[0] && "********" != document.getElementById("cDot1xPasswd").value))
+	{
+		NeedReboot = true;
+	}
+	if(document.getElementById("cVPNActive").value != f2.hcVPNActive.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cVLANLANActive.value != f2.hcVLANLANActive.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cVLANPCActive.value != f2.hcVLANPCActive.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cLANPrior.value != f2.hcLANPrior.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cPCPrior.value != f2.hcPCPrior.value)
+	{
+		NeedReboot = true;
+	}	
+	if(f1.cLANVID.value != f2.hcLANVID.value)
+	{
+		NeedReboot = true;
+	}
+	if(f1.cPCVID.value != f2.hcPCVID.value)
+	{
+		NeedReboot = true;
+	}
+	if(DataCheckResult != tmpRes && true == NeedReboot)
+	{
+		NeedReboot = false;
+		if(!confirm(ConfigChange + ":" + EffectAfterRebootWarning))
+		{
+			return;
+		}
+	}
+	
+	if(DataCheckResult == strSubmData)
+	{
+		return;
+	}
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3, false);
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var dataChangedWarnFlag = 0;
+
+	if(f1.cLLDPActive.value != f2.hcLLDPActive.value ||	f1.cPacketInterval.value != f2.hcPacketInterval.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cMaxRTPPort.value != f2.hcMaxRTPPort.value || f1.cMinRTPPort.value != f2.hcMinRTPPort.value)
+	{
+		dataChangedWarnFlag = 1;		
+	}
+	if(f1.cSIPQoS.value != f2.hcSIPQoS.value || f1.cVoiceQoS.value != f2.hcVoiceQoS.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f2.hcVsipIsOpenQos.value != f1.cVsipIsOpenQos.value) 
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(document.getElementById("cDot1xMode").value != f2.hcDot1xMode.value || document.getElementById("cDot1xIdentity").value != f2.hcDot1xIdentity.value ||
+			(!PwdKeyFirst[2] && "********" != document.getElementById("cDot1xPasswd").value))
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if((!PwdKeyFirst[3] && "********" != f1.cDDNSPwd.value) || f1.cDDNSType.value != f2.hcDDNSType.value
+			 || f1.cDDNSAccount.value != f2.hcDDNSAccount.value || f1.cDDNSDomainName.value != f2.hcDDNSDomainName.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(document.getElementById("cVPNActive").value != f2.hcVPNActive.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cSNMPActive.value != f2.hcSNMPActive.value || 
+			f1.cSNMPPort.value != f2.hcSNMPPort.value ||
+			f1.cSNMPTrustedIPAddr.value != f2.hcSNMPTrustedIPAddr.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cTR069Active.value != f2.hcTR069Active.value ||
+			f1.cTR069InformPerActive.value != f2.hcTR069InformPerActive.value ||
+			f1.cTR069Version.value != f2.hcTR069Version.value ||
+			f1.cTR069ACSURL.value != f2.hcTR069ACSURL.value ||
+			f1.cTR069ACSUser.value != f2.hcTR069ACSUser.value ||
+			(!PwdKeyFirst[0] && "********" != f1.cTR069ACSPWD.value) ||
+			f1.cTR069CPEURL.value != f2.hcTR069CPEURL.value ||
+			f1.cTR069CPEUser.value != f2.hcTR069CPEUser.value ||
+			(!PwdKeyFirst[1] && "********" != f1.cTR069CPEPWD.value) || 
+			f1.cTR069InformPeriod.value != f2.hcTR069InformPeriod.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cVLANLANActive.value != f2.hcVLANLANActive.value ||
+			f1.cLANVID.value != f2.hcLANVID.value ||
+			f1.cLANPrior.value != f2.hcLANPrior.value ||
+			f1.cVLANPCActive.value != f2.hcVLANPCActive.value ||
+			f1.cPCVID.value != f2.hcPCVID.value ||
+			f1.cPCPrior.value != f2.hcPCPrior.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	
+	if(f1.cTelnetActive.value != f2.hcTelnetActive.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	
+	if(f2.hcVsipEnableAcl.value != document.getElementById("cVsipEnableAcl").value) 
+	{
+		dataChangedWarnFlag = 1;
+	}
+	
+	if(0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu3", "tMenu32");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+			<div class="mid_cont" id="mid_cont2" style="display:none">
+<form method="post" name="body_form" id="body_form" action="">
+
+			<div id="NetworkA_divLLDP" class="div_border">
+			<div class="div_head"><label id='tLLDP'>LLDP</label></div>
+			<table class="table_style">						
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tLLDPActive'></label></td><td class="NetA3_td"><select class="Select_format1" name="cLLDPActive" id="cLLDPActive"></select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tPacketInterval'></label></td><td class="NetA3_td"><input class="def_input" type="text" name="cPacketInterval" id="cPacketInterval" value=""><label id="tPacketIntervalRange">(10~3600s)</label></td></tr>
+			</table>
+			</div>
+					
+			<div class="div_border" id="NetworkA_divLocalRTP">
+			<div class="div_head"><label id='tLocalRTP'>Local RTP</label></div>
+			<table class="table_style">
+				<tr id="NetworkA_trMaxRTPPort"><td class="NetA1_td"></td><td class="NetA2_td"><label id='tMaxRTPPort'></label></td><td class="NetA3_td"><input class="def_input" type="text" name="cMaxRTPPort" id="cMaxRTPPort" value=""><label id="tMaxRTPPortRange"></label></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tMinRTPPort'></label></td><td class="NetA3_td"><input class="def_input" type="text" name="cMinRTPPort" id="cMinRTPPort" value=""><label id="tMinRTPPortRange"></label></td></tr>
+			</table>
+			</div>
+					
+			<div class="div_border" id="NetworkA_divSNMP">
+			<div class="div_head"><label id='tSNMP'>SNMP</label></div>
+			<table class="table_style">		
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tSNMPActive'></label></td> <td class="NetA3_td"><select class="Select_format1" name="cSNMPActive"></select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tSNMPPort'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cSNMPPort" id="cSNMPPort" value="">(1024~65535)</td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tSNMPTrustedIPAddr'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cSNMPTrustedIPAddr" id="cSNMPTrustedIPAddr" value=""></td></tr>			
+			</table>
+			</div>	
+	    
+			<div id="NetworkA_divVLAN" class="div_border">
+			<div class="div_head"><label id='tVLAN'>VLAN</label></div>
+			<table class="table_style">
+				<tr><td class="NetA1_td"><label id="tLANPort">LAN Port</label></td><td class="NetA2_td"><label id='tVLANActive1'>Active</label></td> <td class="NetA3_td"><select class="Select_format1" name="cVLANLANActive"> </select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tVID1'>VID</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cLANVID" id="cLANVID" value="">(1~4094)</td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tPrior1'>Priority</label></td> <td class="NetA3_td"><select class="Select_format1" name="cLANPrior"></select></td></tr>
+				<tr><td class="NetA1_td"><label id="tPCPort">PC Port</label></td><td class="NetA2_td"><label id='tVLANActive2'>Active</label></td> <td class="NetA3_td"><select class="Select_format1" name="cVLANPCActive"> </select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tVID2'>VID</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cPCVID" id="cPCVID" value="">(1~4094)</td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tPrior2'>Priority</label></td> <td class="NetA3_td"><select class="Select_format1" name="cPCPrior"></select></td></tr>
+			</table>
+			</div>
+
+			<div id='NetworkA_divQOS' class="div_border">
+			<div class="div_head"><label id='tQOS'>QOS</label></div>
+			<table class="table_style">
+				<tr id="NetworkA_trEnableQOS"><td class="NetA1_td"></td>
+					<td class="NetA2_td"><label id='tVsipIsOpenQos'>Enable QoS</label></td>
+					<td class="NetA3_td"><select class="Select_format1" id='cVsipIsOpenQos'></td>
+				</tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tSIPQoS'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cSIPQoS" id="cSIPQoS" value=""><label id="tSIPQosRange"></label></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tVoiceQoS'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cVoiceQoS" id="cVoiceQoS" value=""><label id="tVoiceQoSRange"></label></td></tr>
+			</table>
+			</div>
+				
+			<div id="NetworkA_divTR069" class="div_border">
+			<div class="div_head"><label id='tTR069'>TR069</label></div>
+			<table class="table_style">					
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069Active'></label></td> <td class="NetA3_td"><select class="Select_format1" name="cTR069Active"> </select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069Version'></label></td> <td class="NetA3_td"><select class="Select_format1" name="cTR069Version"> </select></td></tr>
+				<tr><td class="NetA1_td"><label>ACS</label></td><td class="NetA2_td"><label id='tTR069ACSURL'>URL</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cTR069ACSURL" id="cTR069ACSURL" value=""></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069ACSUser'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cTR069ACSUser" id="cTR069ACSUser" value=""></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069ACSPWD'></label></td> <td class="NetA3_td"><input class="def_input" type="password" name="cTR069ACSPWD" id="cTR069ACSPWD" value="********" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)"></td></tr>
+				<tr><td class="NetA1_td"><label id='tTR069InformPer'></label></td><td class="NetA2_td"><label id='tTR069InformPerActive'></label></td> <td class="NetA3_td"><select class="Select_format1" name="cTR069InformPerActive"> </select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069InformPeriod'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cTR069InformPeriod" id="cTR069InformPeriod" value=""><label id="tTR069InformPeriodRange">(3~24×3600s)</label></td></tr>
+				<tr><td class="NetA1_td"><label>CPE</label></td><td class="NetA2_td"><label id='tTR069CPEURL'>URL</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cTR069CPEURL" id="cTR069CPEURL" value=""></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069CPEUser'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cTR069CPEUser" id="cTR069CPEUser" value=""></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTR069CPEPWD'></label></td> <td class="NetA3_td"><input class="def_input" type="password" name="cTR069CPEPWD" id="cTR069CPEPWD" value="********" oncontextmenu="KeyFirstDelete(this.id, 1)" onKeyDown="KeyFirstDelete(this.id, 1)"></td></tr>
+			</table>
+			</div>			
+					
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tWebType'></label></div>
+			<table class="table_style">	
+				<tr><td class="NetA2_td"><label id='tType'></label></td> <td class="NetA3_td"><select name="cWebType"> </select></td></tr>
+				<tr><td class="NetA2_td"><label id='tHttpPort'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cHttpPort" id="cHttpPort" value=""></td></tr>
+				<tr><td class="NetA2_td"><label id='tHttpsPort'></label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cHttpsPort" id="cHttpsPort" value=""></td></tr>			
+			</table>
+			</div>
+			
+			<div id="NetworkA_divDDNS" class="div_border" style="display:none">
+			<div class="div_head"><label id='tDDNS'>DDNS</label></div>
+			<table class="table_style">
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSType'>Type</label></td> <td class="NetA3_td"><select class="Select_format1" name="cDDNSType" onChange="CheckDDNSType()"> </select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSEasyDomainName'>Easy Domain Name</label></td> <td class="NetA3_td"><label class="def_input" type="text" name="cDDNSEasyDomainName" id="cDDNSEasyDomainName"></label></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSProvider'>Provider</label></td> <td class="NetA3_td"><select class="Select_format1" class="def_input" type="text" name="cDDNSProvider" id="cDDNSProvider" value=""></select></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSAccount'>Account</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cDDNSAccount" id="cDDNSAccount" value=""></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSPwd'>Password</label></td> <td class="NetA3_td"><input class="def_input" type="password" name="cDDNSPwd" id="cDDNSPwd" value="********" oncontextmenu="KeyFirstDelete(this.id, 3)" onKeyDown="KeyFirstDelete(this.id, 3)"></td></tr>
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDDNSDomainName'>DDNS</label></td> <td class="NetA3_td"><input class="def_input" type="text" name="cDDNSDomainName" id="cDDNSDomainName" value=""></td></tr>
+			</table>
+			</div>
+		  
+			<div id='NetworkA_divTelnet' class="div_border" style="display:none">
+			<div class="div_head"><label id='tOthers'>Others</label></div>
+			<table class="table_style">						
+				<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tTelnetActive'></label></td><td class="NetA3_td"><select class="Select_format1" name="cTelnetActive" id="cTelnetActive"></select></td></tr>
+			</table>
+			</div>
+			
+			<div id="NetworkA_divDot1x" class="div_border">
+				<div class="div_head"><label id='tDot1x'>802.1X</label></div>
+				<table class="table_style">	
+					<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDot1xMode'>Mode</label></td><td class="NetA3_td"><select class="Select_format1" id='cDot1xMode' name="cDot1xMode"></select></td></tr>	
+					<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDot1xIdentity'>Identity</label></td><td class="NetA3_td"><input type='text' class="def_input" id='cDot1xIdentity' name="cDot1xIdentity" /></td></tr>		
+					<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tDot1xPasswd'>Passwd</label></td><td class="NetA3_td"><input type='password' class="def_input" id='cDot1xPasswd' name="cDot1xPasswd" oncontextmenu="KeyFirstDelete(this.id, 2)" onKeyDown="KeyFirstDelete(this.id, 2)" /></td></tr>			
+</form>
+					<form id="uploadCAForm" enctype="multipart/form-data" action="" method="post">
+						<input type="hidden" name="uploadCA" id="uploadCA" value="&Operation=Upload&">
+						<tr>
+							<td class="NetA1_td"><td class="NetA2_td"><label id='tCACertificates'>CA Certificates</label></td>
+							<td class="NetA3_td"><input name="uploadCACert" id="uploadCACert" type="file" /></td></tr>
+						</tr>
+						<tr>
+							<td class="NetA1_td"></td><td class="NetA2_td"></td>
+							<td class="NetA3_td"><input class="Nice_Btn" type="button" id='uploadCASubmit' value="Upload" onClick ="OnUploadCACert()"></td>
+						</tr>
+					</form>
+					<form id="uploadClientForm" enctype="multipart/form-data" action="" method="post">
+						<input type="hidden" name="uploadClient" id="uploadClient" value="&Operation=Upload&">
+						<tr>
+							<td class="NetA1_td"><td class="NetA2_td"><label id='tDeviceCertificates'>Device Certificates</label></td>
+							<td class="NetA3_td"><input name="uploadDeviceCert" id="uploadDeviceCert" type="file" /></td></tr>
+						</tr>
+						<tr>
+							<td class="NetA1_td"></td><td class="NetA2_td"></td>
+							<td class="NetA3_td"><input class="Nice_Btn" type="button" id='uploadDevSubmit' value="Upload" onClick ="OnUploadDevCert()"></td>
+						</tr>
+					</form>
+				</table>
+			</div>
+			
+			<div id="NetworkA_divVPN" class="div_border">
+			<div class="div_head"><label id='tVPN'>VPN</label></div>
+			<table class="table_style">	
+					<tr><td class="NetA1_td"></td><td class="NetA2_td"><label id='tVPNActive'>Active</label></td>
+							<td class="NetA3_td"><select class="Select_format1" name="cVPNActive" id="cVPNActive" value=""></select></td>
+					</tr>
+				<form id="uploadForm" enctype="multipart/form-data" action="" method="post">
+					<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr><td class="NetA1_td"><td class="NetA2_td"><label id='tUploadVPN'>Upload VPN</label></td>
+						<td class="NetA3_td"><input name="uploadVPNCFG" id="uploadVPNCFG" type="file" /></td></tr>							
+					</tr>
+					<tr><td class="NetA1_td"></td><td class="NetA2_td"></td><td class="NetA3_td"><input class="Nice_Btn" type="button" id='uploadSubmit' value="Upload" onClick ="OnUploadVPNCFG()"></td></tr>
+				</form>
+			</table>
+			</div>
+			
+			<div id="NetworkA_divACL" class="div_border">
+			<div class="div_head"><label id='tACL'>ACL</label></div>
+			<table class="table_style">	
+				<tr>
+					<tr><td class="NetA1_td"></td>
+					<td class="NetA2_td"><label id='tVsipEnableAcl'>ACL</label></td>
+					<td class="NetA3_td"><select class="Select_format1" id='cVsipEnableAcl'></td>
+				</tr>	
+			</table>	
+			</div>
+<div id="NetworkA_divSubmitForm">
+<form method="post" name="submit_form" id="submit_form" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+		<br/>
+		<input type="hidden" name="SubmitData" value="">
+		<tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmitWithWarn()"></td>
+		<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+		</table>
+	</div>
+</form>
+</div>
+	<FCGI_INCLUDE FILE=authorityWarning.html>
+	</div>
+	</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"> </div>		
+	</div>
+	</div>
+</form>
+<FCGI_INCLUDE FILE=bottom.html>	

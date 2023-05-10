@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        CombineData="AdvanceSetting"
+        LockIn="no">
+  <title showlistcount="yes">Advanced Setting</title>
+	<MenuItem><Prompt>Account</Prompt><URI>local://app/factory/Static/XMLBrowser/AccountMenu.xml</URI></MenuItem>
+	<MenuItem><Prompt>Network</Prompt><URI>local://app/factory/Static/XMLBrowser/NetworkSetting.xml</URI></MenuItem>
+	<MenuItem><Prompt>WebServer</Prompt><URI>local://app/factory/Static/XMLBrowser/WebSetting.xml</URI></MenuItem>
+	<MenuItem><Prompt>Reset to factory</Prompt><DataID>Combine_AdvanceSetting_ResetToFactory</DataID></MenuItem>
+	<MenuItem><Prompt>Password Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/PasswordSetting.xml</URI></MenuItem>
+	<MenuItem><Prompt>Autoprovision</Prompt><URI>local://app/factory/Static/XMLBrowser/AutopSetting.xml</URI></MenuItem>
+	<MenuItem><Prompt>Reboot</Prompt><DataID>Combine_AdvanceSetting_Reboot</DataID></MenuItem>
+
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

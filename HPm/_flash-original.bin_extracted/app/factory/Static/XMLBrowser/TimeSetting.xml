@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        CombineData="TimeSetting"
+        LockIn="no">
+  <title wrap="no" showlistcount="yes">Date &amp; Time</title>
+	<MenuItem><Prompt>SNTP Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/TimeSntp.xml</URI></MenuItem>
+	<MenuItem><Prompt>Manual Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/TimeManual.xml</URI></MenuItem>
+	<MenuItem><Prompt>Format Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/TimeFormat.xml</URI></MenuItem>
+	<MenuItem><Prompt>Display Mode Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/DateDisplaySetting.xml</URI></MenuItem>
+
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

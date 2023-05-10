@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneText>
+  <Title>$(var:dsc_title)</Title>
+  <Text>$(var:dsc_text)</Text>
+  <If condition="$(var:dsc_yes)">
+    <SoftKeyItem>
+      <Name>ENTER</Name>
+      <Url>snom://mb_exit#$(var:action)=yes</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F1</Name>
+      <Label>F_OK</Label>
+      <Url>snom://mb_exit#$(var:action)=yes</Url>
+    </SoftKeyItem>
+  </If>
+  <If condition="$(var:dsc_no)">
+    <SoftKeyItem>
+      <Name>CANCEL</Name>
+      <Url>snom://mb_exit#$(var:action)=no</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F2</Name>
+      <Label>F_CANCEL</Label>
+      <Url>snom://mb_exit#$(var:action)=no</Url>
+    </SoftKeyItem>
+  </If>
+  <If condition="$(var:dsc_abort)">
+    <SoftKeyItem>
+      <Name>F_ABORT</Name>
+      <Url>snom://mb_exit#$(var:action)=abort</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F3</Name>
+      <Label>F_ABORT</Label>
+      <Url>snom://mb_exit#$(var:action)=abort</Url>
+    </SoftKeyItem>
+  </If>
+</SnomIPPhoneText>

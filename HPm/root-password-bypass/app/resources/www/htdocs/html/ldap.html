@@ -1,0 +1,335 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+	var cArrays1 = ['cLdapNameFilter', 'hcLdapNameFilter'
+									,'cLdapNumberFilter', 'hcLdapNumberFilter'
+									,'cLdapServer', 'hcLdapServer'
+									,'cLdapPort', 'hcLdapPort'
+									,'cLdapBase', 'hcLdapBase'
+									,'cLdapUserName', 'hcLdapUserName'
+									,'cLdapPassword', 'hcLdapPassword'
+									,'cLdapNameAttr', 'hcLdapNameAttr'
+									,'cLdapNumberAttr', 'hcLdapNumberAttr'
+									,'cLdapDisplayName', 'hcLdapDisplayName'
+									,'cLdapMaxHits', 'hcLdapMaxHits'
+									,'cLdapSearchDelay', 'hcLdapSearchDelay'];
+	var tArrays1 = ['tLdapNameFilter', NameFilter
+									,'tLdapNumberFilter', NumberFilter
+									,'tLdapServer', Server
+									,'tLdapPort', Port
+									,'tLdapBase', BaseDN
+									,'tLdapUserName', UserName
+									,'tLdapPassword', PasswordLabel
+									,'tLdapProtocal', Protocal
+									,'tLdapNameAttr', NameAttribute
+									,'tLdapNumberAttr', NumberAttribute
+									,'tLdapDisplayName', DisplayName
+									,'tLdapMaxHits', MaxHits
+									,'tLdapSearchDelay', SearchDelayTime
+									,'tLdapMatchIncomingCalls', MatchIncomingCalls
+									,'tLdapSortingResults', SortingResults
+									,'tLdapLookupForRedial', LookUpForDialRe];
+function DoF5Jump()
+{
+	Relocate('do?id=5&id=5');
+}
+var PageRefDesURL = 'do?id=5&id=5';
+$(function() { SetPageMenuAction("#aMenu5", "tMenu55");});
+function LoadLang()
+{
+
+	var tmp = "LDAP";
+	LoadCommonResources(tmp);
+	for(var i=0; i < tArrays1.length/2; i++)
+	{
+		document.getElementById(tArrays1[2*i]).innerHTML = tArrays1[2*i+1];
+	}
+	document.getElementById('tRange1').innerHTML = "(200~3000)"+SecondMilliAbbr;
+	var arr127 = ['cLdapNameFilter', 'cLdapNumberFilter', 'cLdapNameAttr','cLdapNumberAttr', 'cLdapDisplayName'];
+	for(var i = 0; i < arr127.length; i++)
+	{ document.getElementsByName(arr127[i])[0].maxLength=127; }
+//Android
+	if("undefined" != typeof(LDAPBase)){document.getElementById("tLdapBaseAndroid").innerHTML = LDAPBase};
+	if("undefined" != typeof(LDAPEnable)){document.getElementById("tLadpType").innerHTML = LDAPEnable};
+	if("undefined" != typeof(BaseDN)){document.getElementById("tLdapBase").innerHTML = BaseDN};
+}
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	f1.cLdapMatchIncomingCalls.options.add(new Option(Disabled, 0));
+	f1.cLdapSortingResults.options.add(new Option(Disabled, 0));
+	f1.cLdapLookupForRedial.options.add(new Option(Disabled, 0));
+	var tmpS = Version+"2";
+	f1.cLdapProtocal.options.add(new Option(tmpS, 2));
+	
+	f1.cLdapMatchIncomingCalls.options.add(new Option(Enabled, 1));
+	f1.cLdapSortingResults.options.add(new Option(Enabled, 1));
+	f1.cLdapLookupForRedial.options.add(new Option(Enabled, 1));
+	tmpS = Version+"3";
+	f1.cLdapProtocal.options.add(new Option(tmpS, 3));
+//Android
+	if("undefined" != typeof(None)){document.getElementById("cLadpType").options.add(new Option(Disabled, 0));}
+	else{document.getElementById("cLadpType").options.add(new Option("None", 0));}	
+	if("undefined" != typeof(LDAP)){document.getElementById("cLadpType").options.add(new Option(Enabled, 1));}	
+	else{document.getElementById("cLadpType").options.add(new Option("LDAP", 1));}	
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+}
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	SetConfigVal(cArrays1);
+	f1.cLdapPassword.value = "********";
+	f1.cLdapProtocal.value = f2.hcLdapProtocal.value = TransEmptyStrTo(f2.hcLdapProtocal.value, 2); 
+	f1.cLdapMatchIncomingCalls.value = f2.hcLdapMatchIncomingCalls.value = TransEmptyStrTo0(f2.hcLdapMatchIncomingCalls.value);
+	f1.cLdapSortingResults.value = f2.hcLdapSortingResults.value =  TransEmptyStrTo0(f2.hcLdapSortingResults.value);
+	f1.cLdapLookupForRedial.value = f2.hcLdapLookupForRedial.value = TransEmptyStrTo0(f2.hcLdapLookupForRedial.value);
+	ResetAllInputColor();
+	for(var i = 0; i < PwdKeyFirst.length; i++) { PwdKeyFirst[i] = true; }
+//Android
+	f1.cLdapBaseAndroid.value = f2.hcLdapBaseAndroid.value = TransEmptyStrTo0(f2.hcLdapBaseAndroid.value);
+	f1.cLadpType.value = f2.hcLadpType.value = TransEmptyStrTo0(f2.hcLadpType.value);
+}
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	if(f1.cLdapMatchIncomingCalls.value != f2.hcLdapMatchIncomingCalls.value)
+	{
+		strSubmData = strSubmData + "&cLdapMatchIncomingCalls=" + f1.cLdapMatchIncomingCalls.value;
+	}
+	if(f1.cLdapSortingResults.value != f2.hcLdapSortingResults.value)
+	{
+		strSubmData = strSubmData + "&cLdapSortingResults=" + f1.cLdapSortingResults.value;
+	}
+	if(f1.cLdapLookupForRedial.value != f2.hcLdapLookupForRedial.value)
+	{
+		strSubmData = strSubmData + "&cLdapLookupForRedial=" + f1.cLdapLookupForRedial.value;
+	}
+	if(f1.cLdapProtocal.value != f2.hcLdapProtocal.value)
+	{
+		strSubmData = strSubmData + "&cLdapProtocal=" + f1.cLdapProtocal.value;
+	}
+	
+	if(!PwdKeyFirst[0] && "********" != f1.cLdapPassword.value)
+	{
+		if(!CheckLengthOfData(f1.cLdapPassword.value, 0, 63))
+		{
+			SetInputBGColor("cLdapPassword");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cLdapPassword=" + PostEncode(f1.cLdapPassword.value);
+	}	
+	for(var i=0; i < cArrays1.length/2; i++)
+	{
+		if(cArrays1[2*i] == 'cLdapPassword')
+		{
+			continue;
+		}
+		strSubmData = SetPostData_NotInvalid(cArrays1[2*i], cArrays1[2*i+1], strSubmData);
+		if(DataCheckResult == strSubmData)
+		{
+			ErrFlag = false;
+		}
+	}
+	if(!CheckRangeOfNumber(f1.cLdapPort.value, 1, 65535))
+	{
+		if("" != f1.cLdapPort.value || "" != f2.hcLdapPort.value) { SetInputBGColor("cLdapPort");ErrFlag = true; }
+	}
+	if(!CheckRangeOfNumber(f1.cLdapSearchDelay.value, 200, 3000))
+	{
+		if("" != f1.cLdapSearchDelay.value || "" != f2.hcLdapSearchDelay.value) { SetInputBGColor("cLdapSearchDelay");ErrFlag = true; }
+	}
+	if(!CheckRangeOfNumber(f1.cLdapMaxHits.value, 1, 500))
+	{
+		if("" != f1.cLdapMaxHits.value || "" != f2.hcLdapMaxHits.value) { SetInputBGColor("cLdapMaxHits");ErrFlag = true; }
+	}
+//Android	
+	if(f2.hcLdapBaseAndroid.value != f1.cLdapBaseAndroid.value) 
+	{
+		if(!NotContainInvalid255(f1.cLdapBaseAndroid.value))
+		{
+			SetInputBGColor("cLdapBaseAndroid");
+			ErrFlag = true;
+		}	
+		strSubmData = strSubmData + "&cLdapBaseAndroid=" + f1.cLdapBaseAndroid.value;
+	}
+	if(f2.hcLadpType.value != f1.cLadpType.value) 
+	{
+		strSubmData = strSubmData + "&cLadpType=" + f1.cLadpType.value;
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+function SetPostData_NotInvalid(cItem, hcItem, strSubmData)
+{
+	var cItemVal = document.getElementsByName(cItem)[0].value;
+	if(cItemVal != ShowDecode(document.getElementById(hcItem).value))
+	{
+		if(!NotContainInvalidLDAP(cItemVal, cItem)) { SetInputBGColor(cItem); return DataCheckResult; }
+		if("cLdapPort" == cItem || "cLdapMaxHits" == cItem || "cLdapSearchDelay" == cItem)
+		{
+			strSubmData = strSubmData + "&" + cItem + "=" + Number(cItemVal);
+		}
+		else	strSubmData = strSubmData + "&" + cItem + "=" + PostEncode(cItemVal);
+	}
+	return strSubmData;
+}
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = 0;
+	
+	if(f1.cLdapMatchIncomingCalls.value != f2.hcLdapMatchIncomingCalls.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cLdapSortingResults.value != f2.hcLdapSortingResults.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cLdapLookupForRedial.value != f2.hcLdapLookupForRedial.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cLdapProtocal.value != f2.hcLdapProtocal.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(!PwdKeyFirst[0] && "********" != f1.cLdapPassword.value)
+	{
+		dataChangedWarnFlag = 1;
+	}	
+	var tmpID, htmpID;
+	for(var i=0; i < cArrays1.length/2; i++)
+	{
+		if(cArrays1[2*i] == 'cLdapPassword')
+		{
+			continue;
+		}
+		tmpID = cArrays1[2*i];
+		htmpID = cArrays1[2*i+1];
+			
+		if(document.getElementById(tmpID).value != ShowDecode(document.getElementById(htmpID).value))
+		{
+			dataChangedWarnFlag = 1;	
+		}
+	}
+	
+	if(f2.hcLdapBaseAndroid.value != f1.cLdapBaseAndroid.value) 
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f2.hcLadpType.value != f1.cLadpType.value) 
+	{
+		dataChangedWarnFlag = 1;
+	}		
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+function NotContainInvalidLDAP(postData, cItem)
+{
+	var desLen = 63;
+	if('cLdapNameFilter' == cItem
+	||'cLdapNumberFilter' == cItem
+	||'cLdapNameAttr' == cItem
+	||'cLdapNumberAttr' == cItem
+	||'cLdapDisplayName' == cItem)
+	{desLen = 127;}
+	if(!CheckLengthOfData(postData, 0, desLen))
+	{
+		return false;
+	}
+  return true;
+}
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+  			
+	<div class="div_border">
+		<div class="div_head"><label id='tLDAP'>LDAP</label></div>
+		<table class="table_style">
+			<tr id="LDAP_trLadpType"><td class="Second_td"><label id='tLadpType'>Enable LDAP</label></td><td class="Third_td2"><select class="Select_format1" id='cLadpType'></td></tr>
+			<tr id="LDAP_trLdapNameFilter"><td class="Second_td"><label id='tLdapNameFilter'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapNameFilter" value="" id="cLdapNameFilter" /></td></tr>
+			<tr id="LDAP_trLdapNumberFilter"><td class="Second_td"><label id='tLdapNumberFilter'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapNumberFilter" value="" id="cLdapNumberFilter" /></td></tr>
+			<tr><td class="Second_td"><label id='tLdapServer'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapServer" value="" id="cLdapServer" /></td></tr>
+			<tr><td class="Second_td"><label id='tLdapPort'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapPort" value="" id="cLdapPort" />(1~65535)</td></tr>
+			<tr><td class="Second_td"><label id='tLdapBase'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapBase" value="" id="cLdapBase" /></td></tr>	
+			<tr id="LDAP_trLdapUserName"><td class="Second_td"><label id='tLdapUserName'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapUserName" value="" id="cLdapUserName" /></td></tr>
+			<tr><td class="Second_td"><label id='tLdapPassword'></label></td> <td class="Third_td2"><input class="def_input2" type="password" name="cLdapPassword" value="********" id="cLdapPassword" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)" /></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tLdapProtocal'></label></td> <td class="Third_td2"><select class="Select_format1" name="cLdapProtocal" id="cLdapProtocal"></select></td></tr>
+			<tr><td class="Second_td"><label id='tLdapNameAttr'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapNameAttr" value="" id="cLdapNameAttr" /></td></tr>
+			<tr><td class="Second_td"><label id='tLdapNumberAttr'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapNumberAttr" value="" id="cLdapNumberAttr" /></td></tr>
+			<tr id="LDAP_trLdapDisplayName"><td class="Second_td"><label id='tLdapDisplayName'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapDisplayName" value="" id="cLdapDisplayName" /></td></tr>
+			<tr id="LDAP_trLdapMaxHits"><td class="Second_td"><label id='tLdapMaxHits'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapMaxHits" value="" id="cLdapMaxHits" />(1~500)</td></tr>
+			<tr><td class="Second_td"><label id='tLdapSearchDelay'></label></td> <td class="Third_td2"><input class="def_input2" type="text" name="cLdapSearchDelay" value="" id="cLdapSearchDelay" /><label id="tRange1"></label></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tLdapMatchIncomingCalls'></label></td> <td class="Third_td2"><select class="Select_format1" name="cLdapMatchIncomingCalls" id="cLdapMatchIncomingCalls"></select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tLdapSortingResults'></label></td> <td class="Third_td2"><select class="Select_format1" name="cLdapSortingResults" id="cLdapSortingResults"></select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tLdapLookupForRedial'></label></td> <td class="Third_td2"><select class="Select_format1" name="cLdapLookupForRedial" id="cLdapLookupForRedial"></select></td></tr>
+			<tr id="LDAP_trLdapBaseAndroid"><td class="Second_td"><label id='tLdapBaseAndroid'>LDAP Base</label></td><td class="Third_td2"><input class="def_input2" type="text" id="cLdapBaseAndroid"></td></tr>				
+		</table>
+	</div>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="" />
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        	 		<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+</form>
+			</div>
+		</div>
+<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>	
+<FCGI_INCLUDE FILE=bottom.html>

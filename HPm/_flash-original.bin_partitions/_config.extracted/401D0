@@ -1,0 +1,6 @@
+23-03-27" Time="16:08:04" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="Eddie" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:22" />
+    <Call ID="46" CallID="11" Type="2" Status="0" Date="2023-03-27" Time="16:09:42" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="Eddie" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:01" />
+    <Call ID="47" CallID="12" Type="2" Status="0" Date="2023-03-27" Time="16:10:00" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="Eddie" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:01" />
+    <Call ID="48" CallID="13" Type="2" Status="0" Date="2023-03-27" Time="16:10:20" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="Eddie" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:09" />
+    <Call ID="49" CallID="200038" Type="1" Status="0" Date="2023-03-27" Time="16:16:37" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="201" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:02" />
+</History>

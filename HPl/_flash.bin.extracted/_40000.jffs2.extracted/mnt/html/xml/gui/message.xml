@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneText state="relevant">
+  <fetch mil="$(msg_timeout)">snom://mb_exit</fetch>
+  <Title>$(msg_title)</Title>
+  <Text>$(msg_text)</Text>
+</SnomIPPhoneText>
+

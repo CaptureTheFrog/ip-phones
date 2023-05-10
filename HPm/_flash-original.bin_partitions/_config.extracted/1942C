@@ -1,0 +1,3 @@
+eDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:00" />
+    <Call ID="16" CallID="200012" Type="1" Status="0" Date="2023-03-27" Time="16:43:18" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="*98" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:05" />
+</History>

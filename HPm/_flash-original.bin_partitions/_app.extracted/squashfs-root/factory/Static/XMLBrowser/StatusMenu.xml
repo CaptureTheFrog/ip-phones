@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        LockIn="no"
+        IsSimplified="yes"
+        Selection="local://app/factory/Static/XMLBrowser/DetailStatus.xml">
+  <title wrap="no" showlistcount="yes">Status</title>
+	<MenuItem LocalData="yes"><Prompt>IP: %s</Prompt><DataID>DID_Status_NETWORK_LANIPAddr</DataID></MenuItem>
+	<MenuItem LocalData="yes"><Prompt>MAC: %s</Prompt><DataID>DID_Status_NETWORK_MAC</DataID></MenuItem>
+	<MenuItem LocalData="yes"><Prompt>Firmware: %s</Prompt><DataID>DID_Status_GENERAL_Firmware</DataID></MenuItem>
+
+	<SoftKey index="1"><Label>More</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+
+</IPPhoneTextMenu>

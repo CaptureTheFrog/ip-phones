@@ -1,0 +1,771 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+function DoF5Jump()
+{
+	Relocate('do?id=10&id=1');
+}
+var PageRefDesURL = 'do?id=10&id=1';
+$(function() {
+	SetPageMenuAction("#aMenu8", "tMenu81");
+});
+
+function LoadLang()
+{
+	LoadCommonResources("Android");
+
+	if("undefined" != typeof(VP8DBC)){document.getElementById("tVsipIsOpenVp8Dbc").innerHTML = VP8DBC};
+	if("undefined" != typeof(VP8RPSL)){document.getElementById("tVsipIsVp8Rpsl").innerHTML = VP8RPSL};
+	if("undefined" != typeof(AGCRecv)){document.getElementById("tVsipIsOpenAgcRecv").innerHTML = AGCRecv};
+	if("undefined" != typeof(AGCSend)){document.getElementById("tVsipIsOpenAgcSend").innerHTML = AGCSend};
+	if("undefined" != typeof(FIR)){document.getElementById("tVsipIsOpenFir").innerHTML = FIR};
+	if("undefined" != typeof(FEC)){document.getElementById("tVsipIsOpenFec").innerHTML = FEC};
+	if("undefined" != typeof(Tmmbr)){document.getElementById("tVsipIsOpenTmmbr").innerHTML = Tmmbr};
+	if("undefined" != typeof(EnableQoS)){document.getElementById("tVsipIsOpenQos").innerHTML = EnableQoS};
+	if("undefined" != typeof(ForcedVoice)){document.getElementById("tVsipIsOpenForcedVoice").innerHTML = ForcedVoice};
+	if("undefined" != typeof(KeyboardClicks)){document.getElementById("tVsipIsOpenKeyTone").innerHTML = KeyboardClicks};
+	if("undefined" != typeof(ICE)){document.getElementById("tVsipIsOpenIce").innerHTML = ICE};
+	if("undefined" != typeof(EnalbeSIPInfo)){document.getElementById("tVsipIsOpenSipInfo").innerHTML = EnalbeSIPInfo};
+	if("undefined" != typeof(NACKPli)){document.getElementById("tVsipIsOpenNackPli").innerHTML = NACKPli};
+	if("undefined" != typeof(NS)){document.getElementById("tVsipIsOpenNs").innerHTML = NS};
+	if("undefined" != typeof(ChooseOutGoingLine)){document.getElementById("tVsipIsOpenChooseOutgingLine").innerHTML = ChooseOutGoingLine};
+	if("undefined" != typeof(ACL)){document.getElementById("tVsipEnableAcl").innerHTML = ACL};
+	if("undefined" != typeof(IDR)){document.getElementById("tVsipH264Idr").innerHTML = IDR};
+	if("undefined" != typeof(H264Payload)){document.getElementById("tVsipH264Payload").innerHTML = H264Payload};
+	if("undefined" != typeof(H264Profile)){document.getElementById("tVsipH264Profile").innerHTML = H264Profile};
+	if("undefined" != typeof(HardwareEndecAccelertation)){document.getElementById("tVsipH264HardwareEndecAcceleration").innerHTML = HardwareEndecAccelertation};
+	if("undefined" != typeof(HardwareDecodecAccelertation)){document.getElementById("tVsipH264HardwareDecodeAcceleration").innerHTML = HardwareDecodecAccelertation};
+	if("undefined" != typeof(AECMode)){document.getElementById("tVsipAecMode").innerHTML = AECMode};
+	if("undefined" != typeof(DialingMatchTpye)){document.getElementById("tVsipDialingMatchType").innerHTML = DialingMatchTpye};
+	if("undefined" != typeof(AGCTarget)){document.getElementById("tVsipAgcTarget").innerHTML = AGCTarget};
+	if("undefined" != typeof(TailLength)){document.getElementById("tVsipTailLength").innerHTML = TailLength};
+	if("undefined" != typeof(CallerLocation)){document.getElementById("tVsipCallerLocation").innerHTML = CallerLocation};
+	if("undefined" != typeof(ResolutionControl)){document.getElementById("tVsipResolutionControl").innerHTML = ResolutionControl};
+	if("undefined" != typeof(ErrorConceal)){document.getElementById("tVsipErrorConcel").innerHTML = ErrorConceal};
+	if("undefined" != typeof(MissedCallTone)){document.getElementById("tVsipMissedCallTone").innerHTML = MissedCallTone};
+	if("undefined" != typeof(ColorEnhancement)){document.getElementById("tVsipColorEnhancement").innerHTML = ColorEnhancement};
+	if("undefined" != typeof(VedioImageQuality)){document.getElementById("tVsipVideoImageQuality").innerHTML = VedioImageQuality};
+	if("undefined" != typeof(PasswordProtection)){document.getElementById("tIsPasswdVerified").innerHTML = PasswordProtection};
+	if("undefined" != typeof(LongDistancePhoneCallPrefix)){document.getElementById("tLongDistanceMobilePrefix").innerHTML = LongDistancePhoneCallPrefix};
+	if("undefined" != typeof(LDAPBase)){document.getElementById("tLdapBaseAndroid").innerHTML = LDAPBase};
+	if("undefined" != typeof(LDAPType)){document.getElementById("tLadpType").innerHTML = LDAPType};
+}
+
+function LoadCfg()
+{
+	LoadLang();
+	DelayShow();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	document.getElementById("cVsipIsOpenVp8Dbc").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipIsOpenVp8Dbc").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsVp8Rpsl").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipIsVp8Rpsl").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenAgcRecv").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipIsOpenAgcRecv").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenAgcSend").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipIsOpenAgcSend").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenFir").options.add(new Option(Disabled, 0));
+	document.getElementById("cVsipIsOpenFir").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenFec").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenFec").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenTmmbr").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenTmmbr").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenQos").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenQos").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenForcedVoice").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenForcedVoice").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenKeyTone").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenKeyTone").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenIce").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenIce").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenSipInfo").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenSipInfo").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenNackPli").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenNackPli").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipIsOpenNs").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenNs").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipIsOpenChooseOutgingLine").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenChooseOutgingLine").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipEnableAcl").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipEnableAcl").options.add(new Option(Enabled, 1));	
+	document.getElementById("cVsipH264HardwareEndecAcceleration").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipH264HardwareEndecAcceleration").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipH264HardwareDecodeAcceleration").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipH264HardwareDecodeAcceleration").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipResolutionControl").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipResolutionControl").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipErrorConcel").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipErrorConcel").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipMissedCallTone").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipMissedCallTone").options.add(new Option(Enabled, 1));
+	document.getElementById("cVsipColorEnhancement").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipColorEnhancement").options.add(new Option(Enabled, 1));
+	document.getElementById("cIsPasswdVerified").options.add(new Option(Disabled, 0));	
+	document.getElementById("cIsPasswdVerified").options.add(new Option(Enabled, 1));
+	if("undefined" != typeof(None)){document.getElementById("cLadpType").options.add(new Option(None, 0));}
+	else{document.getElementById("cLadpType").options.add(new Option("None", 0));}	
+	if("undefined" != typeof(LDAP)){document.getElementById("cLadpType").options.add(new Option(LDAP, 1));}	
+	else{document.getElementById("cLadpType").options.add(new Option("LDAP", 1));}	
+	if("undefined" != typeof(Low)){document.getElementById("cVsipVideoImageQuality").options.add(new Option(Low, 0));}
+	else{document.getElementById("cVsipVideoImageQuality").options.add(new Option("Low", 0));}
+	if("undefined" != typeof(Middle)){document.getElementById("cVsipVideoImageQuality").options.add(new Option(Middle, 1));}
+	else{document.getElementById("cVsipVideoImageQuality").options.add(new Option("Middle", 1));}
+	if("undefined" != typeof(High)){document.getElementById("cVsipVideoImageQuality").options.add(new Option(High, 2));}
+	else{document.getElementById("cVsipVideoImageQuality").options.add(new Option("High", 2));}
+	document.getElementById("cVsipH264Profile").options.add(new Option("bp", 0));	
+	document.getElementById("cVsipH264Profile").options.add(new Option("mp", 1));
+	document.getElementById("cVsipH264Profile").options.add(new Option("hp", 2));	
+	if("undefined" != typeof(OFF)){document.getElementById("cVsipAecMode").options.add(new Option(OFF, 0));}
+	else{document.getElementById("cVsipAecMode").options.add(new Option("OFF", 0));}
+	document.getElementById("cVsipAecMode").options.add(new Option("AEC", 1));
+	document.getElementById("cVsipAecMode").options.add(new Option("AECS", 2));
+	document.getElementById("cVsipAecMode").options.add(new Option("AECM", 3));	
+	if("undefined" != typeof(NameOrNumber)){document.getElementById("cVsipDialingMatchType").options.add(new Option(NameOrNumber, 1));}
+	else{document.getElementById("cVsipDialingMatchType").options.add(new Option("Name or Number", 1));}
+	if("undefined" != typeof(FullName)){document.getElementById("cVsipDialingMatchType").options.add(new Option(FullName, 2));}
+	else{document.getElementById("cVsipDialingMatchType").options.add(new Option("Name", 2));}
+	if("undefined" != typeof(NumberLabel)){document.getElementById("cVsipDialingMatchType").options.add(new Option(NumberLabel, 3));}	
+	else{document.getElementById("cVsipDialingMatchType").options.add(new Option("Number", 3));}
+	SubLoadCfg();
+}
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+
+	f1.cVsipIsOpenVp8Dbc.value = f2.hcVsipIsOpenVp8Dbc.value;
+	f1.cVsipIsVp8Rpsl.value = f2.hcVsipIsVp8Rpsl.value;
+	f1.cVsipIsOpenAgcRecv.value = f2.hcVsipIsOpenAgcRecv.value;
+	f1.cVsipIsOpenAgcSend.value = f2.hcVsipIsOpenAgcSend.value;
+	f1.cVsipIsOpenFir.value = f2.hcVsipIsOpenFir.value;
+	f1.cVsipIsOpenFec.value = f2.hcVsipIsOpenFec.value;
+	f1.cVsipIsOpenTmmbr.value = f2.hcVsipIsOpenTmmbr.value;
+	f1.cVsipIsOpenQos.value = f2.hcVsipIsOpenQos.value;
+	f1.cVsipIsOpenForcedVoice.value = f2.hcVsipIsOpenForcedVoice.value;
+	f1.cVsipIsOpenKeyTone.value = f2.hcVsipIsOpenKeyTone.value;
+	f1.cVsipIsOpenIce.value = f2.hcVsipIsOpenIce.value;
+	f1.cVsipIsOpenSipInfo.value = f2.hcVsipIsOpenSipInfo.value;	
+	f1.cVsipIsOpenNackPli.value = f2.hcVsipIsOpenNackPli.value;
+	f1.cVsipIsOpenNs.value = f2.hcVsipIsOpenNs.value;
+	f1.cVsipIsOpenChooseOutgingLine.value = f2.hcVsipIsOpenChooseOutgingLine.value;
+	f1.cVsipEnableAcl.value = f2.hcVsipEnableAcl.value;
+	f1.cVsipH264Idr.value = f2.hcVsipH264Idr.value;
+	f1.cVsipH264Payload.value = f2.hcVsipH264Payload.value;
+	f1.cVsipH264Profile.value = f2.hcVsipH264Profile.value;
+	f1.cVsipH264HardwareEndecAcceleration.value = f2.hcVsipH264HardwareEndecAcceleration.value;
+	f1.cVsipH264HardwareDecodeAcceleration.value = f2.hcVsipH264HardwareDecodeAcceleration.value;
+	f1.cVsipAecMode.value = f2.hcVsipAecMode.value;
+	f1.cVsipDialingMatchType.value = f2.hcVsipDialingMatchType.value;
+	f1.cVsipAgcTarget.value = f2.hcVsipAgcTarget.value;
+	f1.cVsipTailLength.value = f2.hcVsipTailLength.value;
+	f1.cVsipCallerLocation.value = f2.hcVsipCallerLocation.value;
+	f1.cVsipResolutionControl.value = f2.hcVsipResolutionControl.value;
+	f1.cVsipErrorConcel.value = f2.hcVsipErrorConcel.value;
+	f1.cVsipMissedCallTone.value = f2.hcVsipMissedCallTone.value;	
+	f1.cVsipColorEnhancement.value = f2.hcVsipColorEnhancement.value;
+	f1.cVsipVideoImageQuality.value = f2.hcVsipVideoImageQuality.value;
+	f1.cIsPasswdVerified.value = f2.hcIsPasswdVerified.value;
+	f1.cLongDistanceMobilePrefix.value = f2.hcLongDistanceMobilePrefix.value;
+	f1.cLdapBaseAndroid.value = f2.hcLdapBaseAndroid.value;
+	f1.cLadpType.value = f2.hcLadpType.value;	
+}	
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	
+	if(f2.hcVsipIsOpenVp8Dbc.value != f1.cVsipIsOpenVp8Dbc.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenVp8Dbc=" + f1.cVsipIsOpenVp8Dbc.value;
+	}
+	if(f2.hcVsipIsVp8Rpsl.value != f1.cVsipIsVp8Rpsl.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsVp8Rpsl=" + f1.cVsipIsVp8Rpsl.value;
+	}	
+	if(f2.hcVsipIsOpenAgcRecv.value != f1.cVsipIsOpenAgcRecv.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenAgcRecv=" + f1.cVsipIsOpenAgcRecv.value;
+	}
+	if(f2.hcVsipIsOpenAgcSend.value != f1.cVsipIsOpenAgcSend.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenAgcSend=" + f1.cVsipIsOpenAgcSend.value;
+	}	
+	if(f2.hcVsipIsOpenFir.value != f1.cVsipIsOpenFir.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenFir=" + f1.cVsipIsOpenFir.value;
+	}
+	if(f2.hcVsipIsOpenFec.value != f1.cVsipIsOpenFec.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenFec=" + f1.cVsipIsOpenFec.value;
+	}	
+	if(f2.hcVsipIsOpenTmmbr.value != f1.cVsipIsOpenTmmbr.value) 
+	{
+		if(!IsAnInterger(f1.cVsipIsOpenTmmbr.value))
+		{
+			SetInputBGColor("cVsipIsOpenTmmbr");
+			ErrFlag = true;
+		}	
+		strSubmData = strSubmData + "&cVsipIsOpenTmmbr=" + f1.cVsipIsOpenTmmbr.value;
+	}
+	if(f2.hcVsipIsOpenQos.value != f1.cVsipIsOpenQos.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenQos=" + f1.cVsipIsOpenQos.value;
+	}	
+	if(f2.hcVsipIsOpenForcedVoice.value != f1.cVsipIsOpenForcedVoice.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenForcedVoice=" + f1.cVsipIsOpenForcedVoice.value;
+	}
+	if(f2.hcVsipIsOpenKeyTone.value != f1.cVsipIsOpenKeyTone.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenKeyTone=" + f1.cVsipIsOpenKeyTone.value;
+	}	
+	if(f2.hcVsipIsOpenIce.value != f1.cVsipIsOpenIce.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenIce=" + f1.cVsipIsOpenIce.value;
+	}
+	if(f2.hcVsipIsOpenSipInfo.value != f1.cVsipIsOpenSipInfo.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenSipInfo=" + f1.cVsipIsOpenSipInfo.value;
+	}	
+	if(f2.hcVsipIsOpenNackPli.value != f1.cVsipIsOpenNackPli.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenNackPli=" + f1.cVsipIsOpenNackPli.value;
+	}	
+	if(f2.hcVsipIsOpenNs.value != f1.cVsipIsOpenNs.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenNs=" + f1.cVsipIsOpenNs.value;
+	}
+	if(f2.hcVsipIsOpenChooseOutgingLine.value != f1.cVsipIsOpenChooseOutgingLine.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenChooseOutgingLine=" + f1.cVsipIsOpenChooseOutgingLine.value;
+	}	
+	if(f2.hcVsipEnableAcl.value != f1.cVsipEnableAcl.value) 
+	{
+		strSubmData = strSubmData + "&cVsipEnableAcl=" + f1.cVsipEnableAcl.value;
+	}
+	
+	if(f2.hcVsipH264Idr.value != f1.cVsipH264Idr.value)
+	{
+		if(!CheckRangeOfNumber(f1.cVsipH264Idr.value, 5, 100))
+		{
+			SetInputBGColor("cVsipH264Idr");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cVsipH264Idr=" + f1.cVsipH264Idr.value;
+	}	
+	if(f2.hcVsipH264Payload.value != f1.cVsipH264Payload.value)
+	{
+		if(!CheckRangeOfNumber(f1.cVsipH264Payload.value, 96, 125))
+		{
+			SetInputBGColor("cVsipH264Payload");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cVsipH264Payload=" + f1.cVsipH264Payload.value;
+	}
+	if(f2.hcVsipH264Profile.value != f1.cVsipH264Profile.value) 
+	{
+		strSubmData = strSubmData + "&cVsipH264Profile=" + f1.cVsipH264Profile.value;
+	}	
+	if(f2.hcVsipH264HardwareEndecAcceleration.value != f1.cVsipH264HardwareEndecAcceleration.value) 
+	{
+		strSubmData = strSubmData + "&cVsipH264HardwareEndecAcceleration=" + f1.cVsipH264HardwareEndecAcceleration.value;
+	}
+	if(f2.hcVsipH264HardwareDecodeAcceleration.value != f1.cVsipH264HardwareDecodeAcceleration.value) 
+	{
+		strSubmData = strSubmData + "&cVsipH264HardwareDecodeAcceleration=" + f1.cVsipH264HardwareDecodeAcceleration.value;
+	}	
+	
+	if(f2.hcVsipAecMode.value != f1.cVsipAecMode.value) 
+	{
+		strSubmData = strSubmData + "&cVsipAecMode=" + f1.cVsipAecMode.value;
+	}
+	if(f2.hcVsipDialingMatchType.value != f1.cVsipDialingMatchType.value) 
+	{
+		strSubmData = strSubmData + "&cVsipDialingMatchType=" + f1.cVsipDialingMatchType.value;
+	}	
+	if(f2.hcVsipAgcTarget.value != f1.cVsipAgcTarget.value) 
+	{
+		if(!CheckRangeOfNumber(f1.cVsipAgcTarget.value, 1, 20))
+		{
+			SetInputBGColor("cVsipAgcTarget");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cVsipAgcTarget=" + f1.cVsipAgcTarget.value;
+	}
+	if(f2.hcVsipTailLength.value != f1.cVsipTailLength.value) 
+	{
+		if(!IsAnInterger(f1.cVsipTailLength.value))
+		{
+			SetInputBGColor("cVsipTailLength");
+			ErrFlag = true;
+		}	
+		strSubmData = strSubmData + "&cVsipTailLength=" + f1.cVsipTailLength.value;
+	}	
+	if(f2.hcVsipCallerLocation.value != f1.cVsipCallerLocation.value) 
+	{
+		if(!NotContainInvalid255(f1.cVsipCallerLocation.value))
+		{
+			SetInputBGColor("cVsipCallerLocation");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cVsipCallerLocation=" + f1.cVsipCallerLocation.value;
+	}
+	if(f2.hcVsipResolutionControl.value != f1.cVsipResolutionControl.value) 
+	{
+		strSubmData = strSubmData + "&cVsipResolutionControl=" + f1.cVsipResolutionControl.value;
+	}	
+	if(f2.hcVsipErrorConcel.value != f1.cVsipErrorConcel.value) 
+	{
+		strSubmData = strSubmData + "&cVsipErrorConcel=" + f1.cVsipErrorConcel.value;
+	}
+	if(f2.hcVsipMissedCallTone.value != f1.cVsipMissedCallTone.value) 
+	{
+		strSubmData = strSubmData + "&cVsipMissedCallTone=" + f1.cVsipMissedCallTone.value;
+	}	
+	if(f2.hcVsipColorEnhancement.value != f1.cVsipColorEnhancement.value) 
+	{
+		strSubmData = strSubmData + "&cVsipColorEnhancement=" + f1.cVsipColorEnhancement.value;
+	}
+	if(f2.hcVsipVideoImageQuality.value != f1.cVsipVideoImageQuality.value) 
+	{	
+		strSubmData = strSubmData + "&cVsipVideoImageQuality=" + f1.cVsipVideoImageQuality.value;
+	}		
+	
+	if(f2.hcIsPasswdVerified.value != f1.cIsPasswdVerified.value) 
+	{
+		strSubmData = strSubmData + "&cIsPasswdVerified=" + f1.cIsPasswdVerified.value;
+	}
+	if(f2.hcLongDistanceMobilePrefix.value != f1.cLongDistanceMobilePrefix.value) 
+	{
+		if(!NotContainInvalid255(f1.cLongDistanceMobilePrefix.value))
+		{
+			SetInputBGColor("cLongDistanceMobilePrefix");
+			ErrFlag = true;
+		}	
+		strSubmData = strSubmData + "&cLongDistanceMobilePrefix=" + f1.cLongDistanceMobilePrefix.value;
+	}	
+	if(f2.hcLdapBaseAndroid.value != f1.cLdapBaseAndroid.value) 
+	{
+		if(!NotContainInvalid255(f1.cLdapBaseAndroid.value))
+		{
+			SetInputBGColor("cLdapBaseAndroid");
+			ErrFlag = true;
+		}	
+		strSubmData = strSubmData + "&cLdapBaseAndroid=" + f1.cLdapBaseAndroid.value;
+	}
+	if(f2.hcLadpType.value != f1.cLadpType.value) 
+	{
+		strSubmData = strSubmData + "&cLadpType=" + f1.cLadpType.value;
+	}	
+			
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	alert(strSubmData);
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = 0;
+	
+	for(var i = 0; i < 1; i++)
+	{
+		if(f2.hcVsipIsOpenVp8Dbc.value != f1.cVsipIsOpenVp8Dbc.value) 
+		{			
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsVp8Rpsl.value != f1.cVsipIsVp8Rpsl.value) 
+		{
+			dataChangedWarnFlag = 1;
+      break;
+		}	
+		if(f2.hcVsipIsOpenAgcRecv.value != f1.cVsipIsOpenAgcRecv.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenAgcSend.value != f1.cVsipIsOpenAgcSend.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenFir.value != f1.cVsipIsOpenFir.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenFec.value != f1.cVsipIsOpenFec.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenTmmbr.value != f1.cVsipIsOpenTmmbr.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenQos.value != f1.cVsipIsOpenQos.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenForcedVoice.value != f1.cVsipIsOpenForcedVoice.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenKeyTone.value != f1.cVsipIsOpenKeyTone.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenIce.value != f1.cVsipIsOpenIce.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenSipInfo.value != f1.cVsipIsOpenSipInfo.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenNackPli.value != f1.cVsipIsOpenNackPli.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipIsOpenNs.value != f1.cVsipIsOpenNs.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipIsOpenChooseOutgingLine.value != f1.cVsipIsOpenChooseOutgingLine.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipEnableAcl.value != f1.cVsipEnableAcl.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipH264Idr.value != f1.cVsipH264Idr.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipH264Payload.value != f1.cVsipH264Payload.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipH264Profile.value != f1.cVsipH264Profile.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipH264HardwareEndecAcceleration.value != f1.cVsipH264HardwareEndecAcceleration.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipH264HardwareDecodeAcceleration.value != f1.cVsipH264HardwareDecodeAcceleration.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipAecMode.value != f1.cVsipAecMode.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipDialingMatchType.value != f1.cVsipDialingMatchType.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipAgcTarget.value != f1.cVsipAgcTarget.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipTailLength.value != f1.cVsipTailLength.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipCallerLocation.value != f1.cVsipCallerLocation.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipResolutionControl.value != f1.cVsipResolutionControl.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipErrorConcel.value != f1.cVsipErrorConcel.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipMissedCallTone.value != f1.cVsipMissedCallTone.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcVsipColorEnhancement.value != f1.cVsipColorEnhancement.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcVsipVideoImageQuality.value != f1.cVsipVideoImageQuality.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}		
+		if(f2.hcIsPasswdVerified.value != f1.cIsPasswdVerified.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcLongDistanceMobilePrefix.value != f1.cLongDistanceMobilePrefix.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}	
+		if(f2.hcLdapBaseAndroid.value != f1.cLdapBaseAndroid.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}
+		if(f2.hcLadpType.value != f1.cLadpType.value) 
+		{
+			dataChangedWarnFlag = 1;
+			break;
+		}		
+	}
+	
+	if(0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}	
+</script>
+
+<body onLoad="LoadCfg()">
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">    		
+			<table>
+				<tr>
+					<td class="First_td"><label id='tVsip'>Vsip</label></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenVp8Dbc'>VP8 DBC</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenVp8Dbc'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsVp8Rpsl'>VP8 RPSL</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsVp8Rpsl'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenAgcRecv'>Automatic Gain Control(Receiving-side)</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenAgcRecv'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenAgcSend'>Automatic Gain Control(Sending-side)</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenAgcSend'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenFir'>FIR</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenFir'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenFec'>FEC</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenFec'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenTmmbr'>Tmmbr</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenTmmbr'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenQos'>Enable QoS</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenQos'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenForcedVoice'>Offhook answer voice</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenForcedVoice'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenKeyTone'>Dial-pad touch tones</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenKeyTone'></td>
+				</tr>
+				<tbody>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenIce'>VSIP_IS_OPEN_ICE</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenIce'></td>
+				</tr>	
+				</tbody>			
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenSipInfo'>Enable SIP Info for I-frame</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenSipInfo'></td>
+				</tr>																
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenNackPli'>NACK</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenNackPli'></td>
+				</tr>
+				<tbody>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenNs'>NS</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenNs'></td>
+				</tr>
+				</tbody>
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenChooseOutgingLine'>Ask to choose outgoing line</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipIsOpenChooseOutgingLine'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipEnableAcl'>ACL</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipEnableAcl'></td>
+				</tr>	
+					
+				<tr style="height:10px"></tr>							
+				<tr>
+					<td class="Second_td"><label id='tVsipH264Idr'>IDR Interval</label></td>
+					<td class="Third_td"><input type="text" id="cVsipH264Idr">(5~100)</td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipH264Payload'>H264 Payload</label></td>
+					<td class="Third_td"><input type="text" id="cVsipH264Payload">(96~125)</td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipH264Profile'>H264 Profile</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipH264Profile'></td>
+				</tr>	
+				<tr>
+					<td class="Second_td"><label id='tVsipH264HardwareEndecAcceleration'>Hardware Endec Acceleration</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipH264HardwareEndecAcceleration'></td>
+				</tr>			
+				<tr>
+					<td class="Second_td"><label id='tVsipH264HardwareDecodeAcceleration'>Hardware Decodec Acceleration</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipH264HardwareDecodeAcceleration'></td>
+				</tr>		
+									
+				<tr style="height:10px"></tr>						
+				<tr>
+					<td class="Second_td"><label id='tVsipAecMode'>AEC Mode</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipAecMode'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipDialingMatchType'>Smart Dial</label></td>
+					<td class="Third_td"><select id='cVsipDialingMatchType'></td>
+				</tr>								
+				<tr>
+					<td class="Second_td"><label id='tVsipAgcTarget'>Automatic Gain Control Target</label></td>
+					<td class="Third_td"><input type="text" id="cVsipAgcTarget">(1~20)</td>
+				</tr>		
+				<tbody>						
+				<tr>
+					<td class="Second_td"><label id='tVsipTailLength'>VSIP_TAIL_LENGTH</label></td>
+					<td class="Third_td"><input type="text" id="cVsipTailLength"></td>
+				</tr>			
+				</tbody>					
+				<tr>
+					<td class="Second_td"><label id='tVsipCallerLocation'>Area Code</label></td>
+					<td class="Third_td"><input type="text" id="cVsipCallerLocation"></td>
+				</tr>								
+				<tr>
+					<td class="Second_td"><label id='tVsipResolutionControl'>Resolution Control</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipResolutionControl'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipErrorConcel'>Error Conceal</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipErrorConcel'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipMissedCallTone'>Missed call alert tone</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipMissedCallTone'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipColorEnhancement'>Color Enhancement</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipColorEnhancement'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tVsipVideoImageQuality'>Image Quality</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cVsipVideoImageQuality'></td>
+				</tr>
+				
+				<tr>
+					<td class="First_td"><label id='tPhone'>Phone</label></td>
+				</tr>						
+				<tr>
+					<td class="Second_td"><label id='tIsPasswdVerified'>Password Protection</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cIsPasswdVerified'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tLongDistanceMobilePrefix'>Long-distance Phone Call Prefix</label></td>
+					<td class="Third_td"><input type="text" id="cLongDistanceMobilePrefix"></td>
+				</tr>
+
+				<tr>
+					<td class="First_td"><label id='tLdap'>LDAP</label></td>
+				</tr>	
+				<tr>
+					<td class="Second_td"><label id='tLadpType'>Directory Type</label></td>
+					<td class="Third_td"><select style='width:100px;'id='cLadpType'></td>
+				</tr>								
+				<tr>
+					<td class="Second_td"><label id='tLdapBaseAndroid'>LDAP Base</label></td>
+					<td class="Third_td"><input type="text" id="cLdapBaseAndroid"></td>
+				</tr>
+			</table>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+	<FCGI_INCLUDE FILE=bottom.html>
+</div>

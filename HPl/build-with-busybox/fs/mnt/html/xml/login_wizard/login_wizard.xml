@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <SnomIPPhoneInput id="uri">
+    <Title>SIP-URI</Title>
+    <URL>file:///xml/login_wizard/login_wizard.xml#index=$(fragment:index)&amp;sub=*[@id="user"]&amp;setcache:user_presence_buddy_list_uri$(fragment:index)=__URI__</URL>
+    <InputItem>
+      <DisplayName>SIP-URI</DisplayName>
+      <InputToken>__URI__</InputToken>
+      <InputFlags>a</InputFlags>
+      <DefaultValue>$(set:user_presence_buddy_list_uri$(fragment:index))</DefaultValue>
+    </InputItem>
+  </SnomIPPhoneInput>
+  <SnomIPPhoneInput id="user">
+    <Title>$(lang:line_ocs_wz_user)</Title>
+    <URL>file:///xml/login_wizard/login_wizard.xml#index=$(fragment:index)&amp;sub=*[@id="pwd"]&amp;setcache:user_pname$(fragment:index)=__USER__</URL>
+    <InputItem>
+      <DisplayName>$(lang:line_ocs_wz_user)</DisplayName>
+      <InputToken>__USER__</InputToken>
+      <InputFlags>a</InputFlags>
+      <DefaultValue>$(set:user_pname$(fragment:index))</DefaultValue>
+    </InputItem>
+  </SnomIPPhoneInput>
+  <SnomIPPhoneInput id="pwd">
+    <Title>$(lang:line_ocs_wz_pwd)</Title>
+    <URL>snom://mb_exit#set:user_pass$(fragment:index)=__PWD__&amp;flush&amp;applyline</URL>
+    <InputItem>
+      <DisplayName>$(lang:line_ocs_wz_pwd)</DisplayName>
+      <InputToken>__PWD__</InputToken>
+      <InputFlags>p</InputFlags>
+      <DefaultValue />
+    </InputItem>
+  </SnomIPPhoneInput>
+</SnomIPPhoneBatch>

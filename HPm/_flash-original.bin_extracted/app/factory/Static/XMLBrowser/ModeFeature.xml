@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        editable="yes"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        InputType="123">
+    <Title wrap="yes" showlistcount="yes">
+        Mode Custom
+    </Title>
+
+		<Prompt>Mode:</Prompt>
+		<DataID>DID_Forward_FORWARDMODE_mode</DataID>
+		<Default>0</Default>
+		<option text="Phone">0</option>
+		<option text="Custom">1</option>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

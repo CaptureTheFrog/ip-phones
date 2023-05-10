@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="VPNSetting">
+    <Title showlistcount="yes">
+        VPN Setting
+    </Title>
+
+		<Prompt>Active:</Prompt>
+		<DataID>Combine_VPNSetting</DataID>
+		<Default>0</Default>
+		<option text="Disable">0</option>
+		<option text="Enable">1</option>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

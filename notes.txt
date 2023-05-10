@@ -1,0 +1,62 @@
+DEVICE B, UART
+
+         UART TX
+GND<--O    O    X
+VCC<--O    O    O-->?
+         UART RX
+
+Externally accessible connector. Logs are visible on UART, but authentication via private key challenge required to unlock techsupport or engineering level of shell.
+Extraction of firmware files doesn't show any obvious keys. Attempts of simple XOR with words like polycom, techsupport etc all failed.
+
+Board has JTAG DSP and EJTAG MIPS headers though, could be useful?
+
+DEVICE C, UART
+Very limited board labelling, a few header locations found but no UART signals found with logic analyser. Although based on a similar chipset to B which may be a lead.
+
+DEVICE D, UART
+This device is not SIP compatible so could not set up in test environment, but assumed working.
+Board has a labelled UART connector as well as JTAG. Flash chip has label on it. There are LEDs on the board not visible from the outside. A physical hard reset switch inside also not externally accessible.
+_____
+|| O  GND
+|| O  VCC
+|| O  RX
+||_O_ TX
+
+UART gives a bootloader console and then a VxWorks C-like shell. Device is running VxWorks 6.3 OS.
+
+DEVICE E, UART
+Device has an external "MOD" RJ45 style port. Not sure what its for maybe an expansion?
+PCB has UART pads GND, TX, RX. Space for a switch to choose between UART or NAND boot.
+PCB has unpopulated JTAG header pads.
+UART port provides very sparse bootloader output and then nothing, debug menu allows an admin to turn on CLI UART debug but this doesnt visibly do anything as far as i can tell.
+MOD port has a UART on it with a weird keyed RJ45 connector.
+NAND is S34ML02G1 using Open NAND Flash Interface (ONFI) 1.0 interface.
+
+DEVICE F, UART
+Device has UART on externally visible port, looks like a speaker. Access to bootloader and OS (uCLinux) shells.
+
+DEVICE G, UART
+UART on internal port J3. From top to bottom, GND, ???, RX, TX, VCC. Logs whats happening but doesnt seem to respond to input except echoing it.
+
+DEVICE H, UART
+Very similar to device C but differences in PCB. No UART found.
+
+DEVICE J
+No UART found.
+CPU is PNX1502E https://www.nxp.com/docs/en/data-sheet/PNX15XX_PNX952X_SER_N.pdf
+
+
+Header J301
+#----
+|O O|  GND
+|O O|  GND
+|O O|  GND
+|O O|  GND
+|O O|  GND
+|O O|
+|O O|  VCC 3.3
+
+
+DEVICE K, UART
+UART on base accessory port externally accessible. Shows sparse bootloader output like E on boot, input is ignored or not wired. Another UART on side connector shows bootloader uncompressing and loading linux, nothing after this. input is ignored or not wired. side connector does not output any other data as far as i can tell but has 48v on some pins so be careful.
+

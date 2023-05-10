@@ -1,0 +1,284 @@
+<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	var PageRefDesURL = 'do?id=5&id=6';
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}		
+
+function DoF5Jump()
+{
+	Relocate('PageRefDesURL');
+}
+$(function() { SetPageMenuAction("#aMenu5", "tMenu56");});
+function LoadLang()
+{
+	var tmp = Broadsoft;
+	LoadCommonResources(tmp);
+	document.getElementById("tBroadsoftPhoneBook").innerHTML = BroadsoftPhoneBook;
+	document.getElementById("tBSFTPhoneBookItem").innerHTML = PhoneBookItem;
+	document.getElementById("tDisplayName").innerHTML = ("undefined" != typeof(DisplayNamePhoneBook))?DisplayNamePhoneBook:"Display Name";
+	document.getElementById("tServer").innerHTML = ServerAddress;
+	document.getElementById("tPort").innerHTML = ServerPort;
+	document.getElementById("tUser").innerHTML = UserName;
+	document.getElementById("tPassword").innerHTML = PasswordLabel;
+	var f1 = document.forms["body_form"];
+	f1.cServer.maxLength = 255;
+}
+function LoadCfg()
+{
+	LoadLang();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	for(var i=1;i<7;i++) { f1.cBSFTPhoneBookItem.options.add(new Option(BroadsoftItem+i, (i-1))); }
+	f1.cDisplayName.options.add(new Option("Group", "Group"));
+	f1.cDisplayName.options.add(new Option("Enterprise", "Enterprise"));
+	f1.cDisplayName.options.add(new Option("GroupCommon", "GroupCommon"));
+	f1.cDisplayName.options.add(new Option("EnterpriseCommon", "EnterpriseCommon"));
+	f1.cDisplayName.options.add(new Option("Personal", "Personal"));
+	DelayShow();
+	SubLoadCfg();
+}
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrayDisplayName = document.getElementById("hcDisplayName").value.split(SplitSymbol); 
+	var arrayServer = document.getElementById("hcServer").value.split(SplitSymbol);
+	var arrayPort = document.getElementById("hcPort").value.split(SplitSymbol);
+	var arrayUser = document.getElementById("hcUser").value.split(SplitSymbol);
+	var iIndex = f2.hcBSFTPhoneBookItem.value;
+	f1.cBSFTPhoneBookItem.value = f2.hcBSFTPhoneBookItem.value = TransEmptyStrTo0(f2.hcBSFTPhoneBookItem.value);
+	f1.cDisplayName.value = arrayDisplayName[iIndex];
+	if(arrayDisplayName[iIndex] == "")
+	{
+		f1.cDisplayName.options[0].defaultSelected = true;
+	}
+	f1.cServer.value = ShowDecode(arrayServer[iIndex]);
+	f1.cPort.value = arrayPort[iIndex];
+	f1.cUser.value = arrayUser[iIndex];	
+	f1.cPassword.value = "********";
+	onInputEdit(f1.cDisplayName.name);
+	ResetAllInputColor();
+	for(var i=0; i < PwdKeyFirst.length; i++) { PwdKeyFirst[i] = true; }
+}
+function ChangeBSFTPBItem()
+{ 
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var iIndex = f1.cBSFTPhoneBookItem.value;
+	var arrayDisplayName = document.getElementById("hcDisplayName").value.split(SplitSymbol); 
+	var arrayServer = document.getElementById("hcServer").value.split(SplitSymbol);
+	var arrayPort = document.getElementById("hcPort").value.split(SplitSymbol);
+	var arrayUser = document.getElementById("hcUser").value.split(SplitSymbol);
+	f1.cDisplayName.value = arrayDisplayName[iIndex];
+	if(arrayDisplayName[iIndex] == "")
+	{
+		f1.cDisplayName.options[0].defaultSelected = true;
+	}
+	f1.cServer.value = ShowDecode(arrayServer[iIndex]);
+	f1.cPort.value = arrayPort[iIndex];
+	f1.cUser.value = arrayUser[iIndex];	
+	f1.cPassword.value = "********";	
+}
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var ErrFlag = false;
+	var arrayDisplayName = document.getElementById("hcDisplayName").value.split(SplitSymbol); 
+	var arrayServer = document.getElementById("hcServer").value.split(SplitSymbol);
+	var arrayPort = document.getElementById("hcPort").value.split(SplitSymbol);
+	var arrayUser = document.getElementById("hcUser").value.split(SplitSymbol);
+	var iIndex = f1.cBSFTPhoneBookItem.value;
+	var dataChangedWarnFlag = false;
+	
+	if(f1.cBSFTPhoneBookItem.value != f2.hcBSFTPhoneBookItem.value)
+	{
+		dataChangedWarnFlag = true;
+	}
+	if("" != arrayDisplayName[iIndex] || f1.cDisplayName.value != "Group")
+	{
+		if(f1.cDisplayName.value != arrayDisplayName[iIndex])
+		{
+			dataChangedWarnFlag = true;
+		}
+	}
+	if(f1.cServer.value != ShowDecode(arrayServer[iIndex]) ||
+			f1.cPort.value != arrayPort[iIndex] ||
+			f1.cUser.value != arrayUser[iIndex] ||
+			!PwdKeyFirst[0] && "********" != f1.cPassword.value)
+	{	
+		dataChangedWarnFlag = true;
+	}
+	if(false == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];	
+	var strSubmData = "";
+	strSubmData = strSubmData + "&cBSFTPhoneBookItem=" + PostEncode(f1.cBSFTPhoneBookItem.value);
+	
+	var ErrFlag = false;
+	var arrayDisplayName = document.getElementById("hcDisplayName").value.split(SplitSymbol); 
+	var arrayServer = document.getElementById("hcServer").value.split(SplitSymbol);
+	var arrayPort = document.getElementById("hcPort").value.split(SplitSymbol);
+	var arrayUser = document.getElementById("hcUser").value.split(SplitSymbol);
+	var iIndex = f1.cBSFTPhoneBookItem.value;
+	
+	if(f1.cDisplayName.value == "")
+	{
+		SetInputBGColor("cDisplayName");
+		alert(WarningDisplayNameEmpty);
+		return DataCheckResult;
+	}
+	if(f1.cServer.value == "")
+	{
+		SetInputBGColor("cServer");
+		alert(WarningServerAddrEmpty);
+		return DataCheckResult;
+	}
+	if(f1.cPort.value == "")
+	{
+		SetInputBGColor("cPort");
+		alert(WarningServerPortEmpty);
+		return DataCheckResult;
+	}
+	
+	if(f1.cDisplayName.value != arrayDisplayName[iIndex])
+	{
+		if(!NotContainInvalid(f1.cDisplayName.value))
+		{
+			SetInputBGColor("cDisplayName");
+			alert(WarningDisplayNameEmpty);
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDisplayName=" + PostEncode(f1.cDisplayName.value);
+	}
+	
+	if(f1.cServer.value != ShowDecode(arrayServer[iIndex]))
+	{	
+		if(!CheckLengthOfData(f1.cServer.value, 0, 255))
+		{
+			SetInputBGColor("cServer");
+			alert(WarningServerAddrEmpty);
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cServer=" + PostEncode(f1.cServer.value);
+	}
+	
+	if(f1.cPort.value != arrayPort[iIndex])
+	{	
+		if(!(IsPort(f1.cPort.value)))
+		{
+			SetInputBGColor("cPort");
+			alert(WarningServerPortEmpty);
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cPort=" + PostEncode(f1.cPort.value);
+	}
+	
+	if(f1.cUser.value != arrayUser[iIndex])
+	{
+		if(!NotContainInvalid(f1.cUser.value))
+		{
+			SetInputBGColor("cUser");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cUser=" + PostEncode(f1.cUser.value);
+	}	
+	if(!PwdKeyFirst[0] && "********" != f1.cPassword.value)
+	{
+		if(!NotContainInvalid(f1.cPassword.value))
+		{
+			SetInputBGColor("cPassword");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cPassword=" + PostEncode(f1.cPassword.value);
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+	<div class="div_border">
+	<div class="div_head"><label id='tBroadsoftPhoneBook'>Broadsoft</label></div>
+		<table class="table_style" border="0" cellpadding="0" cellspacing="0">
+			<tr><td class="Second_td3"><label id='tBSFTPhoneBookItem'>Broadsoft PhoneBook</label></td>
+			  <td><select name='cBSFTPhoneBookItem' class='Select_format' onChange="ChangeBSFTPBItem()"></select></td>
+			</tr>
+			<tr><td class="Second_td3"><label id='tDisplayName'>DisplayName</label></td>
+			  <td><select name="cDisplayName" class="Select_format" onFocus="onInputEdit(this.name)"/></td>
+			</tr> 
+			<tr><td class="Second_td3"><label id='tServer'>ServerAddress</label></td>
+				<td><input type="text" name="cServer" id="2" value="" size="50" style="font-size:13px" maxlength="512" onkeypress="onInputEdit(this.id)"/></td>
+			</tr>
+			<tr>
+			<td class='Second_td3'><label id='tPort'>ServerPort</label></td>
+			<td><input type="text" name="cPort" id="3" value="" size="8" style="font-size:13px" maxlength="8" onkeypress="onInputEdit(this.id)"/>(1~65535)</td>
+				  </tr>
+			<tr><td class='Second_td3'><label id='tUser'>User Name</label></td>
+			  <td><input type="text" name="cUser" id="4" value="" size="25" style="font-size:13px" maxlength="100" onkeypress="onInputEdit(this.id)"/></td>
+					</tr>                
+			<tr><td class='Second_td3'><label id='tPassword'>Password</label></td>
+			  <td><input type="password" name="cPassword" id="5" value="" size="25" style="font-size:13px" maxlength="40" oncontextmenu="KeyFirstDelete(this.id, 0)" onkeydown="KeyFirstDelete(this.id, 0)"/></td>
+			</tr>
+		</table>
+	</div>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+			<br/>
+			<input type="hidden" name="SubmitData" value="" />
+			<tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button"  value="Submit" onClick="OnSubmit()"></td>
+					<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button"  value="Cancel" onClick="SubLoadCfg()"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

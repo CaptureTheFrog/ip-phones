@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<firmware-settings e="2">
+<firmware perm="">http://provisioning.snom.com/download/fw/snom300-8.7.3.25.5-SIP-f.bin</firmware>
+</firmware-settings>

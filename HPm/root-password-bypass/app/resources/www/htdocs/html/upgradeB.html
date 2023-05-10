@@ -1,0 +1,673 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<style type="text/css">
+	.CenterDiv { height:25px;	line-height:25px;	background-color:#FFFFFF; text-align:center; }
+</style>
+<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	<!--每次更新的时候，version里的js版本号+1-->
+	var ThisPage="upgradeB";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+	var IsAlreadyReboot = 0;
+	var timeOutCheckObj;
+	var inUpgradeProc = 0;
+	var RebootCheckObj;
+	var rebootflag = 0;
+	var PageRefDesURL = 'do?id=6&id=1';
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+
+function ConfirmF5Jump()
+{
+	if(1 == inUpgradeProc && !confirm(F5PressProblemWarning))
+	{
+		return false;
+	}
+	return true;
+}
+
+function SetAllPartsDisabled()
+{
+	SetAllLiElementDisabled(true);
+	HideAllLiElement(true);
+	document.getElementById("tableUpgrade").style.display = "none";
+	document.getElementById("divVersion").disabled = true;
+	document.getElementById("UpgradeB_divReset").style.display = "none";
+	
+	document.getElementById('divUpgrade').style.display = "none";
+	document.getElementById('divVersion').style.display = "none";
+	SetCont1Disp();
+	document.getElementById('tPageLogOut').style.display = "none";
+}
+
+function SetCheckStatusBeforeUpload(destStr)
+{
+	SetCont1Disp();
+	document.getElementById('tCheckDuringUpgrade').innerHTML = destStr;
+}
+
+function SetCont1Disp()
+{
+	document.getElementById('divUploading').style.display = "";
+	document.getElementById('mid_cont1').style.display = "";
+	document.getElementById('mid_cont2').style.display = "none";
+}
+
+function SetCont2Disp()
+{
+	document.getElementById('mid_cont1').style.display = "none";
+	document.getElementById('mid_cont2').style.display = "";
+}
+
+function SetAllPartsEnable()
+{
+	for(var i=1; i <= 7; i++)
+	{
+		var tmpStr = "link"+i;
+		document.getElementById(tmpStr).disabled = false;
+	}
+	
+	document.getElementById("tableUpgrade").style.display = "";
+	document.getElementById("divVersion").disabled = false;
+	document.getElementById("UpgradeB_divReset").style.display = "";
+	SetCont2Disp();
+}
+
+function LoadCfg()
+{
+	//UPGRADE_TAKING = -4;
+	//UPGRADE_DUP = -3,
+	//UPGRADE_FAILED = -2,
+	//UPGRADE_PREPARED_FAILED = -1,	
+	//UPGRADE_FINISHED = 0,
+	//UPGRADE_PREPARED_OK = 1,
+	//UPGRADE_STATUS_MAX
+	
+  //升级状态为正在升级中，才需要弹出模式对话框
+//				|| f2.hcUpgradeStatus.value == 2
+//		|| f2.hcUpgradeStatus.value == -1
+//		|| f2.hcUpgradeStatus.value == -2
+//		|| -3 == f2.hcUpgradeStatus.value
+//		|| -4 == f2.hcUpgradeStatus.value
+
+	LoadLang();
+	SetAllPartsEnable();
+	var f1 = document.forms["upgradeForm"];
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("cFirmwareVersion").innerHTML = f2.hcFirmwareVersion.value;
+	document.getElementById("cHardwareVersion").innerHTML = f2.hcHardwareVersion.value;
+	DelayShow();
+	if(f2.hcUpgradeStatus.value == 0)
+	{
+	}
+	else if(f2.hcUpgradeStatus.value == 1)
+	{
+		SetAllPartsDisabled();
+		inUpgradeProc = 1;
+		ReStartCheckUpgrade();
+		interObj[1] = setInterval("LongCheckStatus('divUpgradeStatus')", 4000);
+		interObj[0] = setInterval("UpgradingShow(PhoneUpgradingWarning, 'tCheckDuringUpgrade')", 1000);
+	}
+	else
+	{
+		if(5 == f2.hcUpgradeStatus.value && Number(f2.hcCfgUpgradeStatus.value) < 3)
+		{}
+		else
+		{setTimeout("Relocate('/fcgi/do?id=6&id=1')", 300);}
+	}
+	clearInterval(timeOutCheckObj);
+	if(document.getElementById("tDivShortcut"))
+	{
+		document.getElementById("tDivShortcut").style.display = "none";
+	}
+}
+
+function LoadLang()
+{
+	var tmp = Upgrade+"-"+Basic;
+	LoadCommonResources(tmp);
+	//document.getElementById('tVersion').innerHTML = Version;
+	document.getElementById('tFirmwareVersion').innerHTML = FirmwareVersion;
+	document.getElementById('tHardwareVersion').innerHTML = HardwareVersion;
+	document.getElementById('tUpgrade').innerHTML = Upgrade;
+	document.getElementById('tResetFactory').innerHTML = ResetToFactorySetting;
+	document.getElementById('tReboot').innerHTML = RebootLabel;
+	document.getElementById('UpgradeConfirmBtn').value = SubmitLabel;
+	document.getElementById('ResetFactory').value = SubmitLabel;
+	document.getElementById('Reboot').value = SubmitLabel;
+	document.getElementById('UpgradeCancel').value = CancelLabel;
+}
+
+function CheckUpgradeBeforeSts()
+{
+	ReStartCheckUpgrade(1);
+}
+
+var enterUpgradeBefore = false;
+function OnStartUpgrade()
+{	
+	var f1 = document.forms["upgradeForm"];
+	var f2 = document.forms["hiddenValForm"];
+	var fileArr = f1.UpgradeB_UpgradeFile.value.split("\\");
+	var filepostfix = ".ROM";
+	var fileUpLimit = 11264;
+	var fileLowerLimit = 0;
+	upgradeFileName = fileArr[fileArr.length-1];
+	
+	if(upgradeFileName != "")
+	{
+			//anroid平台
+			if("undefined" != typeof(PLATFORMID) && "3" == PLATFORMID)
+			{
+				filepostfix = ".ZIP";
+				fileUpLimit = 512000;//500MB
+				fileLowerLimit = 204800;
+			}
+			if("undefined" != typeof(PLATFORMID) && "7" == PLATFORMID)
+			{
+				filepostfix = ".ROM";
+				fileUpLimit = 16384;//16M
+				fileLowerLimit = 0;
+			}
+			if(!CheckFileFormat(upgradeFileName, filepostfix, 4))
+			{
+				alert(FileFormatWarning);
+				return false;
+			}
+			var FileSizeFlag = CheckFileSize('UpgradeB_UpgradeFile', fileUpLimit, fileLowerLimit);
+			if("-1" == FileSizeFlag)
+			{
+				alert(FileNotExistWarning);
+				return false;
+			}
+			if("-2" == FileSizeFlag)
+			{
+				alert(UploadingFileTooLargeWarning);
+				return false;
+			}
+			if("-3" == FileSizeFlag)
+			{
+				alert(FileFormatWarning);
+				return false;
+			}
+			//UpgradeConfirm
+			//event.returnValue = 
+			if(!confirm(UpgradeConfirm))
+			{
+				return;
+			}
+			
+			inUpgradeProc = 1;
+			SetAllPartsDisabled();
+			SetCheckStatusBeforeUpload(UploadingWarning+" <br>"+CloseWindowWarning);
+			setTimeout("CheckUpgradeBeforeSts()", 1000*40);
+			enterUpgradeBefore = true;
+			$.ajax({
+				url: 'do?id=6&id=1&Operation=GetDivContent&DivName=divStartUpgrade',
+				cache: false,
+				success: function(html){
+					$("#divStartUpgrade").append(html);
+					SetPageCookie();
+					var tmp;
+					if(!document.getElementById("hcStartUpgrade_Div"))
+					{
+						tmp = "";
+					}
+					else
+					{
+						tmp = document.getElementById("hcStartUpgrade_Div").value;
+					}
+					if("0" == tmp)
+					{
+						enterUpgradeBefore = false;
+						UploadAndUpgrade();
+					}
+					else if("-1" == tmp)
+					{
+						SetAllPartsDisabled();
+						SetCheckStatusBeforeUpload(PhoneTalkingNotUpgradeWarning);
+						setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2500);
+					}
+					else if("-2" == tmp)
+					{
+						SetAllPartsDisabled();
+						SetCheckStatusBeforeUpload(AUTOPConflictWarning);
+						setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2500);
+					}
+					else if("-3" == tmp)
+					{
+						SetAllPartsDisabled();
+						SetCheckStatusBeforeUpload(PhoneUpgradingWarning);
+						setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2500);
+					}
+					else
+					{
+						SetAllPartsDisabled();
+						SetCheckStatusBeforeUpload(UpgradeFinishedNotice);
+						setTimeout("Relocate('/fcgi/do?id=6&id=1')", 4000);
+					}
+				}
+			});
+			ResetDivInnerHTML("divStartUpgrade");
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+
+function UploadAndUpgrade()
+{
+	var f1 = document.forms["upgradeForm"];
+	f1.submit();	
+}
+
+function OnCancelUpgrade()
+{
+	var f1 = document.forms["upgradeForm"];
+	f1.reset();
+}
+
+function OnResetFactory()
+{
+	var f3 = document.forms["submit_form"];
+	if(!confirm(ResetFactoryConfirm))
+	{
+		return;
+	}
+
+	ShowProcessing();
+	$.ajax({
+		url: 'do?id=6&id=1&Operation=GetDivContent&DivName=divResetFactory',
+		cache: false,
+		success: function(html){
+			$("#divResetFactory").append(html);
+			ReStartCheckReboot();
+			if(GetPhoneUse4Export())
+			{
+				setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2000);
+				return;
+			}
+			SetCheckStatusBeforeUpload(ResetToFactoryWarning + " <br>"+ CheckIPWarning);
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+		},
+		error: function(html)
+		{
+			SetCheckStatusBeforeUpload(ResetToFactoryWarning + " <br>"+ CheckIPWarning);
+			ReStartCheckReboot();
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+		}
+	});
+	ResetDivInnerHTML("divResetFactory");
+	SetAllPartsDisabled();
+}
+
+function OnReboot()
+{
+	var f3 = document.forms["submit_form"];
+	if(!confirm(RebootConfirm))
+	{
+		return;
+	}
+	
+	ShowProcessing();
+	OnRebootCom();
+	return;
+}
+
+function ShowProcessing()
+{
+	SetCheckStatusBeforeUpload(ProcessNotice);
+	ResetDivInnerHTML("divReboot");
+	SetAllPartsDisabled();	
+}
+
+function DoRebootConflict()
+{
+	setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2000);
+}
+
+function DoRebootNotConflict()
+{	
+	SetCheckStatusBeforeUpload(RebootingWarning);
+	ResetDivInnerHTML("divReboot");
+	SetAllPartsDisabled();
+}
+
+function ReStartCheckReboot()
+{
+	setTimeout("StatusCheck('divRebootStatus')", 3000);
+	//setTimeout("ReStartCheckReboot()", 40000);
+}
+
+function ReStartCheckUpgrade(stsCallBackId)
+{
+	if(1 == stsCallBackId)
+	{setTimeout("StatusCheck('divUpgradeStatus', 1)", 3000);}
+	else{
+		setTimeout("StatusCheck('divUpgradeStatus')", 3000);}
+}
+
+function StatusCheck(strDivName, stsCallBackId)
+{
+	var desURL = 'do?id=6&id=1&Operation=GetDivContent&DivName=' + strDivName;
+	$.ajax({
+		url: desURL,
+		cache: false,
+		success: function(html){
+			//alert(html);
+			ResetNotGetResponse();
+			if("" == html)
+			{
+				//clearInterval(RebootCheckObj);
+				if(strDivName == "divRebootStatus")
+				{
+					ReStartCheckReboot();
+				}
+				else if(strDivName == "divUpgradeStatus")
+				{
+					ReStartCheckUpgrade(stsCallBackId);
+				}
+				return;
+			}
+			
+			if(strDivName == "divRebootStatus")
+			{
+				OnStsActOfReboot(html);
+				ReStartCheckReboot()
+			}
+			else if(strDivName == "divUpgradeStatus")
+			{
+				var tmpF = OnStsActOfUpgrade(html, stsCallBackId);
+				if(true == tmpF){ReStartCheckUpgrade(stsCallBackId);}
+			}
+		},
+		error: function(html){
+			ResetNotGetResponse();
+			//clearInterval(RebootCheckObj);
+			if(strDivName == "divRebootStatus")
+			{
+				ReStartCheckReboot();
+			}
+			else if(strDivName == "divUpgradeStatus")
+			{
+				ReStartCheckUpgrade(stsCallBackId);
+			}
+		}
+	});
+
+}
+
+function OnStsActOfReboot(html)
+{
+	$("#divRebootStatus").append(html);
+	if(document.getElementById("hcRebootStatus_Div") && 
+	document.getElementById("hcRebootStatus_Div").value == 0)
+	{
+		SetPageCookie();
+		//clearInterval(RebootCheckObj);
+		if(0 == rebootflag)
+		{
+			rebootflag = 1;
+			setTimeout("Relocate('/fcgi/do?id=6&id=1')", 7000);
+		}
+	}
+	ResetDivInnerHTML("divRebootStatus");
+}
+
+function UpgradingShow(showStr, destShowLabel)
+{
+		if(dotNumArr[1] >= 5)
+		{
+			dotNumArr[1] = 0;
+			dotTxtArr[1] = "";
+		}
+
+		var tmpTxt = showStr;
+		
+		if(timeCntArr[1] >= total)
+		{
+			ClearAllIntervObjs();
+			document.getElementById(destShowLabel).innerHTML = WebTimeOutWarning;
+			setTimeout("Relocate('/fcgi/do?id=6&id=1')", 3000);
+			dotNumArr[1] = timeCntArr[1] = 0;
+			dotTxtArr[1] = "";
+		}
+		else
+		{
+			document.getElementById(destShowLabel).innerHTML = tmpTxt + dotTxtArr[1]+ " <br>" + CloseWindowWarning;
+		}
+		dotTxtArr[1] += ".";
+		dotNumArr[1]++;
+		timeCntArr[1]++;
+}
+
+function ClearAllIntervObjs()
+{
+	clearInterval(interObj[0]);
+}
+
+function UpFinishedJump()
+{
+	SetCheckStatusBeforeUpload(UpgradeFinishedNotice);
+	setTimeout("DownCookie_Force('divRebootStatus')", 2000);
+	// 升级结束跳转页面
+	setTimeout("Relocate('/fcgi/do?id=6&id=1')", 7000);
+}
+
+function OnStsActOfUpgrade(html, stsCallBackId)
+{
+	if(1 == stsCallBackId)
+	{//查看话机处于升级之前的哪一个状态
+		return OnStsActOfUpgrade1(html);
+	}
+	else
+	{ return OnStsActOfUpgrade0(html)};
+}
+
+function OnStsActOfUpgrade1(html)
+{
+	if(!enterUpgradeBefore)
+	{
+		return false;
+	}
+	
+	$("#divUpgradeStatus").append(html);
+	var statusValue = "";
+	if(document.getElementById('hcStatus_Div'))
+	{statusValue = document.getElementById('hcStatus_Div').value;}
+	// time out
+	if(-5 == statusValue || "" == statusValue)
+	{
+		setTimeout("Relocate('/fcgi/do?id=6&id=1')", 2000);
+		return false;
+	}
+	else if(0 == statusValue)
+	{
+		// 标志位处理请求堆积的情况
+		if(1 == IsAlreadyReboot)
+		{
+			return false;
+		}
+		IsAlreadyReboot = 1;
+	}
+	ResetDivInnerHTML("divUpgradeStatus");
+	return true;
+}
+
+// return true使得定时器继续起作用
+function OnStsActOfUpgrade0(html)
+{
+	$("#divUpgradeStatus").append(html);
+	// 判断是否进入安全模式
+	if(document.getElementById("hStatus"))
+	{
+		var stsObj = document.getElementById("hStatus");
+		if(0 == stsObj.value)
+		{
+			window.location = '/fcgi/do?id=1';
+		}
+	}	
+		//  重复升级 =-3
+		// 	UPGRADE_FAILED = -2,
+		//	UPGRADE_PREPARED_FAILED = -1,	
+		//	UPGRADE_FINISHED = 0,
+		//	UPGRADE_PREPARED_OK = 1,
+		//	UPGRADE_ING = 2,
+		// 	for upgrade Status
+		if(!document.getElementById('hcStatus_Div'))
+		{
+			if(1 == IsAlreadyReboot)
+			{
+				return false;
+			}
+		}
+		var statusValue = document.getElementById('hcStatus_Div').value;
+		if(statusValue == 0)
+		{
+			// 标志位处理请求堆积的情况
+			if(1 == IsAlreadyReboot)
+			{
+				return false;
+			}
+			IsAlreadyReboot = 1;
+			ClearAllIntervObjs();
+			setTimeout("UpFinishedJump()", 1000);
+		}
+		else if(statusValue == 1
+			|| statusValue == "Undefined")
+		{
+			if(1 == IsAlreadyReboot)
+			{
+				return true;
+			}
+		}
+		else if(statusValue == -3)
+		{
+			SetCheckStatusBeforeUpload("Upgrade duplicated!");
+			ClearAllIntervObjs();
+			setTimeout("Relocate('/fcgi/do?id=6&id=1')", 3000);
+		}
+		else if(statusValue == -4)
+		{
+			SetCheckStatusBeforeUpload("Talking , please upgrade later!");
+			ClearAllIntervObjs();
+			setTimeout("Relocate('/fcgi/do?id=6&id=1')", 3000);
+		}
+		else if(2 == statusValue
+			|| 3 == statusValue)
+		{
+			SetCheckStatusBeforeUpload(PhoneUpgradingWarning + ".. <br>" + CloseWindowWarning);
+		}
+		else
+		{
+			SetCheckStatusBeforeUpload("Upgrade Failed!");
+			ClearAllIntervObjs();
+			setTimeout("Relocate('/fcgi/do?id=6&id=1')", 3000);
+		}
+	ResetDivInnerHTML("divUpgradeStatus");
+	return true;
+}
+
+function CheckCommitData()
+{
+	return "";
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu6", "tMenu61");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+	<div class="phone1">
+		<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+	<div id="midWhole" class="mid">
+<div class="mid_top"><label id="tInnerTitle"></label></div>
+	<div class="mid_cont" id="mid_cont1" style="text-align: center; font-size: 25px">
+	<table align="center" height="150" id="divUploading">
+		<tr style="text-align: center;"><td style="text-align: center;"><strong id="tCheckDuringUpgrade"></strong></td></tr>
+	</table>
+	</div>
+  <div class="mid_cont" id="mid_cont2" style="display:none">
+	<div id="divUpgrade">
+				
+	<div style="display:none" class="div_border">
+				<table id="tableUpgradeStatus" style="display:none" class="table_style">
+					<tr><td class="Gap_td1"></td> </tr>
+					<tr><td class="Gap_td1"></td> </tr>
+					<tr><td class="Gap_td1"></td> </tr>
+					<tr>
+					<td style='text-indent: 50px;'><label id='tUpgradeStatus'>Status</label></td>
+					<td style='font-size:16px; width:500px; font-weight:bold; text-indent: 25px;'><label id='cUpgradeStatus'></label></td>
+					</tr>
+					<tr><td class="Gap_td1"></td> </tr>
+					<tr><td class="Gap_td1"></td> </tr>
+					<tr><td class="Gap_td1"></td> </tr>
+				</table>
+	</div>
+	<div class="div_border">
+	<div>&nbsp<br/></div>
+	
+		<div id="divVersion">
+		<table class="table_style">	
+		<tr><td class="Second_td"><label id='tFirmwareVersion'></label></td> <td class="Third_td"><label id="cFirmwareVersion"></label></td></tr>
+		<tr><td class="Second_td"><label id='tHardwareVersion'></label></td> <td class="Third_td"><label id="cHardwareVersion"></label></td></tr>
+		</table>
+		</div>
+		<div id="UpgradeB_divUpgrade">
+		<table id="tableUpgrade" class="table_style">
+		 	<form id="upgradeForm" enctype="multipart/form-data" action="" method="post">
+		 	        	<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upgrade&">
+		 	        	
+							<tr><td class="Second_td"><label id='tUpgrade'></label></td>
+								<td class="Third_td"><input id="UpgradeB_UpgradeFile" name="UpgradeB_UpgradeFile" type="file"></td></tr>
+			        <tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id="UpgradeConfirmBtn" name="UpgradeConfirmBtn" value="Submit" onClick ="OnStartUpgrade()">
+			        	<input class="Nice_Btn" type="button" id="UpgradeCancel" name="UpgradeCancel" value="Cancel" onClick ="OnCancelUpgrade()"></td></tr>
+			</form>
+		</table>
+		</div>
+		
+		<div id="UpgradeB_divReset">
+		<table class="table_style">
+			<tr style="height:44px"><td class="Second_td"><label id='tResetFactory'>Reset to Factory Setting</label></td> <td class="Third_td"><input class="Nice_Btn" type="button" id="ResetFactory" name="ResetFactory" value="Submit" onClick ="OnResetFactory()"></td></tr>
+			<tr style="height:44px"><td class="Second_td"><label id='tReboot'>Reboot</label></td> <td class="Third_td"><input class="Nice_Btn" type="button" id="Reboot" name="Reboot" value="Submit" onClick ="OnReboot()"></td></tr>
+		</table>	
+		</div>
+
+	</div>
+	</div>
+
+	</div>
+		  <div id="divUpgradeStatus" style="display:none">
+			</div>
+			<div id="divStartUpgrade" style="display:none">
+			</div>
+			<div id="divResetFactory" style="display:none"></div>
+			<div id="divReboot" style="display:none"></div>
+			<div id="divRebootStatus" style="display:none"></div>
+			
+	</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>	
+	</div>
+<FCGI_INCLUDE FILE=bottom.html>

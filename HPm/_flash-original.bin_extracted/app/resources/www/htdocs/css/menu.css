@@ -1,0 +1,246 @@
+﻿/*整体风格与排版*/
+.phone1{ width:1075px; height:auto; margin:0 auto; clear:both;}
+.top{ background:url(../Image/head.png?ver=1.0.0.165) no-repeat 0 0; width:100%; height:80px; text-align: right; font-size: 20px; font-weight: bold;	display: block;
+	position: relative;
+	font-family:Tahoma,Arial,"Times New Roman" ,"Microsoft YaHei",Helvetica,sans-serif}
+.head{ background:url(../Image/head2.png?ver=1.0.0.88); width:100%; height:22px; text-align: right; font-weight: bold; float:bottom; line-height:22px; overflow:hidden;}
+.headline{display:none; repeat-x; width:99%; height:16px; line-height:18px; position:absolute; top:76px; overflow:hidden; z-index:1} 
+.main{width:100%; height:auto; clear:both;}
+.left{width:150px; height:658px; background:url(../Image/left.png?ver=1.0.0.88) repeat-y; float:left; overflow-x:hidden; overflow-y:auto;white-space: nowrap;}
+.corner{width:25px;background: no-repeat top; height:25px;float:left;}
+.corner_mir{width:20px; background: no-repeat top; height:25px;float:left;}
+.right_mir{_width:52px; height:658px; min-width:55px; background:url(../Image/right_mir.png?ver=1.0.0.88); repeat-y; float:left;}
+
+.mid{ width:610px; float:left; margin-top:20px;}
+.mid_top{ width:100%; height:28px; background:url(../Image/middle2.png?ver=1.0.0.88); line-height:28px; font-size: 16px; text-indent: 16px;}
+.mid_cont{ width:610px; background:url(../Image/middle3.png?ver=1.0.0.88) repeat; float:left; _height: 610px; min-height:610px; overflow:auto;}
+.right{ float:left; background:url(../Image/right.png?ver=1.0.0.88) no-repeat top; width:205px; margin-left:10px; margin-top:20px;}
+.right_top{background:url(../Image/right.png?ver=1.0.0.88) no-repeat top; height:30px; width:auto; color:black;line-height:33px;  font-size: 16px; text-align:center;}
+.right_cont{ border-top:none; height:608px; line-height:20px;  font-size: 13px; background-color:#DCE3E8;}
+.bottom{ background:url(../Image/foot.png??ver=1.0.0.165) no-repeat 0 0; width:1075px; height:80px;margin:0 auto; clear:both; text-align:center; font-size: 13px;color:black;line-height:80px;}
+.logo{display:none; text-align:center; width:50%; height:85px; margin:auto;margin-left:32%}
+
+a{ text-decoration:none;}
+/*layout css*/
+
+/**/
+dl{ margin-left: 37px; padding-top:10px;}
+dl dd{ text-indent:16px;}
+
+ul { margin:0; padding:0; list-style:none; text-decoration:none; }
+#wrapper { width:150px; font-size:15px; position:relative; left:-10px; }
+/*0.8125em*/
+.menu { width:auto; height:auto; }
+.menu > li > a {
+	width: 100%;
+	height: 2.75em;
+	line-height: 2.75em;
+	text-indent: 2.75em;
+	display: block;
+	position: relative;
+	font-family: Tahoma, Arial,"Times New Roman","Microsoft YaHei",Helvetica,sans-serif;
+  color: #FFFFFF;
+	background:url(../Image/+.png?ver=1.0.0.88) no-repeat 10px 0;
+}
+
+.menu_expand {
+	width: 100%;
+	height: 2.75em;
+	line-height: 2.75em;
+	text-indent: 2.75em;
+	display: block;
+	position: relative;
+	font-family: Tahoma, Arial,"Times New Roman","Microsoft YaHei",Helvetica,sans-serif;
+	color: #FFFFFF;
+	font-weight:bold;
+	/*background:url(../Image/+.png) no-repeat 10px 0;*/
+	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="../Image/+.png");*/
+}
+
+.logout_location{padding-top: 56px; padding-right: 39px;}
+
+.logoff_styl{
+	font-size: 14px;
+	color:Black;
+	text-decoration:underline;
+}
+
+.menu ul li a {
+	width: 100%;
+	height: 2.75em;
+	line-height: 2.75em;
+	text-indent: 3.75em;
+	display: block; 
+	position: relative;
+	font-family:  Tahoma, Arial,"Times New Roman","Microsoft YaHei",Helvetica,sans-serif;
+	font-size: 0.923em;
+	font-weight: 400;
+	color: #ffffff;
+}
+
+/*.menu > li > a:hover,*/ .menu > li > a.active {
+	font-weight:bold;
+	color: #ffffff;
+	background:url(../Image/-.png?ver=1.0.0.88) no-repeat 10px 0;
+}
+
+.menu > li > a:before {
+	background-repeat: no-repeat;
+	font-size: 36px;
+	height: 1em;
+  width: 1em;
+	position: absolute;
+  left: 0;
+	top: 50%;
+	margin: -.5em 0 0 0;
+}
+.item1 > a:before { background-position:0 0; }
+.item2 > a:before { background-position:-38px 0; }
+.item3 > a:before { background-position:0 -38px; }
+.item4 > a:before { background-position:-38px -38px; }
+.item5 > a:before {	background-position:-76px 0; }
+.menu > li > ul li a:before{
+/*	content: '▶';*/
+	font-size: 8px;
+	/*color: #bcbcbf;*/
+	color: #FFFFFF;
+	font-weight:bold;
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	top: 0;
+	left: -2.7em;
+}
+
+/*这个是停留在链接上面的颜色*/
+.menu > li > ul li:hover a,
+.menu > li > ul li:hover a span,
+.menu > li > ul li:hover a:before {
+	color: #32373D;
+	/*color: #FFFFFF;*/
+}
+
+BODY {
+	font-family: Tahoma, Arial,"Times New Roman","Microsoft YaHei",Helvetica,sans-serif;
+	font-size:13px;
+	background-image: url(../Image/bg.png?ver=1.0.0.88);
+	background-repeat: repeat;
+}
+
+input, textarea
+{
+	font-size:13px;
+	font-family:Tahoma, Arial,"Times New Roman", Helvetica, sans-serif;
+}
+
+*
+{
+ font-family:Tahoma, Arial,"Times New Roman","Microsoft YaHei",Helvetica,sans-serif;
+}
+
+.def_input{ width:130px; }
+.def_input1{ width:220px;}
+.def_input2{ width:180px;}
+.login_input{width:90px;}
+.port_input{ text-align:right; width:40px; }
+.ip_input{	width:120px; }
+.time_split{	text-indent:2px; width:35px; }
+.testIndent{	text-indent:50px; }
+
+.First_td{ 
+	text-align: left;
+	text-indent: 25px;
+	width: 200px;
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 9px;
+	padding-bottom: 6px;
+}
+
+.Login_td1{
+	text-align: left;
+	text-indent: 25px;
+	width: 120px;
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 9px;
+	padding-bottom: 6px;
+	white-space:nowrap; 	
+}
+.Login_td2{
+	text-align: left;
+	text-indent: 10px;
+	margin-left:50px;
+	padding-left:50px;
+	width: 300px;
+}
+.Login_td3{
+	text-align: right;
+}
+
+.div_head{ 
+	text-align: center;
+	width: 85%;
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 12px;
+	padding-bottom: 8px;
+	margin-left: 8%;
+	border-bottom:1px solid rgb(165, 191, 228);
+}
+
+.div_border{border: 1px solid #CCCCCC; width: 608px; margin-bottom:10px;}	
+.table_style{margin-top:5px; margin-bottom:8px; margin-left:2%}
+
+.First_td1{	text-align:left; text-indent:25px;	width:50px; }
+.First_td2{ text-align:left; text-indent:25px;  width:75px; }
+.Second_td{ text-align:left; text-indent:50px;	width:300px; }
+.Second_td1{ text-align:left; text-indent:50px; width:200px; }
+.Second_td2{ text-align:left; text-indent:90px; width:210px; }
+.Second_td3{ text-align:left; text-indent:50px; height:25px; width:180px; }
+.TablePadding{ text-align:left;	padding-left:50px; }
+.TablePadding1{ 
+	text-align: center;
+	/*padding-left:25px; seems ie.6 has some problem with padding-left, change to use margin-left*/
+	margin-left:25px;
+}
+
+.Third_td{ text-align: left;	text-indent: 10px; }
+.Third_td2{ text-align: left;}
+.Select_format { width: 136px; }
+.Select_format1 { width: 136px; }
+.Select_format2 { width: 136px; }
+.Select_format3 { width: 100px; }
+.LoginSelect_format { width: 155px; }
+.Item_Display_none { display:none; }
+.Third_td1 { text-align: left; width: 350px; }
+.InnerSecond_td { text-align:left; text-indent: 50px; width:180px; /*special for inner html*/ }
+.InnerThird_td { text-align:left; text-indent:10px; width:300px; /*special for inner html*/ }
+.InnerGap_td1 { /*special for inner html*/ height:20px; }
+.Alert_Style {	background-color:pink; }
+
+.Nice_Btn{	vertical-align:middle; text-align:center; width:70px; background:#D3DFF9; border:1px solid #484EBD;	}
+.Nice_Btn1{ vertical-align:middle;	text-align: center;	width: 100px;	background:#D3DFF9;	border: 1px solid #484EBD; }
+.Nice_Btn2{ vertical-align:middle;	text-align: center;	width: 40px;	background:#D3DFF9;	border: 1px solid #484EBD; }
+.Nice_Btn3{vertical-align:middle; text-align:center; width:70px; background:#D3DFF9; border:1px solid #484EBD;}
+.Login_Btn{vertical-align:middle; text-align:center; width:90px; background::#D3DFF9;	border: 1px solid #484EBD;}
+
+#LoginTable{
+margin:auto;
+margin-top:60px;
+padding-left:50px;
+}
+
+#Login_MidWhole{
+display:"";
+}
+
+#cLoginResult{
+font-weight:bold;
+text-align:right;
+text-indent:12px;
+}
+
+#tableDSSKey{
+margin-left:10%;
+}

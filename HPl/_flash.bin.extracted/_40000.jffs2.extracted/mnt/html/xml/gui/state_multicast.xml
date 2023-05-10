@@ -1,0 +1,11 @@
+<SnomIPPhoneText state="relevant">
+	<Title>Multicast</Title>
+  <Text generate="mc"/>
+
+<SoftKeyItem>
+  <Name>F1</Name>
+  <Label>$(lang:cancel)</Label>
+  <Softkey>F_CANCEL</Softkey>
+</SoftKeyItem>
+</SnomIPPhoneText>
+

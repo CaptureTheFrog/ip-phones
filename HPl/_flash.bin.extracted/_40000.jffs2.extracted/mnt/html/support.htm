@@ -1,0 +1,175 @@
+<?ssi title info_ssi_title?>
+<?ssi file common1.htm?>
+<TR>
+ <TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif"
+  width="16"></TD>
+</TR>
+<TR>
+ <TD vAlign="top">
+ <FORM method="post">
+ <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%"
+  border="0">
+  <TBODY>
+   <TR>
+    <TD class="background" width="12" height="5"><IMG height="12"
+     src=<?ssi img-corner-gif ul?> width="12"></TD>
+    <TD width="30%"></TD>
+    <TD></TD>
+    <TD class="background" width="12" height="5"><IMG height="12"
+     src=<?ssi img-corner-gif ur?> width="12"></TD>
+   </TR>
+   <?ssi hidden_tag?>
+   <TR>
+    <TD></TD>
+    <TD class="normalText"><?lng info_ipaddress?></TD>
+    <td class="normalText"><?ssi variable ip_adr?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText"><?lng info_firmware_version?></TD>
+    <td class="normalText"><?ssi snom_type_version?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText"><?lng info_uptime_info?></TD>
+    <td class="normalText"><?ssi uptime?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">LCS uptime:</TD>
+    <td class="normalText"><?ssi lcsuptime?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">LCS exit:</TD>
+    <td class="normalText"><?ssi lcsexit?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">LCS state:</TD>
+    <td class="normalText"><?ssi lcsstate?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">LCS method:</TD>
+    <td class="normalText"><?ssi lcsmethod?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">Last key:</TD>
+    <td class="normalText"><?ssi lastkey?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">Last signal:</TD>
+    <td class="normalText"><?ssi lastsignal?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">Mem:</TD>
+    <td class="normalText"><?ssi memfree?>&nbsp;K</td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">CPU:</TD>
+    <td class="normalText"><?ssi loadavg?>&nbsp;</td>
+   </TR>
+   <?ssi skipon SNOM_MP?>
+   <TR>
+    <TD></TD>
+    <TD class="normalText"><?lng info_uboot_version_info?></TD>
+    <td class="normalText"><?ssi variable uboot_version?></td>
+   </TR>
+   <TR>
+    <TD></TD>
+    <TD class="normalText"><?lng fkeys_sidecar?></TD>
+    <td class="normalText"><?ssi variable extension_board?></td>
+   </TR>
+   <?ssi skipoff SNOM_MP?>
+   <?ssi skipon PROVIDE_CORE?>
+   <TR>
+    <TD></TD>
+    <TD class="normalText">Core:</TD>
+    <td class="normalText"><?ssi core?> - <input type="submit"
+     value="remove core file" name="REMOVE_CORE"<?ssi
+    tabindex?> class="button" >&nbsp;
+    <a href="core_dump" target="_blank">core dump download</a>.</TD>   </TR>
+   <?ssi skipoff PROVIDE_CORE?>
+   <TR>
+    <TD class="background" vAlign="bottom" align="left" width="12"
+     height="5"><IMG height="12" src=<?ssi img-corner-gif
+    ll?> width="12"/></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD class="background" vAlign="bottom" align="right" width="12"
+     height="5"><IMG height="12" src=<?ssi img-corner-gif
+    lr?> width="12"/></TD>
+   </TR>
+
+  </TBODY>
+ </TABLE>
+
+ <br>
+
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+
+
+ <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%"
+  border="0">
+  <TR>
+   <TD class="background" width="12" height="5"><IMG height="12"
+    src=<?ssi img-corner-gif ul?> width="12"></TD>
+   <TD></TD>
+   <TD></TD>
+   <TD class="background" width="12" height="5"><IMG height="12"
+    src=<?ssi img-corner-gif ur?> width="12"></TD>
+  </TR>
+  <TR>
+   <TD></TD>
+   <TD></TD>
+
+   <TD class="normalText">Click <a href="flash_partition"
+    target="_blank">here</a> to download the application partition.</TD>
+  </TR>
+
+  <TR>
+   <TD class="background" vAlign="bottom" align="left" width="12"
+    height="5"><IMG height="12" src=<?ssi img-corner-gif ll?>
+   width="12"></TD>
+   <TD></TD>
+   <TD></TD>
+   <TD class="background" vAlign="bottom" align="right" width="12"
+    height="5"><IMG height="12" src=<?ssi img-corner-gif lr?>
+   width="12"></TD>
+  </TR>
+
+ </TABLE>
+
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+   </FORM>
+ </TD>
+</TR>
+
+<TR>
+ <TD>&nbsp;</TD>
+</TR>
+<TR>
+ <TD vAlign="top" height="5"><IMG height="5" src="img/clr.gif"
+  width="12"></TD>
+</TR>
+
+<TR>
+ <FORM method="post">
+ <TD class="normalText">Debug log: - <input type="submit"
+  value="remove debug file" name="REMOVE_DEBUG"<?ssi tabindex?>
+ class="button" /></td>
+</TR>
+<TD>&nbsp;</TD>
+</TR>
+
+<tr>
+ <td class="normalText"><pre><?ssi debuglog?></pre></td>
+</tr>
+
+<?ssi file common9.htm?>
+</HTML>

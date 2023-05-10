@@ -1,0 +1,315 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="phoneCallFeature";
+var MaxID = 18;
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+function DoF5Jump()
+{
+	Relocate('do?id=4&id=2');
+}
+var PageRefDesURL = 'do?id=4&id=2';
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu42");
+});
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+			<div class="div_border" id="PhoneCF_divMode">
+				<div class="div_head"><label id='tMode'>Mode</label>&nbsp&nbsp&nbsp&nbsp<label id="cModeType"></label></div>
+				<table class="table_style">
+				<tr id="PhoneCF_trFeatureKeySync"><td class="Second_td"><label id='tFeatureKeySync'></label></td><td class="Third_td"><select class="Select_format1" name="cFeatureKeySync" id="cFeatureKeySync"></select></td></tr>
+				<tr><td class="Second_td"><label id='tModeSelect'></label></td><td class="Select_format"><input type="radio" name="cMode" id="cModePhone" onClick="CheckPhone()"><label id='tPhone'></label><input type="radio" name="cMode" id="cModeCustom" onClick="CheckCustom()"><label id='tCustom'></label></td></tr>
+				</table>
+			</div>			
+			<div class="div_border" id="PhoneCF_divForwardTransfer">
+				<div class="div_head"><label id='tForwardTransfer'>Forward Transfer</label></div>
+				<table class="table_style">
+				<tr><td class="Second_td"><label id='tAccount'></label></td> <td class="Third_td"><select class="Select_format1" name="cCurAccount" onChange="ChangeAccountPage()"> </select></td></tr>			
+				<tr><td class="Second_td"><label id='tForwardAlways'></label></td> <td class="Third_td"><select class="Select_format1" name="cForwardAlways"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tAlwaysTarget'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAlwaysTarget" value="" id="1"></td></tr>
+				<tr><td class="Second_td"><label id='tAlwaysOnCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAlwaysOnCode" value="" id="2"></td></tr>
+				<tr><td class="Second_td"><label id='tAlwaysOffCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAlwaysOffCode" value="" id="3"></td></tr>
+				<tr><td class="Second_td"><label id='tForwardBusy'></label></td> <td class="Third_td"><select class="Select_format1" name="cForwardBusy"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tBusyTarget'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cBusyTarget" value="" id="4"></td></tr>
+				<tr><td class="Second_td"><label id='tBusyOnCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cBusyOnCode" value="" id="5"></td></tr>
+				<tr><td class="Second_td"><label id='tBusyOffCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cBusyOffCode" value="" id="6"></td></tr>
+				<tr><td class="Second_td"><label id='tForwardNoAnswer'></label></td> <td class="Third_td"><select class="Select_format1" name="cForwardNoAnswer"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tNoAnswerRingTime'></label></td> <td class="Third_td"><select class="Select_format1" name="cNoAnswerRingTime"></td></tr>
+				<tr><td class="Second_td"><label id='tNoAnswerTarget'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cNoAnswerTarget" value="" id="7"></td></tr>
+				<tr><td class="Second_td"><label id='tNoAnswerOnCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cNoAnswerOnCode" value="" id="8"></td></tr>
+				<tr><td class="Second_td"><label id='tNoAnswerOffCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cNoAnswerOffCode" value="" id="9"></td></tr>
+				<td class="Gap_td1"><label></label></td>
+				</table>
+			</div>
+					
+			<div class="div_border" id="PhoneCF_divDND">
+				<div class="div_head"><label id='tDND'>DND</label></div>
+				<table class="table_style">
+				<tr id="PhoneCF_trDNDAccount"><td class="Second_td"><label id='tDNDAccount'></label></td> <td class="Third_td"><select class="Select_format1" name="cDNDCurAccount" onChange="ChangeAccountPage()"> </select></td></tr>
+				
+				<tr><td class="Second_td"><label id='tDNDEnable'>DND</label></td> <td class="Third_td"><select class="Select_format1" name="cDNDEnabled" id="cDNDEnabled"></select></td></tr>
+				<tr id="PhoneCF_trReturnCodeDND"><td class="Second_td"><label id='tReturnCodeDND'></label></td> <td class="Third_td"><select name="cReturnCodeDND"> </select></td></tr>
+				<tr id="PhoneCF_trDNDOnCode"><td class="Second_td"><label id='tDNDOnCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDNDOnCode" value="" id="10"></td></tr>
+				<tr id="PhoneCF_trDNDOffCode"><td class="Second_td"><label id='tDNDOffCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDNDOffCode" value="" id="11"></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+				</table>
+				</div>
+				
+			<div class="div_border" id="PhoneCF_divCallWaiting">
+			<div class="div_head"><label id='tCallWaiting'>Call Waiting</label></div>
+			<table class="table_style">
+				<tr><td class="Second_td"><label id='tCallWaitingEnable'></label></td> <td class="Third_td"><select class="Select_format1" name="cCallWaitingEnable" onChange="CheckCallWaiting()"> </select></td></tr>
+				<tr id="PhoneCF_trCallWaitingTone"><td class="Second_td"><label id='tCallWaitingTone'></label></td> <td class="Third_td"><select class="Select_format1" name="cCallWaitingTone"> </select></td></tr>
+				<tr id="PhoneCF_trCallWaitingonCode"><td class="Second_td"><label id='tCallWaitingOnCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cCallWaitingOnCode" value="" id="cCallWaitingOnCode"></td></tr>
+				<tr id="PhoneCF_trCallWaitingOffCode"><td class="Second_td"><label id='tCallWaitingOffCode'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cCallWaitingOffCode" value="" id="cCallWaitingOffCode"></td></tr>
+				<td class="Gap_td1"><label></label></td>
+		 	</table>
+		 	</div>
+				
+		 	<div class="div_border" id="PhoneCF_divAutoRedial">
+				<div class="div_head"><label id='tAutoRedial'>Auto Redial</label></div>
+			<table class="table_style">
+				<tr><td class="Second_td"><label id='tAutoRedialEnableLabel'>Auto Redial</label></td> <td class="Third_td"><select class="Select_format1" name="cAutoRedialEnable"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tAutoRedialIntervalLabel'>Auto Redial Interval</label></td> <td class="Third_td"><input class="def_input" id="cAutoRedialInterval" name="cAutoRedialInterval" onClick="onInputEdit(this.id)" /><label id="tAutoRedialIntervalRange">(1~300)</label></td></tr>
+				<tr><td class="Second_td"><label id='tAutoRedialTimesLabel'>Auto Redial Times</label></td> <td class="Third_td"><input class="def_input" id="cAutoRedialTimes" name="cAutoRedialTimes" onClick="onInputEdit(this.id)" /><label id="tAutoRedialTimesRange">(1~100)</label></td></tr>
+				<td class="Gap_td1"><label></label></td>
+		  	</table>
+			</div>	
+		  
+		  <div style="display:none" class="div_border">
+			<div class="div_head"><label id='tCallTransfer'>Call Transfer</label></div>
+			<table class="table_style">
+				<tr style="display:none"><td class="Second_td"><label id='tSemiAttendedTrans'></label></td> <td class="Third_td"><select name="cSemiAttendedTrans"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tBlindTransOnHook'></label></td> <td class="Third_td"><select name="cBlindTransOnHook"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tAttendedTransOnHook'></label></td> <td class="Third_td"><select name="cAttendedTransOnHook"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tTransOnConferenceHang'></label></td> <td class="Third_td"><select name="cTransOnConferenceHang"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tFwdInternational'></label></td> <td class="Third_td"><select name="cFwdInternational"> </select></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+			</table>
+		  </div>
+	
+			<div class="div_border" id="PhoneCF_divCallPickUp">
+			<div class="div_head"><label id='tCallPickUp'>Call PickUp</label></div>
+			<table class="table_style">    
+				<tr style='display:none;'><td class="Second_td"><label id='tEnableCallPickUp'>Enable Call PickUp</label></td> <td class="Third_td"><select class="Select_format1" name="cEnableCallPickUp" id="cEnableCallPickUp"> </select></td></tr>
+				<tr id='trVisualBLFPickUpAlert'><td class="Second_td"><label id='tVisualBLFPickUpAlert'>Visual PickUp Alert</label></td><td class="Third_td"><select class="def_input" name="cVisualBLFPickUpAlert" id="cVisualBLFPickUpAlert"></select></td></tr>
+			</table>
+			</div>
+			
+			<div style="display:none" class="div_border" id="PhoneCF_divCallPark">
+			<div class="div_head"><label id='tCallPark'>Call Park</label></div>
+			<table class="table_style">  			
+				<tr><td class="Second_td"><label id='tEnableCallPark'>Enable CallPark</label></td> <td class="Third_td"><select class="Select_format1" name="cEnableCallPark"> </select></td></tr>
+				<tr id='trCallParkAccount'><td class="Second_td"><label id='tCallParkAccount'>Account</label></td> <td class="Third_td"><select class="Select_format1" name="cCallParkAccount"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tCallParkTarget'>Target</label></td> <td class="Third_td"><input class="def_input" type="text" name="cCallParkTarget" value="" id="12"></td></tr>
+			</table>
+			</div>				
+			
+			<div class="div_border" id="PhoneCF_divIntercom">
+			<div class="div_head"><label id='tIntercom'>Intercom</label></div>
+			<table class="table_style"> 							
+				<tr><td class="Second_td"><label id='tIntercomAllow'></label></td> <td class="Third_td"><select class="Select_format1" name="cIntercomAllow" onChange="CheckIntcomSts()"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tIntercomMute'></label></td> <td class="Third_td"><select class="Select_format1" name="cIntercomMute"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tIntercomTone'></label></td> <td class="Third_td"><select name="cIntercomTone"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tIntercomBarge'></label></td> <td class="Third_td"><select name="cIntercomBarge"> </select></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+			</table>
+			</div>
+			
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tDTMF'>DTMF</label></div>
+			<table class="table_style"> 				
+				<tr style="display:none"><td class="Second_td"><label id='tHideDTMF'></label></td> <td class="Third_td"><select name="cHideDTMF"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tHideDTMFDelay'></label></td> <td class="Third_td"><select name="cHideDTMFDelay"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDTMFRepetition'></label></td> <td class="Third_td"><select name="cDTMFRepetition"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDTMFReplaceTrans'></label></td> <td class="Third_td"><select name="cDTMFReplaceTrans"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tTransSendDTMF'></label></td> <td class="Third_td"><input type="text" name="cTransSendDTMF" value=""></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+			</table>
+			</div>
+				
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tHold'>Hold</label></div>
+			<table class="table_style"> 	
+				<tr style="display:none"><td class="Second_td"><label id='tPlayHoldTone'></label></td> <td class="Third_td"><select name="cPlayHoldTone"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tPlayHoldToneDelay'></label></td> <td class="Third_td"><input type="text" name="cPlayHoldToneDelay" value=""></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+			</table>
+			</div>	
+				
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tPassword'>Password</label></div>
+			<table class="table_style"> 
+				<tr style="display:none"><td class="Second_td"><label id='tPasswdCall'></label></td> <td class="Third_td"><select name="cPasswdCall"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tPasswdPrefix'></label></td> <td class="Third_td"><input type="text" name="cPasswdPrefix" value=""></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tPasswdLength'></label></td> <td class="Third_td"><input type="text" name="cPasswdLength" value=""></td></tr>
+				<td style="display:none" class="Gap_td1"><label></label></td>
+			</table>
+			</div>				
+			
+			<div class="div_border" id="PhoneCF_divHotLine">
+			<div class="div_head"><label id='tHotLine'>Hot Line</label></div>
+			<table class="table_style"> 			
+				<tr><td class="Second_td"><label id='tHotLineEnable'></label></td> <td class="Third_td"><select class="Select_format1" name="cHotLineEnable" onChange="CheckHotLineSts()"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tHotLineNumber'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cHotLineNumber" value="" id="14"><label id="tLimOfHotNum"></label></td></tr>
+				<tr><td class="Second_td"><label id='tHotLineDelay'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cHotLineDelay" value="" id="15">(0~5s)</td></tr>
+			</table>
+			</div>	
+			
+			<div class="div_border" id="PhoneCF_divACD">
+			<div class="div_head"><label id='tACD'>ACD</label></div>
+			<table class="table_style"> 	
+				<tr><td class="Second_td"><label id='tACDActAuto'>ACD Activated Automatically</label></td>
+					<td class="Third_td"><select class="Select_format1" name="cACDActAuto" onChange="CheckACDActAutoSts()"></select></td></tr>
+				<tr><td class="Second_td"><label id="tACDActAutoTimer">ACDActAutoTimer</label></td>
+					<td class="Third_td"><input class="def_input" type="text" name="cACDActAutoTimer" value="" id='17' ><label id="tACDActAutoTimerRange">(0~180)</label></td>
+				<tr style="display:none"><td class="Second_td"><label id='tACDLoginAuto'>ACD Login Automatically</label></td><td class="Third_td">
+						<select class="Select_format1" name="cACDLoginAuto"></select></td></tr>					
+				</tr>
+			</table>
+			</div>
+			
+			<div class="div_border" id="PhoneCF_divRemoteControl">
+			<div class="div_head"><label id='tRemoteControl'>Remote Control</label></div>
+			<table class="table_style"> 		
+				<tr><td class="Second_td"><label id='tAllowedIPList'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAllowedIPList" value="" id="18"> </select></td></tr>
+			</table>
+			</div>
+			
+			<div class="div_border" id="PhoneCF_divKeypadLock">
+			<div class="div_head"><label id='tKeypadLock'>Phone Lock</label></div>
+			<table class="table_style"> 	
+				<tr>
+					<td class="Second_td"><label id='tKeypadLockType'>KeyPad Lock Type</label></td>
+					<td class="Third_td"><select class="Select_format1" name="cKeypadLockType" id="cKeypadLockType"></select></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tKeypadUnLockPIN'>Unlock PIN</label></td>
+					<td class="Third_td"><input type='password' class="def_input" name="cKeypadUnLockPIN" id="cKeypadUnLockPIN" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)" /><label>(0~15)</label></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tKeypadLockTimeout'>Keypad Lock Timeout</label></td>
+					<td class="Third_td"><input type="text" class="def_input"  id="cKeypadLockTimeout" name="cKeypadLockTimeout" /><label id='tKeypadLockTimeoutRange'></label></td>
+				</tr>	
+				<tr id='trEmergencyCall'>
+					<td class="Second_td"><label id='tEmergencyCall'>Emergency Call</label></td>
+					<td class="Third_td"><input type='text' class="def_input" id="cEmergencyCall" name="cEmergencyCall" /></td>
+				</tr>
+			</table>
+			</div>
+
+			<div class="div_border" id="PhoneCF_divKeyAsSend">
+			<div class="div_head"><label id='tKeyAsSend'>Key As Send</label></div>
+			<table class="table_style"> 
+				<tr><td class="Second_td"><label id='tKeyAsSendSetting'>Key As Send</label></td><td class="Third_td">
+						<select class="Select_format1" id="cKeyAsSend" name="cKeyAsSend"></select></td>
+				</tr>
+			</table>
+			</div>		
+ 
+ 		<div style="display:none;" class="div_border">
+			<div class="div_head"><label id='tCallCompletion'>Call Completion</label></div>
+			<table class="table_style">      				
+				<tr style='display:none;'><td class="Second_td"><label id='tCallCompletionEnabled'>Call Completion</label></td><td class="Third_td">
+						<select class="Select_format1" id="cCallCompletion" name="cCallCompletion"></select></td>
+				</tr>
+    		</table>
+     	</div>				
+      	
+		<div id="PhoneCF_divOthers" class="div_border">
+			<div class="div_head"><label id='tOthers'>Others</label></div>
+			<table class="table_style">
+			<tr id='PhoneCF_trReturnCodeRefuse'><td class="Second_td"><label id='tReturnCodeRefuse'></label></td> <td class="Third_td"><select name="cReturnCodeRefuse"> </select></td></tr>
+			<tr id='PhoneCF_trAutoAnswerDelay'><td class="Second_td"><label id='tAutoAnswerDelay'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cAutoAnswerDelay" id="13" value="">(0~5s)</td></tr>
+			<tr id='PhoneCF_trEarlyDtmf'><td class="Second_td"><label id='tEarlyDtmf'></label></td> <td class="Third_td"><select class="Select_format1" name="cEarlyDtmf"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tRFC2543Hold'></label></td> <td class="Third_td"><select name="cRFC2543Hold"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tUseOutboundProxy'></label></td> <td class="Third_td"><select name="cUseOutboundProxy"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tIsDeal180'></label></td> <td class="Third_td"><select name="cIsDeal180"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tAllowMute'></label></td> <td class="Third_td"><select name="cAllowMute"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tSIPNotify'></label></td> <td class="Third_td"><select name="cSIPNotify"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tSaveCallHistory'></label></td> <td class="Third_td"><select name="cSaveCallHistory"> </select></td></tr>
+			<tr id='PhoneCF_trMulticastCodec'><td class="Second_td"><label id='tMulticastCodec'></label></td> <td class="Third_td"><select name="cMulticastCodec"> </select></td></tr>
+			<tr id='PhoneCF_trDirectIP'><td class="Second_td"><label id='tDirectIP'></label></td> <td class="Third_td"><select name="cDirectIP" id="cDirectIP"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tSRemoteName'></label></td> <td class="Third_td"><select name="cSRemoteName"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tLogOnWizard'></label></td> <td class="Third_td"><select name="cLogOnWizard"> </select></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tBusyToneDelay'></label></td> <td class="Third_td"><select name="cBusyToneDelay"> </select></td></tr>
+				
+			<tr style="display:none"><td class="Second_td"><label id='tEmergency'>Emergency Number</label></td> <td class="Third_td"><input type="text" name="cEmergency" value=""></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tTimeoutForDialnowRule'>TimeoutForDialnowRule</label></td> <td class="Third_td"><input type="text" name="cTimeoutForDialnowRule" value=""></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tKeydownCallDelay'></label></td> <td class="Third_td"><input type="text" name="cKeydownCallDelay" value=""></td></tr>				
+			<tr style="display:none"><td class="Second_td"><label id='tFlashHookTime'></label></td> <td class="Third_td"><input type="text" name="cFlashHookTime" value=""></td></tr>
+			<tr style="display:none"><td class="Second_td"><label id='tSRemoteNameFlashTime'></label></td> <td class="Third_td"><input type="text" name="cSRemoteNameFlashTime" value=""></td></tr>
+			</table>
+		</div>
+			
+		<div id="PhoneCF_divCallSettings" class="div_border">
+		<div class="div_head"><label id='tCallSettings'>Call Settings</label></div>
+			<table class="table_style">
+					<td class="Second_td"><label id='tVsipIsOpenForcedVoice'>Offhook answer voice</label></td>
+					<td class="Third_td"><select class="Select_format1" id='cVsipIsOpenForcedVoice'></td>
+				</tr>			
+				<tr>
+					<td class="Second_td"><label id='tVsipIsOpenChooseOutgingLine'>Ask to choose outgoing line</label></td>
+					<td class="Third_td"><select class="Select_format1" id='cVsipIsOpenChooseOutgingLine'></td>
+				</tr>		
+				<tr>
+					<td class="Second_td"><label id='tVsipDialingMatchType'>Smart Dial</label></td>
+					<td class="Third_td"><select class="Select_format1" id='cVsipDialingMatchType'></td>
+				</tr>				
+				<tr>
+					<td class="Second_td"><label id='tVsipCallerLocation'>Aera Code</label></td>
+					<td class="Third_td"><input class="def_input" type="text" id="cVsipCallerLocation"></td>
+				</tr>		
+				<tr>
+					<td class="Second_td"><label id='tVsipMissedCallTone'>Missed call alert tone</label></td>
+					<td class="Third_td"><select class="Select_format1" id='cVsipMissedCallTone'></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tLongDistanceMobilePrefix'>Long-distance Phone Call Prefix</label></td>
+					<td class="Third_td"><input class="def_input" type="text" id="cLongDistanceMobilePrefix"></td>
+				</tr>
+			</table>
+		</div>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>
+        </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>	
+<FCGI_INCLUDE FILE=bottom.html>

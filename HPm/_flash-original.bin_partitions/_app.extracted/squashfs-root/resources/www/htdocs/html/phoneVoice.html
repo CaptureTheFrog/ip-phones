@@ -1,0 +1,117 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="phoneVoice";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+function DoF5Jump()
+{
+	Relocate('do?id=4&id=3');
+}
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu43");
+});
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1" style="text-align: center; font-size: 25px"><table align="center" height="150">
+				<tr style="text-align: center;"><td style="text-align: center;"><strong id="tShowForAutoP"></strong></td></tr>
+				</table>
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">    		
+			<div class="div_border">
+			<div class="div_head"><label id='tEchoCanceller'></label></div>
+			<table id="tablePhoneCert" class="table_style">	
+				<tr><td class="Second_td"><label id='tEchoCanceller1'></label></td> <td class="Third_td"><select class="Select_format1" name="cEchoCanceller"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tVAD'>VAD</label></td> <td class="Third_td"><select class="Select_format1" name="cVAD"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tCNG'>CNG</label></td> <td class="Third_td"><select class="Select_format1" name="cCNG"> </select></td></tr>
+				<td class="Gap_td1"><label></label></td>
+			</table>
+			</div>	
+			
+			<div class="div_border">
+			<div class="div_head"><label id='tJitterBuffer'></label></div>
+			<table id="tablePhoneCert" class="table_style">				
+				<tr><td class="Second_td"><label id='tJitterType'></label></td> <td class="Third_td"><select class="Select_format1" name="cJitterType" onChange="CheckJitterInputAvail()"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tMinDelay'></label></td> <td class="Third_td"><input class="def_input" type="text" id="1" name="cMinDelay" value=""><label id="tDelayRange1"></label></td></tr>
+				<tr><td class="Second_td"><label id='tNormalDelay'></label></td> <td class="Third_td"><input class="def_input" type="text" id="3" name="cNormalDelay" value=""><label id="tDelayRange3"></label></td></tr>
+				<tr><td class="Second_td"><label id='tMaxDelay'></label></td> <td class="Third_td"><input class="def_input" type="text" id="2" name="cMaxDelay" value=""><label id="tDelayRange2"></label></td></tr>
+				<td class="Gap_td1"><label></label></td>
+			</table>
+			</div>	
+			
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tTone'></label></div>
+			<table id="tablePhoneCert" class="table_style">											
+				<tr style="display:none"><td class="Second_td"><label id='tKeyPressSound'></label></td> <td class="Third_td"><select name="cKeyPressSound"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tSendPressSound'></label></td> <td class="Third_td"><select name="cSendPressSound"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tRedialTone'></label></td> <td class="Third_td"><input type="text" name="cRedialTone" value=""></td></tr>
+				<td class="Gap_td1"><label></label></td>
+			</table>
+			</div>	
+			
+			<div class="div_border">
+			<div class="div_head"><label id='tMicVolume'></label></div>
+			<table id="tablePhoneCert" class="table_style">						
+				<tr><td class="Second_td"><label id='tHandsetSendVolume'></label></td> <td class="Third_td"><input class="def_input" type="text" id="5" name="cHandsetSendVolume" value="">(1~15)</td></tr>
+				<tr><td class="Second_td"><label id='tHeadsetSendVolume'></label></td> <td class="Third_td"><input class="def_input" type="text" id="4" name="cHeadsetSendVolume" value="">(1~15)</td></tr>
+				<tr><td class="Second_td"><label id='tHandoffSendVolume'></label></td> <td class="Third_td"><input class="def_input" type="text" id="6" name="cHandoffSendVolume" value="">(1~15)</td></tr>
+				<td class="Gap_td1"><label></label></td>
+			</table>
+			</div>	
+			
+			<div class="div_border" id="PhoneV_divSidetone">
+			<div class="div_head"><label id='tSidetone'></label></div>
+				<table id="tableSidetone" class="table_style">						
+					<tr><td class="Second_td"><label id='tSidetoneHandset'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cSidetoneHandset" name="cSidetoneHandset" value="">(0~7)</td></tr>
+					<tr><td class="Second_td"><label id='tSidetoneHeadset'></label></td> <td class="Third_td"><input class="def_input" type="text" id="cSidetoneHeadset" name="cSidetoneHeadset" value="">(0~7)</td></tr>
+					<td class="Gap_td1"><label></label></td>
+				</table>
+			</div>
+
+			<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tHeadSet'></label></div>
+			<table id="tablePhoneCert" class="table_style">															
+				<tr style="display:none"><td class="Second_td"><label id='tHeadsetPrior'></label></td> <td class="Third_td"><select name="cHeadsetPrior"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDualHeadset'></label></td> <td class="Third_td"><select name="cDualHeadset"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tRingerDeviceForHeadset'></label></td> <td class="Third_td"><select name="cRingerDeviceForHeadset"> </select></td></tr>
+			</table>
+		  </div>
+			<div id="divRebootStatus" style="display:none"></div>	
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+			<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="" />
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+      </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

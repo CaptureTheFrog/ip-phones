@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# rcS		Call all S??* scripts in /etc/rcS.d in
+#		numerical/alphabetical order.
+#
+# Version:	@(#)/etc/init.d/rcS  2.76  19-Apr-1999  miquels@cistron.nl
+#
+
+. /etc/default/devpts
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:usr/sbin
+
+export HOME=/root
+export TERM=linux
+
+mount /proc
+mount /tmp
+#mount /dev
+mount /sys
+mount /var
+#mount /dev/pts
+
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts -ogid=620,mode=5
+
+# starting network
+ifconfig eth0 0.0.0.1 up  
+ifconfig lo 127.0.0.1 
+
+mount -t squashfs /dev/mtdblock7 /basic/ -o ro
+mount -t jffs2 /dev/mtdblock6 /config/
+
+if [ -d /config/etc ]; then                  
+    for i in /etc/*; do                                         
+      if [ -e $i -a ! -e /config$i ]; then           
+        echo "copying $i to /config$i"                            
+        (cd /config; tar cf - $i | tar xf -)         
+      fi                                                                  
+    done                                                                     
+else                                                            
+    mkdir /config/etc                                             
+    (cp /etc /config/ -rf)                        
+fi
+
+mount --bind /config/etc /etc                        
+chmod 777 /config -R                                           
+chmod 700 /config/etc -R 
+
+#run basic init script
+if [ -x "/config/basictest.sh" ];then
+ source /config/basictest.sh & 
+else
+ source /basic/scripts/init.sh &
+fi 
+
+
+
+

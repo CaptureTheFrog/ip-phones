@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <SnomIPPhoneMenu track="no" speedselect="enter" id="keys" dtmf="off">
+    <Title>$(lang:menu_function_key)</Title>
+     <Repeat values="$(enum:$(max_pkeys))" token="|__KEY__|">
+       <MenuItem name="$(set:fkey[$(math_eval:__KEY__-1)])">
+         <If condition="$(empty:$(var:pre_selected_uri))">
+           <Url>file:///xml/gui/pkeys.xml#sub=*[@id="functions"]&amp;var:key=__KEY__</Url>
+         </If>
+         <Else>
+           <If condition="$(empty:$(var:preselected_function))">
+             <Url>file:///xml/gui/pkeys.xml#sub=*[@id="functions"]&amp;var:key=__KEY__</Url>
+           </If>
+           <Else>
+             <Url>snom://mb_exit#buddylist_uri=$(var:preselected_function);$(math_eval:__KEY__-1)</Url>
+           </Else>
+         </Else>
+       </MenuItem>
+     </Repeat>
+  </SnomIPPhoneMenu>
+  <SnomIPPhoneMenu track="no" id="functions" dtmf="off">
+    <Title>Function for key$(var:key)</Title>
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(wlang:fkeys_ssi_presence)">
+        <If condition="$(empty:$(var:pre_selected_uri))">
+          <Url>snom://mb_exit#buddylist_fkey=presence;$(math_eval:$(var:key)-1)</Url>
+        </If>
+        <Else>
+          <Url>snom://mb_exit#buddylist_uri=presence;$(math_eval:$(var:key)-1)</Url>
+        </Else>
+      </MenuItem>
+      <If condition="$(show_feature:FEATURE_BOSS_ADMIN)">
+        <MenuItem name="$(wlang:fkeys_ssi_bossadmin)">
+          <If condition="$(empty:$(var:pre_selected_uri))">
+            <Url>snom://mb_exit#buddylist_fkey=bossadmin;$(math_eval:$(var:key)-1)</Url>
+          </If>
+          <Else>
+            <Url>snom://mb_exit#buddylist_uri=bossadmin;$(math_eval:$(var:key)-1)</Url>
+          </Else>
+        </MenuItem>
+      </If>
+    </If>
+    <If condition="$(empty:$(var:pre_selected_uri))">
+      <MenuItem name="$(wlang:fkeys_ssi_line)">
+        <Url>file:///xml/gui/pkeys.xml#sub=*[@id="keys"]&amp;set:fkey[$(math_eval:$(var:key)-1)]=line&amp;set:fkey_label[$(math_eval:$(var:key)-1)]=</Url>
+      </MenuItem>
+      <MenuItem name="$(wlang:fkeys_ssi_speed)">
+        <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_speed)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=speed%20$[create_url:__Y__]</Url>
+      </MenuItem>
+      <If condition="$(show_feature:FEATURE_PARK_ORBIT)">
+        <MenuItem name="$(wlang:fkeys_ssi_parkorbit)">
+          <If condition="$(set:user_server_type[$(current_line)])==ocs">
+            <Url>file:///xml/gui/pkeys.xml#sub=*[@id="keys"]&amp;set:fkey[$(math_eval:$(var:key)-1)]=orbit</Url>
+          </If>
+          <Else>
+            <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_parkorbit)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=orbit%20$[create_url:__Y__]</Url>
+          </Else>
+        </MenuItem>
+      </If>
+      <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+        <MenuItem name="$(wlang:fkeys_ssi_dest)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_dest)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=dest%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_blf)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_blf)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=blf%20$[create_url:__Y__]</Url>
+        </MenuItem>
+      </If>
+      <If condition="$(set:admin_mode)">
+        <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+          <MenuItem name="$(wlang:fkeys_ssi_mult)">
+            <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_mult)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=mult%20$[create_url:__Y__]</Url>
+          </MenuItem>
+        </If>
+        <MenuItem name="$(wlang:fkeys_ssi_voicerecorder)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_voicerecorder)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=recorder%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_p2t)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_p2t)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=p2t%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_intercom)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_intercom)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=icom%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_url)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_url)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=url%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_button)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_button)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=button%20$[create_url:__Y__]</Url>
+        </MenuItem>
+      </If>
+    </If>
+
+    <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+      <MenuItem name="$(wlang:fkeys_ssi_line)">
+        <Url>file:///xml/gui/pkeys.xml#sub=*[@id="keys"]&amp;set:fkey[$(math_eval:$(var:key)-1)]=line</Url>
+      </MenuItem>
+      <MenuItem name="$(wlang:fkeys_ssi_dest)">
+        <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_dest)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=dest%20$[create_url:__Y__]</Url>
+      </MenuItem>
+      <MenuItem name="$(wlang:fkeys_ssi_blf)">
+        <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_blf)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=blf%20$[create_url:__Y__]</Url>
+      </MenuItem>
+      <MenuItem name="$(wlang:fkeys_ssi_speed)">
+        <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_speed)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=speed%20$[create_url:__Y__]</Url>
+      </MenuItem>
+      <If condition="$(set:admin_mode)">
+        <MenuItem name="$(wlang:fkeys_ssi_mult)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_mult)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=mult%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_parkorbit)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_parkorbit)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=orbit%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_voicerecorder)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_voicerecorder)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=recorder%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_p2t)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_p2t)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=p2t%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_intercom)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_intercom)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=icom%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_url)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_url)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=url%20$[create_url:__Y__]</Url>
+        </MenuItem>
+        <MenuItem name="$(wlang:fkeys_ssi_button)">
+          <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(wlang:fkeys_ssi_button)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(remove_cmd:$(set:fkey[$(math_eval:$(var:key)-1)]))&amp;var:input_url=file:///xml/gui/pkeys.xml%23sub=*[@id="keys"]%26set:fkey[$(math_eval:$(var:key)-1)]=button%20$[create_url:__Y__]</Url>
+        </MenuItem>
+      </If>
+    </If>
+  </SnomIPPhoneMenu>
+</SnomIPPhoneBatch>

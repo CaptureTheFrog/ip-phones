@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <Title>$(lang:lang_menu100_call_lists)</Title>
+  <Fetch mil="120000">snom://mb_exit</Fetch>
+  <MenuItem name="$(lang:lang_list_missed)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:calllist_type=Missed&amp;var:calllist_title=lang_list_missed</Url>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_list_taken)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:calllist_type=Received&amp;var:calllist_title=lang_list_taken</Url>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_list_dialed)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:calllist_type=Dialed&amp;var:calllist_title=lang_list_dialed</Url>
+  </MenuItem>
+  <If condition="$(show_feature:FEATURE_PARK_ORBIT)">
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(lang:lang_list_parked)">
+        <Url>file:///xml/gui/call_lists_list.xml#var:calllist_type=Parked&amp;var:calllist_title=lang_list_parked</Url>
+      </MenuItem>
+    </If>
+  </If>
+</SnomIPPhoneMenu>

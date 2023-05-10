@@ -1,0 +1,555 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<style type="text/css">
+	.long_First_td{	text-align:left; text-indent:25px; font-size: 15px; font-weight: bold;
+									width: 300px; padding-top:9px; padding-bottom:6px; }
+</style>
+<script type='text/javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+	var PageRefDesURL = 'do?id=7&id=2';
+	var PagePCertNum = 10;
+	var SubmitBtn = ["CheckWebCert", "uploadSubmit1", "uploadCancel1", "PageSubmitDel", "PageCancel", "uploadSubmit2"
+											, "uploadCancel2", "FWebCert", "FPhoneCert", "CheckPCertAll", "PageSubmit2", "PageCancel2"];
+function DoF5Jump()
+{
+	Relocate('do?id=7&id=2');
+}
+function DisableDOMs()
+{
+	for(var i=0; i < SubmitBtn.length; i++)
+	{
+		if(document.getElementById(SubmitBtn[i]))
+		{
+			document.getElementById(SubmitBtn[i]).disabled = true;
+		}
+	}
+	return;
+}
+function LoadCfg()
+{
+	var f3 = document.forms["TrustedCertForm"];
+	document.getElementById("cIndexSelect").options.add(new Option(Auto, "Auto"));
+	for(var i=0; i < PagePCertNum; i++)
+	{ document.getElementById("cIndexSelect").options.add(new Option(i+1, i)); }
+	var stID=SubmitBtn.length;
+	for(var i=0; i<PagePCertNum; i++)
+	{
+		SubmitBtn[i+stID] = "CheckPCert"+i;
+	}
+	if(document.getElementById("tDivShortcut"))
+	{
+		document.getElementById("tDivShortcut").style.display = "none";
+	}
+	f3.cOnlyAcceptTrusted.options.add(new Option(Disabled, 0));
+	f3.cOnlyAcceptTrusted.options.add(new Option(Enabled, 1));
+	LoadLang();
+	DelayShow();
+	CheckCertSts();
+	SubLoadCfg();
+	ShowUpload();
+}
+function SubLoadCfg()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["TrustedCertForm"];
+	var cntPem = f2.hcCertTotalNum.value;
+	if(cntPem <= 0)
+	{
+		return;
+	}
+	var clientExistFlag = 0;
+	tmpBy = f2.hcCertIssuedBy.value;
+	tmpTo = f2.hcCertIssuedTo.value;
+	tmpExpir = f2.hcCertExpiration.value;
+	arrIssuers = tmpBy.split(SplitSymbol);
+	arrSubjects = tmpTo.split(SplitSymbol);
+	arrExpir = tmpExpir.split(SplitSymbol);
+	document.getElementById("cCertIssuedTo").innerHTML = arrSubjects[0];
+	document.getElementById("cCertIssuedBy").innerHTML = arrIssuers[0];
+	document.getElementById("cCertExpiration").innerHTML = arrExpir[0];
+	
+	i = 1;
+	while(i < cntPem)
+	{
+		document.getElementById("cCertIssuedTo"+(i-1)).innerHTML = arrSubjects[i];
+		document.getElementById("cCertIssuedBy"+(i-1)).innerHTML = arrIssuers[i];
+		document.getElementById("cCertExpiration"+(i-1)).innerHTML = arrExpir[i];
+		i++;
+	}
+	tmpExist = f2.hcClienCertExist.value;
+	arrExists = tmpExist.split(SplitSymbol);	
+	var cntPem = f2.hcCertTotalNum.value;
+	for(var i=0; i<cntPem-1; i++)
+	{
+		if("1" == arrExists[i])
+		{
+			document.getElementById("CheckPCert"+i).checked = false;
+			clientExistFlag = 1;
+		}
+	}
+	document.getElementById("PageSubmitDel").disabled = true;
+	document.getElementById("PageCancel").disabled = true;
+	if(0 != clientExistFlag)
+			document.getElementById("CheckPCertAll").disabled = false;
+	else 
+			document.getElementById("CheckPCertAll").disabled = true;
+	document.getElementById("uploadCancel1").disabled = true;
+	document.getElementById("uploadCancel2").disabled = true;
+	document.getElementById("CheckPCertAll").checked = false;
+	
+	f3.cOnlyAcceptTrusted.value = f2.hcOnlyAcceptTrusted.value = TransEmptyStrTo0(f2.hcOnlyAcceptTrusted.value);
+}
+function CheckPhoneUpOverWr()
+{
+	var f2 = document.forms["hiddenValForm"];
+	tmpExist = f2.hcClienCertExist.value;
+	arrExists = tmpExist.split(SplitSymbol);	
+	var cntPem = f2.hcCertTotalNum.value;
+	var idx = document.getElementById("cIndexSelect").value;
+	if("Auto" == idx)
+	{return false;}
+	if("1" == arrExists[idx])
+	{
+		return true;
+	}
+	return false;
+}
+function ShowUpload()
+{
+	var f2 = document.forms["hiddenValForm"];
+	if(1 == f2.hcUploadCert.value)
+	{
+		alert(FileUploadWarning);
+	}
+	else if(-4 == f2.hcUploadCert.value)
+	{
+		alert(FileExistWarning);
+	}
+	else if(-3 == f2.hcUploadCert.value)
+	{
+		alert(CertFileTooManyWarning);
+	}
+	else if(-2 == f2.hcUploadCert.value)
+	{
+		alert(FileUploadFailedWarning);
+	}
+	else if(-1 == f2.hcUploadCert.value)
+	{
+		alert(FileFormatWarning);
+	}
+	f2.hcUploadCert.value = 0;
+}
+function CheckCertSts()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var cntPem = f2.hcCertTotalNum.value;
+	tmpBy = f2.hcCertIssuedBy.value;
+	tmpExist = f2.hcClienCertExist.value;
+	arrExists = tmpExist.split(SplitSymbol);
+	arrIssuers = tmpBy.split(SplitSymbol);
+	
+	for(var i=0; i < PagePCertNum; i++)
+	{
+		if("0" == arrExists[i])
+		{document.getElementById("CheckPCert"+(i)).disabled = true};
+	}
+	CheckDelBtn();
+}
+function IsPhoneCertFull()
+{
+	var idx = document.getElementById("cIndexSelect").value;
+	if("Auto" != idx)
+	{return false;}
+	var f2 = document.forms["hiddenValForm"];
+	tmpExist = f2.hcClienCertExist.value;
+	arrExists = tmpExist.split(SplitSymbol);
+	var sum=0;
+	for(var i=0; i < PagePCertNum; i++)
+	{
+		if("1" == arrExists[i])
+		{sum++};
+	}
+	if(PagePCertNum == sum)
+	{return true;}
+	else{return false;}
+}
+function CheckDelBtn()
+{
+	var f2 = document.forms["hiddenValForm"];
+	webCertRep = f2.hcWebCertReplaced.value;
+	if(0 == webCertRep)
+	{
+		document.getElementById("CheckWebCert").disabled = true;
+	}
+	else
+	{
+		document.getElementById("CheckWebCert").disabled = false;
+	}
+	CheckDelBtnPhone();
+}
+
+function CheckDelBtnPhone()
+{
+	var num=0;
+	for(var i=0; i < PagePCertNum; i++)
+	{
+		if(true == document.getElementById("CheckPCert"+i).checked)
+		{num++};
+	}
+	if(num > 0)
+	{document.getElementById("PageSubmitDel").disabled = false;
+		document.getElementById("PageCancel").disabled = false;
+	}
+	else
+	{document.getElementById("PageSubmitDel").disabled = true;
+		document.getElementById("PageCancel").disabled = true;
+	}
+}
+
+function LoadLang()
+{
+	LoadCommonResources(Advance);
+	for(var i=0; i < PagePCertNum; i++)
+	{
+		document.getElementById("cPCertIndex"+i).innerHTML = i+1;
+	}
+	document.getElementById("tWebCertUpload").innerHTML = WebCertUpload;
+	document.getElementById("tWebCert").innerHTML = WebCert;
+	document.getElementById("tPhoneCertUpload").innerHTML = PhoneCertUpload;
+	document.getElementById("tPhoneCert").innerHTML = PhoneCert;
+	document.getElementById("tIndexSelect").innerHTML = Index;
+	document.getElementById("uploadCancel1").value = CancelLabel;
+	document.getElementById("uploadSubmit1").value = SubmitLabel;
+	document.getElementById("uploadCancel2").value = CancelLabel;
+	document.getElementById("uploadSubmit2").value = SubmitLabel;
+	document.getElementById("CheckWebCert").value = DeleteLabel;
+	document.getElementById("tCheck1").innerHTML = DeleteLabel;
+	document.getElementById("tIdx1").innerHTML = document.getElementById("tIdx2").innerHTML = Index;
+	document.getElementById("tIssuerTo1").innerHTML = document.getElementById("tIssuerTo2").innerHTML = IssueTo;
+	document.getElementById("tIssuer1").innerHTML = document.getElementById("tIssuer2").innerHTML = Issuer;
+	document.getElementById("tExpireTime1").innerHTML = document.getElementById("tExpireTime2").innerHTML = ExpireTime;
+	document.getElementById("PageSubmitDel").value = DeleteLabel;
+	
+	document.getElementById("tOnlyAcceptTrusted").innerHTML = ("undefined" != typeof(OnlyAcceptTrusted))?OnlyAcceptTrusted:"Only Accept Trusted Certificates";
+	document.getElementById("PageCancel2").value = CancelLabel;
+	document.getElementById("PageSubmit2").value = SubmitLabel;
+}
+
+//导入导出
+function OnAddCert(frmName, alertStr, fileCrlName)
+{
+	var fTmp = document.forms[frmName];
+	var frmNameEx = frmName;
+	if("uploadWebCert" != frmName && "Auto" != document.getElementById("cIndexSelect").value)
+	{frmNameEx += document.getElementById("cIndexSelect").value}	
+	fTmp.uploadType.value = "&Operation=Upload&DestUpFile="+frmNameEx+"&";
+	var fileArr = document.getElementById(fileCrlName).value.split("\\");
+	importFileName = fileArr[fileArr.length-1];
+	ImportFile(fTmp, importFileName, alertStr, frmName);
+}
+
+function ImportFile(formTmp, importFileName, alertStr, thisFile)
+{
+	if(importFileName != "")
+	{
+		if("uploadWebCert" != thisFile && IsPhoneCertFull())
+		{alert(CertFileTooManyWarning); return;}
+		if(!CheckFileFormat(importFileName, ".PEM", 4) && !CheckFileFormat(importFileName, ".DER", 4)
+		 && !CheckFileFormat(importFileName, ".CER", 4))
+		{
+			if("uploadWebCert" != thisFile)
+			{
+				if(!CheckFileFormat(importFileName, ".CRT", 4))
+				{alert(FileFormatWarning);
+			return false;}
+			}
+			else{
+			alert(FileFormatWarning);
+			return false;}
+		}
+		 
+		if( "uploadWebCert" == thisFile ||	("uploadPhoneCert" == thisFile && CheckPhoneUpOverWr()) )
+		{
+			if(!confirm(alertStr))
+			{
+				return;
+			}
+		}
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		formTmp.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		formTmp.submit();
+		DisableDOMs();
+		setTimeout("BeforeUpTO('/fcgi/do?id=7&id=2')", 20000);
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+
+function OnCancelAdd(frmName)
+{
+	var tmpFrm = document.forms[frmName];
+	tmpFrm.reset();
+	if("uploadWebCert"==frmName)
+	{	
+		onCheckFileStatus();
+	}
+	if("uploadPhoneCert" == frmName)
+	{
+		document.getElementById("cIndexSelect").value = "Auto";
+		onCheckFileStatus();	
+	}
+}
+
+function CheckCommitData()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var cntPem = f2.hcCertTotalNum.value;
+//	if(true == document.getElementById("CheckWebCert").checked && cntPem > 0)
+//	{
+//		strSubmData = strSubmData + "&cWebCertDelete=1";
+//	}
+	for(var i=0; i<PagePCertNum; i++)
+	{
+		if(true == document.getElementById("CheckPCert"+i).checked)
+		{
+			strSubmData = strSubmData + "&cWebCertDelete" + i +"=1";
+		}
+	}
+
+	return strSubmData;
+}
+function onCheckAllPCert()
+{
+	var f2 = document.forms["hiddenValForm"];
+	tmpExist = f2.hcClienCertExist.value;
+	arrExists = tmpExist.split(SplitSymbol);	
+	var cntPem = f2.hcCertTotalNum.value;
+	for(var i=0; i<cntPem-1; i++)
+	{
+		if(true == document.getElementById("CheckPCertAll").checked && "1" == arrExists[i])
+		{
+			document.getElementById("CheckPCert"+i).checked = true;
+		}
+		else
+		{
+			document.getElementById("CheckPCert"+i).checked = false;
+		}
+	}
+	CheckDelBtnPhone();
+}
+function SubmitDelWebCert()
+{
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "&cWebCertDelete=1";
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+function SubmitWithConfirm()
+{
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	OnSubmit();
+}
+function onCheckFileStatus()
+{
+	if( ""!=document.getElementById("FWebCert").value)
+		document.getElementById("uploadCancel1").disabled = false;
+	else
+		document.getElementById("uploadCancel1").disabled = true;
+	if( ""==document.getElementById("FPhoneCert").value && "Auto" ==document.getElementById("cIndexSelect").value )
+		document.getElementById("uploadCancel2").disabled = true;
+	else
+		document.getElementById("uploadCancel2").disabled = false;
+}
+
+function OnSubmit2(bFlag)
+{
+	var f1 = document.forms["TrustedCertForm"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form2"];
+	var strSubmData = "";
+	
+	if(f1.cOnlyAcceptTrusted.value != f2.hcOnlyAcceptTrusted.value)
+	{
+		strSubmData = strSubmData + "&cOnlyAcceptTrusted=" + f1.cOnlyAcceptTrusted.value;
+	}
+	if(DataCheckResult == strSubmData)
+	{
+		return;
+	}
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3, bFlag);
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu7", "tMenu72");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<div class="div_border" id="SecurityA_divWebCert">
+<form name="body_form1">
+	<div class="div_head"><label id='tWebCert'>Web Certificate</label></div>
+	<table class="table_style">	
+		<table class= "TablePadding1" id="tableWebCert" border="0" align="center" cellspacing="1"; >
+			<tr bgcolor='#a5a9af'>
+			<td height="10" style='text-align: center; width: 40px'><label id='tIdx1'>Id</label></td>
+			<td style='text-align: center; width: 120px'><label id='tIssuerTo1'>Issue to</label></td>
+			<td style='text-align: center; width: 120px'><label id='tIssuer1'>Issuer</label></td>
+			<td style='text-align: center; width: 200px'><label id='tExpireTime1'>Expire time</label></td>
+			<td style='text-align: center; width: 50px'><label id='tCheck1'>Delete</label></td>
+			</tr>
+			<tr>
+			<td height="10" style='text-align: center; width: 40px'><label>1</label></td>
+			<td style='text-align: center; width: 120px'><label id='cCertIssuedTo' name='cCertIssuedTo'></label></td>
+			<td style='text-align: center; width: 120px'><label id='cCertIssuedBy' name='cCertIssuedBy'></label></td>
+			<td style='text-align: center; width: 200px'><label id='cCertExpiration' name='cCertExpiration'></label></td>
+			<td style='text-align: center; width: 50px'><input id="CheckWebCert" name="CheckWebCert" class="Nice_Btn" type="button" value="Sumbit" onClick ="SubmitDelWebCert()"></td>
+			</tr>
+    	</table>
+    <div style="height:8px;"></div>
+  	</table>
+</form>
+<form id="uploadWebCert" enctype="multipart/form-data" action="" method="post">
+<table id="tableWebCert" class="table_style">			
+	<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+	<tr><td class="long_First_td"><label id='tWebCertUpload'>Web Certificate Upload</label></td></tr>
+	<tr><td style='padding-left:50px; width:300px;'><input name="FWebCert" id="FWebCert" type="file" onChange ="onCheckFileStatus()"></td>
+		<td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit1' value="Upload" onClick ="OnAddCert('uploadWebCert', ImportCertWarning, 'FWebCert')" />
+			<input class="Nice_Btn" type="button" id='uploadCancel1' value="Cancel" onClick ="OnCancelAdd('uploadWebCert')" />
+		</td>
+	</tr>
+	<tr><td class="Gap_td1">&nbsp</td></tr>
+</table>
+</form>
+</div>
+ 
+<div class="div_border" id="SecurityA_divPhoneCert">
+	<div class="div_head"><label id='tPhoneCert'>Client Certificate</label></div>
+	<table class="table_style">
+<form name="body_form2">
+		<table class= "TablePadding1" id="tableClientCert" border="0" align="center" cellspacing="1">
+			<tr bgcolor='#a5a9af'>
+				<td height='10' style='text-align: center; width: 35px'><label id='tIdx2'>Id</label></td>
+				<td style='text-align: center; width: 150px'><label id='tIssuerTo2'>Issue to</label></td>
+				<td style='text-align: center; width: 150px'><label id='tIssuer2'>Issuer</label></td>
+				<td style='text-align: center; width: 170px'><label id='tExpireTime2'>Expire time</label></td>
+				<td style='text-align: center; width: 25px'><label id='tCheck2'></label><input type='checkbox' value='' id='CheckPCertAll' onClick="onCheckAllPCert()"></td>
+			</tr>
+			<script language="javascript">
+				for(var i=0; i < PagePCertNum; i++)
+				{	
+				if(i%2)	
+				document.write("<tr bgcolor=\'#DCE3E8\'><td height='10' style='text-align: center; width: 35px'><label id='cPCertIndex"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 150px'><label id='cCertIssuedTo"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 150px'><label id='cCertIssuedBy"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 170px'><label id='cCertExpiration"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 25px'><input onClick='CheckDelBtnPhone()' type='checkbox' value='' id='CheckPCert"+i+"'></td></tr>");
+				else
+				document.write("<tr bgcolor=\'#F9FAFC\'><td height='10' style='text-align: center; width: 35px'><label id='cPCertIndex"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 150px'><label id='cCertIssuedTo"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 150px'><label id='cCertIssuedBy"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 170px'><label id='cCertExpiration"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 25px'><input onClick='CheckDelBtnPhone()' type='checkbox' value='' id='CheckPCert"+i+"'></td></tr>");
+				}
+			</script>
+	  </table>
+</form>
+
+<div id="SecurityA_divSubmitForm">
+<form method="post" name="submit_form" id="submit_form" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+			<br/>
+			<input type="hidden" name="SubmitData" value="">
+			<tr><td><input id="PageSubmitDel" name="PageSubmitDel" class="Nice_Btn" type="button" value="Submit" onClick="SubmitWithConfirm()"></td>
+				<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfg()"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+</div>
+	</table>
+	<div style="height:8px;"></div>
+			<table id="tablePhoneCert" class="table_style">	
+ 	        <form id="uploadPhoneCert" enctype="multipart/form-data" action="" method="post">
+ 	        	<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+					<tr><td class="long_First_td"><label id='tPhoneCertUpload'>Phone Certificate Upload</label></td></tr>
+        	<tr>
+        		<td class="Second_td"><label id='tIndexSelect'></label></td> 
+        		<td class="Third_td"><select class="select_format1" id="cIndexSelect" onChange="onCheckFileStatus()"></select></td>
+        	</tr>
+					<tr>
+						<td style='padding-left:50px; width:300px;'><input name="FPhoneCert" id="FPhoneCert" type="file" onChange ="onCheckFileStatus()"></td>
+						<td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit2' value="Upload" onClick ="OnAddCert('uploadPhoneCert', OverwrittenWarning, 'FPhoneCert')">
+							<input class="Nice_Btn" type="button" id='uploadCancel2' value="Cancel" onClick ="OnCancelAdd('uploadPhoneCert')">
+						</td>
+					</tr>
+	        </form>
+			</table>
+
+<table class="table_style">		
+	<form name="TrustedCertForm">
+		<tr>
+			<td class="Second_td"><label id='tOnlyAcceptTrusted'></label></td>
+			<td style='padding-left:50px' class="Third_td"><select class="select_format3" name="cOnlyAcceptTrusted"></select></td>
+		</tr>
+	</form>
+</table>
+
+<form method="post" name="submit_form2" id="submit_form2" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+			<br/>
+			<input type="hidden" name="SubmitData" value="">
+			<tr><td><input id="PageSubmit2" name="PageSubmit2" class="Nice_Btn" type="button" value="Submit" onClick="OnSubmit2()"></td>
+				<td><input id="PageCancel2" name="PageCancel2" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfg()"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+</div>
+	<FCGI_INCLUDE FILE=authorityWarning.html>
+		</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

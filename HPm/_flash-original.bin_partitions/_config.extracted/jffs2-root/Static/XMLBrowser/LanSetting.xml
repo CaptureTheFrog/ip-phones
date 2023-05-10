@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" CombineData="PCPortSetting" LockIn="no">
+    <title showlistcount="yes">LAN Port</title>
+    <MenuItem>
+        <Prompt>Bridge Mode</Prompt>
+        <DataID>Combine_PCPortSetting_BridgeMode</DataID>
+        <URI>local://app/factory/Static/XMLBrowser/RouterSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Router Mode</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/RouterSetting.xml</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

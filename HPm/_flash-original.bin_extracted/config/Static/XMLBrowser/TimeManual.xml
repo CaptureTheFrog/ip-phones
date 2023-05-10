@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="date" defaultIndex="1" style="none" editable="yes" Timeout="0" LockIn="no" LocalData="yes" CombineData="TimeManual" InputType="123">
+    <Title showlistcount="yes">Time Manual</Title>
+    <Prompt>Date(YYYY-MM-DD):</Prompt>
+    <DataID>Combine_TimeManual_Date</DataID>
+    <Default />
+    <InputField type="time" editable="yes">
+        <Prompt>Time(HH:MM:SS):</Prompt>
+        <DataID>Combine_TimeManual_Time</DataID>
+        <Default />
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label>123</Label>
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label>Delete</Label>
+    <URI>SoftKey:BackSpace</URI>
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

@@ -1,0 +1,273 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<style>
+	.actionURL_input{ width: 300px;	}
+	.actionURL_First_td { width:50px;}
+	.actionURL_Second_td{ text-align: left;	width: 200px; overflow:hidden;}
+</style>
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+	
+var actionURLKeys = ["SetupCompleted", "Registered", "Unregistered", "RegisteredFailed", "OffHook", "OnHook", "IncomingCall", "OutgoingCall",
+										"Established", "Terminated", "OpenDND", "CloseDND", "OpenAlwaysFWD", "CloseAlwaysFWD", "OpenBusyFWD",
+										"CloseBusyFWD", "OpenNoAnsweredFWD", "CloseNoAnsweredFWD", "TransferCall", "BlindTransfer", "AttendedTransfer",
+										"Hold", "UnHold", "Mute", "UnMute" ,"MissedCall", "IPChanged", "FWDIncomingCall", "RejectInComingCall",
+										"AnswerNewCall", "TransferFinished", "TransferFailed", "IdleToBusy", "BusyToIdle"];
+function DoF5Jump()
+{
+	Relocate('do?id=4&id=10');
+}
+var PageRefDesURL = 'do?id=4&id=10';
+
+function ResetAllInputColor()
+{
+	var f1 = document.forms["body_form"];
+	for(var i=0; i < f1.length; i ++)
+	{
+		if("text" == f1.elements[i].type) 
+		{
+			f1.elements[i].onfocus = function(){return onInputEdit(this.id);};
+			f1.elements[i].style.backgroundColor = "";
+			f1.elements[i].onclick = function () { return onInputEdit(this.id); };
+		}
+	}
+	document.getElementById("WarningDiv").innerHTML = "";	
+}
+
+function LoadCfg()
+{
+
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cActive.options.add(new Option(Disabled, "0"));
+	f1.cActive.options.add(new Option(Enabled, "1"));
+
+	for(var i = 0; i < actionURLKeys.length; i ++)
+	{
+	var itemHtml = "<tr><td class='actionURL_First_td'></td>" +
+								 "<td class='actionURL_Second_td'><label id='t" + actionURLKeys[i] + "'>" +
+								 actionURLKeys[i] + "</label></td><td class='Third_td'><input class='actionURL_input' id='c" + actionURLKeys[i] +
+								 "' name='c" + actionURLKeys[i] + "' /></td></tr>";        	          	    
+		    $("#tableActionURL").append(itemHtml);
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+}
+	
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cActive.value = TransEmptyStrTo0(f2.hcActive.value);
+	var countAction = 0;
+	for(var i = 0 ; i < f1.length; i ++)
+	{
+		if("text" == f1.elements[i].type)
+		{
+			tmpName = "c" + actionURLKeys[countAction];
+			htmpName = "hc" + actionURLKeys[countAction];
+			document.getElementById(tmpName).maxLength = 127;
+			document.getElementById(tmpName).onfocus = function(){return onInputEdit(this.id);};
+			document.getElementById(tmpName).value = document.getElementById(tmpName).value = document.getElementById(htmpName).value;		
+			countAction ++;			
+		}
+	}
+	ResetAllInputColor();
+}
+
+function LoadLang()
+{
+	var f1 = document.forms["body_form"];
+	tmp = ActionURL;
+	LoadCommonResources(tmp);
+	document.getElementById("tActive").innerHTML = Active;
+	document.getElementById("tSetupCompleted").innerHTML = SetupCompleted;
+	document.getElementById("tRegistered").innerHTML = ACTIONURLRegistered;
+	document.getElementById("tUnregistered").innerHTML = Unregistered;
+	document.getElementById("tRegisteredFailed").innerHTML = RegisteredFailed;
+	document.getElementById("tOffHook").innerHTML = OffHook;
+	document.getElementById("tOnHook").innerHTML = OnHook;
+	document.getElementById("tOutgoingCall").innerHTML = OutgoingCall;
+	document.getElementById("tIncomingCall").innerHTML = IncomingCall;
+	document.getElementById("tEstablished").innerHTML = Established;
+	document.getElementById("tTerminated").innerHTML = Terminated;
+	document.getElementById("tOpenDND").innerHTML = OpenDND;
+	document.getElementById("tCloseDND").innerHTML = CloseDND;
+	document.getElementById("tOpenAlwaysFWD").innerHTML = OpenAlwaysFWD;
+	document.getElementById("tCloseAlwaysFWD").innerHTML = CloseAlwaysFWD;
+	document.getElementById("tOpenBusyFWD").innerHTML = OpenBusyFWD;
+	document.getElementById("tCloseBusyFWD").innerHTML = CloseBusyFWD;
+	document.getElementById("tOpenNoAnsweredFWD").innerHTML = OpenNoAnsweredFWD;
+	document.getElementById("tCloseNoAnsweredFWD").innerHTML = CloseNoAnsweredFWD;
+	document.getElementById("tTransferCall").innerHTML = TransferCall;
+	document.getElementById("tBlindTransfer").innerHTML = BlindTransfer;
+	document.getElementById("tAttendedTransfer").innerHTML = AttendTransfer;
+	document.getElementById("tHold").innerHTML = Hold;
+	document.getElementById("tUnHold").innerHTML = UnHold;
+	document.getElementById("tMute").innerHTML = Mute;
+	document.getElementById("tUnMute").innerHTML = Unmute;
+	document.getElementById("tMissedCall").innerHTML = MissedCall;
+	document.getElementById("tIPChanged").innerHTML = IPChanged;
+	document.getElementById("tFWDIncomingCall").innerHTML = FWDIncomingCall;
+	document.getElementById("tRejectInComingCall").innerHTML = RejectIncomingCall;
+	document.getElementById("tAnswerNewCall").innerHTML = AnswerNewCall;
+	document.getElementById("tTransferFinished").innerHTML = TransferFinished;
+	document.getElementById("tTransferFailed").innerHTML = TransferFailed;
+	document.getElementById("tIdleToBusy").innerHTML = IdleToBusy;
+	document.getElementById("tBusyToIdle").innerHTML = BusyToIdle;
+	return;
+}
+function NotContainInvalid_Sub(postData)
+{
+	// var Letters = "&=\'%*#^<>|＇＂";
+	  var Letters = "\'";
+    var i,c;
+    for( i = 0; i < postData.length; i++ )
+    { 
+        c = postData.charCodeAt( i );
+        for(j=0;j<Letters.length;j++)
+        {
+        	if(c == Letters.charCodeAt(j))
+        	{return false;}
+        }
+    }
+    return true;
+}
+
+function CheckCommitData(tmpFlag)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	
+	if(f1.cActive.value != f2.hcActive.value) //f2.hcActive.value;
+	{
+		strSubmData = strSubmData + "&cActive=" + f1.cActive.value;
+	}
+	var countAction = 0;
+	for(var i = 0 ; i < f1.length; i ++)
+	{
+		if("text" == f1.elements[i].type)
+		{
+		tmpName = "c" + actionURLKeys[countAction];
+		htmpName = "hc" + actionURLKeys[countAction];
+			if(document.getElementById(tmpName).value != document.getElementById(htmpName).value)
+			{
+				if(!NotContainInvalid127(document.getElementById(tmpName).value))
+				{
+					SetInputBGColor(tmpName);
+					ErrFlag = true;
+				}
+				strSubmData = strSubmData + "&" + tmpName + "=" + PostEncode(document.getElementById(tmpName).value);	
+			}	
+			countAction ++;			
+		}
+	}
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = 0;
+	if(f1.cActive.value != f2.hcActive.value) dataChangedWarnFlag = 1;
+	
+	var countAction = 0;
+	for(var i = 0 ; i < f1.length; i ++)
+		{
+			if("text" == f1.elements[i].type)
+			{
+				tmpName = "c" + actionURLKeys[countAction];
+				htmpName = "hc" + actionURLKeys[countAction];
+				if(document.getElementById(tmpName).value != document.getElementById(htmpName).value)
+				dataChangedWarnFlag = 1;
+				countAction ++;			
+			}
+		}
+
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu410");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">   		
+    	<form name="body_form">
+    		<div class="div_border" id="PhoneAU_divActionURL">
+				<div class="div_head"><label id='tActionURL'>ActionURL</label></div>
+				<table id="tableActionURL" class="table_style">		
+    				<tr>
+    					<td class='actionURL_First_td'></td>
+    					<td class="actionURL_Second_td"><label id='tActive'>Active</label></td>
+    					<td class="Third_td"><select class="Select_format1" id="cActive" name="cActive"></select></td>
+    				</tr>
+    		</table>
+    		</div>
+			</form>
+		<div id="PhoneAU_divSubmitForm">
+			<form method="post" name="submit_form" id="submit_form" action="">
+				<div style="text-align:center" align="center">
+				<table width="70%" align="center" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+			</form>
+		</div>
+			</div>
+	<FCGI_INCLUDE FILE=authorityWarning.html>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>	
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

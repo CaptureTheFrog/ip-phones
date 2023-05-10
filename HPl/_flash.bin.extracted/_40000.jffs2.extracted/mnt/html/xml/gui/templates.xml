@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <SnomIPPhoneInput track="no" id="input_template" dtmf="off">
+    <Url>$(var:input_url)</Url>
+    <InputItem>
+      <DisplayName>$(var:input_displayname)</DisplayName>
+      <InputToken>$(var:input_token)</InputToken>
+      <InputFlags>$(var:input_flags)</InputFlags>
+      <DefaultValue>$(var:input_default)</DefaultValue>
+    </InputItem>
+  </SnomIPPhoneInput>
+  <SnomIPPhoneMenu id="menu_template" dtmf="off">
+    <Menu name="$(var:list_title)" id="list_template">
+      <Repeat values="$(var:list_values)" token="$(var:list_token)">
+        <MenuItem name="$(var:list_name)">
+          <Url>$(var:list_url)</Url>
+        </MenuItem>
+      </Repeat>
+    </Menu>
+  </SnomIPPhoneMenu>
+</SnomIPPhoneBatch>

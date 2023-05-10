@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1  #-z    ¿Õ´®
+
+RESOLV_CONF="/etc/resolv.conf"
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"  # -n    ·Ç¿Õ´®
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+
+case "$1" in   
+	deconfig)
+		/sbin/ifconfig $interface 0.0.0.1
+		;;
+	renew|bound)
+		/sbin/ifconfig $interface $ip $BROADCAST $NETMASK
+#echo "$interface"
+		if [ -n "$router" ] ; then
+			echo "deleting routers"
+			while route del default gw 0.0.0.0 dev $interface >/dev/null ; do
+				:
+			done
+
+			for i in $router ; do
+			  echo "adding routers $i"
+				route add default gw $i dev $interface
+			done
+		fi
+#		echo "siaddr is $siaddr"
+#		echo "sname is $sname"
+#		echo "hostname is $hostname"
+#		echo "serverid is $serverid"
+#		echo "rootpath is $rootpath"
+#		echo "boot file is $bootfile"
+#		echo "tftp is $tftp"
+#		echo "vendor is $vendor"
+#		echo "ringslink225 is $custom"
+		   
+
+#		echo -n > $RESOLV_CONF
+#		[ -n "$domain" ] && echo search $domain >> $RESOLV_CONF
+                /bin/rm $RESOLV_CONF
+                /bin/touch $RESOLV_CONF
+		for i in $dns ; do
+			echo adding dns $i
+			echo nameserver $i >> $RESOLV_CONF
+		done
+		;;
+esac
+
+exit 0

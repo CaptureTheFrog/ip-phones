@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        editable="yes"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        InputType="1aB">
+    <Title wrap="yes" showlistcount="yes">
+        Call Waiting
+    </Title>
+
+		<Prompt>Active:</Prompt>
+		<DataID>DID_Features_CALL_WAITING_Enable</DataID>
+		<Default>1</Default>
+		<option text="Disable">0</option>
+		<option text="Enable">1</option>
+	    <InputField
+					type = "combox"
+					password = "no"
+					editable = "yes">
+			<Prompt>Tone:</Prompt>
+			<DataID>DID_Features_CALL_WAITING_PlayTone</DataID>
+			<option text="Disable">0</option>
+			<option text="Enable">1</option>
+			<Default>1</Default>
+	    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="combox" defaultIndex="1" style="none" Timeout="0" LockIn="no" LocalData="yes" InputType="1aB" editable="yes" is_interger="yes" min="1" max="5" step="1">
+    <Title wrap="yes" showlistcount="yes">Backlight Setting</Title>
+    <Prompt>Level:</Prompt>
+    <DataID>DID_Setting_BACKLIGHT_Level</DataID>
+    <option text="1">1</option>
+    <Default>1</Default>
+    <InputField type="combox" password="no" editable="yes">
+        <Prompt>Time:</Prompt>
+        <DataID>DID_Setting_BACKLIGHT_Time</DataID>
+        <option text="Always On">0</option>
+        <option text="20 sec">20</option>
+        <option text="1 min">60</option>
+        <option text="2 min">120</option>
+        <option text="5 min">300</option>
+        <option text="10 min">600</option>
+        <option text="30 min">1800</option>
+        <option text="1 hour">3600</option>
+        <Default>-1</Default>
+    </InputField>
+    <InputField type="combox" password="no" editable="yes">
+        <Prompt>Inactive Level:</Prompt>
+        <DataID>Config.Settings.BACKLIGHT.FreeLevel</DataID>
+        <option text="0">0</option>
+        <option text="1">1</option>
+        <Default>0</Default>
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

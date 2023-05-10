@@ -1,0 +1,5 @@
+/*配置根据权限确定是否显示*/
+
+#divAuthorityWarning{
+display:none;
+}

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <If condition="$(contactssize)==0">
+    <If condition="$(set:phone_type)==snom300">
+      <SnomIPPhoneMenu track="no" id="contacts" speedselect="off" selectable="true" scrollbar="false" sort="false" predict="false" dtmf="off">
+        <Fetch mil="120000">snom://mb_exit</Fetch>
+        <SoftKeyItem>
+          <Name>LEFT</Name>
+          <SoftKey>F_BACK</SoftKey>
+        </SoftKeyItem>
+        <If condition="$(var:group)==1">
+          <SoftKeyItem>
+            <Name>CANCEL</Name>
+            <Url>file:///xml/gui/contact_list.xml#collapsegroup</Url>
+          </SoftKeyItem>
+        </If>
+        <If condition="$(var:group)!=1">
+          <SoftKeyItem>
+            <Name>CANCEL</Name>
+            <SoftKey>F_CANCEL</SoftKey>
+          </SoftKeyItem>
+        </If>
+        <InputField>
+          <If condition="$(var:lookup)">
+            <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Handler event="keypress">file:///xml/gui/contact_list.xml#contactdial=-1;$[current_input]&amp;var:searchdone=42</Handler>
+            <Timeout>500</Timeout>
+          </If>
+          <Else>
+            <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Handler event="keypress">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Timeout>1000</Timeout>
+          </Else>
+          <Minimum>$(var:input_minimum)</Minimum>
+          <DefaultValue>$(var:input_default)</DefaultValue>
+          <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+            <If condition="$(display_type)!=color_touch">
+              <Prompt>$(lang:search)</Prompt>
+            </If>
+          </If>
+          <Key>ENTER</Key>
+        </InputField>
+        <If condition="$(var:searchdone)!=42">
+          <If condition="$(set:user_server_type[$(current_line)])==ocs">
+            <MenuItem sel="true" name="$(lang:empty_dir_search_list)"></MenuItem>
+          </If>
+        </If>
+        <Else>
+          <If condition="$(contactsearchpending)">
+            <MenuItem sel="true" name="$(lang:query_pending)"></MenuItem>
+          </If>
+          <Else>
+            <MenuItem sel="true" name="$(lang:lang_list_no_data)"></MenuItem>
+          </Else>
+        </Else>
+      </SnomIPPhoneMenu> <!-- empty contact list, just advice -->
+    </If> <!-- snom300 only -->
+    <If condition="$(set:phone_type)!=snom300">
+      <SnomIPPhoneMenu track="no" id="contacts" speedselect="off" selectable="false" scrollbar="false" sort="false" predict="false"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd"  dtmf="off">
+        <Fetch mil="120000">snom://mb_exit</Fetch>
+        <Title>$(lang:directory_search): $(var:manager_name)</Title>
+          <SoftKeyItem>
+            <Name>F1</Name>
+            <If condition="$(display_type)==color_touch"> <Label>F_URLL</Label> </If>
+            <Elif condition="$(edit_mode)==0"> <Label>F_URLL</Label> </Elif>
+            <Elif condition="$(edit_mode)==1"> <Label>F_URLU</Label> </Elif>
+            <Else>                             <Label>F_123</Label> </Else>
+            <Url>file:///xml/gui/contact_list.xml#next_edit_mode</Url>
+          </SoftKeyItem>
+        <If condition="$(display_type)==color_touch">
+          <SoftKeyItem>
+            <Name>F3</Name>
+            <Label>F_BACK</Label>
+            <SoftKey>F_BACK</SoftKey>
+          </SoftKeyItem>
+        </If> <!-- touch display -->
+        <Else>
+          <SoftKeyItem>
+            <Name>F2</Name>
+            <Label>F_BACK</Label>
+            <SoftKey>F_BACK</SoftKey>
+          </SoftKeyItem>
+          <SoftKeyItem>
+            <Name>F3</Name>
+            <Label>F_DETAILS</Label>
+            <Url>file:///xml/gui/contact_list.xml#sub=*[@id="details"]</Url>
+          </SoftKeyItem>
+          <SoftKeyItem>
+            <Name>F4</Name>
+            <Label>$(lang:lang_abort_label)</Label>
+            <SoftKey>F_ABORT</SoftKey>
+          </SoftKeyItem>
+        </Else> <!-- not a touch display -->
+        <SoftKeyItem>
+          <Name>LEFT</Name>
+          <Url>file:///xml/gui/contact_list.xml#collapsegroup</Url>
+        </SoftKeyItem>
+        <If condition="$(display_type)==character">
+          <SoftKeyItem>
+            <Name>LEFT</Name>
+            <SoftKey>F_BACK</SoftKey>
+          </SoftKeyItem>
+          <If condition="$(var:group)==1">
+            <SoftKeyItem>
+              <Name>CANCEL</Name>
+              <Url>file:///xml/gui/contact_list.xml#collapsegroup</Url>
+            </SoftKeyItem>
+          </If>
+          <If condition="$(var:group)!=1">
+          <SoftKeyItem>
+            <Name>CANCEL</Name>
+            <SoftKey>F_CANCEL</SoftKey>
+          </SoftKeyItem>
+          </If>
+        </If> <!-- character display -->
+        <InputField>
+          <If condition="$(var:lookup)">
+            <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Handler event="keypress">file:///xml/gui/contact_list.xml#contactdial=-1;$[current_input]&amp;var:searchdone=42</Handler>
+            <Timeout>500</Timeout>
+          </If>
+          <Else>
+            <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Handler event="keypress">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+            <Timeout>1000</Timeout>
+          </Else>
+          <Minimum>$(var:input_minimum)</Minimum>
+          <DefaultValue>$(var:input_default)</DefaultValue>
+          <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+            <If condition="$(display_type)!=color_touch">
+              <Prompt>$(lang:search)</Prompt>
+            </If>
+          </If>
+          <Key>ENTER</Key>
+        </InputField>
+        <If condition="$(var:searchdone)!=42">
+          <If condition="$(set:user_server_type[$(current_line)])==ocs">
+            <MenuItem name="$(lang:empty_dir_search_list)"></MenuItem>
+          </If>
+        </If>
+        <Else>
+          <If condition="$(contactsearchpending)">
+            <MenuItem sel="true" name="$(lang:query_pending)"></MenuItem>
+          </If>
+          <If condition="!$(contactsearchpending)">
+            <MenuItem sel="true" name="$(lang:lang_list_no_data)"></MenuItem>
+          </If>
+          <If condition="$(var:lookup)">
+            <SoftKeyItem>
+              <Name>ENTER</Name>
+              <Url>file:///xml/gui/contact_list.xml#contactdial=-1;$[current_input]</Url>
+            </SoftKeyItem>
+          </If>
+        </Else>
+      </SnomIPPhoneMenu> <!-- empty contact list, just advice -->
+    </If> <!-- not a snom300 -->
+  </If> <!-- we have no contacts -->
+  <If condition="$(contactssize)!=0">
+    <SnomIPPhoneMenu track="no" id="contacts" speedselect="off" sort="$(var:sort)" predict="$(var:predict)" dtmf="off">
+      <Fetch mil="120000">snom://mb_exit</Fetch>
+      <If condition="$(set:phone_type)!=snom300">
+        <If condition="$(var:group)==1">
+          <Title>$(contact_detail:$(lastsel);Value[Name,DisplayName])</Title>
+        </If>
+        <If condition="$(var:group)!=1">
+          <Title>$(lang:directory_search): $(var:manager_name)</Title>
+        </If>
+        <SoftKeyItem>
+          <Name>F1</Name>
+          <If condition="$(display_type)==color_touch"> <Label>F_URLL</Label> </If>
+          <Elif condition="$(edit_mode)==0"> <Label>F_URLL</Label> </Elif>
+          <Elif condition="$(edit_mode)==1"> <Label>F_URLU</Label> </Elif>
+          <Else>                             <Label>F_123</Label> </Else>
+          <Url>file:///xml/gui/contact_list.xml#next_edit_mode</Url>
+        </SoftKeyItem>
+        <If condition="$(display_type)==color_touch">
+          <SoftKeyItem>
+            <Name>F3</Name>
+            <Label>F_BACK</Label>
+            <SoftKey>F_BACK</SoftKey>
+          </SoftKeyItem>
+        </If>
+        <If condition="$(display_type)!=color_touch">
+          <SoftKeyItem>
+            <Name>F2</Name>
+            <Label>F_BACK</Label>
+            <SoftKey>F_BACK</SoftKey>
+          </SoftKeyItem>
+          <SoftKeyItem>
+            <Name>F3</Name>
+            <Label>F_DETAILS</Label>
+            <Url>file:///xml/gui/contact_list.xml#sub=*[@id="details"]</Url>
+          </SoftKeyItem>
+          <SoftKeyItem>
+            <Name>F4</Name>
+            <Label>$(lang:lang_abort_label)</Label>
+            <SoftKey>F_ABORT</SoftKey>
+          </SoftKeyItem>
+        </If>
+        <SoftKeyItem>
+          <Name>LEFT</Name>
+          <Url>file:///xml/gui/contact_list.xml#collapsegroup</Url>
+        </SoftKeyItem>
+      </If>
+      <If condition="$(display_type)==character">
+        <SoftKeyItem>
+          <Name>LEFT</Name>
+          <SoftKey>F_BACK</SoftKey>
+        </SoftKeyItem>
+        <If condition="$(var:group)==1">
+          <SoftKeyItem>
+            <Name>CANCEL</Name>
+            <Url>file:///xml/gui/contact_list.xml#collapsegroup</Url>
+          </SoftKeyItem>
+        </If>
+        <If condition="$(var:group)!=1">
+          <SoftKeyItem>
+            <Name>CANCEL</Name>
+            <SoftKey>F_CANCEL</SoftKey>
+          </SoftKeyItem>
+        </If>
+      </If>
+      <SoftKeyItem>
+        <Name>RIGHT</Name>
+        <Url>file:///xml/gui/contact_list.xml#sub=*[@id="details"]</Url>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>OFFHOOK</Name>
+        <SoftKey>ENTER</SoftKey>
+      </SoftKeyItem>
+      <InputField>
+        <If condition="$(var:lookup)">
+          <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+          <Handler event="keypress">file:///xml/gui/contact_list.xml#contactdial=-1;$[current_input]&amp;var:searchdone=42</Handler>
+          <Timeout>500</Timeout>
+        </If>
+        <Else>
+          <Handler event="timeout">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+          <Handler event="keypress">file:///xml/gui/contact_list.xml#contactquery=$(var:manager_name)&amp;var:searchdone=42</Handler>
+          <Timeout>1000</Timeout>
+        </Else>
+        <Minimum>$(var:input_minimum)</Minimum>
+        <DefaultValue>$(var:input_default)</DefaultValue>
+        <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+          <If condition="$(display_type)!=color_touch">
+            <Prompt>$(lang:search)</Prompt>
+          </If>
+        </If>
+        <Key>ENTER</Key>
+      </InputField>
+      <If condition="$(contactsearchpending)">
+        <MenuItem sel="true" name="$(lang:query_pending)"></MenuItem>
+      </If>
+      <Else>
+        <Repeat values="$(contacts)" token="|__NAME__|__CONTACTID__|__URL__|__PRESENCE__|__SELECTED__|">
+          <MenuItem name="__NAME__" id="__CONTACTID__" sel="__SELECTED__">
+            <Url>__URL__</Url>
+            <DetailUrl>file:///xml/gui/contact_list.xml#sub=*[@id="details"]</DetailUrl>
+            <If condition="$(set:user_server_type[$(current_line)])==ocs">
+              <Icon>$(presence_icon:__PRESENCE__)</Icon>
+            </If>
+          </MenuItem>
+        </Repeat>
+      </Else>
+      <If condition="$(contactssize)==0">
+        <If condition="$(set:user_server_type[$(current_line)])==ocs">
+          <MenuItem name="$(lang:empty_dir_search_list)"></MenuItem>
+        </If>
+        <If condition="$(var:lookup)">
+          <SoftKeyItem>
+            <Name>ENTER</Name>
+            <Url>file:///xml/gui/contact_list.xml#contactdial=-1;$[current_input]</Url>
+          </SoftKeyItem>
+        </If>
+      </If>
+    </SnomIPPhoneMenu> <!-- contact list -->
+  </If> <!-- we have contacts -->
+  <SnomIPPhoneMenu id="numbers" speedselect="off" dtmf="off">
+    <Fetch mil="120000">snom://mb_exit</Fetch>
+    <Title>$(contact_detail:$(lastsel);Value[Name,DisplayName])</Title>
+    <If condition="$(display_type)!=color_touch">
+      <SoftKeyItem>
+        <Name>OFFHOOK</Name>
+        <SoftKey>ENTER</SoftKey>
+      </SoftKeyItem>
+      <If condition="$(set:phone_type)!=snom300">
+        <SoftKeyItem>
+          <Name>F4</Name>
+          <Label>$(lang:lang_abort_label)</Label>
+          <SoftKey>F_ABORT</SoftKey>
+        </SoftKeyItem>
+      </If>
+    </If>
+    <If condition="$(display_type)==color_touch">
+      <SoftKeyItem>
+        <Name>OFFHOOK</Name>
+        <SoftKey>F_OK</SoftKey>
+      </SoftKeyItem>
+    </If>
+    <Repeat values="$(contact_numbers:$(lastsel))" token="|__NAME__|__ID__|__URL__|">
+      <MenuItem name="__NAME__" id="__ID__">
+        <Url>__URL__</Url>
+      </MenuItem>
+    </Repeat>
+  </SnomIPPhoneMenu> <!-- numbers -->
+  <SnomIPPhoneText id="details">
+    <Title>$(contact_detail:$(lastsel);Value[Name,DisplayName])</Title>
+    <Fetch mil="120000">snom://mb_exit</Fetch>
+    <If condition="$(set:phone_type)!=snom300">
+      <If condition="$(display_type)!=color_touch">
+        <SoftKeyItem>
+          <Name>F4</Name>
+          <Label>$(lang:lang_abort_label)</Label>
+          <SoftKey>F_ABORT</SoftKey>
+        </SoftKeyItem>
+      </If>
+    </If>
+    <If condition="!$(empty:$(contact_detail:$(lastsel);All[Name,DisplayName]))">
+      <Text>$(contact_detail:$(lastsel);All[Name,DisplayName])<br/>
+      <br/>$(contact_detail:$(lastsel);All[Name,FirstName])<br/>
+      <br/>$(contact_detail:$(lastsel);All[Name,LastName])<br/>
+      <br/>$(contact_detail:$(lastsel);All[PhoneNumber,])<br/>
+      <br/>$(contact_detail:$(lastsel);All[EmailAddress,])<br/>
+      <br/>$(contact_detail:$(lastsel);All[Organization,])<br/>
+      <br/>$(contact_detail:$(lastsel);All[Office,])<br/>
+      </Text>
+    </If>
+    <If condition="$(empty:$(contact_detail:$(lastsel);All[Name,DisplayName]))">
+      <Text>$(lang:list_no_data)</Text>
+    </If>
+  </SnomIPPhoneText> <!-- details -->
+</SnomIPPhoneBatch>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" CombineData="AudioOption" LockIn="no">
+    <title showlistcount="yes" />
+    <MenuItem>
+        <Prompt>Headset</Prompt>
+        <DataID>Combine_AudioOption_Headset</DataID>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Speaker</Prompt>
+        <DataID>Combine_AudioOption_Speaker</DataID>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Save</Label>
+        <URI>SoftKey:Submit</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

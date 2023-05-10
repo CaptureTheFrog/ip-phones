@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes">
+    <Title wrap="yes" showlistcount="yes">
+        Date Display Mode
+    </Title>
+
+		<Prompt>Display Mode:</Prompt>
+		<DataID>DID_Setting_DATEDISPLAY_DisplayMode</DataID>
+		<Default>0</Default>
+		<option text="Disable">0</option>
+		<option text="Day">1</option>
+		<option text="Date">2</option>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+<SoftKey index="4"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>

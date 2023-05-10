@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="combox" defaultIndex="1" style="none" Timeout="0" LockIn="no" LocalData="yes">
+    <Title wrap="yes" showlistcount="yes">Date &amp; Time Format</Title>
+    <Prompt>Time Format:</Prompt>
+    <DataID>DID_Setting_DATETIME_TimeFormat</DataID>
+    <Default>0</Default>
+    <option text="12Hour">0</option>
+    <option text="24Hour">1</option>
+    <InputField type="combox">
+        <Prompt>Date Format:</Prompt>
+        <DataID>DID_Setting_DATETIME_DateFormat</DataID>
+        <option text="YYYY-MM-DD">0</option>
+        <option text="YYYY/MM/DD">1</option>
+        <option text="DD-MM-YYYY">2</option>
+        <option text="DD/MM/YYYY">3</option>
+        <option text="WW-DD-MM">4</option>
+        <option text="WW-MM-DD">5</option>
+        <Default>0</Default>
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

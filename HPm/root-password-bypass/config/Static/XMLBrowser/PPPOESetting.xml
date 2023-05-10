@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="edit" defaultIndex="1" Timeout="0" LockIn="no" LocalData="yes" CombineData="PPPOE" InputType="1aB">
+    <Title showlistcount="yes">PPPOE Setting</Title>
+    <Prompt>User Name:</Prompt>
+    <DataID>Combine_PPPOE_UserName</DataID>
+    <Default />
+    <InputField password="yes" type="edit">
+        <Prompt>Password:</Prompt>
+        <DataID>Combine_PPPOE_Password</DataID>
+        <Default />
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="combox" defaultIndex="1" style="none" Timeout="0" LockIn="no" LocalData="yes" CombineData="VLANSetting" InputType="123">
+    <Title wrap="yes" showlistcount="yes">%Param1 Port</Title>
+    <Prompt>Active:</Prompt>
+    <DataID>Combine_VLANSetting_Active</DataID>
+    <Default>0</Default>
+    <option text="Disable">0</option>
+    <option text="Enable">1</option>
+    <InputField type="edit" editable="yes" is_interger="yes" min="1" max="4094">
+        <Prompt>VID(%d-%d):</Prompt>
+        <Parameter emptyable="no" />
+        <DataID>Combine_VLANSetting_VID</DataID>
+        <Default />
+        <option text="0" />
+    </InputField>
+    <InputField type="combox" is_interger="yes" min="0" max="7" step="1">
+        <Prompt>Priority:</Prompt>
+        <DataID>Combine_VLANSetting_Priority</DataID>
+        <option text="0">0</option>
+        <Default />
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

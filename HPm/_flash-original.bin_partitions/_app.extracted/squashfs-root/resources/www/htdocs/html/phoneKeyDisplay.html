@@ -1,0 +1,1943 @@
+<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<style type='text/css'>
+	.Page_Btn{ width:60px; border: 1px solid;}
+</style>
+<script type='text/javascript'>
+	var ThisPage="";
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+	document.write('<script src="../js/commonKey.js?ver='+Math.random()+'"></s'+'cript>');
+	document.write('<script src="../js/phoneKeyDisplay.js?ver='+Math.random()+'"></s'+'cript>');
+</script>
+<script type='text/javascript'>
+var PageRefDesURL = 'do?id=4&id=4&id=1';
+		
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+var CurLineKeyPage;
+var CurFunctionKeyPage;
+var TotalLineKeyPageNum = 3;
+var TotalFunctionKeyPageNum = 2;
+
+function getLineKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;
+	var cLineKeyTypeIds = f2.hcLineKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var tmpKeyType;
+	for(var k=0; k < cLineKeyTypeNum; k++)	
+	{
+		if(tmpT == cLineKeyTypeIds[k]) tmpKeyType = arrLineKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function getNumKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var cNumberKeyTypeNum = f2.hcNumberKeyTypeNum.value;
+	var cNumberKeyTypeIds = f2.hcNumberKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrNumberKeyTypeList = f2.hcNumberKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var tmpKeyType;
+	for(var k=0; k < cNumberKeyTypeNum; k++)	
+	{
+		if(tmpT == cNumberKeyTypeIds[k]) tmpKeyType = arrNumberKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function getSoftKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var cSoftKeyTypeIds = f2.hcSoftKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrSoftKeyTypeList = f2.hcSoftKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var cSoftKeyTypeNum = f2.hcSoftKeyTypeNum.value;
+	var tmpKeyType;
+	
+	for(var k=0; k < cSoftKeyTypeNum; k++)	
+	{
+		if(tmpT == cSoftKeyTypeIds[k]) tmpKeyType = arrSoftKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function getFuncKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var arrFuncKeyTypeIds = f2.hcFuncKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrFuncKeyTypeList = f2.hcFuncKeyTypeList.value.split(tmpSplitSymbol); //SplitSymbol);
+	var cFuncKeyTypeNum = f2.hcFuncKeyTypeNum.value; 
+	var tmpKeyType;
+	
+	for(var k=0; k < cFuncKeyTypeNum; k++)	
+	{
+		if(tmpT == arrFuncKeyTypeIds[k]) tmpKeyType = arrFuncKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var cLineNum = f2.hcLineNum.value;
+	var arrKeyDefaultType = f2.hcKeyDefaultType.value.split(tmpSplitSymbol);
+	
+	var cLineKeyNum = f2.hcLineKeyNum.value;	
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;	
+	var cLineKeyTypeIds = f2.hcLineKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var cSoftKeyNum = f2.hcSoftKeyNum.value;
+	var cSoftKeyTypeNum = f2.hcSoftKeyTypeNum.value;
+	var cSoftKeyTypeIds = f2.hcSoftKeyTypeIds.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyTypeList = f2.hcSoftKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var cFuncKeyTypeNum = f2.hcFuncKeyTypeNum.value; 
+	var arrFuncKeyTypeIds = f2.hcFuncKeyTypeIds.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrFuncKeyTypeList = f2.hcFuncKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var cNumberKeyTypeNum = f2.hcNumberKeyTypeNum.value; 
+	var cNumberKeyTypeIds = f2.hcNumberKeyTypeIds.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyTypeList = f2.hcNumberKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+		
+	if("undefined" != typeof(MODELID))
+	{ 
+		if("51" == MODELID || "50" == MODELID)
+		{
+			document.getElementById("PhoneKD_divLineKey").style.display = "none";
+			document.getElementById("tdSoftKeyAccount").style.display = "none";
+			document.getElementById("tdFunctionKeyAccount").style.display = "none";
+		}
+	}
+	
+	for(var i = 0; i < cLineKeyNum; i++)
+	{
+		var curValue = "cLineKeyValue"+i;
+		var itemHtml = "<tr><td style='text-align: center; width: 80px;' height='10'><label style='width: 80px;' id='tLineKey" + i + "'></label></td>" +	  
+						"<td style='text-align: center; width: 90px;'><select style='width: 90px;' id='cLineKeyType" + i + "' onChange='InputToSelect(this.id, \""+curValue+"\"), CheckPKeySts(), optionsReset(this.id), prmsReset(this.id)'></select></td>" +   
+						"<td style='text-align: center; width: 90px;'><input style='width: 90px;' id='cLineKeyLabel" + i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+						"<td style='text-align: center; width: 90px;'><input style='width: 90px;' id='cLineKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+						"<td style='text-align: center; width: 90px;'><select style='width: 90px;' id='cLineKeyLine" + i + "'></select></td>"+
+						"<td style='text-align: center; width: 90px;'><input style='width: 90px;' id='cLineKeyCode" + i + "' type='text' onFocus='onInputEdit(this.id)'></td></tr>";
+		$("#tableLineKey").append(itemHtml);
+		var tmp = "cLineKeyType"+i;
+		for(var j = 0; j < cLineKeyTypeNum; j++)
+		{
+		var tmpOptions = getOptionsByType(arrLineKeyTypeList[j]);
+		document.getElementById(tmp).options.add(new Option(tmpOptions,cLineKeyTypeIds[j]));
+		}
+		tmp = "cLineKeyLine"+i;	
+		for(var j = 0; j <= cLineNum; j++)
+		{
+		 var tmpLine = Line + " "+ (j);
+		 if(0==j){tmpLine=Auto;}
+		 document.getElementById(tmp).options.add(new Option(tmpLine, j));
+		}
+	}
+	
+	for(var i = 0; i < cSoftKeyNum; i++)
+	{
+		var curValue = "cSoftKeyValue"+i;
+	 	var itemHtml = "<tr><td height='10' style='text-align: center; width: 80px'><label id='tSoftKey"+ i +"'></label></td>" +
+	                "<td style='text-align: center; width: 90px'><select style='width: 90px' id='cSoftKeyType" + i + "' onChange='InputToSelect(this.id, \""+curValue+"\"), CheckPKeySts(), prmsReset(this.id)'></select></td>" +
+	         	      "<td style='text-align: center; width: 90px'><input style='width: 90px' id='cSoftKeyLabel"+ i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	         	      "<td style='text-align: center; width: 90px'><input style='width: 90px' id='cSoftKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	         	      "<td style='text-align: center; width: 90px'><select style='width: 90px' id='cSoftKeyLine" + i+ "' type='text'></td>"+
+	         	      "<td style='display:none; text-align: center; width: 90px'><input style='width: 90px' id='cSoftKeyCode" + i + "' type='text' onFocus='onInputEdit(this.id)'></td></tr>";	         	      
+	 $("#tableSoftKey").append(itemHtml);  
+	 var tmp = "cSoftKeyType"+i; 
+	 for(var j = 0; j < cSoftKeyTypeNum; j++)
+	 {
+	 	var tmpOptions = getOptionsByType(arrSoftKeyTypeList[j]);
+	 	document.getElementById(tmp).options.add(new Option(tmpOptions,cSoftKeyTypeIds[j]));
+	 }
+	 tmp = "cSoftKeyLine"+i; 
+	 if("undefined" != MODELID)
+	 {
+	 	if("51" == MODELID || "50" == MODELID)
+	 	{
+	 		document.getElementById(tmp).style.display = "none";
+	 	}		
+	 }
+	 for(var j = 0; j <= cLineNum; j++)
+	 {
+		 var tmpLine = Line + " "+ (j);
+		 if(0==j) {tmpLine=Auto;}
+		 document.getElementById(tmp).options.add(new Option(tmpLine, j));
+	 }
+	}
+	
+	//NumberKey
+	for(var i = 0; i < NumberNum; i++)
+	{
+		var curValue = "cNumberKeyValue"+i;
+		var itemHtml = "<tr><td style='text-align: center; width: 90px;' height='10'><label style='width: 80px;' id='tNumberKey" + i + "'></label></td>" +	  
+						"<td style='text-align: center; width: 90px;'><select style='width: 90px;' id='cNumberKeyType" + i + "' onChange='InputToSelect(this.id, \""+curValue+"\"), CheckPKeySts(), prmsReset(this.id)'></select></td>" +   
+						"<td style='text-align: center; width: 90px;'><select style='width: 90px;' id='cNumberKeyLongPress" + i + "' type='text' onFocus='onInputEdit(this.id)'></select></td>"+
+						"<td style='text-align: center; width: 90px;'><input style='width: 90px;' id='cNumberKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+						"<td style='text-align: center; width: 90px;'><select style='width: 90px;' id='cNumberKeyLine" + i + "'></select></td>"+
+						"<td style='text-align: center; width: 90px;'><input style='width: 90px;' id='cNumberKeyCode" + i + "' type='text' onFocus='onInputEdit(this.id)'></td></tr>";
+		$("#tableNumberKey").append(itemHtml);
+		var tmp = "cNumberKeyType"+i;
+		for(var j = 0; j < cNumberKeyTypeNum; j++)
+		{
+		var tmpOptions = getOptionsByType(arrNumberKeyTypeList[j]);
+		document.getElementById(tmp).options.add(new Option(tmpOptions,cNumberKeyTypeIds[j]));
+		}
+		
+		tmp = "cNumberKeyLongPress"+i;	
+		document.getElementById(tmp).options.add(new Option(Disabled, 0));
+		document.getElementById(tmp).options.add(new Option(Enabled, 1));	
+		
+		tmp = "cNumberKeyLine"+i;	
+		for(var j = 0; j <= cLineNum; j++)
+		{
+		 var tmpLine = Line + " "+ (j);
+		 if(0==j){tmpLine=Auto;}
+		 document.getElementById(tmp).options.add(new Option(tmpLine, j));
+		}
+	}
+	if(0 == f2.hcNumberKeyEnable.value)
+	{
+		document.getElementById("PhoneKD_divNumberKey").style.display = "none";
+	}
+
+	//FunctionKey
+	for(var i = 0; i < 4; i++)
+	{    
+	 var itemHtml = "<tr><td height='10' style='display:none; text-align: center; width: 80px'><label id='"+ PKeyName[i] +"'></label></td>" +
+	                "<td style='display:none; text-align: center; width: 90px'><select style='width: 90px' id='"+ PKeyType[i] +"' onChange='InputToSelect(\""+PKeyType[i]+"\", \""+PKeyValue[i]+"\"), CheckPKeySts()'></select></td>" +
+	         	      "<td style='display:none; text-align: center; width: 90px'><input style='width: 90px' id='"+ PKeyValue[i] +"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	         	      "<td style='display:none; text-align: center; width: 90px'><input style='width: 90px' id='"+ PKeyCode[i] +"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	         	      "<td style='display:none; text-align: center; width: 90px'><select style='width: 90px' id='"+ PKeyLine[i] +"' type='text'></td></tr>";
+	 $("#tableFunctionKey").append(itemHtml);
+	 var tmp = PKeyType[i];
+	 if("cCancelKeyType"==PKeyType[i]||"cMuteKeyType"==PKeyType[i])
+	 {
+	 	for(var j = 0; j < cFuncKeyTypeNum; j++)
+		{	
+			var tmpOptions = getOptionsByType(arrFuncKeyTypeList[j]);
+	 		document.getElementById(tmp).options.add(new Option(tmpOptions,arrFuncKeyTypeIds[j]));
+	 	}	
+	 }  
+	 else
+	 {  
+	 	for(var j = 0; j < cFuncKeyTypeNum; j++)
+		{  
+			switch(arrFuncKeyTypeList[j])
+		  {
+		  	case "N/A": break;
+		  	default: 
+		  		var tmpOptions = getOptionsByType(arrFuncKeyTypeList[j]);
+				document.getElementById(tmp).options.add(new Option(tmpOptions,arrFuncKeyTypeIds[j]));
+		  }
+		}	
+	 }  
+	 tmp = PKeyLine[i]; 
+	 for(var j = 0; j <= cLineNum; j++)
+	 {
+		var tmpLine = Line + " "+ (j);
+		if(0==j){	tmpLine=Auto;	} 
+		document.getElementById(tmp).options.add(new Option(tmpLine, j));
+	 }  			  
+	}
+	for(var i = 4; i < cFuncKeyNum; i++)
+	{    
+	 var itemHtml = "<tr id='" + PKey[i] + "'><td height='10' style='text-align: center; width: 80px'><label id='"+ PKeyName[i] +"'></label></td>" +
+	                "<td style='text-align: center; width: 90px'><select style='width: 90px' id='"+ PKeyType[i] +"' onChange='InputToSelect(\""+PKeyType[i]+"\", \""+PKeyValue[i]+"\"), CheckPKeySts(), prmsReset(this.id)'></select></td>" +
+	         	      "<td style='text-align: center; width: 90px'><input style='width: 90px' id='"+ PKeyValue[i] +"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	         	      "<td style='text-align: center; width: 90px'><select style='width: 90px' id='"+ PKeyLine[i] +"' type='text'></td>" +
+	         	      "<td style='display:none; text-align: center; width: 90px'><input style='width: 90px' id='"+ PKeyCode[i] +"' type='text' onFocus='onInputEdit(this.id)'></td></tr>";
+	 $("#tableFunctionKey").append(itemHtml);
+	 var tmp = PKeyType[i];    
+	 if("cCancelKeyType"==PKeyType[i]||"cMuteKeyType"==PKeyType[i]) 
+	 {  
+	 	for(var j = 0; j < cFuncKeyTypeNum; j++)
+		{	
+			var tmpOptions = getOptionsByType(arrFuncKeyTypeList[j]);
+	 		document.getElementById(tmp).options.add(new Option(tmpOptions,arrFuncKeyTypeIds[j]));
+		}	
+	 }  
+	 else
+	 { 
+	 	for(var j = 0; j < cFuncKeyTypeNum; j++)
+		{ 
+			switch(arrFuncKeyTypeList[j])
+		  { 
+		  	case "N/A": break;
+		  	default: 
+		  		var tmpOptions = getOptionsByType(arrFuncKeyTypeList[j]);
+	 				document.getElementById(tmp).options.add(new Option(tmpOptions,arrFuncKeyTypeIds[j]));
+		  }
+		}	
+	 }  
+	 tmp = PKeyLine[i]; 
+	 if("undefined" != typeof(MODELID))
+	 {
+	 	if("51" == MODELID || "50" == MODELID)
+	 	{
+	 		document.getElementById(tmp).style.display = "none";
+	 	}		
+	 }
+	 for(var j = 0; j <= cLineNum; j++)
+	 {  
+	 	var tmpLine = Line + " "+ (j);
+		if(0==j){ tmpLine=Auto; }
+		document.getElementById(tmp).options.add(new Option(tmpLine, j));
+	 }  			  
+	}
+	if("undefined" != typeof(MODELID))
+	{
+		//R59有linekey8，代替VioceMessage的功能
+		if("51" == MODELID || "50" == MODELID)
+		{
+			document.getElementById("VoiceMessage").style.display = "none";
+		}		
+	}
+
+	//Other-Display
+	var arrOtherItems = new Array("cSendPowndKey","cFeatureKeySync", "cIsParsePound","cPowerLightClose", "cWatchDog", "cKeypadLock","cKeyAsSend");
+	for(var i=0; i<arrOtherItems.length; i++)
+	{
+		document.getElementById(arrOtherItems[i]).options.add(new Option(Disabled, 0));
+		document.getElementById(arrOtherItems[i]).options.add(new Option(Enabled, 1));
+	}
+
+	for(var i=1; i<=5; i++)
+	{
+		document.getElementById("cBacklightIntens").options.add(new Option(i, i));
+	}
+	
+	for(var i=0; i<10; i++)
+	{
+		document.getElementById("cLCDContrast").options.add(new Option(i+1, i));
+	}
+	
+	// BKLIGHT_ALWAYS_ON:0  BKLIGHT_ALWAYS_OFF:R59 cannot support alwaysoff backlight
+	//document.getElementById("cBacklightTime").options.add(new Option(AlwaysOff, -1));
+	document.getElementById("cBacklightTime").options.add(new Option(AlwaysOn, 0));
+	document.getElementById("cBacklightTime").options.add(new Option(15, 15));
+	document.getElementById("cBacklightTime").options.add(new Option(30, 30));
+	document.getElementById("cBacklightTime").options.add(new Option(60, 60));
+	document.getElementById("cBacklightTime").options.add(new Option(120, 120));
+	document.getElementById("cBacklightTime").options.add(new Option(300, 300));
+	document.getElementById("cBacklightTime").options.add(new Option(600, 600));
+	document.getElementById("cBacklightTime").options.add(new Option(1800, 1800));
+	document.getElementById("cBacklightTime").options.add(new Option(3600, 3600));	
+	
+	if("undefined" != typeof(Small)){document.getElementById("cFontSize").options.add(new Option(Small, 1))}
+	else{document.getElementById("cFontSize").options.add(new Option("Small", 1))}
+	if("undefined" != typeof(Normal)){document.getElementById("cFontSize").options.add(new Option(Normal, 0))}
+	else{document.getElementById("cFontSize").options.add(new Option("Normal", 0))}
+	if("undefined" != typeof(Large)){document.getElementById("cFontSize").options.add(new Option(Large, 2))}
+	else{document.getElementById("cFontSize").options.add(new Option("Large", 2))}
+	if("undefined" != typeof(Huge)){document.getElementById("cFontSize").options.add(new Option(Huge, 3))}
+	else{document.getElementById("cFontSize").options.add(new Option("Huge", 3))}
+	
+	LoadLang();
+	CheckMutiPage();
+	CheckPageMode();
+	DelayShow();
+	SubLoadCfg();
+}
+
+function LoadFuncKey()
+{
+	for(var i = 4; i<(cFuncKeyNum); i++)
+	{
+		if(getFuncKeyTypeByID(document.getElementById(PKeyType[i]).value) == "Book")
+		{
+			//将输入框变为下拉框
+			itemHtml ="<select style='width: 90px' id='"+ PKeyValue[i] +"' type='text' onFocus='onInputEdit(this.id)'></select>"
+			$("#"+PKeyValue[i]).replaceWith(itemHtml);
+			for(var j=0 ;j<Book_SelectText.length; j++)
+			{
+				document.getElementById(PKeyValue[i]).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+			}
+			document.getElementById("h"+ PKeyValue[i]).value = TransEmptyStrTo0(document.getElementById("h"+ PKeyValue[i]).value);
+			document.getElementById(PKeyValue[i]).value = ShowDecodeIncTimeSplit(document.getElementById("h"+ PKeyValue[i]).value);
+		}
+		else
+		{
+			itemHtml ="<input style='width: 90px' id='"+ PKeyValue[i] +"' type='text' onFocus='onInputEdit(this.id)'></input>"
+			$("#"+PKeyValue[i]).replaceWith(itemHtml);
+			document.getElementById(PKeyValue[i]).value = ShowDecodeIncTimeSplit(document.getElementById("h"+ PKeyValue[i]).value);
+		}
+	}
+}
+
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var cLineNum = f2.hcLineNum.value;
+	
+	var arrKeyDefaultType = f2.hcKeyDefaultType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+	
+	var cLineKeyNum = f2.hcLineKeyNum.value;
+	var arrLineKeyType =  f2.hcLineKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;
+	var arrcLineKeyTypeId = f2.hcLineKeyTypeIds.value;
+
+	var cSoftKeyNum = f2.hcSoftKeyNum.value;
+	var arrSoftKeyType = f2.hcSoftKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var cSoftKeyTypeNum = f2.hcSoftKeyTypeNum.value;
+	var arrSoftKeyTypeId = f2.hcSoftKeyTypeIds.value;
+	
+	var arrNumberKeyType =  f2.hcNumberKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var cNumberKeyTypeNum = f2.hcNumberKeyTypeNum.value;
+	var arrcNumberKeyTypeId = f2.hcNumberKeyTypeIds.value;
+
+	//LineKey
+	for(var i = 0; i < cLineKeyNum; i ++ )
+	{
+		arrLineKeyType[i] = transTypeInvalidToDef(arrLineKeyType[i],arrcLineKeyTypeId,cLineKeyTypeNum,arrKeyDefaultType[i]);
+		if(0 == i) 	f2.hcLineKeyType.value = arrLineKeyType[i] + tmpSplitSymbol;//SplitSymbol ; 
+		else 	f2.hcLineKeyType.value = f2.hcLineKeyType.value + arrLineKeyType[i] + tmpSplitSymbol;//SplitSymbol;  
+	}
+	var arrLineKeyLabel = f2.hcLineKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);  
+	var arrLineKeyValue =  f2.hcLineKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyCode = f2.hcLineKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);	
+	var arrLineKeyLine =  f2.hcLineKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+
+	for(var i = 0; i < cLineKeyNum; i ++ )
+	{
+		ResetHtml("cLineKeyValue", i);
+		var tmpLine = i+1;
+		if(i >= cLineNum) tmpLine = 1; 
+		switch(getLineKeyTypeByID(arrLineKeyType[i]))
+		{
+			case "BLFList":
+			case "Account":
+			case "BLF":
+			case "ACD":
+			{
+				arrLineKeyLine[i] = transInvalidToDef(arrLineKeyLine[i],cLineNum,tmpLine);
+				if(0 == i) 
+				{
+					f2.hcLineKeyLine.value = arrLineKeyLine[i] + tmpSplitSymbol;
+				} //SplitSymbol ; 
+				else
+				{
+					f2.hcLineKeyLine.value = f2.hcLineKeyLine.value + arrLineKeyLine[i] + tmpSplitSymbol;
+				}//SplitSymbol; 
+				break;
+			}
+			case "Book":
+			{
+				//将输入框变为下拉框
+				itemHtml ="<select style='width: 90px;' id='cLineKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></select>"
+				$("#cLineKeyValue"+i).replaceWith(itemHtml);
+				for(var j=0 ;j<Book_SelectText.length; j++)
+				{
+					document.getElementById("cLineKeyValue"+i).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+				}
+				
+				if(!isValueValid(arrLineKeyLine[i],cLineNum)&& !(arrLineKeyLine[i] == '0'))
+					 arrLineKeyLine[i] = tmpLine;				
+				if(0 == i) 	
+				{
+					f2.hcLineKeyLine.value = arrLineKeyLine[i] + tmpSplitSymbol;
+				}//SplitSymbol ; 
+				else
+				{
+					f2.hcLineKeyLine.value = f2.hcLineKeyLine.value + arrLineKeyLine[i] + tmpSplitSymbol;
+				} //SplitSymbol; 
+				break;
+			}
+			default:
+			{
+				if(!isValueValid(arrLineKeyLine[i],cLineNum)&& !(arrLineKeyLine[i] == '0'))
+					 arrLineKeyLine[i] = tmpLine;				
+				if(0 == i) 	
+				{
+					f2.hcLineKeyLine.value = arrLineKeyLine[i] + tmpSplitSymbol;
+				}//SplitSymbol ; 
+				else
+				{
+					f2.hcLineKeyLine.value = f2.hcLineKeyLine.value + arrLineKeyLine[i] + tmpSplitSymbol;
+				} //SplitSymbol; 
+				break;
+			}
+		}		
+	}
+
+	for(var i=0; i < cLineKeyNum; i++)
+	{
+		var tmp = "cLineKeyType"+i;
+		var tmpType = arrLineKeyType[i]; 
+		var tmpLineKeyLine = arrLineKeyLine[i];
+		curTypeID = Number(i);
+		document.getElementById(tmp).value = arrLineKeyType[i];
+		optionsReset(tmp);
+		var tmp = "cLineKeyLabel"+i;
+		document.getElementById(tmp).value = arrLineKeyLabel[i];     	
+		var tmp = "cLineKeyValue"+i;
+		document.getElementById(tmp).value = ShowDecode(arrLineKeyValue[i]);
+		document.getElementById(tmp).maxLength = 127;
+		var tmp = "cLineKeyCode"+i;
+		document.getElementById(tmp).value = arrLineKeyCode[i];		
+		var tmp = "cLineKeyLine"+i;
+		document.getElementById(tmp).value = arrLineKeyLine[i];		
+	}
+	
+	//SoftKey
+	for(var i = 0; i < cSoftKeyNum; i ++)
+	{
+		arrSoftKeyType[i] = transTypeInvalidToDef(arrSoftKeyType[i],arrSoftKeyTypeId,cSoftKeyTypeNum,arrKeyDefaultType[i+Number(cLineKeyNum)]);
+		if(0 == i)   f2.hcSoftKeyType.value = arrSoftKeyType[i] + tmpSplitSymbol; //SplitSymbol ; 
+		else    f2.hcSoftKeyType.value = f2.hcSoftKeyType.value + arrSoftKeyType[i] + tmpSplitSymbol;//SplitSymbol; 
+	}
+	var arrSoftKeyLabel = f2.hcSoftKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+	arrSoftKeyValue = f2.hcSoftKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyCode = f2.hcSoftKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyLine = f2.hcSoftKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	for(var i = 0; i < cSoftKeyNum; i ++ )
+	{
+		ResetHtml("cSoftKeyValue", i);
+		switch(getSoftKeyTypeByID(arrSoftKeyType[i]))
+		{
+			case "BLFList":
+			case "Account":
+			case "BLF":
+			case "ACD":
+			{
+				arrSoftKeyLine[i] = transInvalidToDef(arrSoftKeyLine[i],cLineNum,0);
+				if(0 == i) 	f2.hcSoftKeyLine.value = arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcSoftKeyLine.value = f2.hcSoftKeyLine.value + arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}
+			case "Book":
+			{
+				//将输入框变为下拉框
+				itemHtml ="<select style='width: 90px;' id='cSoftKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></select>"
+				$("#cSoftKeyValue"+i).replaceWith(itemHtml);
+				for(var j=0 ;j<Book_SelectText.length; j++)
+				{
+					document.getElementById("cSoftKeyValue"+i).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+				}
+				
+				if(!isValueValid(arrSoftKeyLine[i],cLineNum)&& !(arrSoftKeyLine[i] === '0'))
+					 arrSoftKeyLine[i] = 0;		
+				if(0 == i) 	f2.hcSoftKeyLine.value = arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcSoftKeyLine.value = f2.hcSoftKeyLine.value + arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}
+			default:
+			{
+				if(!isValueValid(arrSoftKeyLine[i],cLineNum)&& !(arrSoftKeyLine[i] == '0'))
+					 arrSoftKeyLine[i] = 0;		
+				if(0 == i) 	f2.hcSoftKeyLine.value = arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcSoftKeyLine.value = f2.hcSoftKeyLine.value + arrSoftKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}	
+		}	
+	}
+
+	for(var i=0; i < cSoftKeyNum; i++)
+	{
+		var tmp = "cSoftKeyType"+i; 
+		curTypeID = Number(cLineKeyNum)+Number(i);
+		var tmpSoftKeyLine = arrSoftKeyLine[i];
+		document.getElementById(tmp).value = arrSoftKeyType[i]; 
+		tmp = "cSoftKeyLabel"+i;
+		document.getElementById(tmp).value = arrSoftKeyLabel[i];
+		tmp = "cSoftKeyValue"+i;
+		if(getSoftKeyTypeByID(arrSoftKeyType[i]) == "Book")
+		{
+			document.getElementById(tmp).value = arrSoftKeyValue[i] = TransEmptyStrTo0(arrSoftKeyValue[i]);
+		}
+		else
+		{
+			document.getElementById(tmp).value = ShowDecode(arrSoftKeyValue[i]);
+		}
+		document.getElementById(tmp).maxLength = 127;
+		tmp = "cSoftKeyCode"+i;
+		document.getElementById(tmp).value = arrSoftKeyCode[i];
+		tmp = "cSoftKeyLine"+i;
+		if(!isValueValid(tmpSoftKeyLine,cLineNum))
+			document.getElementById(tmp).value = 0; 
+		else document.getElementById(tmp).value = arrSoftKeyLine[i];
+	}
+	
+	//number key
+	var arrNumberKeyType = f2.hcNumberKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLongPress = f2.hcNumberKeyLongPress.value.split(tmpSplitSymbol);//(SplitSymbol);
+	//默认值直接为N/A
+	for(var i = 0; i < NumberNum; i ++)
+	{
+		arrNumberKeyType[i] = transTypeInvalidToDef(arrNumberKeyType[i],arrcNumberKeyTypeId,cNumberKeyTypeNum,"0");
+		if(0 == i)   f2.hcNumberKeyType.value = arrNumberKeyType[i] + tmpSplitSymbol; //SplitSymbol ; 
+		else    f2.hcNumberKeyType.value = f2.hcNumberKeyType.value + arrNumberKeyType[i] + tmpSplitSymbol;//SplitSymbol; 
+		
+		arrNumberKeyLongPress[i] = transTypeInvalidToDef(arrNumberKeyLongPress[i],arrcNumberKeyTypeId,cNumberKeyTypeNum,"0");
+		if(0 == i)   f2.hcNumberKeyLongPress.value = arrNumberKeyLongPress[i] + tmpSplitSymbol; //SplitSymbol ; 
+		else    f2.hcNumberKeyLongPress.value = f2.hcNumberKeyLongPress.value + arrNumberKeyLongPress[i] + tmpSplitSymbol;//SplitSymbol; 
+	}
+	var arrNumberKeyValue = f2.hcNumberKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyCode = f2.hcNumberKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLine = f2.hcNumberKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	for(var i = 0; i < NumberNum; i ++ )
+	{
+		ResetHtml("cNumberKeyValue", i);
+		switch(getNumKeyTypeByID(arrNumberKeyType[i]))
+		{
+			case "BLFList":
+			case "Account":
+			case "BLF":
+			case "ACD":
+			{
+				arrNumberKeyLine[i] = transInvalidToDef(arrNumberKeyLine[i],cLineNum,0);
+				if(0 == i) 	f2.hcNumberKeyLine.value = arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcNumberKeyLine.value = f2.hcNumberKeyLine.value + arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}
+			case "Book":
+			{
+				//将输入框变为下拉框
+				itemHtml ="<select style='width: 90px;' id='cNumberKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></select>"
+				$("#cNumberKeyValue"+i).replaceWith(itemHtml);
+				for(var j=0 ;j<Book_SelectText.length; j++)
+				{
+					document.getElementById("cNumberKeyValue"+i).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+				}
+				
+				if(!isValueValid(arrNumberKeyLine[i],cLineNum)&& !(arrNumberKeyLine[i] === '0'))
+					 arrNumberKeyLine[i] = 0;		
+				if(0 == i) 	f2.hcNumberKeyLine.value = arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcNumberKeyLine.value = f2.hcNumberKeyLine.value + arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}
+			default:
+			{
+				if(!isValueValid(arrNumberKeyLine[i],cLineNum)&& !(arrNumberKeyLine[i] == '0'))
+					 arrNumberKeyLine[i] = 0;		
+				if(0 == i) 	f2.hcNumberKeyLine.value = arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol ;
+				else 	    f2.hcNumberKeyLine.value = f2.hcNumberKeyLine.value + arrNumberKeyLine[i] + tmpSplitSymbol;//SplitSymbol; 
+				break;
+			}	
+		}	
+	}
+
+	for(var i=0; i < NumberNum; i++)
+	{
+		var tmp = "cNumberKeyType"+i; 
+		curTypeID = Number(cLineKeyNum)+Number(i);
+		var tmpNumberKeyLine = arrNumberKeyLine[i];
+		document.getElementById(tmp).value = arrNumberKeyType[i]; 
+		tmp = "cNumberKeyLongPress"+i;
+		document.getElementById(tmp).value = arrNumberKeyLongPress[i];
+		tmp = "cNumberKeyValue"+i;
+		if(getNumKeyTypeByID(arrNumberKeyType[i]) == "Book")
+		{
+			document.getElementById(tmp).value = arrNumberKeyValue[i] = TransEmptyStrTo0(arrNumberKeyValue[i]);
+		}
+		else
+		{
+			document.getElementById(tmp).value = ShowDecode(arrNumberKeyValue[i]);
+		}
+		document.getElementById(tmp).maxLength = 127;
+		tmp = "cNumberKeyCode"+i;
+		document.getElementById(tmp).value = arrNumberKeyCode[i];
+		tmp = "cNumberKeyLine"+i;
+		if(!isValueValid(tmpNumberKeyLine,cLineNum))
+			document.getElementById(tmp).value = 0; 
+		else document.getElementById(tmp).value = arrNumberKeyLine[i];
+	}
+	
+	//FunctionKey
+	//单页的载第一页，多页的载functionkey的
+	if(1 == f2.hcCurFunctionKeyPageId.value)
+	{
+		var cFuncKeyTypeNum = f2.hcFuncKeyTypeNum.value;
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum);
+		f2.hcOKKeyType.value = transTypeInvalidToDef(f2.hcOKKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,arrKeyDefaultType[curTypeID]);
+		f1.cOKKeyType.value = f2.hcOKKeyType.value;
+		f1.cOKKeyValue.value =  ShowDecodeIncTimeSplit(f2.hcOKKeyValue.value); 
+		f1.cOKKeyCode.value = f2.hcOKKeyCode.value;
+		if(!isValueValid(f2.hcOKKeyLine.value,cLineNum)) f1.cOKKeyLine.value = f2.hcOKKeyLine.value = 0;
+		else f1.cOKKeyLine.value = f2.hcOKKeyLine.value;
+		
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+1;
+		f2.hcCancelKeyType.value = transTypeInvalidToDef(f2.hcCancelKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,arrKeyDefaultType[curTypeID]);
+		f1.cCancelKeyType.value = f2.hcCancelKeyType.value;
+		f1.cCancelKeyValue.value = ShowDecodeIncTimeSplit(f2.hcCancelKeyValue.value);
+		f1.cCancelKeyCode.value = f2.hcCancelKeyCode.value; 
+		if(!isValueValid(f2.hcCancelKeyLine.value,cLineNum)) f1.cCancelKeyLine.value = f2.hcCancelKeyLine.value = 0;
+		else f1.cCancelKeyLine.value = f2.hcCancelKeyLine.value;
+		
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+2;
+		f2.hcFwdKeyType.value = transTypeInvalidToDef(f2.hcFwdKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,arrKeyDefaultType[curTypeID]);
+		f1.cFwdKeyType.value = f2.hcFwdKeyType.value;
+		f1.cFwdKeyValue.value =  ShowDecodeIncTimeSplit(f2.hcFwdKeyValue.value);  
+		f1.cFwdKeyCode.value = f2.hcFwdKeyCode.value;
+		if(!isValueValid(f2.hcFwdKeyLine.value,cLineNum)) f1.cFwdKeyLine.value = f2.hcFwdKeyLine.value = 0;
+		else f1.cFwdKeyLine.value = f2.hcFwdKeyLine.value;
+		
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+3;
+		f2.hcBookKeyType.value = transTypeInvalidToDef(f2.hcBookKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,arrKeyDefaultType[curTypeID]);
+		f1.cBookKeyType.value = f2.hcBookKeyType.value;
+		f1.cBookKeyCode.value = f2.hcBookKeyCode.value;
+		f1.cBookKeyValue.value = ShowDecodeIncTimeSplit(f2.hcBookKeyValue.value);	
+		if(!isValueValid(f2.hcBookKeyLine.value,cLineNum)) f1.cBookKeyLine.value = f2.hcBookKeyLine.value = 0;
+		else f1.cBookKeyLine.value = f2.hcBookKeyLine.value;
+			
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+4;
+		f2.hcRDKeyType.value = transTypeInvalidToDef(f2.hcRDKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,arrKeyDefaultType[curTypeID]);
+		f1.cRDKeyType.value = f2.hcRDKeyType.value;
+		f1.cRDKeyValue.value = ShowDecodeIncTimeSplit(f2.hcRDKeyValue.value);  
+		f1.cRDKeyCode.value =  f2.hcRDKeyCode.value;
+		if(!isValueValid(f2.hcRDKeyLine.value,cLineNum)) f1.cRDKeyLine.value = f2.hcRDKeyLine.value = 0 ;
+		else f1.cRDKeyLine.value = f2.hcRDKeyLine.value;
+
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+5;
+		f2.hcMuteKeyType.value = transTypeInvalidToDef(f2.hcMuteKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,0);
+		f1.cMuteKeyType.value = f2.hcMuteKeyType.value;
+		f1.cMuteKeyValue.value = ShowDecodeIncTimeSplit(f2.hcMuteKeyValue.value);
+		f1.cMuteKeyCode.value = f2.hcMuteKeyCode.value;
+		if(!isValueValid(f2.hcMuteKeyLine.value,cLineNum)) f1.cMuteKeyLine.value = f2.hcMuteKeyLine.value = 0 ;
+		else f1.cMuteKeyLine.value = f2.hcMuteKeyLine.value;
+			
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+6;
+		f2.hcVoiceMessageKeyType.value = transTypeInvalidToDef(f2.hcVoiceMessageKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,1);
+		f1.cVoiceMessageKeyType.value = f2.hcVoiceMessageKeyType.value;
+		f1.cVoiceMessageKeyValue.value = ShowDecodeIncTimeSplit(f2.hcVoiceMessageKeyValue.value);
+		f1.cVoiceMessageKeyCode.value = f2.hcVoiceMessageKeyCode.value;
+		if(!isValueValid(f2.hcVoiceMessageKeyLine.value,cLineNum)) f1.cVoiceMessageKeyLine.value = f2.hcVoiceMessageKeyLine.value = 0 ;
+		else f1.cVoiceMessageKeyLine.value = f2.hcVoiceMessageKeyLine.value;
+			
+		curTypeID = Number(cLineKeyNum)+Number(cSoftKeyNum)+7;
+		f2.hcTransferKeyType.value = transTypeInvalidToDef(f2.hcTransferKeyType.value,f2.hcFuncKeyTypeIds.value,f2.hcFuncKeyTypeNum.value,1);
+		f1.cTransferKeyType.value = f2.hcTransferKeyType.value;
+		f1.cTransferKeyValue.value = ShowDecodeIncTimeSplit(f2.hcTransferKeyValue.value);
+		f1.cTransferKeyCode.value = f2.hcTransferKeyCode.value;
+		if(!isValueValid(f2.hcTransferKeyLine.value,cLineNum)) f1.cTransferKeyLine.value = f2.hcTransferKeyLine.value = 0 ;
+		else f1.cTransferKeyLine.value = f2.hcTransferKeyLine.value;
+		
+		LoadFuncKey();
+	}
+	else
+	{
+		LoadMutiFunctionPage();
+	}
+	
+	//Other-Display
+	f1.cBacklightIntens.value = TransEmptyStrTo0(f2.hcBacklightIntens.value);
+	f1.cBacklightTime.value = TransEmptyStrTo0(f2.hcBacklightTime.value);
+	f1.cFeatureKeySync.value = TransEmptyStrTo0(f2.hcFeatureKeySync.value);
+	f1.cIsParsePound.value = TransEmptyStrTo0(f2.hcIsParsePound.value);
+	f1.cLCDContrast.value = TransEmptyStrTo0(f2.hcLCDContrast.value);
+	f1.cPowerLightClose.value = TransEmptyStrTo0(f2.hcPowerLightClose.value);
+	f1.cSendPowndKey.value = TransEmptyStrTo0(f2.hcSendPowndKey.value);
+	f1.cWatchDog.value = TransEmptyStrTo0(f2.hcWatchDog.value);
+	f1.cKeypadLock.value = TransEmptyStrTo0(f2.hcKeypadLock.value);
+	f1.cKeyAsSend.value = TransEmptyStrTo0(f2.hcKeyAsSend.value);
+	f1.cFontSize.value = f2.hcFontSize.value = TransEmptyStrTo0(f2.hcFontSize.value);
+	ResetAllInputColor();
+	CheckPKeySts();
+	if(1 != f2.hcCurFunctionKeyPageId.value)
+	{
+		CheckFuncKeySts();
+	}
+}
+
+function LoadLang()
+{
+	var tmp = KeyAndDisplay;
+	LoadCommonResources(tmp);
+	var f2 = document.forms["hiddenValForm"];
+	var cLineKeyNum = f2.hcLineKeyNum.value;
+	var cSoftKeyNum = f2.hcSoftKeyNum.value;
+	CurLineKeyPage = f2.hcCurLineKeyPageId.value = TransEmptyStrTo(f2.hcCurLineKeyPageId.value, "1");
+	document.getElementById("cCurLineKeyPageId").innerHTML = CurLineKeyPage + " " + "/" + " " + Number(f2.hcTotalLineKeyPage.value);
+	CurFunctionKeyPage = f2.hcCurFunctionKeyPageId.value = TransEmptyStrTo(f2.hcCurFunctionKeyPageId.value, "1");
+	document.getElementById("cCurFunctionKeyPageId").innerHTML = CurFunctionKeyPage + " " + "/" + " " + TotalFunctionKeyPageNum;
+	
+	for(var i=0; i < cLineKeyNum; i++)
+	{	
+		var tmp = "tLineKey"+i;
+		document.getElementById(tmp).innerHTML = LineKey+" "+(((Number(CurLineKeyPage) -1) * cLineKeyNum)+i+1);		
+	}
+		
+	document.getElementById("tLineKey").innerHTML = LineKey;
+	document.getElementById("tLineKeyName").innerHTML= Key;	
+	document.getElementById("tLineKeyType").innerHTML= Type;
+	document.getElementById("tLineKeyLabel").innerHTML = Label;
+	document.getElementById("tLineKeyValue").innerHTML =Value;
+	document.getElementById("tLineKeyCode").innerHTML =Extension;
+	document.getElementById("tLineKeyAccount").innerHTML =Account
+		
+	for(var i=0; i < cSoftKeyNum; i++)
+	{
+		var tmp = "tSoftKey"+i;
+		document.getElementById(tmp).innerHTML = SoftKey+" "+(i+1);
+	}
+
+	document.getElementById("tSoftKey").innerHTML = SoftKey;
+	document.getElementById("tSoftKeyName").innerHTML = Key;	
+	document.getElementById("tSoftKeyFeature").innerHTML = Type;
+	document.getElementById("tSoftKeyLabel").innerHTML = Label;
+	document.getElementById("tSoftKeyValue").innerHTML =Value;
+	document.getElementById("tSoftKeyCode").innerHTML =Extension;
+	document.getElementById("tSoftKeyAccount").innerHTML =Account;
+	
+	for(var i=0; i < NumberNum-2; i++)
+	{	
+		var tmp = "tNumberKey"+i;
+		document.getElementById(tmp).innerHTML = NumberKey+" "+(i+1);
+	}
+		
+	document.getElementById("tNumberKey").innerHTML = ("undefined" != typeof(NumberKey))?NumberKey:"Number Key";
+	document.getElementById("tNumberKeyName").innerHTML= Key;
+	document.getElementById("tNumberKeyType").innerHTML= Type;
+	document.getElementById("tNumberKeyLabel").innerHTML = ("undefined" != typeof(LongPress))?LongPress:"Long Press";	
+	document.getElementById("tNumberKeyValue").innerHTML =Value;
+	document.getElementById("tNumberKeyCode").innerHTML =Extension;
+	document.getElementById("tNumberKeyAccount").innerHTML =Account;
+	document.getElementById("tNumberKey9").innerHTML = NumberKey+" 0";
+	document.getElementById("tNumberKey10").innerHTML = ("undefined" != typeof(StarKey))?StarKey:"Star Key";
+	
+	//FunctionKey
+	document.getElementById("tUp").innerHTML = UpKey;
+	document.getElementById("tDown").innerHTML = DownKey;
+	document.getElementById("tLeft").innerHTML = LeftKey;
+	document.getElementById("tRight").innerHTML = RightKey;
+	document.getElementById("tOK").innerHTML = OKConfirm;
+	document.getElementById("tCancel").innerHTML = CancelKey;
+	document.getElementById("tFWD").innerHTML = ForwardKey;	
+	if("undefined" != typeof(MODELID))
+	{ 
+		if("55" == MODELID)
+		{
+			document.getElementById("tBook").innerHTML = "F4";//BookKey;
+			document.getElementById("tRD").innerHTML = "F2";//RDKey;
+			document.getElementById("tVoiceMessage").innerHTML = "F3";//("undefined" != typeof(VoiceMessageKey))?VoiceMessageKey:"Voice Message";	
+			document.getElementById("tTransfer").innerHTML = "F1";//("undefined" != typeof(TransferKey))?TransferKey:"Transfer";
+		}
+		else if("50" == MODELID)
+		{
+			document.getElementById("tBook").innerHTML = BookKey;//BookKey;
+			document.getElementById("tRD").innerHTML = RDKey;//RDKey;
+			document.getElementById("tVoiceMessage").innerHTML = "F2";//("undefined" != typeof(VoiceMessageKey))?VoiceMessageKey:"Voice Message";	
+			document.getElementById("tTransfer").innerHTML = "F1";//("undefined" != typeof(TransferKey))?TransferKey:"Transfer";
+		}
+		else
+		{
+			document.getElementById("tBook").innerHTML = BookKey;
+			document.getElementById("tRD").innerHTML = RDKey;
+			document.getElementById("tVoiceMessage").innerHTML = ("undefined" != typeof(VoiceMessageKey))?VoiceMessageKey:"Voice Message";	
+			document.getElementById("tTransfer").innerHTML = ("undefined" != typeof(TransferKey))?TransferKey:"Transfer";
+		}
+			
+	}
+	//document.getElementById("tBook").innerHTML = "F4";//BookKey;	
+	//document.getElementById("tRD").innerHTML = "F2";//RDKey;	
+	document.getElementById("tMute").innerHTML = MuteKey;
+	//document.getElementById("tVoiceMessage").innerHTML = "F3";//("undefined" != typeof(VoiceMessageKey))?VoiceMessageKey:"Voice Message";	
+	//document.getElementById("tTransfer").innerHTML = "F1";//("undefined" != typeof(TransferKey))?TransferKey:"Transfer";
+	document.getElementById("tFunctionKey").innerHTML = FunctionKey;
+	document.getElementById("tFunction").innerHTML= Key;
+	document.getElementById("tFunctionKeyType").innerHTML= Type;
+	document.getElementById("tFunctionKeyValue").innerHTML =Value;
+	document.getElementById("tFunctionKeyAccount").innerHTML =Account;
+	
+	//Other-Display
+	document.getElementById("tKeyAsSend").innerHTML = KeyAsSend;
+	document.getElementById("tIsParsePound").innerHTML = IsParsePound;
+	document.getElementById("tFeatureKeySync").innerHTML = FeatureKeySync;
+	document.getElementById("tPowerLightClose").innerHTML = PowerLightClose;
+	document.getElementById("tSendPowndKey").innerHTML = SendPowndKey;
+	document.getElementById("tKeypadLock").innerHTML = KeypadLock;
+	document.getElementById("tBacklightIntens").innerHTML = BacklightIntens;
+	document.getElementById("tBacklightTime").innerHTML = BacklightTime;
+	document.getElementById("tLCDContrast").innerHTML = LCDContrast;
+	document.getElementById("tWatchDog").innerHTML = WatchDog;
+
+	document.getElementById("tDisplay").innerHTML = ("undefined" != typeof(Display))?Display:"Display";
+	document.getElementById("tFontSize").innerHTML = ("undefined" != typeof(FontSize))?FontSize:"Font Size";
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	var ErrFlag = false;
+
+	/*var GetBLFNum = 0;
+	var RltBLF = true;
+	var BLFFlag = true;*/
+	
+	var cLineNum = f2.hcLineNum.value;
+	var arrKeyDefaultType = f2.hcKeyDefaultType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+	var cLineKeyNum = f2.hcLineKeyNum.value;
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;	
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyType = f2.hcLineKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyLabel = f2.hcLineKeyLabel.value.split(tmpSplitSymbol);//SplitSymbol);
+	var arrLineKeyValue = f2.hcLineKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyCode = f2.hcLineKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyLine = f2.hcLineKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);	
+	
+	var cSoftKeyNum = Number(f2.hcSoftKeyNum.value);
+	var cSoftKeyTypeNum = f2.hcSoftKeyTypeNum.value;
+	var cSoftKeyTypeIds = f2.hcSoftKeyTypeIds.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyTypeList = f2.hcSoftKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyType = f2.hcSoftKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyLabel = f2.hcSoftKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+	//var arrSoftKeyValue = f2.hcSoftKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyCode = f2.hcSoftKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyLine = f2.hcSoftKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var cFuncKeyTypeNum = f2.hcFuncKeyTypeNum.value;
+	var arrFuncKeyTypeList = f2.hcFuncKeyTypeList .value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	//mutipage functionkey
+	if(1 != f2.hcCurFunctionKeyPageId.value)
+	{
+		var cFunctionKeyNum = f2.hcFunctionKeyNum.value;
+		var arrFunctionKeyType = f2.hcFunctionKeyType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+		var arrFunctionKeyLabel = f2.hcFunctionKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyValue = f2.hcFunctionKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyCode = f2.hcFunctionKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyLine = f2.hcFunctionKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	}
+
+	/*check commit data for Line keys*/	
+	for(var i=0; i < cLineKeyNum; i++)
+	{
+		var tmpID = "cLineKeyType"+i;
+		var tmpKeyType = document.getElementById(tmpID).value;
+
+		if(document.getElementById(tmpID).value != arrLineKeyType[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		tmpID = "cLineKeyLabel"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			if(document.getElementById(tmpID).value != arrLineKeyLabel[i])
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getLineKeyTypeByID(tmpKeyType) && arrLineKeyLabel[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cLineKeyValue"+i;	
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if("DTMF" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if(false == IsDTMFValueValid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;				
+				}	
+			}
+			if("XML Browser" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}				
+			}
+			else		
+			{
+				if(!NotContainInvalidWLen(document.getElementById(tmpID).value, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+			}
+			//Book's value can be set as none
+			if("Book" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if("" == document.getElementById(tmpID).value)
+				{
+					document.getElementById(tmpID).value = 0;
+				}
+			}
+			if("" == document.getElementById(tmpID).value && "Account" != getLineKeyTypeByID(tmpKeyType))	
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+			}		
+			if(document.getElementById(tmpID).value != ShowDecode(arrLineKeyValue[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getLineKeyTypeByID(tmpKeyType) && "" != arrLineKeyValue[i])
+			{  strSubmData = strSubmData + SplitSymbol+ tmpID + "="; }
+			if("BLFList" == getLineKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrLineKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "="; 
+			}
+		}		
+		tmpID = "cLineKeyCode"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getLineKeyTypeByID(tmpKeyType) && arrLineKeyCode[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+			if("BLFList" == getLineKeyTypeByID(tmpKeyType) && Number(tmpKeyType) != Number(arrLineKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cLineKeyLine"+i;
+		if(false == document.getElementById(tmpID).disabled && (document.getElementById(tmpID).value != arrLineKeyLine[i] || Number(tmpKeyType) != Number(arrLineKeyType[i])))
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		if(true == document.getElementById(tmpID).disabled )
+		{
+			var tmpLine = i+1;
+			if(i >= cLineNum) { tmpLine = 1; }
+			if(arrLineKeyLine[i] != tmpLine) strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + tmpLine;
+		}
+	}
+
+	/*check commit data for softkeys*/
+	for(var i=0; i < cSoftKeyNum; i++)
+	{
+		var tmpID = "cSoftKeyType"+i;
+		var tmpKeyType = document.getElementById(tmpID).value;
+		if(document.getElementById(tmpID).value != arrSoftKeyType[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		tmpID = "cSoftKeyLabel"+i; 
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			if(document.getElementById(tmpID).value != arrSoftKeyLabel[i])
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);		
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{ 
+			if("BLFList" != getSoftKeyTypeByID(tmpKeyType) && arrSoftKeyLabel[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		} 
+		tmpID = "cSoftKeyValue"+i;  
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if("XML Browser" == getSoftKeyTypeByID(tmpKeyType))
+			{
+				if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}				
+			}
+			else if(!NotContainInvalidWLen(document.getElementById(tmpID).value, 127))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			//Book's value can be set as none
+			if("Book" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if("" == document.getElementById(tmpID).value)
+				{
+					document.getElementById(tmpID).value = 0;
+				}
+				var tmparrSoftKeyValue = f2.hcSoftKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+				if(arrSoftKeyValue[i] != tmparrSoftKeyValue[i])
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+				}
+			}
+			if("" == document.getElementById(tmpID).value && "Account" != getLineKeyTypeByID(tmpKeyType))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+			}
+			if(document.getElementById(tmpID).value != ShowDecode(arrSoftKeyValue[i]))	
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);		
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getSoftKeyTypeByID(tmpKeyType) && "" != arrSoftKeyValue[i]) strSubmData = strSubmData + SplitSymbol+ tmpID + "=";		
+		}			
+		tmpID = "cSoftKeyCode"+i;  
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getSoftKeyTypeByID(tmpKeyType) && arrSoftKeyCode[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cSoftKeyLine"+i;			
+		if( false == document.getElementById(tmpID).disabled && document.getElementById(tmpID).value != arrSoftKeyLine[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		if(true == document.getElementById(tmpID).disabled )
+		{	
+			if("BLFList" != getSoftKeyTypeByID(tmpKeyType) && arrSoftKeyLine[i] != 0) strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + "0";
+		}	
+	}
+	
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;	
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var arrNumberKeyType = f2.hcNumberKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLongPress = f2.hcNumberKeyLongPress.value.split(tmpSplitSymbol);//SplitSymbol);
+	var arrNumberKeyValue = f2.hcNumberKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyCode = f2.hcNumberKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLine = f2.hcNumberKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);	
+	/*check commit data for Line keys*/	
+	for(var i=0; i < NumberNum; i++)
+	{
+		var tmpID = "cNumberKeyType"+i;
+		var tmpKeyType = document.getElementById(tmpID).value;
+
+		if(document.getElementById(tmpID).value != arrNumberKeyType[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		tmpID = "cNumberKeyLongPress"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getNumKeyTypeByID(tmpKeyType) && arrNumberKeyLongPress[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cNumberKeyValue"+i;	
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if("DTMF" == getNumKeyTypeByID(tmpKeyType))
+			{
+				if(false == IsDTMFValueValid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;				
+				}	
+			}
+			if("XML Browser" == getNumKeyTypeByID(tmpKeyType) || "URL" == getNumKeyTypeByID(tmpKeyType))
+			{
+				if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}				
+			}
+			else		
+			{
+				if(!NotContainInvalidWLen(document.getElementById(tmpID).value, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+			}
+			//Book's value can be set as none
+			if("Book" == getNumKeyTypeByID(tmpKeyType))
+			{
+				if("" == document.getElementById(tmpID).value)
+				{
+					document.getElementById(tmpID).value = 0;
+				}
+			}
+			if("" == document.getElementById(tmpID).value && "Account" != getLineKeyTypeByID(tmpKeyType))	
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+			}		
+			if(document.getElementById(tmpID).value != ShowDecode(arrNumberKeyValue[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getNumKeyTypeByID(tmpKeyType) && "" != arrNumberKeyValue[i])
+			{  strSubmData = strSubmData + SplitSymbol+ tmpID + "="; }
+			if("BLFList" == getNumKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrNumberKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "="; 
+			}
+		}		
+		tmpID = "cNumberKeyCode"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getNumKeyTypeByID(tmpKeyType) && arrNumberKeyCode[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+			if("BLFList" == getNumKeyTypeByID(tmpKeyType) && Number(tmpKeyType) != Number(arrNumberKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cNumberKeyLine"+i;
+		if(false == document.getElementById(tmpID).disabled && (document.getElementById(tmpID).value != arrNumberKeyLine[i] || Number(tmpKeyType) != Number(arrNumberKeyType[i])))
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		if(true == document.getElementById(tmpID).disabled )
+		{
+			var tmpLine = i+1;
+			if(i >= cLineNum) { tmpLine = 1; }
+			if(arrNumberKeyLine[i] != tmpLine) strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + tmpLine;
+		}
+	}
+	//end
+	/*check commit date for function keys*/
+	if(1 == f2.hcCurFunctionKeyPageId.value)
+	{
+		for(var i=4;i < cFuncKeyNum;i++)
+		{
+			var tmpID = PKeyType[i]; 		
+			var htmpID = "h"+tmpID;
+			var htmpType = document.getElementById(htmpID).value;	
+			var tmpKeyType = document.getElementById(tmpID).value;
+			if(document.getElementById(tmpID).value != htmpType)
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+			}
+			
+			var tmpID = PKeyValue[i];
+			var htmpID = "h"+tmpID;
+			var htmpValue = document.getElementById(htmpID).value;
+			if(document.getElementById(tmpID).disabled == false )
+			{
+				if("XML Browser" == getLineKeyTypeByID(tmpKeyType))
+				{
+					if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+					{
+						SetInputBGColor(tmpID);
+						ErrFlag = true;
+					}				
+				}
+				else if(!NotContainInvalidWLen(document.getElementById(tmpID).value, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				//Book's value can be set as none
+				if("Book" == getLineKeyTypeByID(tmpKeyType))
+				{
+					if("" == document.getElementById(tmpID).value)
+					{
+						document.getElementById(tmpID).value = 0;
+					}
+				}
+				if("" == document.getElementById(tmpID).value && "Account" != getLineKeyTypeByID(tmpKeyType))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+					document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+				}
+				if(htmpValue != ShowDecode(document.getElementById(tmpID).value))
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+				else if(document.getElementById(tmpID).value == 0)
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+				}
+			}
+			if(document.getElementById(tmpID).disabled == true)
+			{
+				if("BLFList" != document.getElementById(tmpID).value && "" != htmpValue) strSubmData = strSubmData + SplitSymbol+ tmpID + "=";		
+			}
+			var tmpID = PKeyCode[i]; 
+			var htmpID = "h"+tmpID;
+			var htmpCode = document.getElementById(htmpID).value; 
+			if(document.getElementById(tmpID).disabled == false )
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				if(""==document.getElementById(tmpID).value)
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+					document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+				}
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+			if(document.getElementById(tmpID).disabled == true)
+			{
+				if("BLFList" != document.getElementById(tmpID).value && htmpCode != "")
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+				}
+			}
+			var tmpID = PKeyLine[i]; 
+			var htmpID = "h"+tmpID;
+			var htmpLine = document.getElementById(htmpID).value; 
+			if(false == document.getElementById(tmpID).disabled && document.getElementById(tmpID).value != htmpLine)
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+			}
+			if(true == document.getElementById(tmpID).disabled )
+			{	
+				if("BLFList" != document.getElementById(tmpID).value && htmpLine != 0) strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + "0";
+			}	
+		}
+	}
+	if(1 != f2.hcCurFunctionKeyPageId.value)
+	{
+		/*check commit data for Line keys*/	
+		for(var i=0; i < cFunctionKeyNum; i++)
+		{
+			var tmpID = "cFunctionKeyType"+i;
+			var tmpKeyType = document.getElementById(tmpID).value;
+
+			if(document.getElementById(tmpID).value != arrFunctionKeyType[i])
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+			}
+			tmpID = "cFunctionKeyLabel"+i;
+			if(document.getElementById(tmpID).disabled == false)
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				if(document.getElementById(tmpID).value != arrFunctionKeyLabel[i])
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+			if(document.getElementById(tmpID).disabled == true)
+			{
+				if("BLFList" != getLineKeyTypeByID(tmpKeyType) && arrFunctionKeyLabel[i] != "")
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+				}
+			}
+			tmpID = "cFunctionKeyValue"+i;	
+			if(document.getElementById(tmpID).disabled == false)
+			{
+				if("DTMF" == getLineKeyTypeByID(tmpKeyType))
+				{
+					if(false == IsDTMFValueValid(document.getElementById(tmpID).value))
+					{
+						SetInputBGColor(tmpID);
+						ErrFlag = true;
+					}	
+				}
+				if("XML Browser" == getLineKeyTypeByID(tmpKeyType))
+				{
+					if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+					{
+						SetInputBGColor(tmpID);
+						ErrFlag = true;
+					}
+				}
+				else
+				{
+					if(!NotContainInvalidWLen(document.getElementById(tmpID).value, 127))
+					{
+						SetInputBGColor(tmpID);
+						ErrFlag = true;
+					}
+				}
+				//Book's value can be set as none
+				if("Book" == getLineKeyTypeByID(tmpKeyType))
+				{
+					if("" == document.getElementById(tmpID).value)
+					{
+						document.getElementById(tmpID).value = 0;
+					}
+				}
+				if("" == document.getElementById(tmpID).value && "Account" != getLineKeyTypeByID(tmpKeyType))	
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+					document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+				}		
+				if(document.getElementById(tmpID).value != ShowDecode(arrFunctionKeyValue[i]))
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+				}
+			}
+			if(document.getElementById(tmpID).disabled == true)
+			{
+				if("BLFList" != getLineKeyTypeByID(tmpKeyType) && "" != arrFunctionKeyValue[i])
+				{  strSubmData = strSubmData + SplitSymbol+ tmpID + "="; }
+				if("BLFList" == getLineKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrFunctionKeyType[i]))
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "="; 
+				}
+			}
+			tmpID = "cFunctionKeyCode"+i;
+			if(document.getElementById(tmpID).disabled == false)
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+			if(document.getElementById(tmpID).disabled == true)
+			{
+				if("BLFList" != getLineKeyTypeByID(tmpKeyType) && arrFunctionKeyCode[i] != "")
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+				}
+				if("BLFList" == getLineKeyTypeByID(tmpKeyType) && Number(tmpKeyType) != Number(arrFunctionKeyType[i]))
+				{
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+				}
+			}
+			tmpID = "cFunctionKeyLine"+i;
+			if(false == document.getElementById(tmpID).disabled && (document.getElementById(tmpID).value != arrFunctionKeyLine[i] || Number(tmpKeyType) != Number(arrFunctionKeyType[i])))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+			}
+			if(true == document.getElementById(tmpID).disabled )
+			{
+				var tmpLine = i+1;
+				if(i >= cFunctionKeyNum) { tmpLine = 1; }
+				if(arrFunctionKeyLine[i] != tmpLine) strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + tmpLine;
+			}
+		}
+	}
+
+	//Other-Display
+	if(f1.cBacklightIntens.value != f2.hcBacklightIntens.value)
+	{
+		strSubmData = strSubmData + "&cBacklightIntens=" + f1.cBacklightIntens.value;
+	}
+	if(f1.cBacklightTime.value != f2.hcBacklightTime.value)
+	{
+		strSubmData = strSubmData + "&cBacklightTime=" + f1.cBacklightTime.value;
+	}
+	if(f1.cFontSize.value != f2.hcFontSize.value)
+	{
+		strSubmData = strSubmData + "&cFontSize=" + f1.cFontSize.value;
+	}
+	var menuFlag = 1;
+	for(var i=0; i < cSoftKeyNum; i++)
+	{
+		var tmpID = "cSoftKeyType"+i;
+		var tmpTypeId = Number(document.getElementById(tmpID).value); 
+		if(3==i&&(getSoftKeyTypeByID(tmpTypeId) == "Menu"||getSoftKeyTypeByID(tmpTypeId) == "Simple Menu"||(tmpTypeId < 0&&tmpTypeId >=Number(cSoftKeyTypeNum)))) menuFlag = 0;
+		else if(3!=i&&(getSoftKeyTypeByID(tmpTypeId) == "Menu"||getSoftKeyTypeByID(tmpTypeId) == "Simple Menu"))  menuFlag = 0;
+	}
+	if(menuFlag)
+	{
+		alert(lackOfMenuKeyWarning);
+		return DataCheckResult;
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var cLineKeyNum = f2.hcLineKeyNum.value;
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;	
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyType = f2.hcLineKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyLabel = f2.hcLineKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyValue = f2.hcLineKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyCode = f2.hcLineKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrLineKeyLine = f2.hcLineKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);	
+
+	var cSoftKeyNum = Number(f2.hcSoftKeyNum.value);
+	var cSoftKeyTypeNum = f2.hcSoftKeyTypeNum.value; 
+	var cSoftKeyTypeIds = f2.hcSoftKeyTypeIds.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyTypeList = f2.hcSoftKeyTypeList.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyType = f2.hcSoftKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyLabel = f2.hcSoftKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+	//var arrSoftKeyValue = f2.hcSoftKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyCode = f2.hcSoftKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrSoftKeyLine = f2.hcSoftKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	var cFuncKeyTypeNum = f2.hcFuncKeyTypeNum.value;
+	var arrFuncKeyTypeList = f2.hcFuncKeyTypeList .value.split(tmpSplitSymbol);//(SplitSymbol);
+	
+	//mutipage functionkey
+	if(1 != f2.hcCurFunctionKeyPageId.value)
+	{
+		var cFunctionKeyNum = f2.hcFunctionKeyNum.value;
+		var arrFunctionKeyType = f2.hcFunctionKeyType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+		var arrFunctionKeyLabel = f2.hcFunctionKeyLabel.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyValue = f2.hcFunctionKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyCode = f2.hcFunctionKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+		var arrFunctionKeyLine = f2.hcFunctionKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);
+	}
+
+	var dataChangedWarnFlag = 0;
+
+	//LineKey
+	for(var i=0; i < cLineKeyNum; i++)
+	{
+		var tmpID = "cLineKeyType"+i;
+		if(document.getElementById(tmpID).value != arrLineKeyType[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cLineKeyLabel"+i;
+		if(document.getElementById(tmpID).value != arrLineKeyLabel[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cLineKeyValue"+i;
+		switch(getLineKeyTypeByID(arrLineKeyType[i]))
+		{
+			case "Book":
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrLineKeyValue[i]) && arrLineKeyValue[i] != "")
+				{
+					dataChangedWarnFlag = 1 ;
+				}
+				break;
+			}
+			default:
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrLineKeyValue[i]))
+				{
+					dataChangedWarnFlag = 1 ;
+				}
+				break;
+			}	
+		}
+		tmpID = "cLineKeyCode"+i;
+		if(document.getElementById(tmpID).value != arrLineKeyCode[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cLineKeyLine"+i;
+		if(document.getElementById(tmpID).value != arrLineKeyLine[i])
+			dataChangedWarnFlag = 1 ;
+	}
+	//SoftKey	
+	for(var i = 0; i < cSoftKeyNum; i++)
+	{
+		var tmpID = "cSoftKeyType"+i;
+		if(document.getElementById(tmpID).value != arrSoftKeyType[i])
+			dataChangedWarnFlag = 1;
+		tmpID = "cSoftKeyLabel"+i;  
+		if(document.getElementById(tmpID).value != arrSoftKeyLabel[i])
+			dataChangedWarnFlag = 1;		
+		tmpID = "cSoftKeyValue"+i;
+		switch(getSoftKeyTypeByID(arrSoftKeyType[i]))
+		{
+			case "Book":
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrSoftKeyValue[i]) && arrSoftKeyValue[i] != "")
+				{
+					dataChangedWarnFlag = 1;
+				}
+				break;
+			}
+			default:
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrSoftKeyValue[i]))
+				{
+					dataChangedWarnFlag = 1;
+				}
+				break;
+			}	
+		}
+			
+		//tmpID = "cSoftKeyCode"+i;  
+		//if(document.getElementById(tmpID).value != arrSoftKeyCode[i])
+		//dataChangedWarnFlag = 1;
+		tmpID = "cSoftKeyLine"+i;
+		if(document.getElementById(tmpID).value != arrSoftKeyLine[i])	
+			dataChangedWarnFlag = 1;
+	}
+	
+	var arrNumberKeyType = f2.hcNumberKeyType.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLongPress = f2.hcNumberKeyLongPress.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyValue = f2.hcNumberKeyValue.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyCode = f2.hcNumberKeyCode.value.split(tmpSplitSymbol);//(SplitSymbol);
+	var arrNumberKeyLine = f2.hcNumberKeyLine.value.split(tmpSplitSymbol);//(SplitSymbol);	
+	//number Key
+	for(var i=0; i < NumberNum; i++)
+	{
+		var tmpID = "cNumberKeyType"+i;
+		if(document.getElementById(tmpID).value != arrNumberKeyType[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cNumberKeyLongPress"+i;
+		if(document.getElementById(tmpID).value != arrNumberKeyLongPress[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cNumberKeyValue"+i;
+		switch(getLineKeyTypeByID(arrNumberKeyType[i]))
+		{
+			case "Book":
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrNumberKeyValue[i]) && arrNumberKeyValue[i] != "")
+				{
+					dataChangedWarnFlag = 1 ;
+				}
+				break;
+			}
+			default:
+			{
+				if(document.getElementById(tmpID).value != ShowDecode(arrNumberKeyValue[i]))
+				{
+					dataChangedWarnFlag = 1 ;
+				}
+				break;
+			}	
+		}
+		tmpID = "cNumberKeyCode"+i;
+		if(document.getElementById(tmpID).value != arrNumberKeyCode[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cNumberKeyLine"+i;
+		if(document.getElementById(tmpID).value != arrNumberKeyLine[i])
+			dataChangedWarnFlag = 1 ;
+	}
+	
+	//FunctionKey
+	if(1 == f2.hcCurFunctionKeyPageId.value)
+	{
+		for(var i=4;i<cFuncKeyNum;i++)
+		{
+			var tmpID = PKeyType[i]; 
+			var htmpID = "h"+tmpID;
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+				dataChangedWarnFlag = 1;
+			var tmpID = PKeyValue[i];
+			var htmpID = "h"+tmpID;
+			switch(getFuncKeyTypeByID(document.getElementById(PKeyType[i]).value))
+			{
+				default:
+				{
+					if(document.getElementById(tmpID).value != ShowDecode(document.getElementById(htmpID).value))
+					{dataChangedWarnFlag = 1};
+					break;
+				}	
+			}
+			//var tmpID = PKeyCode[i]; 
+			//var htmpID = "h"+tmpID;
+			//if(document.getElementById(tmpID).value != document.getElementById(htmpID).value )
+			//dataChangedWarnFlag = 1;
+			var tmpID = PKeyLine[i]; 
+			var htmpID = "h"+tmpID;
+			var htmpLine = document.getElementById(htmpID).value; 
+			if(document.getElementById(tmpID).value != document.getElementById(htmpID).value)
+				dataChangedWarnFlag = 1;
+		}
+	}
+	
+	//mutipage FunctionKey
+	if(1 != f2.hcCurFunctionKeyPageId.value)
+	{
+		for(var i=0; i < cFunctionKeyNum; i++)
+		{
+			var tmpID = "cFunctionKeyType"+i;
+			if(document.getElementById(tmpID).value != arrFunctionKeyType[i])
+				dataChangedWarnFlag = 1 ;
+			tmpID = "cLineKeyLabel"+i;
+			if(document.getElementById(tmpID).value != arrFunctionKeyLabel[i])
+				dataChangedWarnFlag = 1 ;
+			tmpID = "cFunctionKeyValue"+i;
+			switch(getLineKeyTypeByID(arrFunctionKeyType[i]))
+			{
+				case "Book":
+				{
+					if(document.getElementById(tmpID).value != ShowDecode(arrFunctionKeyValue[i]) && arrFunctionKeyValue[i] != "")
+					{
+						dataChangedWarnFlag = 1 ;
+					}
+					break;
+				}
+				default:
+				{
+					if(document.getElementById(tmpID).value != ShowDecode(arrFunctionKeyValue[i]))
+					{
+						dataChangedWarnFlag = 1 ;
+					}
+					break;
+				}	
+			}
+			tmpID = "cFunctionKeyCode"+i;
+			if(document.getElementById(tmpID).value != arrFunctionKeyCode[i])
+				dataChangedWarnFlag = 1 ;
+			tmpID = "cFunctionKeyLine"+i;
+			if(document.getElementById(tmpID).value != arrFunctionKeyLine[i])
+				dataChangedWarnFlag = 1 ;
+		}
+	}
+
+	//Other-Display
+	if(f1.cBacklightIntens.value != f2.hcBacklightIntens.value || f1.cBacklightTime.value != f2.hcBacklightTime.value)
+		dataChangedWarnFlag = 1;
+	if(f1.cFontSize.value != f2.hcFontSize.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+function OnGotoNextLinePage()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+	
+	if(f2.hcLineKeyPageMode && "1" != f2.hcLineKeyPageMode.value)
+	{ return;	}
+	if(f2.hcCurLineKeyPageId)
+	{
+		CurLineKeyPage = Number(f2.hcCurLineKeyPageId.value);
+	}
+	if(Number(CurLineKeyPage) >= Number(f2.hcTotalLineKeyPage.value))
+	{ return ;}
+	CurLineKeyPage += 1;
+	document.getElementById("cCurLineKeyPageId").innerHTML = CurLineKeyPage + " " + "/" + " " + Number(f2.hcTotalLineKeyPage.value);
+	
+	strSubmData = strSubmData + "&cCurLineKeyPageId=" + CurLineKeyPage;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+function OnGotoPreLinePage()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+	
+	if(f2.hcLineKeyPageMode && "1" != f2.hcLineKeyPageMode.value)
+	{ return;	}
+	CurLineKeyPage = Number(f2.hcCurLineKeyPageId.value);
+	if(1 >= Number(CurLineKeyPage))
+	{ return ;}
+	CurLineKeyPage -= 1;
+	document.getElementById("cCurLineKeyPageId").innerHTML = CurLineKeyPage + " " + "/" + " " + Number(f2.hcTotalLineKeyPage.value);
+	
+	strSubmData = strSubmData + "&cCurLineKeyPageId=" + CurLineKeyPage;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+function CheckPageMode()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	if(f2.hcLineKeyPageMode && "1" == f2.hcLineKeyPageMode.value)
+	{
+		document.getElementById("divLineKeyPageSwitch").style.display="";
+	}
+	else
+	{
+		document.getElementById("divLineKeyPageSwitch").style.display="none";
+	}
+}
+
+$(function() { SetPageMenuAction("#aMenu4", "tMenu441"); });
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+		<div id="PhoneKD_divLineKey" class="div_border">
+			<div class="div_head"><label id='tLineKey'></label></div>	
+			<div id='divLineKeyPageSwitch' border="0" style="text-align:center; margin:10px;">
+				<span><input type='button' class='Page_Btn' id='tLineKeyPrePage' name='tLineKeyPrePage' value='Pre' onClick='OnGotoPreLinePage()' /></span>
+				<span><label id='cCurLineKeyPageId' name='cCurLineKeyPageId'> 1/3</labe></span>
+				<span><input type='button' class='Page_Btn' id='tLineKeyNextPage' name='tLineKeyNextPage' value='Next' onClick='OnGotoNextLinePage()' /></span>
+			</div>
+		<table class="table_style">
+			<table id="tableLineKey" border="0" class="TablePadding1">
+            <tr bgcolor='#a5a9af'>     
+              <td style='text-align: center; width: 80px;'><label style='text-align: center; width: 80px;' id='tLineKeyName'></label></td>
+              <td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tLineKeyType'></label></td>
+              <td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tLineKeyLabel'></label></td>
+              <td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tLineKeyValue'></label></td>
+              <td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tLineKeyAccount'></label></td>
+              <td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tLineKeyCode'></label></td>
+            </tr>
+			</table>
+		</table>
+		</div>
+		
+		<div id="PhoneKD_divSoftKey" class="div_border">
+			<div class="div_head"><label id='tSoftKey'>SoftKey</label></div>	        
+		<table class="table_style">	
+          <table id="tableSoftKey" class='TablePadding1'>
+			<tr bgcolor='#a5a9af'>
+				<td style='text-align: center; width:80px;'><label style='text-align: center; width:80px;' id='tSoftKeyName'></label></td>
+				<td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tSoftKeyFeature'></label></td>
+				<td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tSoftKeyLabel'></label></td>
+				<td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tSoftKeyValue'></label></td>
+				<td id='tdSoftKeyAccount' style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tSoftKeyAccount'></label></td>
+				<td style='display:none; text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tSoftKeyCode'></label></td>
+			</tr>
+          </table>
+		</table>
+		</div>
+		
+		<div id="PhoneKD_divFunctionKey" class="div_border">
+			<div class="div_head"><label id='tFunctionKey'></label></div>
+			<div id='divFunctionKeyPageSwitch' border="0" style="text-align:center; margin:10px;">
+				<span><input type='button' class='Page_Btn' id='tFunctionKeyPrePage' name='tFunctionKeyPrePage' value='Pre' onClick='OnGotoPreFuncKeyPage()' /></span>
+				<span><label id='cCurFunctionKeyPageId' name='cCurFunctionKeyPageId'> 1/2</labe></span>
+				<span><input type='button' class='Page_Btn' id='tFunctionKeyNextPage' name='tFunctionKeyNextPage' value='Next' onClick='OnGotoNextFuncKeyPage()' /></span>
+			</div>
+		  <table class="table_style">
+			<table id="tableFunctionKey" class="TablePadding1">		
+			<tr bgcolor='#a5a9af'>
+              <td style='text-align: center; width:80px;'><label id='tFunction'></label></td>
+              <td style='text-align: center; width:90px;'><label id='tFunctionKeyType'></label></td>
+              <td style='text-align: center; width:90px;'><label id='tFunctionKeyValue'></label></td>
+              <td id='tdFunctionKeyAccount' style='text-align: center; width:90px;'><label id='tFunctionKeyAccount'></label></td>
+              <td style='display:none; text-align: center; width:90px;'><label id='tFunctionKeyCode'></label></td>          
+          	</tr>                    	    	              	    	              	    	              	    	
+          	</table>
+			<table id="tableMutiFunctionKey" class="TablePadding1" style="display:none"></table>
+		  </table> 
+	 	</div>
+		
+		<div id="PhoneKD_divNumberKey" class="div_border">
+			<div class="div_head"><label id='tNumberKey'></label></div>
+			<table class="table_style">	
+				<table id="tableNumberKey" border="0" class="TablePadding1">
+					<tr bgcolor='#a5a9af'>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 80px;' id='tNumberKeyName'></label></td>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tNumberKeyType'></label></td>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tNumberKeyLabel'></label></td>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tNumberKeyValue'></label></td>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tNumberKeyAccount'></label></td>
+					<td style='text-align: center; width: 90px;'><label style='text-align: center; width: 90px;' id='tNumberKeyCode'></label></td>
+					</tr>
+				</table>
+			</table> 
+	 	</div>
+		 
+		<div id="PhoneKD_divDisplay" class="div_border">
+			<div class="div_head"><label id='tDisplay'></label></div> 			
+			<table class="table_style">			
+				<tr style="display:none"><td class="Second_td"><label id='tKeypadLock'></label></td> <td class="Third_td"> <select class="def_input" id="cKeypadLock" name="cKeypadLock"></select></td></tr>
+				<tr><td class="Second_td"><label id='tBacklightIntens'></label></td> <td class="Third_td"> <select class="Select_format1" class="def_input" id="cBacklightIntens" name="cBacklightIntens"></select></td></tr>
+				<tr><td class="Second_td"><label id='tBacklightTime'></label></td> <td class="Third_td"> <select class="Select_format1" class="def_input" id="cBacklightTime" name="cBacklightTime"></select></td></tr>
+				<tr id="PhoneKD_trFontSize"><td class="Second_td"><label id='tFontSize'>Font Size</label></td> <td class="Third_td"> <select class="Select_format1" class="def_input" id="cFontSize"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tLCDContrast'></label></td> <td class="Third_td"> <select class="def_input" id="cLCDContrast" name="cLCDContrast"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tPowerLightClose'></label></td> <td class="Third_td"> <select class="def_input" id="cPowerLightClose" name="cPowerLightClose"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tKeyAsSend'></label></td> <td class="Third_td"> <select class="def_input" id="cKeyAsSend" name="cKeyAsSend"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tIsParsePound'></label></td> <td class="Third_td"> <select class="def_input" id="cIsParsePound" name="cIsParsePound"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tFeatureKeySync'></label></td> <td class="Third_td"> <select class="def_input" id="cFeatureKeySync" name="cFeatureKeySync"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tSendPowndKey'></label></td> <td class="Third_td"> <select class="def_input" id="cSendPowndKey" name="cSendPowndKey"></select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tWatchDog'></label></td> <td class="Third_td"> <select class="def_input" id="cWatchDog" name="cWatchDog"></select></td></tr>
+			</table> 	
+		</div>
+		          
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="" />
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick="OnSubmit()"></td>
+        			<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfg()"></td></tr>
+        </table>
+        </div>
+</form> 			
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

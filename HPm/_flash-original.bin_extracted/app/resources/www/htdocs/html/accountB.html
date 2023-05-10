@@ -1,0 +1,692 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>	
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+var dotNumArr = [0, 0];
+var dotTxtArr = ["", ""];
+var timeCntArr =[0, 0];
+var total = 25;
+var interObj;
+
+var RegisteringTotT = 280;
+
+function DoF5Jump()
+{
+	Relocate('do?id=3&id=1');
+}
+var PageRefDesURL = 'do?id=3&id=1';
+
+function OnStatusAction(statusValue)
+{
+	//alert("this is statusValue="+statusValue);
+  if(statusValue == "2") 
+	{
+		document.getElementById("cAccountStatus").innerHTML = Registered;
+		//alert("registered");
+		clearInterval(interObj);
+	}
+	else if(statusValue == "1")
+	{
+		if(dotNumArr[0] >= 5)
+		{
+			dotNumArr[0] = 0;
+			dotTxtArr[0] = "";
+		}
+		var tmpTxt = Registering;
+		if(timeCntArr[0] >= RegisteringTotT)
+		{
+			clearInterval(interObj);
+			dotNumArr[0] = timeCntArr[0] = 0;
+			document.getElementById("cAccountStatus").innerHTML = RegisterQuestTimeOut;
+			dotTxtArr[0] = "";
+		}
+		else
+		{
+			document.getElementById("cAccountStatus").innerHTML = tmpTxt + dotTxtArr[0];
+		}
+		dotTxtArr[0] += ".";
+		dotNumArr[0]++;
+		timeCntArr[0]++;
+	}
+	else if(statusValue == "3")
+	{
+		//alert(document.getElementById("cAccountStatus").innerHTML);
+		document.getElementById("cAccountStatus").innerHTML = RegistrationFailed;
+		//alert("disabled");
+		clearInterval(interObj);
+	}
+	else if(statusValue == "0")
+	{
+		document.getElementById("cAccountStatus").innerHTML = Disabled;
+		//alert("disabled");
+		clearInterval(interObj);
+	}
+	else
+	{
+		//alert("xx");
+		if(dotNumArr[1] >= 5)
+		{
+			dotNumArr[1] = 0;
+			dotTxtArr[1] = "";
+		}
+
+		var tmpTxt = UnRegistered;
+		//alert("1");
+		if(timeCntArr[1] >= 20)
+		{
+			clearInterval(interObj);
+			dotNumArr[1] = timeCntArr[1] = 0;
+			document.getElementById("cAccountStatus").innerHTML = UnRegistered;
+			dotTxtArr[1] = "";
+		}
+		else
+		{
+			//alert("3");
+			document.getElementById("cAccountStatus").innerHTML = tmpTxt;
+		}
+		dotTxtArr[1] += ".";
+		dotNumArr[1]++;
+		timeCntArr[1]++;
+		//alert("1");
+	}		
+}
+
+function CheckDivStatusInner()
+{
+	CheckDivStatus("divRegistStatus", "do?id=3&id=1&Operation=GetDivContent");
+}
+
+function LoadCfg()
+{
+	LoadLang();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cAccountActive.options.add(new Option(Disabled, "0"));
+	f1.cAccountActive.options.add(new Option(Enabled, "1"));
+	f1.cEnableOutbond.options.add(new Option(Disabled, "0"));
+	f1.cEnableOutbond.options.add(new Option(Enabled, "1"));
+	f1.cEnableStun.options.add(new Option(Disabled, "0"));
+	f1.cEnableStun.options.add(new Option(STUN, "1"));
+	f1.cAccountTransType.options.add(new Option("UDP", "0"));
+	f1.cAccountTransType.options.add(new Option("TCP", "1"));
+	f1.cAccountTransType.options.add(new Option("TLS", "2"));
+	f1.cAccountTransType.options.add(new Option("DNS-SRV", "3"));
+	f1.cAutoAnswer.options.add(new Option(Disabled, "0"));
+	f1.cAutoAnswer.options.add(new Option(Enabled, "1"));
+	
+	var i = 0;
+	var accountCnt = f2.hcAccountNum.value;
+	var accountTxt = "";
+	while(i < accountCnt)
+	{
+		accountTxt = Account + " " + (i + 1);
+		f1.cCurAccount.options.add(new Option(accountTxt, i));
+		i++;
+	}
+	if(MODELID)
+	{
+		if("51" == MODELID || "50" == MODELID)
+		{
+			document.getElementById("trCurAccount").style.display = "none";	
+		}	
+	}
+	DelayShow();
+	SubLoadCfg();
+	var f2 = document.forms["hiddenValForm"];
+	interObj = setInterval("CheckDivStatusInner()", 500);
+}
+
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cCurAccount.value = f2.hcCurAccount.value;
+	f1.cAccountActive.value = f2.hcAccountActive.value = TransEmptyStrTo0(f2.hcAccountActive.value);
+	f1.cDisplayLabel.value = f2.hcDisplayLabel.value = ShowDecode(f2.hcDisplayLabel.value);
+	f1.cDisplayName.value = f2.hcDisplayName.value = ShowDecode(f2.hcDisplayName.value);
+	f1.cRegisterName.value = f2.hcRegisterName.value = ShowDecode(f2.hcRegisterName.value);
+	f1.cUserName.value = f2.hcUserName.value = ShowDecode(f2.hcUserName.value);
+	f1.cPassword.value = "********";
+	//SIP SERVER 1
+	f1.cFirstSIPServerAddr.value = f2.hcFirstSIPServerAddr.value;
+	f1.cFirstSIPServerPort.value = f2.hcFirstSIPServerPort.value;
+
+	f1.cFirstRegisterExpire.value = f2.hcFirstRegisterExpire.value;
+	
+	//SIP SERVER 2
+	f1.cSecSIPServerAddr.value = f2.hcSecSIPServerAddr.value;
+	f1.cSecSIPServerPort.value = f2.hcSecSIPServerPort.value;
+	f1.cSecRegisterExpire.value = f2.hcSecRegisterExpire.value;
+	f1.cEnableOutbond.value = f2.hcEnableOutbond.value = TransEmptyStrTo0(f2.hcEnableOutbond.value);
+
+	f1.cOutbondProxyAddr.value = f2.hcOutbondProxyAddr.value;
+	f1.cOutbondProxyPort.value = f2.hcOutbondProxyPort.value;
+	f1.cBakProxyAddr.value = f2.hcBakProxyAddr.value;
+	f1.cBakProxyPort.value = f2.hcBakProxyPort.value;
+	
+	f1.cAutoAnswer.value = f2.hcAutoAnswer.value = TransEmptyStrTo0(f2.hcAutoAnswer.value);
+	f1.cEnableStun.value = f2.hcEnableStun.value = TransEmptyStrTo0(f2.hcEnableStun.value);
+	f1.cStunServer.value = f2.hcStunServer.value;
+	f1.cStunPort.value = f2.hcStunPort.value;
+	f1.cAccountTransType.value = f2.hcAccountTransType.value = TransEmptyStrTo0(f2.hcAccountTransType.value);	
+	f1.cProxyRequire.value = f2.hcProxyRequire.value;
+	f1.cRegistrationRandom.value = f2.hcRegistrationRandom.value;
+	f1.cVoiceMailNumber.value = f2.hcVoiceMailNumber.value;
+	ResetAllInputColor();
+	for(var i=0; i < PwdKeyFirst.length; i++) { PwdKeyFirst[i] = true; }
+}
+
+function LoadLang()
+{
+	var tmp = Account+"-"+Basic;
+	LoadCommonResources(tmp);
+	document.getElementById("tSIPAccount").innerHTML = SIPAccount;
+	document.getElementById("tAccountStatus").innerHTML = Status;
+	document.getElementById("tAccount").innerHTML = Account;
+	document.getElementById("tAccountActive").innerHTML = AccountActive;
+	document.getElementById("tDisplayLabel").innerHTML = DisplayLabel;
+	document.getElementById("tDisplayName").innerHTML = DisplayName;
+	document.getElementById("tRegisterName").innerHTML = RegisterName;
+	document.getElementById("tUserName").innerHTML = UserName;
+	document.getElementById("tPassword").innerHTML = PasswordLabel;
+	//FIRST SIP SERVER 
+	document.getElementById("tFirstSIPServer").innerHTML = SIPServer + " " + 1;
+	document.getElementById("tFirstSIPServerIP").innerHTML = ServerIP;
+	document.getElementById("tFirstSIPServerPort").innerHTML = Port;
+	document.getElementById("tFirstRegisterExpire").innerHTML = RegistrationPeriod;
+	document.getElementById("tFirstRegisterExpRange").innerHTML = "(30~65535" + SecondAbbr + ")";
+	document.getElementById("tFirstRegisterRetryTimes").innerHTML = RegRetryTimes;
+	//SECOND SIP SERVR
+	document.getElementById("tSecSIPServer").innerHTML = SIPServer + " " + 2;
+	document.getElementById("tSecSIPerverIP").innerHTML = ServerIP;
+	document.getElementById("tSecSIPServerPort").innerHTML = Port;
+	document.getElementById("tSecRegisterExpire").innerHTML = RegistrationPeriod;
+	document.getElementById("tSecRegisterExpRange").innerHTML = "(30~65535" + SecondAbbr + ")";
+	document.getElementById("tSecRegisterRetryTimes").innerHTML = RegRetryTimes;
+	//outbound server
+	document.getElementById("tOutbondServer").innerHTML = OutbondProxyServer;
+	document.getElementById("tProxyServerIP").innerHTML = ServerIP;
+	document.getElementById("tOutbondProxyPort").innerHTML = Port;
+	document.getElementById("leftMenu").style.height=document.getElementById("mid_cont2").scrollHeight+"px";
+	document.getElementsByName("cOutbondProxyPort")[0].title = "(1024~65535)";
+	document.getElementsByName("cFirstSIPServerPort")[0].title = "(1024~65535)";
+	document.getElementsByName("cSecSIPServerPort")[0].title = "(1024~65535)";
+	document.getElementsByName("cBakProxyPort")[0].title = "(1024~65535)";
+	document.getElementsByName("cStunPort")[0].title = "(1024~65535)";
+	document.getElementById("tAutoAnswer").innerHTML = document.getElementById("tAutoAnswerLabel").innerHTML = AutoAnswer;
+	document.getElementById("tTransportType0").innerHTML = document.getElementById("tTransportType").innerHTML = TransportType;
+	document.getElementById("tNAT").innerHTML = document.getElementById("tNATLabel").innerHTML= NAT;
+	document.getElementById("tStunServerIP").innerHTML = StunServerAddr;
+	document.getElementById("tStunPort").innerHTML = Port;
+	document.getElementById("tRegistrationRandom").innerHTML = RegistrationRandom;
+	document.getElementById("tBakPort").innerHTML = Port;
+	document.getElementById("tEnableProxyServer").innerHTML = EnableOutbond;
+	document.getElementById("tBakServerIP").innerHTML = BakServerIP;
+	document.getElementById("tProxyRequire").innerHTML = ProxyRequire;
+	document.getElementById("tVoiceMailNumber").innerHTML = VoiceMailNumber;
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+
+	// generated by code
+	if( 1 == f1.cAccountActive.value)
+	{
+		if("" == f1.cUserName.value)
+		{
+			alert(WarningInvalidUsernameSetting);	
+			SetInputBGColor("cUserName");	
+			ErrFlag = true;
+		}
+		if("" == f1.cFirstSIPServerAddr.value)
+		{
+			alert(WarningInvalidServerSetting);
+			SetInputBGColor("cFirstSIPServerAddr");	
+			ErrFlag = true;
+		}	
+	}
+	{
+		strSubmData = strSubmData + "&cCurAccount=" + f1.cCurAccount.value;
+	}
+	
+	if(f2.hcAccountActive.value != f1.cAccountActive.value) 
+	{
+		strSubmData = strSubmData + "&cAccountActive=" + f1.cAccountActive.value;
+	}
+	else if(1 == f1.cAccountActive.value && f2.hcAccountStatus.value != 2)
+	{
+		strSubmData = strSubmData + "&cAccountActive=1&ForceTo=1";
+	}
+
+	if(f1.cDisplayLabel.value != ShowDecode(f2.hcDisplayLabel.value))
+	{
+		if(!CheckLengthOfData(f1.cDisplayLabel.value, 0, 63))
+		{
+			SetInputBGColor("cDisplayLabel");
+			ErrFlag = true;
+		}			
+		strSubmData = strSubmData + "&cDisplayLabel=" + PostEncode(f1.cDisplayLabel.value);
+	}
+	
+	if(f1.cDisplayName.value != ShowDecode(f2.hcDisplayName.value))
+	{
+		if(!CheckLengthOfData(f1.cDisplayName.value, 0, 63))
+		{
+			SetInputBGColor("cDisplayName");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cDisplayName=" + PostEncode(f1.cDisplayName.value);
+	}
+	
+	if(f1.cRegisterName.value != ShowDecode(f2.hcRegisterName.value))
+	{
+		if(!CheckLengthOfData(f1.cRegisterName.value, 0, 63))
+		{
+			SetInputBGColor("cRegisterName");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cRegisterName=" + PostEncode(f1.cRegisterName.value);
+	}
+	
+	if(f1.cUserName.value != ShowDecode(f2.hcUserName.value))
+	{
+		if(!CheckLengthOfData(f1.cUserName.value, 0, 63))
+		{
+			SetInputBGColor("cUserName");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cUserName=" + PostEncode(f1.cUserName.value);
+	}
+	
+	if(!PwdKeyFirst[0] && "********" != f1.cPassword.value)
+	{
+		if(!CheckLengthOfData(f1.cPassword.value, 0, 63))
+		{
+			SetInputBGColor("cPassword");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cPassword=" + PostEncode(f1.cPassword.value);
+	}
+	//SIP SERVER 1
+	if(f1.cFirstSIPServerAddr.value != f2.hcFirstSIPServerAddr.value)
+	{
+		if(!NotContainInvalid(f1.cFirstSIPServerAddr.value, "cFirstSIPServerAddr"))
+		{
+			SetInputBGColor("cFirstSIPServerAddr");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cFirstSIPServerAddr=" + PostEncode(f1.cFirstSIPServerAddr.value);
+	}
+	if(f1.cFirstSIPServerPort.value != f2.hcFirstSIPServerPort.value)
+	{
+		if(!(IsPort(f1.cFirstSIPServerPort.value)))
+		{
+			SetInputBGColor("cFirstSIPServerPort");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cFirstSIPServerPort=" + PostEncode(f1.cFirstSIPServerPort.value);
+	}
+
+	if(f1.cFirstRegisterExpire.value != f2.hcFirstRegisterExpire.value)
+	{
+		if(!NotContainInvalid(f1.cFirstRegisterExpire.value) || !IsAnInterger(f1.cFirstRegisterExpire.value)
+			|| !(30 <= f1.cFirstRegisterExpire.value && f1.cFirstRegisterExpire.value <=65535))
+		{
+			SetInputBGColor("cFirstRegisterExpire");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cFirstRegisterExpire=" + PostEncode(f1.cFirstRegisterExpire.value);
+	}
+	//SIP SERVER 2
+	if(f1.cSecSIPServerAddr.value != f2.hcSecSIPServerAddr.value)
+	{
+		if(!NotContainInvalid(f1.cSecSIPServerAddr.value, "cSecSIPServerAddr"))
+		{
+			SetInputBGColor("cSecSIPServerAddr");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cSecSIPServerAddr=" + PostEncode(f1.cSecSIPServerAddr.value);
+	}
+	if(f1.cSecSIPServerPort.value != f2.hcSecSIPServerPort.value)
+	{
+		if(!(IsPort(f1.cSecSIPServerPort.value)))
+		{
+			SetInputBGColor("cSecSIPServerPort");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cSecSIPServerPort=" + PostEncode(f1.cSecSIPServerPort.value);
+	}
+	if(f1.cSecRegisterExpire.value != f2.hcSecRegisterExpire.value)
+	{
+		if(!NotContainInvalid(f1.cSecRegisterExpire.value) || !IsAnInterger(f1.cSecRegisterExpire.value)
+			|| !(30 <= f1.cSecRegisterExpire.value && f1.cSecRegisterExpire.value <=65535))
+		{
+			SetInputBGColor("cSecRegisterExpire");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cSecRegisterExpire=" + PostEncode(f1.cSecRegisterExpire.value);
+	}
+	
+	if(f1.cEnableOutbond.value != f2.hcEnableOutbond.value)
+	{
+		strSubmData = strSubmData + "&cEnableOutbond=" + f1.cEnableOutbond.value;
+	}
+	
+	if( f1.cEnableOutbond.value == 1 && "" == f1.cOutbondProxyAddr.value )
+	{
+		SetInputBGColor("cOutbondProxyAddr");
+		alert(WarningOutBoundServerEmpty);
+		ErrFlag = true;		
+	}
+
+	if(f1.cOutbondProxyAddr.value != f2.hcOutbondProxyAddr.value)
+	{
+		if(!NotContainInvalid(f1.cOutbondProxyAddr.value, "cOutbondProxyAddr"))
+		{
+			SetInputBGColor("cOutbondProxyAddr");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cOutbondProxyAddr=" + PostEncode(f1.cOutbondProxyAddr.value);
+	}
+	
+	if(f1.cOutbondProxyPort.value != f2.hcOutbondProxyPort.value)
+	{
+		if(!(IsPort(f1.cOutbondProxyPort.value)))
+		{
+			SetInputBGColor("cOutbondProxyPort");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cOutbondProxyPort=" + PostEncode(f1.cOutbondProxyPort.value);
+	}
+	
+	if(f1.cBakProxyAddr.value != f2.hcBakProxyAddr.value)
+	{
+		if(!NotContainInvalid(f1.cBakProxyAddr.value, "cBakProxyAddr"))
+		{
+			SetInputBGColor("cBakProxyAddr");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cBakProxyAddr=" + PostEncode(f1.cBakProxyAddr.value);
+	}
+	
+	if(f1.cBakProxyPort.value != f2.hcBakProxyPort.value)
+	{
+		if(!(IsPort(f1.cBakProxyPort.value)))
+		{
+			SetInputBGColor("cBakProxyPort");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cBakProxyPort=" + PostEncode(f1.cBakProxyPort.value);
+	}
+	
+	if(f1.cAutoAnswer.value != f2.hcAutoAnswer.value)
+	{
+		strSubmData = strSubmData + "&cAutoAnswer=" + PostEncode(f1.cAutoAnswer.value);
+	}	
+	if(1 == f1.cEnableStun.value && "" == f1.cStunServer.value)
+	{
+		SetInputBGColor("cStunServer");
+		alert(WarningStunServerEmpty);
+		ErrFlag = true;			
+	}	
+	if(f1.cEnableStun.value != f2.hcEnableStun.value)
+	{
+		strSubmData = strSubmData + "&cEnableStun=" + f1.cEnableStun.value;
+	}
+	if(f1.cStunServer.value != f2.hcStunServer.value)
+	{
+		if(!NotContainInvalid(f1.cStunServer.value, "cStunServer"))
+		{
+			SetInputBGColor("cStunServer");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cStunServer=" + PostEncode(f1.cStunServer.value);
+	}	
+	if(f1.cStunPort.value != f2.hcStunPort.value)
+	{
+		if(!(IsPort(f1.cStunPort.value) && ( f1.cStunPort.value >= 1024)))
+		{
+			SetInputBGColor("cStunPort");
+			ErrFlag = true;
+		}		
+		strSubmData = strSubmData + "&cStunPort=" + f1.cStunPort.value;
+	}
+	if(f1.cVoiceMailNumber.value != f2.hcVoiceMailNumber.value)
+	{
+		strSubmData = strSubmData + "&cVoiceMailNumber=" + f1.cVoiceMailNumber.value;
+	}
+	if(f1.cAccountTransType.value != f2.hcAccountTransType.value)
+	{
+		strSubmData = strSubmData + "&cAccountTransType=" + f1.cAccountTransType.value;
+	}
+	if(f1.cProxyRequire.value != f2.hcProxyRequire.value)
+	{
+		strSubmData = strSubmData + "&cProxyRequire=" + f1.cProxyRequire.value;
+	}
+//	if(f1.cRegistrationRandom.value != f2.hcRegistrationRandom.value)
+//	{
+//		if(!CheckRangeOfNumber(f1.cRegistrationRandom.value, 0, 3600))
+//		{
+//			SetInputBGColor("cRegistrationRandom");
+//			ErrFlag = true;
+//		}
+//		strSubmData = strSubmData + "&cRegistrationRandom=" + f1.cRegistrationRandom.value;
+//	}
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = false;
+	
+	if(f2.hcAccountActive.value != f1.cAccountActive.value) 
+	{
+		dataChangedWarnFlag = true;		
+	}
+	if(f1.cDisplayLabel.value != f2.hcDisplayLabel.value 
+			||f1.cDisplayName.value != f2.hcDisplayName.value
+			||f1.cRegisterName.value != f2.hcRegisterName.value
+			||f1.cUserName.value != f2.hcUserName.value
+			||!PwdKeyFirst[0] && "********" != f1.cPassword.value
+			||f1.cFirstRegisterExpire.value != f2.hcFirstRegisterExpire.value
+			||f1.cSecSIPServerAddr.value != f2.hcSecSIPServerAddr.value
+			||f1.cSecSIPServerPort.value != f2.hcSecSIPServerPort.value
+			||f1.cSecRegisterExpire.value != f2.hcSecRegisterExpire.value
+			||f1.cEnableOutbond.value != f2.hcEnableOutbond.value
+			||f1.cEnableStun.value != f2.hcEnableStun.value
+			||f1.cStunServer.value != f2.hcStunServer.value
+			||f1.cStunPort.value != f2.hcStunPort.value
+		)
+	{
+		dataChangedWarnFlag = true;
+	}
+
+	if(f1.cFirstSIPServerAddr.value != f2.hcFirstSIPServerAddr.value
+		||f1.cFirstSIPServerPort.value != f2.hcFirstSIPServerPort.value
+		||f1.cOutbondProxyAddr.value != f2.hcOutbondProxyAddr.value
+		||f1.cOutbondProxyPort.value != f2.hcOutbondProxyPort.value
+		||f1.cBakProxyAddr.value != f2.hcBakProxyAddr.value
+		||f1.cBakProxyPort.value != f2.hcBakProxyPort.value
+		)
+	{
+		dataChangedWarnFlag = true;
+	}
+
+	if(f1.cAccountTransType.value != f2.hcAccountTransType.value || f1.cProxyRequire.value != f2.hcProxyRequire.value)
+	{
+		dataChangedWarnFlag = true;
+	}
+	
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+function ChangeAccountPage()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+	
+	// generated by code
+	if(f1.cCurAccount.value != f2.hcCurAccount.value)
+	{
+		strSubmData = strSubmData + "&cCurAccount=" + f1.cCurAccount.value;
+	}
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu2", "tMenu21");
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>
+			<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+			<div id="divRegistStatus" style="display:none">
+			</div>
+			<div class="div_border">
+			<div class="div_head"><label id='tSIPAccount'></label></div>
+			<table class="table_style">					
+				<tr><td class="Second_td"><label id='tAccountStatus'></label></td> <td class="Third_td"> <label id='cAccountStatus'></label></td></tr>
+				<tr id='trCurAccount'><td class="Second_td"><label id='tAccount'></label></td> <td class="Third_td"><select class="Select_format1" name="cCurAccount" id="cCurAccount" onChange="ChangeAccountPage()"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tAccountActive'></label></td> <td class="Third_td"><select class="Select_format1" name="cAccountActive" id="cAccountActive"> </select></td></tr>
+				<tr id="AccountB_trtDisplayLabel"><td class="Second_td"><label id='tDisplayLabel'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDisplayLabel" id="cDisplayLabel" value="" id="1"></td></tr>
+				<tr id="AccountB_trDisplayName"><td class="Second_td"><label id='tDisplayName'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDisplayName" id="cDisplayName" value="" id="2"></td></tr>
+				<tr id="AccountB_trRegisterName"><td class="Second_td"><label id='tRegisterName'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cRegisterName"  id="cRegisterName" value="" id="3"></td></tr>
+				<tr id="AccountB_trUserName"><td class="Second_td"><label id='tUserName'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cUserName"  id="cUserName" value="" id="4"></td></tr>
+				<tr id="AccountB_trPassword"><td class="Second_td"><label id='tPassword'></label></td> <td class="Third_td"><input class="def_input" type="password" name="cPassword" id="cPassword" value="********" id="5" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)"></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tRegistrationRandom'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cRegistrationRandom" id="cRegistrationRandom" value="">(0~60s)</td></tr>
+			</table>	
+			</div>
+
+			<div class="div_border" id="AccountB_divFirstSIPServer">
+			<div class="div_head"><label id='tFirstSIPServer'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tFirstSIPServerIP'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cFirstSIPServerAddr" id="cFirstSIPServerAddr" value="" id="6">&nbsp&nbsp
+					<label id='tFirstSIPServerPort'></label><input class="port_input" type="text" name="cFirstSIPServerPort" id="cFirstSIPServerPort" value=""></td>
+				</tr>
+				<tr><td class="Second_td"><label id='tFirstRegisterExpire'></label></td> <td class="Third_td"> <input class="def_input" type="text" name="cFirstRegisterExpire" id="cFirstRegisterExpire" value="">&nbsp&nbsp<label id="tFirstRegisterExpRange">(30~65535s)<label></td></tr>
+				<tr style="display:none;"><td class="Second_td"><label id='tFirstRegisterRetryTimes'></label></td><td class="Third_td"><input class="def_input" type="text" name="cFirstRegisterRetryTimes" id="cFirstRegisterRetryTimes" value="">&nbsp&nbsp(1~s)</td></tr>
+			</table>	
+			</div>
+				
+			<div class="div_border" id="AccountB_divSecSIPServer">
+			<div class="div_head"><label id='tSecSIPServer'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tSecSIPerverIP'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cSecSIPServerAddr" id="cSecSIPServerAddr" value="">&nbsp&nbsp
+					<label id='tSecSIPServerPort'></label><input class="port_input" type="text" name="cSecSIPServerPort" id="cSecSIPServerPort" value=""></td>
+				</tr>
+					<tr><td class="Second_td"><label id='tSecRegisterExpire'></label></td> <td class="Third_td"> <input class="def_input" type="text" name="cSecRegisterExpire" id="cSecRegisterExpire" value="">&nbsp&nbsp<label id="tSecRegisterExpRange">(30~65535s)</label></td></tr>
+				<tr style="display:none;"><td class="Second_td"><label id='tSecRegisterRetryTimes'></label></td><td class="Third_td"><input class="def_input" type="text" name="cSecRegisterRetryTimes" id="cSecRegisterRetryTimes" value="">&nbsp&nbsp(1~s)</td></tr>
+			</table>	
+			</div>
+			
+			<div class="div_border" id="AccountB_divOutbondServer">
+			<div class="div_head"><label id='tOutbondServer'></label></div>
+			<table class="table_style">	
+				<tr id="AccountB_trEnableProxyServer"><td class="Second_td"><label id='tEnableProxyServer'></label></td> <td class="Third_td"><select class="Select_format1" name="cEnableOutbond" id="cEnableOutbond"> </select></td></tr>
+
+				<tr><td class="Second_td"><label id='tProxyServerIP'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cOutbondProxyAddr" id="cOutbondProxyAddr" value="" id="8">&nbsp&nbsp
+					<label id='tOutbondProxyPort'></label><input class="port_input" type="text" name="cOutbondProxyPort" id="cOutbondProxyPort" value="" id="9"></td>
+					</tr>
+					<tr><td class="Second_td"><label id='tBakServerIP'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cBakProxyAddr" id="cBakProxyAddr" value="" id="10">&nbsp&nbsp
+					<label id='tBakPort'></label><input class="port_input" type="text" name="cBakProxyPort" id="cBakProxyPort" value="" id="11"></td>
+					</tr>
+					<tr style="display:none"><td class="Second_td"><label id='tProxyRequire'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cProxyRequire" id="cProxyRequire" value=""></td></tr>	
+				<tr style="display:none"><td class="div_head"><label id='tAutoAnswerLabel'></label></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tAutoAnswer'></label></td> <td class="Third_td"> <select class="Select_format1" name="cAutoAnswer"> </select></td></tr>
+			</table>	
+			</div>
+			
+			<div class="div_border" id="AccountB_divTransportType0">
+			<div class="div_head"><label id='tTransportType0'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tTransportType'></label></td> <td class="Third_td"><select class="Select_format1" name="cAccountTransType"  id="cAccountTransType"> </select></td></tr>
+			</table>
+			</div>
+			
+			<div id="AccountB_divNATStunPart" class="div_border">
+			<div class="div_head"><label id='tNAT'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tNATLabel'></label></td> <td class="Third_td"><select class="Select_format1" name="cEnableStun" id="cEnableStun"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tStunServerIP'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cStunServer" id="cStunServer" value="">&nbsp&nbsp
+					<label id='tStunPort'></label><input class="port_input" type="text" name="cStunPort" id="cStunPort" value=""></td>
+				</tr>
+			</table>	
+			</div>
+			
+			<table>	
+				<tr style="display:none">
+				<td class="First_td"><label id='tVoiceMail'></label></td>
+				<tr style="display:none"><td class="Second_td"><label id='tVoiceMailNumber'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cVoiceMailNumber" id="cVoiceMailNumber" value=""></td></tr></tr>
+			</table>
+</form>
+
+<form method="post" name="submit_form" id="submit_form" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+			<br/>
+			<input type="hidden" name="SubmitData" value="">
+			<tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit(false)"></td>
+				<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

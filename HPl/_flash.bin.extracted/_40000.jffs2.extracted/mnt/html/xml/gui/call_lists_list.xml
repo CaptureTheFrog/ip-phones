@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu track="no" speedselect="off" id="$(var:calllist_type)" dtmf="off" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <Title>$(lang:$(var:calllist_title))</Title>
+  <Fetch mil="120000">snom://mb_exit</Fetch>
+  <Repeat values="$(call_list:$(var:calllist_type))" token="|__NAME__|__CALLLIST_ID__|__URL__|">
+    <MenuItem name="__NAME__" id="__CALLLIST_ID__">
+      <Url>__URL__</Url>
+      <DetailUrl>file:///xml/gui/call_lists_details.xml#var:calllist=$(var:calllist_type)&amp;var:calllist_title=$(var:calllist_title)</DetailUrl>
+      <If condition="$(set:user_server_type[$(current_line)])==ocs">
+        <Icon>$(presence_icon:$(calllistpresence:$(var:calllist_type),__CALLLIST_ID__))</Icon>
+      </If>
+    </MenuItem>
+  </Repeat>
+  <If condition="$(set:phone_type)==snom300">
+    <SoftKeyItem>
+      <Name>F1</Name>
+      <Label>$(lang:lang_dial)</Label>
+      <SoftKey>F_OK</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F2</Name>
+      <Label>F_DETAILS</Label>
+      <Url>file:///xml/gui/call_lists_details.xml#var:calllist_type=$(var:calllist_type)&amp;var:calllist_title=$(var:calllist_title)</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F3</Name>
+      <Label>F_CLEAR</Label>
+      <Url>file:///xml/gui/call_lists_list.xml#calllistclear=$(var:calllist_type),sel</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F4</Name>
+      <Label>F_DELETE</Label>
+      <Url>file:///xml/gui/call_lists_list.xml#calllistdelete=$(var:calllist_type),sel</Url>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>OFFHOOK</Name>
+      <SoftKey>ENTER</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>SPEAKER</Name>
+      <SoftKey>ENTER</SoftKey>
+    </SoftKeyItem>
+  </If>
+  <ElIf condition="$(display_type)==color_touch">
+    <SoftKeyItem>
+      <Name>ENTER</Name>
+      <SoftKey>F_OK</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>OFFHOOK</Name>
+      <SoftKey>F_OK</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>SPEAKER</Name>
+      <SoftKey>F_OK</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F2</Name>
+      <Label>F_CLEAR</Label>
+      <Url>file:///xml/gui/call_lists_list.xml#calllistclear=$(var:calllist_type),sel</Url>
+    </SoftKeyItem>
+  </ElIf>
+  <ElIf condition="$(set:phone_type)!=snom300">
+    <SoftKeyItem>
+      <Name>F2</Name>
+      <Label>F_CLEAR</Label>
+      <Url>file:///xml/gui/call_lists_list.xml#calllistclear=$(var:calllist_type),sel</Url>
+    </SoftKeyItem>
+    <If condition="$(display_type)!=color_touch">
+      <SoftKeyItem>
+        <Name>F1</Name>
+        <Label>F_DETAILS</Label>
+        <Url>file:///xml/gui/call_lists_details.xml#var:calllist_type=$(var:calllist_type)&amp;var:calllist_title=$(var:calllist_title)</Url>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>F3</Name>
+        <Label>F_DELETE</Label>
+        <Url>file:///xml/gui/call_lists_list.xml#calllistdelete=$(var:calllist_type),sel</Url>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>F4</Name>
+        <Label>$(lang:lang_abort_label)</Label>
+        <SoftKey>F_ABORT</SoftKey>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>OFFHOOK</Name>
+        <SoftKey>ENTER</SoftKey>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>SPEAKER</Name>
+        <SoftKey>ENTER</SoftKey>
+      </SoftKeyItem>
+      <SoftKeyItem>
+        <Name>REDIAL</Name>
+        <SoftKey>ENTER</SoftKey>
+      </SoftKeyItem>
+    </If>
+  </ElIf>
+  <If condition="$(var:cancel)==abort">
+    <SoftKeyItem>
+      <Name>CANCEL</Name>
+      <SoftKey>F_ABORT</SoftKey>
+    </SoftKeyItem>
+  </If>
+  <SoftKeyItem>
+    <Name>F_DETAILS</Name>
+    <Label>F_DETAILS</Label>
+    <Url>file:///xml/gui/call_lists_details.xml</Url>
+  </SoftKeyItem>
+</SnomIPPhoneMenu>

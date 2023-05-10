@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        editable="yes"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        InputType="1aB">
+    <Title wrap="yes" showlistcount="yes">
+        Hot Line
+    </Title>
+
+		<Prompt>Active:</Prompt>
+		<DataID>DID_Features_HOTLINE_Enable</DataID>
+		<Default>0</Default>
+		<option text="Disable">0</option>
+		<option text="Enable">1</option>
+	    <InputField
+					type = "edit"
+					password = "no"
+					editable = "yes"
+					is_interger = "no">
+			<Prompt>Number:</Prompt>
+			<Parameter emptyable="yes"></Parameter>
+			<DataID>DID_Features_HOTLINE_Number</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "combox"
+					password = "no"
+					editable = "yes"
+					is_interger = "yes"
+					min="0"
+					max="5"
+					step="1">
+			<Prompt>Timeout(%d-%d):</Prompt>
+			<DataID>DID_Features_HOTLINE_Delay</DataID>
+			<option text="0">0</option>
+			<Default></Default>
+	    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

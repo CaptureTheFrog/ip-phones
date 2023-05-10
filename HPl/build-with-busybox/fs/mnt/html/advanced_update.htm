@@ -1,0 +1,203 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng advanced_update?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<TR><TD></TD><td class="normalText"><?lng advanced_updatepolicy?></td>
+<td>
+<select name="update_policy" <?ssi disabled update_policy?>size="1" <?ssi tabindex?> class="select5">
+<option value="auto_update"<?ssi selected update_policy auto_update?>><?lng advanced_upautomatically?></option>
+<option value="ask_for_update"<?ssi selected update_policy ask_for_update?>><?lng advanced_upaskupdate?></option>
+<option value="settings_only"<?ssi selected update_policy settings_only?>><?lng advanced_upneverupdatesetting?></option>
+<option value="never_update"<?ssi selected update_policy never_update?>><?lng advanced_upneverupdatenosetting?></option>
+</select><?ssi help update_policy?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_settingurl setting_server?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_settings_refresh settings_refresh_timer?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_pnp_config pnp_config advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><B><?ssi inpass advanced_ssi_adminlogin admin_mode_login?></B></td></TR>
+<?ssi skipoff IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button">
+<TD>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<input type="submit" value="<?lng advanced_resetbutton?>" name="CONFIRM_RESET" <?ssi tabindex?> class="button">
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<input type="submit" value="<?lng advanced_rebootbutton?>" name="CONFIRM_REBOOT" <?ssi tabindex?> class="button"></TD></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+	<TD>
+	<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 ID="Table1">
+	<TBODY>
+	<TR><TD><SPAN class=pageInfoText><?lng advanced_load_warning?><br><br>
+	</SPAN></TD></TR></TBODY></TABLE></TD></TR>	
+
+
+	<TR>
+		<TD vAlign="top">
+			<FORM enctype="multipart/form-data" method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0" ID="Table1">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<TR>
+<TD></TD>
+<TD class="normalText"><?lng advanced_load_sets_manually?></TD>
+<td>
+<input type="file" id="user_file" name="man_set_file" <?ssi tabindex?> class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+
+
+
+<TR>
+<TD></TD>
+<td>
+<input type="submit" value="<?lng adr_loadbutton?>" name="load_man_set" <?ssi tabindex?> class="button">
+</td>
+</tr>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+
+
+
+
+	<TR>
+		<TD vAlign="top">
+			<FORM enctype="multipart/form-data" method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0" ID="Table1">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<TR>
+<TD></TD>
+<TD class="normalText"><?lng advanced_load_param_map?></TD>
+<td>
+<input type="file" id="user_file" name="load_param_map" <?ssi tabindex?> class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+
+
+
+<TR>
+<TD></TD>
+<td>
+<input type="submit" value="<?lng adr_loadbutton?>" name="param_map_file" <?ssi tabindex?> class="button">
+</td>
+</tr>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+
+
+
+
+	<TR>
+		<TD vAlign="top">
+			<FORM enctype="multipart/form-data" method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0" ID="Table1">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<TR>
+<TD></TD>
+<TD class="normalText"><?lng advanced_load_dialplan?></TD>
+<td>
+<input type="file" id="user_file" name="load_dialplan" <?ssi tabindex?> class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+
+
+
+<TR>
+<TD></TD>
+<td>
+<input type="submit" value="<?lng adr_loadbutton?>" name="dialplan_file" <?ssi tabindex?> class="button">
+</td>
+</tr>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+
+
+
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+
+<?ssi file common9.htm?></HTML>

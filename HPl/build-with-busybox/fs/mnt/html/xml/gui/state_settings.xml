@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu state="relevant" dtmf="off" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <Title>$(lang:menu100_settings)</Title>
+  <Menu name="$(lang:preferences_settings)">
+    <MenuItem name="$(lang:menu100_timezone)">
+      <Action>timezone</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:menu100_dialtone)">
+      <Action>dialtone</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:menu_gen_ringtone)">
+      <Action>ringtone</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:language)">
+      <Action>language</Action>
+    </MenuItem>
+    <Menu name="$(lang:display_settings)">
+      <MenuItem name="$(lang:menu_gen_contrast)">
+        <Action>contrast</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:use_backlight)">
+        <Action>use_backlight</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:use_backlight) $(lang:backlight_when_active)">
+        <Action>backlight_active</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:use_backlight) $(lang:backlight_when_idle)">
+        <Action>backlight_idle</Action>
+      </MenuItem>
+    </Menu>
+    <MenuItem name="$(lang:menu_equalizer)">
+      <Action>equalizer</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:menu_function_key)">
+      <Url new_context="yes">file:///xml/gui/pkeys.xml</Url>
+    </MenuItem>
+  </Menu>
+  <Menu name="$(lang:call_features_settings)">
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(lang:redirect_settings)">
+        <Action>handle_redirect</Action>
+      </MenuItem>
+    </If>
+    <If condition="$(set:user_server_type[$(current_line)])!=ocs">
+      <If condition="$(var:dfks)==true">
+        <Menu name="$(lang:redirect_settings)">
+          <Menu name="$(lang:redirect_all)">
+            <If condition="$(checkbox_property)!=available">
+              <MenuItem name="$(lang:do_redirect) [$(yes_no:$(set:redirect_allways))]">
+                <Action>redirect_all</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>redirect_all_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:do_redirect) [$(set_yes_no:server_managed_fwd_all_state[$(current_line)])]">
+                <Action>sm_redirect_all</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>sm_redirect_all_target</Action>
+              </MenuItem>
+            </If>
+            <If condition="$(checkbox_property)==available">
+              <MenuItem name="$(x_o:$(set:redirect_allways)) $(lang:reg_activate)">
+                <Action>redirect_all</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>redirect_all_target</Action>
+              </MenuItem>
+              <MenuItem name="$(x_o:$(set:server_managed_fwd_all_state[$(current_line)])) $(lang:reg_activate)">
+                <Action>sm_redirect_all</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>sm_redirect_all_target</Action>
+              </MenuItem>
+            </If>
+          </Menu>
+          <If condition="$(checkbox_property)!=available">
+            <Menu name="$(lang:redirect_busy)">
+              <MenuItem name="$(lang:do_redirect) [$(yes_no:$(set:redirect_on_busy))]">
+                <Action>redirect_busy</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>redirect_busy_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:do_redirect) [$(yes_no:$(set:server_managed_fwd_busy_state[$(current_line)]))]">
+                <Action>sm_redirect_busy</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>sm_redirect_busy_target</Action>
+              </MenuItem>
+            </Menu>
+            <Menu name="$(lang:redirect_time)">
+              <MenuItem name="$(lang:do_redirect) [$(yes_no:$(set:redirect_on_timeout))]">
+                <Action>redirect_time</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>redirect_time_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu100_red_time)">
+                <Action>redirect_time_delay</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:do_redirect) [$(yes_no:$(set:server_managed_fwd_time_state[$(current_line)]))]">
+                <Action>sm_redirect_time</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:redirect_target)">
+                <Action>sm_redirect_time_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu100_red_time)">
+                <Action>sm_redirect_time_delay</Action>
+              </MenuItem>
+            </Menu>
+          </If>
+          <If condition="$(checkbox_property)==available">
+            <Menu name="$(lang:enum100_disp_busy)">
+              <MenuItem name="$(x_o:$(set:redirect_on_busy)) $(lang:reg_activate)">
+                <Action>redirect_busy</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>redirect_busy_target</Action>
+              </MenuItem>
+              <MenuItem name="$(x_o:$(set:server_managed_fwd_busy_state[$(current_line)])) $(lang:reg_activate)">
+                <Action>sm_redirect_busy</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>sm_redirect_busy_target</Action>
+              </MenuItem>
+            </Menu>
+            <Menu name="$(lang:enum100_disp_time)">
+              <MenuItem name="$(x_o:$(set:redirect_on_timeout)) $(lang:reg_activate)">
+                <Action>redirect_time</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>redirect_time_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_time)">
+                <Action>redirect_time_delay</Action>
+              </MenuItem>
+              <MenuItem name="$(x_o:$(set:server_managed_fwd_time_state[$(current_line)])) $(lang:reg_activate)">
+                <Action>sm_redirect_time</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_target)">
+                <Action>sm_redirect_time_target</Action>
+              </MenuItem>
+              <MenuItem name="$(lang:menu_red_time)">
+                <Action>sm_redirect_time_delay</Action>
+              </MenuItem>
+            </Menu>
+          </If>
+        </Menu>
+      </If>
+    </If>
+    <Menu name="$(lang:outgoing_calls_settings)">
+      <MenuItem name="$(lang:auto_dial)">
+        <Action>auto_dial</Action>
+      </MenuItem>
+      <If condition="$(checkbox_property)!=available">
+        <MenuItem name="$(lang:guess_number) [$(on_off:$(set:guess_number))]">
+          <Action>guess_number</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:call_completion) [$(on_off:$(set:call_completion))]">
+          <Action>call_completion</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:privacy_out) [$(yes_no:$(set:privacy_out))]">
+          <Action>privacy_out</Action>
+        </MenuItem>
+      </If>
+      <If condition="$(checkbox_property)==available">
+        <MenuItem name="$(x_o:$(set:guess_number)) $(lang:guess_number)">
+          <Action>guess_number</Action>
+        </MenuItem>
+        <MenuItem name="$(x_o:$(set:call_completion)) $(lang:call_completion)">
+          <Action>call_completion</Action>
+        </MenuItem>
+        <MenuItem name="$(x_o:$(set:privacy_out)) $(lang:privacy_out)">
+          <Action>privacy_out</Action>
+        </MenuItem>
+      </If>
+    </Menu>
+    <Menu name="$(lang:incoming_calls_settings)">
+      <If condition="$(set:phone_type)==snom300">
+        <MenuItem name="$(x_o:$(set:dnd_mode)) $(lang:dnd_line)">
+          <Action>dnd_mode</Action>
+        </MenuItem>
+      </If>
+      <If condition="$(set:phone_type)==snomMP">
+        <MenuItem name="$(lang:dnd_line) [$(yes_no:$(set:dnd_mode))]">
+          <Action>dnd_mode</Action>
+        </MenuItem>
+      </If>
+      <If condition="$(checkbox_property)!=available">
+        <MenuItem name="$(lang:privacy_in) [$(yes_no:$(set:privacy_in))]">
+          <Action>privacy_in</Action>
+        </MenuItem>
+      </If>
+      <If condition="$(checkbox_property)==available">
+        <MenuItem name="$(x_o:$(set:privacy_in)) $(lang:privacy_in)">
+          <Action>privacy_in</Action>
+        </MenuItem>
+      </If>
+      <MenuItem name="$(lang:call_waiting)">
+        <Action>call_waiting</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:deny_all)">
+        <Action>deny_all</Action>
+      </MenuItem>
+      <If condition="$(checkbox_property)!=available">
+        <MenuItem name="$(lang:auto_connect_indication) [$(yes_no:$(set:auto_connect_indication))]">
+          <Action>auto_connect_indication</Action>
+        </MenuItem>
+      </If>
+      <If condition="$(checkbox_property)==available">
+        <MenuItem name="$(x_o:$(set:auto_connect_indication)) $(lang:auto_connect_indication)">
+          <Action>auto_connect_indication</Action>
+        </MenuItem>
+      </If>
+    </Menu>
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(lang:always_delegate_forward)">
+        <Action>always_delegate_forward</Action>
+      </MenuItem>
+    </If>
+  </Menu>
+  <If condition="$(edition)!=OCS">
+    <Menu name="$(lang:identity_settings)">
+      <MenuItem name="$(lang:sel100_activeline)">
+        <Action>active_line</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:sel100_reregister_line)">
+        <Action>reregister_line</Action>
+      </MenuItem>
+      <If condition="$(set:admin_mode)">
+        <Menu name="$(lang:sel100_edit_line)">
+          <MenuItem name="$(lang:hotdesking)">
+            <Action>edit_line</Action>
+          </MenuItem>
+          <MenuItem name="$(lang:sel100_edit_line)">
+            <Url new_context="yes">file:///xml/gui/edit_user.xml</Url>
+          </MenuItem>
+        </Menu>
+        <MenuItem name="$(lang:sel100_logoff_one)">
+          <Action>logoff_one</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:sel100_logoff_all)">
+          <Action>logoff_all</Action>
+        </MenuItem>
+      </If>
+      <MenuItem name="$(lang:call_voicemail)">
+        <Url>file:///xml/gui/state_settings.xml#numberdial=$(set:user_mailbox[$(current_line)])</Url>
+      </MenuItem>
+    </Menu>
+  </If>
+  <If condition="$(edition)==OCS">
+    <Menu name="$(lang:identity_settings)">
+      <MenuItem name="$(lang:sel100_activeline)">
+        <Action>active_line</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:sel100_reregister_line)">
+        <Action>reregister_line</Action>
+      </MenuItem>
+      <Menu name="$(lang:sel100_edit_line)">
+        <Menu name="$(lang:hotdesking)">
+          <MenuItem name="$(lang:hotdesking_ntlm)">
+            <Action>edit_line</Action>
+          </MenuItem>
+          <MenuItem name="$(lang:hotdesking_pin)">
+            <Action>edit_line_pin</Action>
+          </MenuItem>
+        </Menu>
+        <MenuItem name="$(lang:sel100_edit_line)">
+          <Url new_context="yes">file:///xml/gui/edit_user.xml</Url>
+        </MenuItem>
+      </Menu>
+      <MenuItem name="$(lang:sel100_logoff_one)">
+        <Action>logoff_one</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:sel100_logoff_all)">
+        <Action>logoff_all</Action>
+      </MenuItem>
+      <MenuItem name="$(lang:call_voicemail)">
+        <Url>file:///xml/gui/state_settings.xml#numberdial=$(set:user_mailbox[$(current_line)])</Url>
+      </MenuItem>
+    </Menu>
+  </If>
+  <If condition="$(set:admin_mode)">
+    <Menu name="$(lang:network_settings)">
+      <MenuItem name="$(lang:ip_settings_wizzard)">
+        <Action>ip_settings</Action>
+      </MenuItem>
+      <Menu name="$(lang:webserver_settings)">
+        <MenuItem name="$(lang:menu100_webserver_type)">
+          <Action>webserver_type</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:http_user)">
+          <Action>webserver_user</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:http_pass)">
+          <Action>webserver_pass</Action>
+        </MenuItem>
+      </Menu>
+      <Menu name="$(lang:vlan_settings)">
+        <MenuItem name="$(lang:vlan_id)">
+          <Action>vlan_id</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:vlan_qos)">
+          <Action>vlan_qos</Action>
+        </MenuItem>
+        <MenuItem name="$(lang:vlan_reset)">
+          <Action>vlan_reset</Action>
+        </MenuItem>
+      </Menu>
+      <If condition="$(arch_series)==snom8XX">
+        <MenuItem name="$(lang:wlan_settings)">
+          <Url new_context="yes">file:///xml/wifi/wifi.xml</Url>
+        </MenuItem>
+      </If>
+      <Elif condition="$(arch_series)==snom7XX">
+        <If condition="$(set:phone_type)!=snom710">
+          <MenuItem name="$(lang:wlan_settings)">
+            <Url new_context="yes">file:///xml/wifi/wifi.xml</Url>
+          </MenuItem>
+        </If>
+      </Elif>
+    </Menu>
+  </If>
+  <Menu name="$(lang:maintenance_settings)">
+    <MenuItem name="$(lang:system_information_menu)">
+      <Action>sysinfo</Action>
+    </MenuItem>
+    <If condition="!$(set:admin_mode)">
+      <MenuItem name="$(lang:sel100_admin_mode)" id="mode">
+        <Action>admin_mode</Action>
+      </MenuItem>
+    </If>
+    <Elif condition="$(set:admin_mode)">
+      <MenuItem name="$(lang:sel100_user_mode)" id="mode">
+        <Action>user_mode</Action>
+      </MenuItem>
+    </Elif>
+    <MenuItem name="$(lang:sel100_reboot)">
+      <Action>reboot</Action>
+    </MenuItem>
+    <If condition="$(set:admin_mode)">
+      <MenuItem name="$(lang:reset_settings)">
+        <Action>reset_settings</Action>
+      </MenuItem>
+    </If>
+    <MenuItem name="$(lang:menu_change_pin)">
+      <Action>change_pin</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:check_sw_update)">
+      <Url>snom://mb_exit#check_for_software_update_and_trigger_it</Url>
+    </MenuItem> 
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(lang:check_call_quality)">
+        <Url>snom://mb_exit#check_call_quality</Url>
+      </MenuItem>
+    </If>
+  </Menu>
+  <Menu name="$(lang:information_settings)">
+      <MenuItem name="$(lang:status_messages)">
+        <Action>show_status_messages</Action>
+      </MenuItem>
+    <MenuItem name="$(lang:system_information_menu)">
+      <Action>sysinfo</Action>
+    </MenuItem>
+    <MenuItem name="$(lang:help_label)">
+      <Action>support</Action>
+    </MenuItem>
+    <If condition="$(set:user_server_type[$(current_line)])==ocs">
+      <MenuItem name="$(lang:menu_location)">
+        <Action>location</Action>
+      </MenuItem>
+    </If>
+  </Menu>
+</SnomIPPhoneMenu>

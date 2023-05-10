@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        defaultIndex="1"
+        style="none"
+        editable="yes"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="TimeSntp"
+        InputType="1aB">
+    <Title showlistcount="yes">
+        SNTP Setting
+    </Title>
+
+		<Prompt>Time Zone:</Prompt>
+		<

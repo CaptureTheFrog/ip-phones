@@ -1,0 +1,151 @@
+A {
+	COLOR: #0000FF
+}
+A:hover {
+	
+}
+IMG {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+input,textarea{
+	border-bottom: #666666 1px solid;
+	border-left: #666666 1px solid;
+	border-right: #666666 1px solid;
+	border-top: #666666 1px solid;
+	color: #666666;
+	font: 8pt Verdana,Arial,Helvetica,Geneva,sans-serif;
+	margin: 0;
+	word-wrap: break-word;
+}
+input{
+  padding: 1;
+}
+textarea{
+  padding: 0;
+}
+.normalText {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.errorText {
+	FONT-SIZE: 11px; COLOR: #ff0000; FONT-FAMILY: Verdana
+}
+.normalTextBold {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.disabledText {
+	FONT-SIZE: 11px; COLOR: #bbbbbb; FONT-FAMILY: Verdana
+}
+.disabledTextField {
+	BACKGROUND-COLOR: #bbbbbb
+}
+.normalTextField {
+	BACKGROUND-COLOR: #eae8d9
+}
+.bubbleTable {
+	BACKGROUND-COLOR: #eae8d9
+}
+.background {
+	BACKGROUND-COLOR: #ffffff
+}
+.headerText {
+	FONT-WEIGHT: bold; FONT-SIZE: 24px; COLOR: black; FONT-FAMILY: Verdana
+}
+.headerBackground {
+	BACKGROUND-COLOR: #0062aa
+}
+.pageHeadText {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; FONT-FAMILY: Verdana
+}
+.pageInfoText {
+	FONT-SIZE: 11px; LINE-HEIGHT: 17px; FONT-FAMILY: Verdana
+}
+.disabledInfoText {
+	FONT-SIZE: 11px; COLOR: #bbbbbb; LINE-HEIGHT: 17px; FONT-FAMILY: Verdana
+}
+.bubbleHeadText {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #6487dc; FONT-FAMILY: Verdana
+}
+.fieldText {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana
+}
+.checkboxRadioText {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.button {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana;
+  color: #000000;
+  border-color: white #d6dff5 #d6dff5 white;
+  background: #ffffff;
+}
+.buttonLogout {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana;
+  color: #000000;
+  border-color: white #d6dff5 #d6dff5 white;
+  background: #eae8d9;
+}
+.radio{
+	background: transparent;
+	border: 0px;
+}
+.select_blue {
+	background-color: #d6dff5;
+}
+.select_std {
+  background-color: #eae8d9;
+}
+.selectedRadioText {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #00a900; FONT-FAMILY: Verdana
+}
+.selectedRadioDesc {
+	FONT-SIZE: 11px; COLOR: #00a900; FONT-FAMILY: Verdana
+}
+.selectedTextField {
+	BORDER-LEFT-COLOR: #3a5bca; BORDER-BOTTOM-COLOR: #3a5bca; BORDER-TOP-COLOR: #3a5bca; BORDER-RIGHT-COLOR: #3a5bca
+}
+.deselectedTextField {
+	CLEAR: both; BACKGROUND-COLOR: white
+}
+.logoutLink A {
+	COLOR: #ffffff
+}
+.logoutLink A:visited {
+	COLOR: #ffffff
+}
+.inputhuge {
+	height: 18px;
+	width: 300px;
+}
+.inputbig {
+	height: 18px;
+	width: 180px;
+}
+.inputbig_blue {
+	height: 18px;
+	width: 180px;
+	background-color: #d6dff5;
+	border-bottom: #666666 1px solid;
+	border-left: #666666 1px solid;
+	border-right: #666666 1px solid;
+	border-top: #666666 1px solid;
+}
+.inputbig_std {
+  height: 18px;
+  width: 180px;
+  background-color: #eae8d9;
+  border-bottom: #666666 1px solid;
+  border-left: #666666 1px solid;
+  border-right: #666666 1px solid;
+  border-top: #666666 1px solid;
+}
+.inputmiddle {
+	height: 18px;
+	width: 130px;
+}
+.inputsmall {
+	height: 18px;
+	width: 90px;
+}
+.inputtiny {
+	height: 18px;
+	width: 40px;
+}

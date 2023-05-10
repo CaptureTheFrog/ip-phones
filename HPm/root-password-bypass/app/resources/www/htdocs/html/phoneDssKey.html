@@ -1,0 +1,572 @@
+<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="";
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+	document.write('<script src="../js/commonKey.js?ver='+Math.random()+'"></s'+'cript>');
+</script>
+<script type='text/javascript'>
+var PageRefDesURL = 'do?id=4&id=4&id=2';
+
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+function getLineKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var cLineKeyTypeNum = f2.hcLineKeyTypeNum.value;
+	var cLineKeyTypeIds = f2.hcLineKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrLineKeyTypeList = f2.hcLineKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var tmpKeyType;
+	for(var k=0; k < cLineKeyTypeNum; k++)	
+	{
+		if(tmpT == cLineKeyTypeIds[k]) tmpKeyType = arrLineKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function getDSSKeyTypeByID(tmpT)
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	var cDSSKeyTypeNum = f2.hcDSSKeyTypeNum.value;
+	var cDSSKeyTypeIds = f2.hcDSSKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyTypeList = f2.hcDSSKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var tmpKeyType;
+	
+	for(var k=0; k < cDSSKeyTypeNum; k++)	
+	{
+		if(tmpT == cDSSKeyTypeIds[k])  tmpKeyType = arrDSSKeyTypeList[k]; 
+	}
+	return tmpKeyType;
+}
+
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var cLineNum = f2.hcLineNum.value;
+	
+	MaxDSSKeyNum = f2.hcDSSKeyNum.value;
+	var cDSSKeyTypeIds = f2.hcDSSKeyTypeIds.value.split(tmpSplitSymbol); //(SplitSymbol);;
+	var arrDSSKeyTypeList = f2.hcDSSKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var cDSSKeyTypeNum = f2.hcDSSKeyTypeNum.value;
+
+	for(var i = 0; i < MaxDSSKeyNum; i++)
+	{
+		var curValue = "cDSSKeyValue"+i;
+	 	var itemHtml = "<tr><td height='10' style='text-align: center; width: 80px'><label id='tDSSKey"+ i +"'></label></td>" +
+	                "<td style='text-align: center; width: 90px'><select style='width: 90px' id='cDSSKeyType" + i +"' onChange='InputToSelect(this.id, "+curValue+"), CheckPKeySts(), optionsReset(this.id), prmsReset(this.id)'></select></td>" +
+	                "<td style='text-align: center; width: 90px'><input style='width: 90px' id='cDSSKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></td>"+
+	                "<td style='text-align: center; width: 90px'><select style='width: 90px' id='cDSSKeyLine" + i+"' type='text'></td>"+
+	         	      "<td style='text-align: center; width: 90px'><input style='width: 90px' id='cDSSKeyCode" + i +"' type='text' onFocus='onInputEdit(this.id)'></td></tr>";
+	 $("#tableDSSKey").append(itemHtml);  
+	 var tmp = "cDSSKeyType"+i; 
+	 for(var j = 0; j < cDSSKeyTypeNum; j++)
+	 {
+	  var tmpOptions = getOptionsByType(arrDSSKeyTypeList[j]);
+	 	document.getElementById(tmp).options.add(new Option(tmpOptions,cDSSKeyTypeIds[j]));
+	 }
+	 tmp = "cDSSKeyLine"+i; 
+	 for(var j = 0; j <= cLineNum; j++)
+	 {  
+	 	var tmpLine = Line + " "+ (j);
+		if(0==j){ tmpLine=Auto; }
+		document.getElementById(tmp).options.add(new Option(tmpLine, j));
+	 }  			  
+	}
+
+	LoadLang();
+	DelayShow();
+  SubLoadCfg();
+}
+
+function optionsReset(tmpID)
+{			
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];	
+	var cLineNum = f2.hcLineNum.value;
+	var arrDSSKeyType = f2.hcDSSKeyType.value.split(tmpSplitSymbol); //(SplitSymbol);	
+	var arrDSSKeyLine = f2.hcDSSKeyLine.value.split(tmpSplitSymbol); //(SplitSymbol);	
+	
+	for(var i = 0;i < MaxDSSKeyNum; i++)
+	{	
+		var tmpTypeID = "cDSSKeyType"+i;
+		var tmpLineID = "cDSSKeyLine"+i;
+ 		var tmpType = document.getElementById(tmpID).value;
+ 		if(tmpID == tmpTypeID)
+ 		{
+ 			var tmpDSSType = getDSSKeyTypeByID(tmpType); 					
+			switch(tmpDSSType)
+			{	
+				case "BLFList":
+				case "Account":
+				case "BLF":
+				case "ACD":
+				{			
+					for(var k=0; k <= cLineNum; k++) { document.getElementById(tmpLineID).options.remove(0); }
+					for(var j = 1; j <= cLineNum; j++)
+					{ 
+						var tmpLine = Line + " "+ (j);
+						document.getElementById(tmpLineID).options.add(new Option(tmpLine, j));
+					}
+					if(!isValueValid(arrDSSKeyLine[i], cLineNum)) document.getElementById(tmpLineID).value = 1;
+					else  document.getElementById(tmpLineID).value = arrDSSKeyLine[i];
+					break;
+				}
+				default:
+				{		
+					for(var k=0; k <= cLineNum; k++) { document.getElementById(tmpLineID).options.remove(0); }
+				  for(var j = 0; j <= cLineNum; j++)
+				  {	
+				  	var tmpLine = Line + " "+ (j);
+						if(0==j){tmpLine=Auto;}
+						document.getElementById(tmpLineID).options.add(new Option(tmpLine, j));
+				  }
+					if(isValueValid(arrDSSKeyLine[i], cLineNum)||(0 == arrDSSKeyLine[i]&&""!=arrDSSKeyLine[i]))
+					{document.getElementById(tmpLineID).value = arrDSSKeyLine[i];}
+					else	document.getElementById(tmpLineID).value = 1;
+					break;
+				}
+			}
+		}	
+	}			
+}
+
+function prmsReset(tmpID)
+{	
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+
+ 	var cDSSKeyNum = f2.hcDSSKeyNum.value;
+	var arrDSSKeyType = f2.hcDSSKeyType.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyValue = f2.hcDSSKeyValue.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyCode = f2.hcDSSKeyCode.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyLine = f2.hcDSSKeyLine.value.split(tmpSplitSymbol); //(SplitSymbol);
+	
+	for(var i = 0; i < cDSSKeyNum; i++)
+	{	
+		curTypeID = "cDSSKeyType"+i;
+		curType = document.getElementById(curTypeID).value;
+		curValueID = "cDSSKeyValue"+i;
+		curLineID = "cDSSKeyLine" + i;
+		curCodeID = "cDSSKeyCode" + i;
+		if(curTypeID == tmpID && curType!= arrDSSKeyType[i])
+		{	
+			if("Book" != getDSSKeyTypeByID(curType))
+			{
+				document.getElementById(curValueID).value= "";
+			}
+			document.getElementById(curCodeID).value= "";
+			document.getElementById(curLineID).value = 1;
+		}
+		if(curTypeID == tmpID && curType == arrDSSKeyType[i])
+		{	
+			document.getElementById(curValueID).value= ShowDecode(arrDSSKeyValue[i]);
+			document.getElementById(curCodeID).value= arrDSSKeyCode[i];	
+			document.getElementById(curLineID).value= arrDSSKeyLine[i];	
+		}
+	}
+}
+
+function CheckPKeySts()
+{
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	
+	var cKeyTypeNum = f2.hcSoftKeyTypeNum.value;	
+
+	for(var i=0;i<MaxDSSKeyNum;i++)
+ 	{	
+ 		var tmp = "cDSSKeyType"+i;
+ 		var tmpT = document.getElementById(tmp).value;
+ 		tmpT = getDSSKeyTypeByID(tmpT);
+ 		switch(GetPrmsDisabled(tmpT))
+ 		{	
+ 			case 2:
+			{
+				tmp = "cDSSKeyValue" + i;
+				setDisabled(document.getElementById(tmp),false);
+				tmp = "cDSSKeyCode" + i;
+				setDisabled(document.getElementById(tmp),true);
+				tmp = "cDSSKeyLine" + i;
+				setDisabled(document.getElementById(tmp),false);
+				break;
+			}
+			case 3:
+			{	
+				tmp = "cDSSKeyValue" + i;
+				setDisabled(document.getElementById(tmp),false);
+				tmp = "cDSSKeyCode" + i;
+				setDisabled(document.getElementById(tmp),true);
+				tmp = "cDSSKeyLine" + i;
+				setDisabled(document.getElementById(tmp),true);
+				break;
+			}
+			case 6: 
+			{
+				tmp = "cDSSKeyValue"+i;
+				setDisabled(document.getElementById(tmp),true);
+				tmp = "cDSSKeyCode"+i;
+				setDisabled(document.getElementById(tmp),true);
+				tmp = "cDSSKeyLine"+i;
+				setDisabled(document.getElementById(tmp),false);
+				break;
+			}
+			case 15:
+			case 7:
+			{
+				tmp = "cDSSKeyValue"+i;		
+				setDisabled(document.getElementById(tmp), true);
+				tmp = "cDSSKeyCode"+i;
+				setDisabled(document.getElementById(tmp), true);
+				tmp = "cDSSKeyLine"+i;
+				setDisabled(document.getElementById(tmp), true);
+				break;
+			}
+			default :
+			{
+				tmp ="cDSSKeyValue"+i;		
+				setDisabled(document.getElementById(tmp), false);
+				tmp ="cDSSKeyCode"+i;
+				setDisabled(document.getElementById(tmp), false);
+				tmp ="cDSSKeyLine"+i;
+	 			setDisabled(document.getElementById(tmp), false);
+	 			break;
+	 		}
+		} 			
+ 	}
+}
+
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var cLineNum = f2.hcLineNum.value;
+	var cLineKeyNum = f2.hcLineKeyNum.value;
+	var cSoftKeyNum = f2.hcSoftKeyNum.value;
+	var arrKeyDefaultType = f2.hcKeyDefaultType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+	
+	var cDSSKeyTypeNum = f2.hcDSSKeyTypeNum.value;
+	var arrcDSSKeyTypeId = f2.hcDSSKeyTypeIds.value;
+	var arrDSSKeyType =  f2.hcDSSKeyType.value.split(tmpSplitSymbol); //(SplitSymbol);;	
+	var arrDSSKeyValue =  f2.hcDSSKeyValue.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyCode = f2.hcDSSKeyCode.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyLine =  f2.hcDSSKeyLine.value.split(tmpSplitSymbol); //(SplitSymbol);
+	
+	for(var i = 0; i < MaxDSSKeyNum; i++)
+	{
+		// def N/A
+		arrDSSKeyType[i] = transTypeInvalidToDef(arrDSSKeyType[i],arrcDSSKeyTypeId,cDSSKeyTypeNum,0);
+		if(0 == i)   f2.hcDSSKeyType.value = arrDSSKeyType[i] + tmpSplitSymbol;//SplitSymbol ; 
+		else    f2.hcDSSKeyType.value = f2.hcDSSKeyType.value + arrDSSKeyType[i] + tmpSplitSymbol;//SplitSymbol ; 
+	}
+	for(var i = 0; i < MaxDSSKeyNum; i ++ )
+	{ 
+		ResetHtml("cDSSKeyValue", i);
+		switch(getDSSKeyTypeByID(arrDSSKeyType[i]))
+		{
+			case "BLFList":
+			case "Account":
+			case "BLF":
+			case "ACD":
+			{
+				arrDSSKeyLine[i] = transInvalidToDef(arrDSSKeyLine[i],cLineNum,1);
+				if(0 == i) 	f2.hcDSSKeyLine.value = arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcDSSKeyLine.value = f2.hcDSSKeyLine.value + arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				break;
+			}
+			case "Book":
+			{
+				//将输入框变为下拉框
+				itemHtml ="<select style='width: 90px;' id='cDSSKeyValue" + i + "' type='text' onFocus='onInputEdit(this.id)'></select>"
+				$("#cDSSKeyValue"+i).replaceWith(itemHtml);
+				for(var j=0 ;j<Book_SelectText.length; j++)
+				{
+					document.getElementById("cDSSKeyValue"+i).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+				}
+				
+				if(!isValueValid(arrDSSKeyLine[i],cLineNum)&& !(arrDSSKeyLine[i] === '0'))
+				{arrDSSKeyLine[i] = 0;}
+				if(0 == i) 	f2.hcDSSKeyLine.value = arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcDSSKeyLine.value = f2.hcDSSKeyLine.value + arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				break;
+			}
+			default:
+			{
+				if(!isValueValid(arrDSSKeyLine[i],cLineNum)&& !(arrDSSKeyLine[i] === '0'))
+				{arrDSSKeyLine[i] = 0;}
+				if(0 == i) 	f2.hcDSSKeyLine.value = arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				else 	    f2.hcDSSKeyLine.value = f2.hcDSSKeyLine.value + arrDSSKeyLine[i] + tmpSplitSymbol;//SplitSymbol ; 
+				break;
+			}
+		}
+	}
+	
+	//DADD
+	for(var i=0; i < MaxDSSKeyNum; i++)
+	{
+		var tmp = "cDSSKeyType"+i;
+		var tmpType = arrDSSKeyType[i];
+		document.getElementById(tmp).value = arrDSSKeyType[i];
+		optionsReset(tmp);
+		var tmp = "cDSSKeyValue"+i;
+		document.getElementById(tmp).value = ShowDecode(arrDSSKeyValue[i]);
+		document.getElementById(tmp).maxLength = 127;
+		var tmp = "cDSSKeyCode"+i;
+		document.getElementById(tmp).value = arrDSSKeyCode[i];
+		var tmp = "cDSSKeyLine"+i;
+		document.getElementById(tmp).value = arrDSSKeyLine[i];
+	}
+	
+	ResetAllInputColor();
+	CheckPKeySts();
+}
+
+function LoadLang()
+{
+	var tmp = DSSKey;
+	LoadCommonResources(tmp);
+	var f2 = document.forms["hiddenValForm"];
+
+	for(var i=0; i < MaxDSSKeyNum; i++)
+	{
+		var tmp = "tDSSKey"+i;
+		document.getElementById(tmp).innerHTML = DSSKey+" "+(i+1);
+	}
+	document.getElementById("tDSSKeyName").innerHTML = Key;	
+	document.getElementById("tDSSKeyFeature").innerHTML = Type;
+	document.getElementById("tDSSKeyValue").innerHTML =Value;
+	document.getElementById("tDSSKeyCode").innerHTML =Extension;
+	document.getElementById("tDSSKeyAccount").innerHTML =Account;
+	document.getElementById("tDSSKey").innerHTML = DSSKey;
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	var ErrFlag = false;
+
+	var arrKeyDefaultType = f2.hcKeyDefaultType.value.split(tmpSplitSymbol);//(SplitSymbol); 
+	var arrDSSKeyType = f2.hcDSSKeyType.value.split(tmpSplitSymbol); //(SplitSymbol);;
+	var arrDSSKeyValue = f2.hcDSSKeyValue.value.split(tmpSplitSymbol); //(SplitSymbol);;
+	var arrDSSKeyCode = f2.hcDSSKeyCode.value.split(tmpSplitSymbol); //(SplitSymbol);;
+	var arrDSSKeyLine = f2.hcDSSKeyLine.value.split(tmpSplitSymbol); //(SplitSymbol);;
+
+	/*check commit data for dss keys*/
+	for(var i=0; i < MaxDSSKeyNum; i++)
+	{
+		var tmpID = "cDSSKeyType"+i;
+		var tmpKeyType = document.getElementById(tmpID).value;
+/*		if(16 == Number(tmpKeyType))
+		{
+			GetBLFNum++;
+			RltBLF = CulBLFNum(GetBLFNum, f2.hcExtBLFKeyNum.value, f2.hcMaxBLFNum.value);
+			if(false == RltBLF)
+			{
+				BLFFlag = false;
+			}
+		}*/
+		if(tmpKeyType != arrDSSKeyType[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		tmpID = "cDSSKeyValue"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if("DTMF" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if(false == IsDTMFValueValid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;				
+				}	
+
+			}
+			else if("XML Browser" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if(!CheckLengthOfData(document.getElementById(tmpID).value, 0, 127))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+			}
+			else
+			{
+				if(!NotContainInvalid(document.getElementById(tmpID).value))
+				{
+					SetInputBGColor(tmpID);
+					ErrFlag = true;
+				}
+			}
+			//Book's value can be set as none
+			if("Book" == getLineKeyTypeByID(tmpKeyType))
+			{
+				if("" == document.getElementById(tmpID).value)
+				{
+					document.getElementById(tmpID).value = 0;
+				}
+			}
+			if("" == document.getElementById(tmpID).value)
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+			}
+			if(document.getElementById(tmpID).value != ShowDecode(arrDSSKeyValue[i]))
+			{					
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{	
+			if("BLFList" != getDSSKeyTypeByID(tmpKeyType) && "" != arrDSSKeyValue[i])
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			if("BLFList" == getDSSKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrDSSKeyType[i]))
+			{
+			 	strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cDSSKeyCode"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getDSSKeyTypeByID(tmpKeyType) && arrDSSKeyCode[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+			if("BLFList" == getDSSKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrDSSKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cDSSKeyLine"+i;
+		if( false == document.getElementById(tmpID).disabled && (document.getElementById(tmpID).value != arrDSSKeyLine[i] || Number(tmpKeyType) != Number(arrDSSKeyType[i])))
+		{
+			strSubmData = strSubmData + SplitSymbol + tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		if(true == document.getElementById(tmpID).disabled )
+		{	
+			if(arrDSSKeyLine[i] != 1)	strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + 1;
+		}
+	}
+
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+
+	var arrDSSKeyType = f2.hcDSSKeyType.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyValue = f2.hcDSSKeyValue.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyCode = f2.hcDSSKeyCode.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrDSSKeyLine = f2.hcDSSKeyLine.value.split(tmpSplitSymbol); //(SplitSymbol);		
+	
+	var dataChangedWarnFlag = 0;
+	
+	for(var i=0; i < MaxDSSKeyNum; i++)
+	{
+		var tmpID = "cDSSKeyType"+i;
+		if(document.getElementById(tmpID).value != arrDSSKeyType[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cDSSKeyValue"+i;
+		if(document.getElementById(tmpID).value != ShowDecode(arrDSSKeyValue[i]))
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cDSSKeyCode"+i;
+		if(document.getElementById(tmpID).value != arrDSSKeyCode[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cDSSKeyLine"+i;
+		if(document.getElementById(tmpID).value != arrDSSKeyLine[i])
+			dataChangedWarnFlag = 1 ;
+	}
+	
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+$(function() { SetPageMenuAction("#aMenu4", "tMenu442"); });
+
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+		<div id="divDSSKeyPart" class="div_border">
+			<div class="div_head"><label id='tDSSKey'>DSSKey</label></div>
+          <table class="table_style">
+          <table id="tableDSSKey" class='TablePadding1'>
+            <tr bgcolor='#a5a9af'>
+              <td style='text-align: center; width:80px;'><label style='text-align: center; width:80px;' id='tDSSKeyName'></label></td>
+              <td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tDSSKeyFeature'></label></td>
+              <td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tDSSKeyValue'></label></td>
+              <td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tDSSKeyAccount'></label></td>
+              <td style='text-align: center; width:90px;'><label style='text-align: center; width:90px;' id='tDSSKeyCode'></label></td>
+            </tr>
+          </table>
+          </table>
+		</div>
+		          
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="" />
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick="OnSubmit()"></td>
+        			<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfg()"></td></tr>
+        </table>
+        </div>
+</form> 			
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

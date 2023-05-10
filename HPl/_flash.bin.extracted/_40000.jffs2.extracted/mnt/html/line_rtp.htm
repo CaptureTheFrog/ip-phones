@@ -1,0 +1,105 @@
+
+<?ssi title line$l_ssi_title?>
+
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+<?ssi hidden_tag?>
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<?ssi file tab_line.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng line_rtpsettings?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<?ssi skipon NO_DYNAMIC_CODEC?>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 1:</TD><TD><?ssi codec codec1_name$l?><?ssi help codec_name?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 2:</TD><TD><?ssi codec codec2_name$l?><?ssi help codec_name?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 3:</TD><TD><?ssi codec codec3_name$l?><?ssi help codec_name?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 4:</TD><TD><?ssi codec codec4_name$l?><?ssi help codec_name?></TD></TR>
+<?ssi skipon SNOM_MP?>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 5:</TD><TD><?ssi codec codec5_name$l?><?ssi help codec_name?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 6:</TD><TD><?ssi codec codec6_name$l?><?ssi help codec_name?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?> 7:</TD><TD><?ssi codec codec7_name$l?><?ssi help codec_name?></TD></TR>
+<?ssi skipoff SNOM_MP?>
+<?ssi skipoff NO_DYNAMIC_CODEC?>
+<?ssi skipon DYNAMIC_CODEC_SUPPORT?>
+<TR><TD></TD><TD class="normalText"><?lng line_codec?>:</TD><TD><?ssi codec codec_priority_list$l?><?ssi help codec_priority_list?></TD></TR>
+<?ssi skipoff DYNAMIC_CODEC_SUPPORT?>
+
+<?ssi skipon SNOM_MP?>
+<TR><TD></TD><TD class="normalText"><?lng line_packetsize?></TD><TD><select size="1" <?ssi disabled codec_size$l?>name="codec_size<?ssi line?>" <?ssi tabindex?> class="select3">
+ <option value="10"<?ssi selected codec_size$l 10?>>10 ms</option>
+ <option value="20"<?ssi selected codec_size$l 20?>>20 ms</option>
+ <option value="30"<?ssi selected codec_size$l 30?>>30 ms</option>
+ <option value="40"<?ssi selected codec_size$l 40?>>40 ms</option>
+ <option value="60"<?ssi selected codec_size$l 60?>>60 ms</option>
+</select><?ssi help codec_size?></TD></TR>
+<?ssi skipoff SNOM_MP?>
+
+<?ssi skipon DYNAMIC_CODEC_SUPPORT?>                                                                                         
+<TR><TD></TD><TD></TD><TD class="normalText"><br></TD></TR>
+<TR><TD></TD><TD class="normalText" valign="top"><?lng current_codeclist?>:</TD><TD class="normalText"><?ssi current_codeclist current_codeclist$l?></TD></TR>
+<TR><TD></TD><TD></TD><TD class="normalText"><br></TD></TR>
+<?ssi skipoff DYNAMIC_CODEC_SUPPORT?>
+
+<?ssi skipon SNOM_MP?>
+<TR><TD></TD><?ssi radio line_ssi_full_sdp_answer user_full_sdp_answer$l advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff SNOM_MP?>
+<TR><TD></TD><?ssi radio advanced_ssi_symmetricrtp user_symmetrical_rtp$l advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon WITHOUT_SRTP?>
+<TR><TD></TD><?ssi radio line_ssi_rtpencryption user_srtp$l advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon SNOM_MP?>
+<?ssi skipon NO_DYNAMIC_CODEC?>
+<TR><TD></TD><?ssi radio line_ssi_dynamic_payload user_dynamic_payload$l advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NO_DYNAMIC_CODEC?>
+<?ssi skipoff SNOM_MP?>
+<TR><TD></TD><?ssi radio line_ssi_g726_packing_order user_g726_packing_order$l line_ssi_rfc3551 line_ssi_aal2?></TR>
+<TR><TD></TD><?ssi radio line_ssi_authtag user_auth_tag$l line_ssi_aes32 line_ssi_aes80?></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_ssi_savp?></TD><TD><select <?ssi disabled user_savp$l?>name="user_savp<?ssi line?>" size="1" <?ssi tabindex?> class="select1">
+ <option value="off"<?ssi selected user_savp$l off?>><?lng advanced_off?></option>
+ <option value="optional"<?ssi selected user_savp$l optional?>><?lng line_ssi_optional?></option>
+ <option value="mandatory"<?ssi selected user_savp$l mandatory?>><?lng line_ssi_mandatory?></option>
+</select><?ssi help user_savp?></TD></TR>
+<?ssi skipoff WITHOUT_SRTP?>
+
+<!-- media transport offer: udp, tcp ? -->
+<TR><TD></TD><TD class="normalText"><?lng line_ssi_mediatransportoffer?></TD><TD>
+<select <?ssi disabled user_media_transport_offer$l?>name="user_media_transport_offer<?ssi line?>" size="1" <?ssi tabindex?> class="select1">
+ <option value="udp"<?ssi selected user_media_transport_offer$l udp?>>UDP</option>
+ <option value="tcp"<?ssi selected user_media_transport_offer$l tcp?>>TCP</option>
+</select><?ssi help user_media_transport_offer?></TD></TR>
+
+<!-- media offer active/passive/any ? only used if tcp is selected -->
+<TR><TD></TD><TD class="normalText"><?lng line_ssi_mediatransportoffersetup?></TD><TD>
+<select <?ssi disabled user_media_setup_offer$l?>name="user_media_setup_offer<?ssi line?>" size="1" <?ssi tabindex?> class="select1">
+ <option value="active" <?ssi selected user_media_setup_offer$l active?>><?lng line_ssi_mto_active?></option>
+ <option value="passive"<?ssi selected user_media_setup_offer$l passive?>><?lng line_ssi_mto_passive?></option>
+ <option value="any"<?ssi selected user_media_setup_offer$l any?>><?lng line_ssi_mto_any?></option>
+</select><?ssi help user_media_setup_offer?></TD></TR>
+<?ssi_skipon SNOMPA1?>
+<TR><TD></TD><td class="normalText"><?ssi input_field line_ssi_multicast_relay_address multicast_relay_address$l?></td></TR>
+<?ssi_skipoff SNOMPA1?>
+
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	<?ssi file common9.htm?></HTML>

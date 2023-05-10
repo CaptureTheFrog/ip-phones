@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu speedselect="off" state="relevant" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <Title>$(lang:status_messages)</Title>
+  <Repeat values="$(status_message)" token="|__X__|__Y__|">
+    <MenuItem name="__X__" id="__Y__"/>
+  </Repeat>
+  <If condition="$(set:phone_type)==snom300">
+    <SoftKeyItem>
+      <Name>F3</Name>
+      <SoftKey>F_DELETE</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F4</Name>
+      <SoftKey>F_DETAILS</SoftKey>
+    </SoftKeyItem>
+  </If> <!-- snom300 only -->
+  <Else>
+    <SoftKeyItem>
+      <Name>F3</Name>
+      <SoftKey>F_DETAILS</SoftKey>
+    </SoftKeyItem>
+    <SoftKeyItem>
+      <Name>F4</Name>
+      <SoftKey>F_DELETE</SoftKey>
+    </SoftKeyItem>
+  </Else>
+</SnomIPPhoneMenu>

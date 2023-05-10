@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        LockIn="no"
+        CombineData="ListRing">
+  <title wrap="no" showlistcount="yes">Ring Tones Setting</title>
+	<MenuItem><Prompt>Combine_ListRing_NameX</Prompt><DataID>Combine_ListRing_NameX</DataID></MenuItem>
+
+	<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

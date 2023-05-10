@@ -1,0 +1,99 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng advanced_audio?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_disablecasingspeaker disable_speaker advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_dtmfechospeaker dtmf_speaker_phone advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_callreleasednotify release_sound advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_dialtonehold cw_dialtone advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_suppress_ringing_during_hold suppress_ringing_during_hold advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon NO_FEATURE_MOH?>
+<TR><TD></TD><?ssi radio advanced_ssi_play_music_during_hold play_music_during_hold advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NO_FEATURE_MOH?>
+<TR><TD></TD><?ssi radio advanced_ssi_holding_reminder holding_reminder advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_alert_info_playback alert_info_playback advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_pickup_indication pickup_indication advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon SNOM720710?>
+<TR><TD></TD><?ssi radio advanced_audio_device_indicator audio_device_indicator advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff SNOM720710?>
+<TR><TD></TD><?ssi radio advanced_ssi_allow_rtp_on_mute allow_rtp_on_mute advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon SNOM7XX?>
+<TR><TD></TD><?ssi radio advanced_ssi_headset_rings_once headset_rings_once advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff SNOM7XX?>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_ssi_callwaitingindi?></td><td>
+<select name="call_waiting" ID="Select3" <?ssi disabled call_waiting?>size="1" <?ssi tabindex?> class="select3">
+<option value="on"<?ssi selected call_waiting on?>><?lng advanced_on?></option>
+<option value="visual"<?ssi selected call_waiting visual?>><?lng advanced_call_waiting_visual?></option>
+<option value="ringer"<?ssi selected call_waiting ringer?>><?lng advanced_call_waiting_ringer?></option>
+<option value="off"<?ssi selected call_waiting off?>><?lng advanced_off?></option>
+</select><?ssi help call_waiting?>
+</td>
+</tr>
+<?ssi skipon WITHOUT_MIC_VOLUME?>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_speaker_mic vol_speaker_mic?></td></TR>
+<?ssi skipon SNOM_MP?>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_handset_mic vol_handset_mic?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_headset_mic vol_headset_mic?></td></TR>
+<?ssi skipoff SNOM_MP?>
+<?ssi skipoff WITHOUT_MIC_VOLUME?>
+<?ssi skipon WITHOUT_HIGH_MIC_VOLUME?>
+<TR><TD></TD><?ssi radio advanced_ssi_high_mic_gain high_mic_gain advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff WITHOUT_HIGH_MIC_VOLUME?>
+<?ssi skipon WITHOUT_USB_AUDIO?>
+<TR><TD></TD><td class="normalText"><?ssi input soundcard_event_map soundcard_event_map?></td></TR>
+<?ssi skipoff WITHOUT_USB_AUDIO?>
+<?ssi skipon NOT_SNOM3XX?>
+<TR><TD></TD><td class="normalText"><?lng adv_audio_ssi_handsfree_mode?></td>
+<td>
+    <select name="handsfree_mode" ID="Select3" <?ssi disabled handsfree_mode?>size="1" <?ssi tabindex?> class="select3">
+    <option value="normal"<?ssi selected handsfree_mode normal?>><?lng handsfree_mode_normal?></option>
+    <option value="echoic"<?ssi selected handsfree_mode echoic?>><?lng handsfree_mode_echoic?></option>
+    </select><?ssi help handsfree_mode?>
+</td></TR>
+<?ssi skipoff NOT_SNOM3XX?>
+<?ssi skipon NOT_SNOM_MP?>
+<TR><TD></TD><td class="normalText"><?lng adv_audio_ssi_equalizer?></td>
+<td>
+    <select name="equalizer" ID="Select3" <?ssi disabled equalizer?>size="1" <?ssi tabindex?> class="select3">
+    <option value="soft"<?ssi selected equalizer soft?>><?lng equalizer_soft?></option>
+    <option value="normal"<?ssi selected equalizer normal?>><?lng equalizer_normal?></option>
+    <option value="bright"<?ssi selected equalizer bright?>><?lng equalizer_bright?></option>
+    </select><?ssi help equalizer?>
+</td></TR>
+<?ssi skipoff NOT_SNOM_MP?>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><B><?ssi inpass advanced_ssi_adminlogin admin_mode_login?></B></td></TR>
+<?ssi skipoff IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	
+	
+<?ssi file common9.htm?></HTML>

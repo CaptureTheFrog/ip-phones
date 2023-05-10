@@ -1,0 +1,29 @@
+7/2" End="10/5/7/3" Offset="60"/>
+  <DST Id="81" TimeZone="+5" Name="Kazakstan(Aqtobe)"/>
+  <DST Id="82" TimeZone="+5" Name="Kyrgyzstan(Bishkek)" />
+  <DST Id="83" TimeZone="+5" Name="Pakistan(Islamabad)" Type="0" Start="4/15/0" End="11/1/0" Offset="60"/>
+  <DST Id="84" TimeZone="+5" Name="Russia(Chelyabinsk)"  Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60"/>
+  <DST Id="85" TimeZone="+5" Name="Russia(Yekaterinburg)" />
+  <DST Id="86" TimeZone="+5:30" Name="India(Calcutta)" />
+  <DST Id="87" TimeZone="+6" Name="Kazakstan(Astana,Almaty)" />
+  <DST Id="88" TimeZone="+6" Name="Russia(Novosibirsk,Omsk)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+  <DST Id="89" TimeZone="+7" Name="Russia(Krasnoyarsk)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+  <DST Id="90" TimeZone="+7" Name="Thailand(Bangkok)" />
+  <DST Id="91" TimeZone="+8" Name="China(Beijing)" />
+  <DST Id="92" TimeZone="+8" Name="Singapore(Singapore)" />
+  <DST Id="93" TimeZone="+8" Name="Australia(Perth)" Type="1" Start="10/1/7/2" End="3/5/7/3" Offset="60" />
+  <DST Id="94" TimeZone="+9" Name="Korea(Seoul)" />
+  <DST Id="95" TimeZone="+9" Name="Japan(Tokyo)" />
+  <DST Id="96" TimeZone="+9:30" Name="Australia(Adelaide)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+  <DST Id="97" TimeZone="+9:30" Name="Australia(Darwin)" />
+  <DST Id="98" TimeZone="+10" Name="Australia(Sydney,Melbourne,Canberra)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+  <DST Id="99" TimeZone="+10" Name="Australia(Brisbane)" />
+  <DST Id="100" TimeZone="+10" Name="Australia(Hobart)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+  <DST Id="101" TimeZone="+10" Name="Russia(Vladivostok)" Type="1" Start="3/5/7/2" End="10/5/7/3" Offset="60" />
+  <DST Id="102" TimeZone="+10:30" Name="Australia(Lord Howe Islands)" Type="1" Start="10/1/7/2" End="4/1/7/3" Offset="60" />
+  <DST Id="103" TimeZone="+11" Name="New Caledonia(Noumea)" />
+  <DST Id="104" TimeZone="+12" Name="New Zealand(Wellington,Auckland)" Type="1" Start="9/5/7/3" End="4/1/7/2" Offset="60" />
+  <DST Id="105" TimeZone="+12:45" Name="New Zealand(Chatham Islands)" Type="1" Start="9/5/7/4" End="4/1/7/3" Offset="60" />
+  <DST Id="106" TimeZone="+13" Name="Tonga(Nukualofa)" />
+</TimeZone>
+  

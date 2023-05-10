@@ -1,0 +1,72 @@
+
+[ PRIORITY ]
+Enable=1
+Priority=10
+
+[ GENERAL ]
+Codec=
+
+[ LISTEN0 ]
+Label=
+IP=
+Port=
+Priority=0
+
+[ LISTEN1 ]
+Label=
+IP=
+Port=
+Priority=1
+
+[ LISTEN2 ]
+Label=
+IP=
+Port=
+Priority=2
+
+[ LISTEN3 ]
+Label=
+IP=
+Port=
+Priority=3
+
+[ LISTEN4 ]
+Label=
+IP=
+Port=
+Priority=4
+
+[ LISTEN5 ]
+Label=
+IP=
+Port=
+Priority=5
+
+[ LISTEN6 ]
+Label=
+IP=
+Port=
+Priority=6
+
+[ LISTEN7 ]
+Label=
+IP=
+Port=
+Priority=7
+
+[ LISTEN8 ]
+Label=
+IP=
+Port=
+Priority=8
+
+[ LISTEN9 ]
+Label=
+IP=
+Port=
+Priority=9
+
+[ HOST ]
+IP=
+Port=
+ 

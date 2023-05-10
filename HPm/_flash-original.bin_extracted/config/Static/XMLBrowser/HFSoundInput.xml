@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" CombineData="HFMicInputMode" LockIn="no" Scroll="yes">
+    <title showlistcount="yes" />
+    <MenuItem>
+        <Prompt>Use handset mic if lifted</Prompt>
+        <DataID>Config.Settings.AUDIO.HFMicInputMode=1</DataID>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Use phone mic if handset is lifted</Prompt>
+        <DataID>Config.Settings.AUDIO.HFMicInputMode=0</DataID>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Save</Label>
+        <URI>SoftKey:Submit</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

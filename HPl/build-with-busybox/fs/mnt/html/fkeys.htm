@@ -1,0 +1,505 @@
+<?ssi title fkeys_ssi_title?>
+<?ssi file common2.htm?>
+<TR>
+  <TD>
+  </TD>
+  <TD class="normalText">
+   &nbsp;
+  </TD>
+</TR>
+<TR>
+  <TD class="normalText">
+    <B>
+      <a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Function_Keys><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng fkeys_keysettings?>
+    </B>
+  </TD>
+</TR>
+<TR>
+ <TD vAlign="top" height="16">
+  <IMG height="16" src="img/clr.gif" width="16">
+ </TD>
+</TR>
+<TR>
+ <TD>
+  <!-- pageInfoText -->
+  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 ID="Table1">
+   <TBODY>
+    <TR>
+     <TD>
+      <SPAN class=pageInfoText>
+       <?lng fkey_info?>
+       <br>
+       </br>
+      </SPAN>
+     </TD>
+    </TR>
+   </TBODY>
+  </TABLE> <!-- pageInfoText -->
+ </TD>
+</TR>
+<TR>
+ <TD vAlign="top">
+  <FORM method="post">
+   <?ssi hidden_tag?>
+   <!-- softkeys -->
+   <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+    <TBODY>
+     <!-- round corners -->
+     <TR>
+      <TD class="background" width="12" height="5"><IMG height="12" src="img/corul.gif" width="12"></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD class="background" width="12" height="5"><IMG height="12" src="img/corur.gif" width="12"></TD>
+     </TR>
+     <?ssi skipon SNOM300?>
+     <TR>
+      <TD>
+      </TD>
+      <TD>
+      </TD>
+      <TD class="normalText">
+       <TR>
+        <TD>
+        </TD>
+        <TD class="normalText">
+         &nbsp;
+        </TD>
+       </TR>
+       <TR>
+        <TD>
+         <TD>
+          <img src="img/f1.gif">
+          <TD valign=center>
+           <?ssi softkey1 ?>
+          </TD>
+         </TD>
+         <TD>
+          <img src="img/f2.gif">
+          <TD valign=center>
+           <?ssi softkey2 ?>
+          </TD>
+         </TD>
+         <TD>
+          <img src="img/f3.gif">
+          <TD valign=center>
+           <?ssi softkey3 ?>
+          </TD>
+         </TD>
+
+         <?ssi skipon SNOM_MP?>
+         <TD>
+          <img src="img/f4.gif">
+          <TD valign=center>
+           <?ssi softkey4 ?>
+          </TD>
+         </TD>
+         <?ssi skipoff SNOM_MP?>
+         <?ssi skipon NOT_SNOM_MP?>
+         <TD>
+          <TD valign=center>
+          </TD>
+         </TD>
+         <?ssi skipoff NOT_SNOM_MP?>
+        </TD>
+       </TR>
+      </TD>
+     </TR>
+	 <?ssi skipoff SNOM300?>     
+     
+     <?ssi skipon SNOM_MP?>
+	 <!-- navigation keys -->
+     <tr height="20"></tr>
+     <table class="bubbleTable" width="100%" border="0" cellspacing="0" cellpadding="0" id="navikeySpaceTable" name="navikeySpaceTable">
+      <TD  width="5%"></TD>
+      <TD  width="90%">
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="navikeyTable" name="navikeyTable">
+        <tr><td width="4%"></td><td width="37%"></td><td width="16%"></td><td width="37%"></td><td width="4%"></td></tr>
+        <tr>
+         <td></td>
+         <td colspan="3" align="center">
+          <?ssi upkey ?>
+         </td>
+         <td></td>
+        </tr>
+        <tr>
+         <!-- ok/cancel button position is different between 3xx and 8xx -->
+         <?ssi skipon NOT_SNOM8XX?>
+         <td rowspan="3" align="left">
+          <img src="img/okay_button.png">
+         </td>
+         <?ssi skipoff NOT_SNOM8XX?>
+          <?ssi skipon SNOM8XX?>
+         <td rowspan="3" align="left">
+          <img src="img/cancel_button_3xx.png">
+         </td>
+         <?ssi skipoff SNOM8XX?>
+ 
+         <td height="25">
+         </td>
+         <?ssi skipon NOT_SNOM8XX?>
+         <td rowspan="3" align="center">
+          <img src="img/navikey.png">
+         </td>
+         <?ssi skipoff NOT_SNOM8XX?>
+         <?ssi skipon SNOM8XX?>
+         <td rowspan="3" align="center">
+          <img src="img/navikey_3xx.png">
+         </td>
+         <?ssi skipoff SNOM8XX?>
+         <td>
+         </td>
+
+         <!-- ok/cancel button position is different between 3xx and 8xx --> 
+         <?ssi skipon NOT_SNOM8XX?>
+         <td rowspan="3" align="right">
+          <img src="img/cancel_button.png">
+         </td>
+         <?ssi skipoff NOT_SNOM8XX?>
+         <?ssi skipon SNOM8XX?>
+         <td rowspan="3" align="right">
+          <img src="img/okay_button_3xx.png">
+         </td>
+         <?ssi skipoff SNOM8XX?>
+
+        </tr>
+        <tr>
+         <td align="right">
+          <?ssi leftkey ?>
+         </td>
+         <td align="left">
+          <?ssi rightkey ?>
+         </td>
+        </tr>
+        <tr>
+        
+         <!-- ok/cancel button position is different between 3xx and 8xx --> 
+         <?ssi skipon NOT_SNOM8XX?>
+         <td align="left">
+          <?ssi okkey ?>
+         </td>
+         <td align="right">
+          <?ssi cancelkey ?>
+         </td>
+         <?ssi skipoff NOT_SNOM8XX?>
+         <?ssi skipon SNOM8XX?>
+         <td align="left">
+          <?ssi cancelkey ?>
+         </td>
+         <td align="right">
+          <?ssi okkey ?>
+         </td>
+         <?ssi skipoff SNOM8XX?>
+
+        </tr>
+        <tr>
+         <td></td>
+         <td colspan="3" align="center">
+          <?ssi downkey ?>
+         </td>
+         <td></td>
+        </tr>
+       </table> <!-- navikeyTable -->
+      </TD>
+      <TD width="5%"></TD>
+     </table> <!-- navikeySpaceTable -->
+     <?ssi skipoff SNOM_MP?>
+
+     <!-- fkeys -->
+     <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+      <TBODY>
+       <TR> 
+        <TD vAlign="top" height="16">
+         <IMG height="16" src="img/clr.gif" width="12">
+        </TD>
+       </TR>              
+       <?ssi skipon NOT_SNOM300?>
+       
+       <?ssi fkeys?>
+
+       <?ssi skipoff NOT_SNOM300?>
+       <?ssi skipon NOT_SNOM8XX?>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+        </TD>
+        <TD class="normalText">
+         <?lng fkeys_ssi_context?></TD>
+        </TD>
+        <TD class="normalText">
+         <?lng fkeys_ssi_type?>
+        </TD>
+        <TD class="normalText">
+         <?lng fkeys_ssi_number?>
+        </TD>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#FFFFFF">
+        </TD>
+        <TD bgcolor="#FFFFFF">
+         <img src="img/key_retrieve.gif">
+        </td>
+        <TD class="normalText">
+         RETRIEVE
+        </TD>
+        <?ssi dkey_blue dkey_retrieve recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_dnd.gif">
+        </td>
+        <TD class="normalText">
+         DND
+        </TD>
+        <?ssi dkey dkey_directory recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#FFFFFF">
+        </TD>
+        <TD bgcolor="#FFFFFF">
+         <img src="img/key_adrb.gif">
+        </TD>
+        <TD class="normalText">
+         DIRECTORY
+        </TD>
+        <?ssi dkey_blue dkey_menu recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_menu.gif">
+        </td>
+        <TD class="normalText">
+         MENU
+        </TD>
+        <?ssi dkey dkey_conf recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#FFFFFF">
+        </TD>
+        <TD bgcolor="#FFFFFF">
+         <img src="img/key_transfer.gif">
+        </td>
+        <TD class="normalText">
+         TRANSFER
+        </TD>
+        <?ssi dkey_blue dkey_hold recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_hold.gif">
+        </td>
+        <TD class="normalText">
+         HOLD
+        </TD>
+        <?ssi dkey dkey_conf recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <?ssi fkeys?>
+       <?ssi skipoff NOT_SNOM8XX?>
+       <?ssi skipon SNOM_MP?>
+       <?ssi skipon SNOM300?>
+       <?ssi skipon SNOM8XX?>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+        </TD>
+        <TD width="5%" class="normalText">
+         <?lng fkeys_ssi_context?></TD>
+        </TD>
+        <TD>
+        </TD>
+        <TD class="normalText">
+         <?lng fkeys_ssi_type?>
+        </TD>
+        <TD class="normalText">
+         <?lng fkeys_ssi_number?>
+        </TD>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_rec.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         RECORD
+        </TD>
+        <?ssi dkey_blue dkey_record recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_retrieve.gif">
+        </td>
+        <TD class="normalText" colspan="2">
+         RETRIEVE
+        </TD>
+        <?ssi dkey dkey_retrieve recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_redial.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         REDIAL
+        </TD>
+        <?ssi dkey_blue dkey_redial recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_help.gif">
+        </td>
+        <TD class="normalText" colspan="2">
+         HELP
+        </TD>
+        <?ssi dkey dkey_help recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_snom.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         SNOM
+        </TD>
+        <?ssi dkey_blue dkey_snom recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_conference.gif">
+        </td>
+        <TD class="normalText" colspan="2">
+         CONFERENCE
+        </TD>
+        <?ssi dkey dkey_conf recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_transfer.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         TRANSFER
+        </TD>
+        <?ssi dkey_blue dkey_transfer recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_hold.gif">
+        </td>
+        <TD class="normalText" colspan="2">
+         HOLD
+        </TD>
+        <?ssi dkey dkey_hold recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_dnd.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         DND
+        </TD>
+        <?ssi dkey_blue dkey_dnd recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <img src="img/key_adrb.gif">
+        </td>
+        <TD class="normalText" colspan="2">
+         DIRECTORY
+        </TD>
+        <?ssi dkey dkey_directory recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+       </TR>
+       <TR bgcolor="#d6dff5">
+        <TD bgcolor="#eae8d9">
+        </TD>
+        <TD>
+         <img src="img/key_menu.gif">
+        </TD>
+        <TD class="normalText" colspan="2">
+         MENU
+        </TD>
+        <?ssi dkey_blue dkey_menu recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr none fkeys_ssi_none?>
+       </TR>
+       <?ssi skipoff SNOM_MP?>
+
+       <?ssi fkeys?>
+       
+       <?ssi skipoff SNOM8XX?>
+       <?ssi skipoff SNOM300?>
+       <TR>
+        <TD>
+        </TD>
+        <TD class="normalText">
+         &nbsp;
+        </TD>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD class="normalText">
+         &nbsp;
+        </TD>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+        </TD>
+       </TR>
+       <TR>
+        <TD>
+        </TD>
+        <TD>
+         <input type="submit" value="<?lng apply_button?>" name="Settings" class="button">
+        </TD>
+       </TR>
+       <!-- round corners -->
+       <TR>
+        <TD class="background" width="4" height="5"><IMG height="12" src="img/corll.gif" width="12"></TD>
+        <TD></TD>	 
+        <TD></TD>
+        <TD></TD>
+        <TD></TD>
+        <TD></TD>
+        <TD></TD>
+        <TD></TD>
+        <TD></TD>
+        <TD class="background" width="12" height="5"><IMG height="12" src="img/corlr.gif" width="12"></TD>
+       </TR>
+      </TBODY>
+     </TABLE> <!-- fkeys -->
+    </TBODY>
+   </TABLE> <!-- softkeys -->
+  </FORM>
+ </TD>
+</TR>
+<?ssi file common9.htm?>
+</HTML>

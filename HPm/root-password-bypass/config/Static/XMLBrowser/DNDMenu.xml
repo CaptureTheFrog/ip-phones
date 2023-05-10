@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu style="numbered" Timeout="0" LocalData="yes" LockIn="no">
+    <title wrap="no" showlistcount="yes">DND Code</title>
+    <MenuItem>
+        <Prompt>Mode Custom</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/ModeFeature.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>DND Code</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/DNDAccount.xml</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

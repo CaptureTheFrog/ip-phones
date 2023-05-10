@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>IP phone</title>
+<script src="../js/jquery-1.4.2.min.js"></script>
+<script>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>')
+</script>
+<style type="text/css">
+</style>
+
+<script language='javascript'>
+function LoadCfg()
+{
+	LoadLang();
+	DelayShow();
+}
+
+function LoadLang()
+{
+	LoadCommonResources(Warning);
+	document.getElementById("BackToPrevPage").value = BackLabel;
+	document.getElementById("WarningOf413").innerHTML = UploadingFileTooLargeWarning + " <br> " +PleaseClickBackWarning;
+	if(document.getElementById("PageUL"))
+	{document.getElementById("PageUL").style.display = "";}
+	AutoHeightOfBody();
+	if(document.getElementById("leftMenu_nofcgi") && document.getElementById("midWhole"))
+	{document.getElementById("leftMenu_nofcgi").style.height=(Number(document.getElementById("midWhole").scrollHeight)+22)+"px";
+	 }	
+}
+
+function OnBackToPrevPage()
+{
+	history.back(-1);
+}
+
+</script>
+</head>
+
+<body onLoad="LoadCfg()">
+
+<div class="phone1">
+	<div class="top"></div>
+	<div class="head"></div>
+	<div class="main">
+		<div id="leftMenu_nofcgi" class="left">
+		</div>
+		
+		<div class="corner"></div>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<!--			<table id="tableRingsTexts">
+				<tr>
+				<td class="First_td"><label id='tRingContents'>Ring Contents</label></td>
+				</tr>
+			</table>
+			<table>
+					<tr><td class="Second_td"><label></label></td><td class="Second_td"><input name="Submit" type="button" value="Submit" onClick ="OnSubmit()"></td>
+					<td class="Third_td"><input name="Cancel" type="button" value="Cancel" onClick ="LoadCfg()"></td>
+					</tr>
+			</table>-->
+			<table id="tableWarningOf413" style="text-align: center; font-size: 25px;" align="center" >
+				<tr style="text-align: center"><td><label id='WarningOf413'>Size of uploading file is too large <br> Please click back to return to prev page!</label></td></tr>
+				<tr style="text-align: center"><td><input class="Nice_Btn" type="button" id='BackToPrevPage' value="Back" onClick ="OnBackToPrevPage()"></td></tr>
+				</table>
+
+			</div>
+		</div>
+		<div class="right">
+			<div class="right_top"><label id="tHelp"></label></div>
+			<div id="rightHelpCont" class="right_cont">
+				<label id="tRingHelp"></label>
+			</div>
+		</div>
+		<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"> </div>
+	</div>
+	<div class="bottom"><label style="border-top: 40px;" id="tCompanyLabel"></label></div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+	
+	    var menu_ul = $('.menu > li > ul'),
+	           menu_a  = $('.menu > li > a');
+	    
+	    menu_ul.hide();
+	
+	    menu_a.click(function(e) {
+	        e.preventDefault();
+	        if(!$(this).hasClass('active')) {
+	            menu_a.removeClass('active');
+	            menu_ul.filter(':visible').slideUp('normal');
+	            $(this).addClass('active').next().stop(true,true).slideDown('normal');
+	        } else {
+	            $(this).removeClass('active');
+	            $(this).next().stop(true,true).slideUp('normal');
+	        }
+	    });
+	
+	});
+</script>
+
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../lang/ENGLISH.js?ver='+Math.random()+'"></s'+'cript>')
+</script>
+</body></html>

@@ -1,0 +1,185 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng advanced_phonebehavior?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<tr><TD></TD></tr>
+<TR><TD></TD><?ssi radio advanced_ssi_callcompletion call_completion advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_peer_to_peer_cc peer_to_peer_cc advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_idnasupport support_idna advanced_ssi_on advanced_ssi_off?></TR>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_autodial?></td>
+<td width="150">
+<select <?ssi disabled auto_dial?> name="auto_dial" size="1" <?ssi tabindex?> class="select3">
+<option value="off"<?ssi selected auto_dial off?>><?lng advanced_off?></option>
+<option value="2"<?ssi selected auto_dial 2?>><?lng advanced_after2sec?></option>
+<option value="5"<?ssi selected auto_dial 5?>><?lng advanced_after5sec?></option>
+<option value="10"<?ssi selected auto_dial 10?>><?lng advanced_after10sec?></option>
+<option value="15"<?ssi selected auto_dial 15?>><?lng advanced_after15sec?></option>
+</select><?ssi help auto_dial?>
+</td>
+</tr>
+
+<TR><TD></TD><?ssi radio advanced_ssi_overlap_dialing overlap_dialing advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_numberguessing guess_number advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_guess_start_length guess_start_length?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_contactquery_start_length contactquery_start_length?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_blockurldialing block_url_dialing advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon JOINED_CALL_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_ssi_denyallfeature deny_all_feature advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff JOINED_CALL_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_ssi_challengeresponse challenge_response advanced_ssi_on advanced_ssi_off?></TR>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_ssi_typeanswering?></td><td>
+<select size="1" <?ssi disabled intercom_connect_type?>name="intercom_connect_type" <?ssi tabindex?> class="select3">
+<option value="intercom_connect_type_handsfree"<?ssi selected intercom_connect_type intercom_connect_type_handsfree?>><?lng advanced_ssi_tahandsfree?></option>
+<option value="intercom_connect_type_handset"<?ssi selected intercom_connect_type intercom_connect_type_handset?>><?lng advanced_ssi_tahandset?></option>
+<option value="intercom_connect_type_headset"<?ssi selected intercom_connect_type intercom_connect_type_headset?>><?lng advanced_ssi_taheadset?></option>
+</select><?ssi help intercom_connect_type?></TD></TR>
+</td>
+</tr>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_answer_after_policy?></td><td>
+<select name="answer_after_policy" ID="Select2" <?ssi disabled answer_after_policy?>size="1" <?ssi tabindex?> class="select3">
+<option value="off"<?ssi selected answer_after_policy off?>><?lng advanced_off?></option>
+<option value="idle"<?ssi selected answer_after_policy idle?>><?lng advanced_answer_after_idle?></option>
+<option value="always"<?ssi selected answer_after_policy always?>><?lng advanced_answer_after_always?></option>
+</select><?ssi help answer_after_policy?>
+</td>
+</tr>
+<?ssi skipon JOINED_CALL_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_ssi_cmc_feature cmc_feature advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff JOINED_CALL_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_ssi_show_name_dialog show_name_dialog advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_disconnectonhook conf_hangup advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_call_join_xfer call_join_xfer advanced_ssi_on advanced_ssi_off?></TR>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_aoc_amount_display?></td><td>
+<select name="aoc_amount_display" ID="Select1" <?ssi disabled aoc_amount_display?>size="1" <?ssi tabindex?> class="select3">
+<option value="off"<?ssi selected aoc_amount_display off?>><?lng advanced_off?></option>
+<option value="charged"<?ssi selected aoc_amount_display charged?>><?lng advanced_aoc_amount_charged?></option>
+<option value="balance"<?ssi selected aoc_amount_display balance?>><?lng advanced_aoc_amount_balance?></option>
+</select><?ssi help aoc_amount_display?>
+</td>
+</tr>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_aoc_pulse_currency aoc_pulse_currency?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_aoc_cost_pulse aoc_cost_pulse?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_partial_lookup partial_lookup advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon SNOM720710?>
+<?ssi skipon NOT_SNOM360?>
+<?ssi skipon SMALL_DISPLAY?>
+<?ssi skipon SNOM370?>
+<?ssi skipon SNOM870?>
+<TR><TD></TD><?ssi radio advanced_ssi_text_softkey text_softkey advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff SNOM870?>
+<?ssi skipoff SNOM370?>
+<?ssi skipoff SMALL_DISPLAY?>
+<?ssi skipoff NOT_SNOM360?>
+<?ssi skipoff SNOM720710?>
+<TR><TD></TD><?ssi radio advanced_ssi_redirect_ringing redirect_ringing advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_auto_redial auto_redial advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_auto_redial_value auto_redial_value?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_max_boot_delay max_boot_delay?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_mailbox_active mailbox_active advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_idle_offhook idle_offhook advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_offhook_dial_prompt offhook_dial_prompt advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio watchdog watchdog advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_prioritise_pbx_number_lookup prioritise_pbx_number_lookup advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon NOT_NTLM?>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_location location_template?></td></TR>
+<?ssi skipoff NOT_NTLM?>
+<?ssi skipon NOT_SNOM820?>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_line_info_layer?></td><td>
+<a class="normalText" href="advanced_gui.htm">More Control</a><?ssi help line_info_layer?>
+</td>
+</tr>
+<?ssi skipoff NOT_SNOM820?>
+<?ssi skipon NO_VKEY_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_goto_virtual_keys_state_on_activity goto_virtual_keys_state_on_activity advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NO_VKEY_SCREEN?>
+<TR><TD></TD><?ssi radio advanced_goto_monitor_state_on_line_activity goto_monitor_state_on_line_activity advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon NOT_SNOM870?>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_prefered_idle_screen?></td><td>
+<select name="prefered_idle_state" ID="Select3" size="1" <?ssi tabindex?> class="select3">
+<option value="springboard"<?ssi selected prefered_idle_state springboard?>><?lng advanced_prefered_idle_springboard?></option>
+<option value="clock"<?ssi selected prefered_idle_state clock?>><?lng advanced_prefered_idle_clock?></option>
+<option value="virtual_keys"<?ssi selected prefered_idle_state virtual_keys?>><?lng advanced_prefered_idle_virtual_keys?></option>
+<option value="call_monitor"<?ssi selected prefered_idle_state call_monitor?>><?lng advanced_prefered_idle_call_monitor?></option>
+<option value="outgoing_identities"<?ssi selected prefered_idle_state outgoing_identities?>>Outgoing Identities</option>
+</select><?ssi help prefered_idle_state?>
+</td>
+</tr>
+<tr><TD></TD>
+<td class="normalText"><?lng advanced_snom_clock_style?></td><td>
+<select name="snom_clock_style" ID="Select3" size="1" <?ssi tabindex?> class="select3">
+<option value="digital"<?ssi selected snom_clock_style digital?>><?lng advanced_snom_clock_style_digital?></option>
+<option value="analog"<?ssi selected snom_clock_style analog?>><?lng advanced_snom_clock_style_analog?></option>
+</select><?ssi help snom_clock_style?>
+</td>
+</tr>
+<?ssi skipoff NOT_SNOM870?>
+<?ssi skipon NOT_SNOM8XX?>
+<TR><TD></TD><?ssi radio advanced_prefer_saved_over_received_photo prefer_saved_over_received_photo advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NOT_SNOM8XX?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_keys?></B></TD></TR>
+<?ssi skipon FOR_ELMEG_CASING_ONLY?>
+<?ssi skipon IS_SNOM220?>
+<?ssi skipon SNOM360?>
+<?ssi skipon SNOM300?>
+<TR><TD></TD><?ssi radio advanced_ssi_breakkey break_key advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff SNOM300?>
+<?ssi skipoff SNOM360?>
+<?ssi skipoff IS_SNOM220?>
+<?ssi skipoff FOR_ELMEG_CASING_ONLY?>
+<TR><TD></TD><?ssi radio advanced_ssi_transferonhook transfer_on_hangup advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_transferonhooknonpots transfer_on_hangup_non_pots advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_transferonhookstarcode transfer_on_hangup_with_starcode advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_blockdnd no_dnd advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_speaker_dialer speaker_dialer advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_speaker_receive_call speaker_receive_call advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_cancel_on_hold cancel_on_hold advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_cancel_on_missed cancel_missed advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_cancel_on_desktop cancel_desktop advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_logon_logoff?></B></TD></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_logonwizard logon_wizard advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_auto_logoff_time auto_logoff_time?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_preselection?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_prefix preselection_nr?></td></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><B><?ssi inpass advanced_ssi_adminlogin admin_mode_login?></B></td></TR>
+<?ssi skipoff IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	
+<?ssi file common9.htm?></HTML>

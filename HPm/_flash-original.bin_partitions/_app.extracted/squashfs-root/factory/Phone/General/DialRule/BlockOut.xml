@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Dial>
+    <BlockOut>
+        <Data ID="2" Rule="1001" Line="1" />
+        <Data ID="3" Rule="1000" Line="1" />
+        <Data ID="4" Rule="1000" Line="1" />
+        <Data ID="5" Rule="1000" Line="1" />
+        <Data ID="6" Rule="1000" Line="1" />
+        <Data ID="7" Rule="1000" Line="1" />
+        <Data ID="8" Rule="1000" Line="1" />
+    </BlockOut>
+</Dial>

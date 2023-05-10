@@ -1,0 +1,1943 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<style type="text/css">
+	.td_Contact { height:20px; font-size:14px; text-align:center; }
+	.td_BLContact { width:20%; height:20px; font-size:14px; text-align:center; }
+	.long_First_td { text-align:left;	text-indent:25px; font-size:15px; font-weight:bold;
+			width:300px;	padding-top:9px;	padding-bottom:6px;	}
+</style>
+<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	var ThisPage = "";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+	var scrollHei;
+	var PageGroupNum = 5;
+	var ContactNumInPage=10;
+	var PageRefDesURL = 'do?id=5&id=1';
+
+function DoF5Jump()
+{
+	Relocate('do?id=5&id=1');
+}
+
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var nowPageNum = GetCurPageNum();
+	for(var i=0; i < nowPageNum; i++)
+	{
+		document.getElementById("cCurPage").options.add(new Option(i+1, i));
+	}
+	var arrGroups = f2.hcGroupNameList.value.split(SplitSymbol);
+	
+	var arrRingers = f2.hcRingerList.value.split(SplitSymbol);
+	//对群组名和铃声名进行解码
+	for(var i = 0; i < arrGroups.length; i++)
+	{
+		arrGroups[i] = ShowDecode(arrGroups[i]);
+	}
+	for(var i = 0; i < arrRingers.length; i++)
+	{
+		arrRingers[i] = ShowDecode(arrRingers[i]);
+	}
+	
+	var gpNum = f2.hcGroupNum.value;
+	if("" != f2.hcContactSearchWord.value)
+	{
+		if("AllContacts" == ShowDecode(f2.hcCurGroup.value))
+		{
+			document.getElementById("cCurGroup").options.add(new Option(AllContacts, "AllContacts"));
+		}
+		if("BlackList" == ShowDecode(f2.hcCurGroup.value))
+		{
+			document.getElementById("cCurGroup").options.add(new Option(BlackList, "BlackList"));
+		}	
+	}
+	else if("" == f2.hcContactSearchWord.value)
+	{
+		document.getElementById("cCurGroup").options.add(new Option(AllContacts, "AllContacts"));
+		for(var i=0; i < gpNum; i++)
+		{
+			document.getElementById("cCurGroup").options.add(new Option(AbbreviationStr(arrGroups[i], 15), arrGroups[i]));
+		}
+		if("undefined" != typeof(MODELID) && "47" != MODELID)
+		{document.getElementById("cCurGroup").options.add(new Option(Favorites, "Favorites"));}
+		document.getElementById("cCurGroup").options.add(new Option(BlackList, "BlackList"));
+	}
+	if("" != f2.hcContactSearchWord.value)
+	{	document.getElementById("trSearchResult").style.display = '';}
+	document.getElementById("MoveToWhere").options.add(new Option(AllContacts, "AllContacts"));
+	if("BlackList" == ShowDecode(f2.hcCurGroup.value))
+	{
+		if("undefined" != typeof(MODELID) && "47" != MODELID)
+		{document.getElementById("MoveToWhere").options.add(new Option(BlackList, "BlackList"));}
+	}
+	else if("Favorites" == ShowDecode(f2.hcCurGroup.value))
+	{
+		document.getElementById("MoveToWhere").options.add(new Option(Favorites, "Favorites"));
+	}
+	else
+	{
+		if("undefined" != typeof(MODELID) && "47" != MODELID)
+		{document.getElementById("MoveToWhere").options.add(new Option(Favorites, "Favorites"));}
+		document.getElementById("MoveToWhere").options.add(new Option(BlackList, "BlackList"));
+	}
+	document.getElementById("cFavNumSelect").options.add(new Option(OfficeNum, 0));
+	document.getElementById("cFavNumSelect").options.add(new Option(MobileNum, 1));
+	document.getElementById("cFavNumSelect").options.add(new Option(OtherNum, 2));
+	
+	document.getElementById("cEditAccount").options.add(new Option(Auto, 0));
+	for(var i=1; i <= f2.hcAccountNum.value; i++)
+	{
+		document.getElementById("cEditAccount").options.add(new Option(Account+i, i));
+	}
+	
+	for(var i=0; i < f2.hcRingerNum.value; i++)
+	{
+		var tmpArrRing = arrRingers[i];
+		if("Auto" == arrRingers[i])
+		{
+			tmpArrRing = Auto;
+		}
+		document.getElementById("cEditRing").options.add(new Option(AbbreviationStr(tmpArrRing, 20), i));
+		document.getElementById("cEditGroupRing").options.add(new Option(AbbreviationStr(tmpArrRing, 20), i));
+	}
+	document.getElementById("cEditGroup").options.add(new Option(Default, 0));
+	for(var i=1; i <= gpNum; i++)
+	{
+		document.getElementById("cEditGroup").options.add(new Option(AbbreviationStr(arrGroups[i-1], 15), i));
+	}
+	if(MODELID)
+	{
+		if("51" == MODELID || "50" == MODELID)
+		{
+			document.getElementById("tdEditAccountLabel").style.display = "none";
+			document.getElementById("tdEditAccountValue").style.display = "none";
+			document.getElementById("PhoneBook_trContactEdit4").style.display = "none";	
+			document.getElementById("cWebCallNumber").style.cssText = "width:130px";
+			document.getElementById("cWebCallAccount").style.display = "none";
+			document.getElementById("PhoneBook_tdAccount").style.display = "none";
+			var curId;
+			for(var i = 1 ; i <= 10 ; i ++)
+			{
+				curId = "PhoneBook_tdContactAccount" + i ;
+				document.getElementById(curId).style.display = "none";
+			}
+		}			
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+	document.getElementById("cCurPage").disabled = false;
+	document.getElementById("cCurGroup").disabled = false;
+	var RegisteredList = f2.hcRegisteredAccountList.value.split(SplitSymbol);
+	var Len = Number(RegisteredList.length)/2-1;
+	document.getElementById("cWebCallAccount").options.add(new Option(Auto, 0));
+	for(var i=1; i <= Len; i++)
+	{
+		var tmpText=Line+RegisteredList[2*i]+":";
+		tmpText += (RegisteredList[2*i+1]);
+		document.getElementById("cWebCallAccount").options.add(new Option(tmpText, RegisteredList[2*i]));
+	}
+	if(document.getElementById("tDivShortcut"))
+	{
+		document.getElementById("tDivShortcut").style.display = "none";
+	}
+	
+	AutoHeightOfBody();
+}
+function CurSelectMoveTo()
+{
+	var f2 = document.forms["hiddenValForm"];
+	if( ShowDecode(f2.hcCurGroup.value) != "BlackList" && ShowDecode(f2.hcCurGroup.value) != "Favorites" )
+	{ document.getElementById("MoveToWhere").value = "AllContacts"; }
+	else
+	{
+		document.getElementById("MoveToWhere").value = ShowDecode(f2.hcCurGroup.value);
+	}
+}
+function OnSelectMoveTo()
+{
+	var f2 = document.forms["hiddenValForm"];
+	if(document.getElementById("MoveToWhere").value != ShowDecode(f2.hcCurGroup.value))
+	{
+		if("BlackList" == document.getElementById("MoveToWhere").value)
+		{
+			OnMoveToBL();
+			CurSelectMoveTo();
+			return;
+		}
+		else if("AllContacts" == document.getElementById("MoveToWhere").value)
+		{
+			OnMoveFrBL();
+			CurSelectMoveTo();
+			return;
+		}			
+		else("Favorites" == document.getElementById("MoveToWhere").value)
+		{
+			if(!OnMoveToFav()) { CurSelectMoveTo(); }
+			return;
+		}			
+	}
+}
+function OnMoveToFav()
+{
+	if(CheckCheckedNumofCont() <= 0 || CheckCheckedNumofCont() >= 2)
+	{
+		alert(ValueMustSelectedWarning);
+		return false;
+	}
+	var objFavNumSelect = document.getElementById("cFavNumSelect");
+	for(var i = objFavNumSelect.options.length-1; i >= 0; i--)
+	{
+		objFavNumSelect.options[i] = null;
+	}
+	var f2 = document.forms["hiddenValForm"];
+	var findNum = FindNumOfChecked();	findNum--;
+	var arrContOffice = f2.hcContactOfficeNum.value.split(SplitSymbol);
+	var arrContMobile = f2.hcContactMobileNum.value.split(SplitSymbol);
+	var arrContOther = f2.hcContactOtherNum.value.split(SplitSymbol);
+	if("" != arrContOffice[findNum])
+	{
+		objFavNumSelect.options.add(new Option(OfficeNum, 0));
+	}
+	if("" != arrContMobile[findNum])
+	{
+		objFavNumSelect.options.add(new Option(MobileNum, 1));
+	}
+	if("" != arrContOther[findNum])
+	{
+		objFavNumSelect.options.add(new Option(OtherNum, 2));
+	}
+	if(objFavNumSelect.options.length <= 0)
+	{
+		alert(FavoritesLackNumWarn);
+		return false;
+	}	
+	ShowNumberSelect();
+	return true;
+}
+
+function OnSaveFavorite()
+{
+	ProcessShow(ProcessNotice);
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin&Operation=Submit&cMoveToFavorites=";
+	var FavNumber = "";
+	var tmpID = document.getElementById("cFavNumSelect").value;
+	var findNum = FindNumOfChecked();	findNum--;
+	var arrContName = f2.hcContactName.value.split(SplitSymbol);
+	var arrContOffice = f2.hcContactOfficeNum.value.split(SplitSymbol);
+	var arrContMobile = f2.hcContactMobileNum.value.split(SplitSymbol);
+	var arrContOther = f2.hcContactOtherNum.value.split(SplitSymbol);
+	var arrContAccount = f2.hcContactAccount.value.split(SplitSymbol);
+		
+	if(0 == tmpID)
+	{
+		FavNumber = ShowDecode(arrContOffice[findNum]);
+	}
+	else if(1 == tmpID)
+	{
+		FavNumber = ShowDecode(arrContMobile[findNum]);
+	}
+	else if(2 == tmpID)
+	{
+		FavNumber = ShowDecode(arrContOther[findNum]);
+	}
+	
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(arrContName[findNum]) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(FavNumber) + "/";
+	strSubmData = strSubmData + "/";// mobile
+	strSubmData = strSubmData + "/";// other
+	strSubmData = strSubmData + arrContAccount[findNum] + "/";// account
+	strSubmData = strSubmData + "/";// ring
+	strSubmData = strSubmData + "/";// group
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnCancelFavorite()
+{
+	ShowContactPanel();
+	CurSelectMoveTo();
+}
+
+function ShowContactPanel()
+{
+	document.getElementById("FavShow1").style.display = "";
+	document.getElementById("FavShow2").style.display = "none";
+	document.getElementById("divContactPanel").style.display = "";
+	document.getElementById("MoveToWhere").disabled = false;
+	for(var i = 0; i <= ContactNumInPage; i++)
+	{
+		var tmpID = "cCheck" + i;
+		document.getElementById(tmpID).disabled = false;
+	}
+	AutoHeightOfBody();
+}
+
+function ShowNumberSelect()
+{
+	document.getElementById("FavShow1").style.display = "none";
+	document.getElementById("FavShow2").style.display = "";
+	document.getElementById("divContactPanel").style.display = "none";
+	document.getElementById("MoveToWhere").disabled = true;
+	for(var i = 0; i <= ContactNumInPage; i++)
+	{
+		var tmpID = "cCheck"+i;
+		document.getElementById(tmpID).disabled = true;
+	}
+	AutoHeightOfBody();
+}
+
+function GetCurPageNum()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var allContsNum = f2.hcAllContactsNum.value;
+	var nowPageNum = Number(allContsNum)/10;
+	nowPageNum = Math.ceil(nowPageNum);
+	if(0 == nowPageNum)
+	{
+		nowPageNum = 1;
+	}
+	return nowPageNum;
+}
+
+function CheckButtonStatus()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];	
+	
+	if(0 == CheckCheckedNumofCont())
+	{
+		document.getElementById("Contact_Edit").disabled = true;
+		document.getElementById("Contact_Delete").disabled = true;
+		
+		if(0 == f2.hcAllContactsNum.value)
+		{
+			document.getElementById("Contact_Edit").disabled = true;
+			document.getElementById("Contact_Delete").disabled = true;
+			document.getElementById("DeleteAll").disabled = true;
+			document.getElementById("cCheck0").disabled = true;
+		}
+		else
+		{
+			document.getElementById("DeleteAll").disabled = false;
+			document.getElementById("cCheck0").disabled = false;
+		}
+	}
+	else
+	{
+		if(1 == CheckCheckedNumofCont())
+		{document.getElementById("Contact_Edit").disabled = false;}
+		else{document.getElementById("Contact_Edit").disabled = true;}
+		document.getElementById("Contact_Delete").disabled = false;
+		
+		if(0 != f2.hcAllContactsNum.value)
+		{
+			document.getElementById("DeleteAll").disabled = false;
+		}
+	}
+	
+	if(500 == f2.hcAllContactsNum.value || 1 == CheckCheckedNumofCont())
+	{
+		document.getElementById("Contact_Add").disabled = true;
+	}
+	else if(100 == f2.hcAllContactsNum.value)
+	{
+		if(document.getElementById("cCurGroup").value == "BlackList")
+		{document.getElementById("Contact_Add").disabled = true;}
+	}
+	else
+	{document.getElementById("Contact_Add").disabled = false;}
+	
+	if(0 == CheckCheckedNumofGroup())
+	{
+		document.getElementById("EditGp").disabled = true;
+		document.getElementById("DeleteGp").disabled = true;
+		if(0 == f2.hcGroupNum.value)
+		{
+			document.getElementById("EditGp").disabled = true;
+			document.getElementById("DeleteGp").disabled = true;
+			document.getElementById("DeleteAllGp").disabled = true;
+			document.getElementById("cCheckGroup0").disabled = true;
+		}
+		else
+		{
+			document.getElementById("DeleteAllGp").disabled = false;
+			document.getElementById("cCheckGroup0").disabled = false;
+		}
+	}
+	else
+	{
+		if(1 == CheckCheckedNumofGroup())
+		{document.getElementById("EditGp").disabled = false;
+			}
+		else{document.getElementById("EditGp").disabled = true;
+			}
+		document.getElementById("DeleteGp").disabled = false;
+
+		if(0 != f2.hcGroupNum.value)
+		{
+			document.getElementById("DeleteAllGp").disabled = false;
+		}
+	}
+	
+	if(0 == CheckCheckedNumofGroup())
+	{
+		document.getElementById("cEditGroupName").disabled = false;
+	}
+	
+	if(5 == f2.hcGroupNum.value
+	|| 1 == CheckCheckedNumofGroup())
+	{
+		document.getElementById("AddGp").disabled = true;
+	}
+	else
+	{
+		document.getElementById("AddGp").disabled = false;
+	}
+	
+	var nowPageNum = GetCurPageNum();	
+	if(nowPageNum-1 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = true;
+		document.getElementById("Prev").disabled = false;
+	}
+	else if(0 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = false;
+		document.getElementById("Prev").disabled = true;
+	}
+
+	if(nowPageNum-1 == f2.hcCurPage.value && 0 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = true;
+		document.getElementById("Prev").disabled = true;
+	}
+}
+
+function SubLoadCfg()
+{
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("cCurPage").value = f2.hcCurPage.value;
+	document.getElementById("cCurGroup").value = ShowDecode(f2.hcCurGroup.value);
+	document.getElementById("cSearchWord").value = f2.hcContactSearchWord.value;
+	if("AllContacts" == document.getElementById("cCurGroup").value ||
+		 "BlackList" == document.getElementById("cCurGroup").value)
+	{
+		document.getElementById("trSearch").style.display = "";
+	}
+	DisplayContactsData();
+	DisplayGroupsData();
+	for(var i = 1; i <= 10; i++)
+	{
+		var tmpDomName = "cIndex"+i;
+		document.getElementById(tmpDomName).innerHTML = i;
+	}
+	for(var i = 1; i <= PageGroupNum; i++)
+	{
+		var tmpDomName = "cGroupIndex"+i;
+		document.getElementById(tmpDomName).innerHTML = i;
+	}
+	SetPageToGpType();
+//	CONT_TOO_MANY = -2,
+//	CONT_FAILED = -1,
+//	CONT_FINISHED = 0,
+//	CONT_SUCCESS = 1;
+	CheckButtonStatus();
+	if(-1 == f2.hcImportContact.value)
+	{
+		alert(FileFormatWarning);
+	}
+	else if(-2 == f2.hcImportContact.value || -3 == f2.hcImportContact.value)
+	{
+		alert(TooManyGroupsWarning);
+	}
+	else if(-4 == f2.hcImportContact.value)
+	{
+		alert(TooManyBLWarning);
+	}
+	else if(-5 == f2.hcImportContact.value)
+	{
+		alert(FileUploadDupWarning);
+	}		
+	else if(1 == f2.hcImportContact.value)
+	{
+		alert(FileUploadWarning);
+	}
+	f2.hcImportContact.value = 0;
+	if(1 == f2.hcAddResult.value)
+	{
+		alert(SameNameWarning);
+	}
+	else if(2 == f2.hcAddResult.value)
+	{
+		alert(TooManyContactsWarning);
+	}
+	else if(3 == f2.hcAddResult.value)
+	{
+		alert(TooManyBLWarning);
+	}
+	else if(4 == f2.hcAddResult.value)
+	{
+		alert(FavoritesFullWarn);
+	}	
+	f2.hcAddResult.value = 0;
+	CurSelectMoveTo();
+}
+
+function SetPageToGpType()
+{
+	var tmpTp = document.getElementById("cCurGroup").value;
+	if("BlackList" == tmpTp	|| "Favorites" == tmpTp)
+	{
+		document.getElementById("cEditRing").style.display = "none";
+		document.getElementById("cEditGroup").style.display = "none";
+		document.getElementById("tEditRing").style.display = "none";
+		document.getElementById("tEditGroup").style.display = "none";
+		
+		for(var i=1; i<=ContactNumInPage; i++)
+		{
+			var tmpStr = "tdContactRing"+i;
+			document.getElementById(tmpStr).style.display = "none";
+			tmpStr = "tdContactGroup"+i;
+			document.getElementById(tmpStr).style.display = "none";
+		}
+		
+		document.getElementById("tdRing").style.display = "none";
+		document.getElementById("tdGroup").style.display = "none";
+		document.getElementById("tdOfficeNum").style.width = "21%";
+		if(MODELID)
+		{
+			if("50" == MODELID || "51" == MODELID)
+			{
+				document.getElementById("tdOfficeNum").style.width = "37%";
+				document.getElementById("trContactEdit3").style.display = "none";
+				document.getElementById("PhoneBook_trContactEdit4").style.display = "none";
+			}
+		}
+		document.getElementById("tdMobileNum").style.width = "21%";
+		document.getElementById("tdOtherNum").style.width = "21%";
+		document.getElementById("PhoneBook_tdAccount").style.width = "16%";
+	}
+	if("Favorites" == tmpTp)
+	{
+		document.getElementById("tdMobileNum").style.display = "none";
+		document.getElementById("tdOtherNum").style.display = "none";
+		document.getElementById("headContactHead").style.display = "none";
+		document.getElementById("divContactPanel").style.display = "none";
+		document.getElementById("MoveToWhere").style.display = "none";
+		document.getElementById("tMoveTo").style.display = "none";
+		document.getElementById("tdOfficeNum").style.width = "42%";
+		document.getElementById("PhoneBook_tdAccount").style.width = "39%";
+		if(MODELID)
+		{
+			if("50" == MODELID || "51" == MODELID)
+			{
+				document.getElementById("tdName").style.width = "40%";
+				document.getElementById("tdOfficeNum").style.width = "53%";
+			}
+		}
+		document.getElementById("tdOfficeNum").innerHTML = DefaultNum;
+		for(var i = 1; i<= ContactNumInPage; i++)
+		{
+			var tmpStr = "tdContactMobile"+i;
+			document.getElementById(tmpStr).style.display = "none";
+			tmpStr = "tdContactOther"+i;
+			document.getElementById(tmpStr).style.display = "none";
+		}				
+	}
+}
+
+function LoadLang()
+{
+	LoadCommonResources(AddressBook);
+	LoadButtonText();
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("tIndex").innerHTML = Index;
+	document.getElementById("tPage").innerHTML = Page;
+	document.getElementById("tGroupIndex").innerHTML = Index;
+	document.getElementById("tName").innerHTML = document.getElementById("tEditName").innerHTML = Name;
+	document.getElementById("tGroupName").innerHTML = document.getElementById("tEditGroupName").innerHTML = Name;
+	document.getElementById("tOfficeNum").innerHTML = document.getElementById("tEditOffice").innerHTML = OfficeNum;
+	document.getElementById("tMobileNum").innerHTML = document.getElementById("tEditMobile").innerHTML = MobileNum;
+	document.getElementById("tOtherNum").innerHTML = document.getElementById("tEditOther").innerHTML = OtherNum;
+	document.getElementById("tAccount").innerHTML = document.getElementById("tEditAccount").innerHTML = Line;
+	if(document.getElementById("tRing")){document.getElementById("tRing").innerHTML = document.getElementById("tEditRing").innerHTML = Ring;}
+	document.getElementById("tGroupRing").innerHTML = document.getElementById("tEditGroupRing").innerHTML = Ring;
+	document.getElementById("tGroupDescription").innerHTML = document.getElementById("tEditGroupDescription").innerHTML = Description;
+	if(document.getElementById("tGroup")){document.getElementById("tGroup").innerHTML = document.getElementById("tEditGroup").innerHTML = Group;}
+	document.getElementById("tContacts").innerHTML = Contact;
+	document.getElementById("tGroups").innerHTML = Group;
+	document.getElementById("tMoveTo").innerHTML = MoveTo;
+	document.getElementById("tSelectNumberF").innerHTML = SelectNumberFirst;
+	document.getElementById("SaveFav").value = SaveLabel;
+	document.getElementById("CancelFav").value = CancelLabel;
+	
+	document.getElementById("tIndex").innerHTML = Index;
+	document.getElementById("tContactsExportImport").innerHTML = Contact;
+	document.getElementById("tBlackListExportImport").innerHTML = BlackList;
+	document.getElementById("tImportExport").innerHTML = Import+"/"+Export;
+	document.getElementById("tSearch").innerHTML = document.getElementById("Contact_Search").value = Search;
+	document.getElementById("tSearchResult").innerHTML = SearchResult;
+	document.getElementById("Contact_Search_Cancel").value = Reset;
+	if("BlackList" == ShowDecode(f2.hcCurGroup.value))
+	{
+		document.getElementById("tContactModify").innerHTML = BLSetting;
+	}
+	else
+	{
+		document.getElementById("tContactModify").innerHTML = ContactSetting;
+	}
+	document.getElementById("tGroupModify").innerHTML = GroupSetting;
+	document.getElementById("DialOut").value = Dial;
+	document.getElementById("tDial").innerHTML = Dial;
+	document.getElementById("HangUp").value = HangUpText;
+	return;
+}
+
+function LoadButtonText()
+{
+	document.getElementById("Prev").value = PrevLabel;//"<";
+	document.getElementById("Next").value = NextLabel;//">";
+	document.getElementById("Contact_Edit").value = EditLabel;
+	document.getElementById("Contact_Add").value = AddLabel;
+	document.getElementById("Contact_Delete").value = DeleteLabel;
+	document.getElementById("DeleteAll").value = DeleteAllLabel;
+	document.getElementById("CancelContact").value = CancelLabel;
+	document.getElementById("CancelGroup").value = CancelLabel;
+	document.getElementById("EditGp").value = EditLabel;
+	document.getElementById("AddGp").value = AddLabel;
+	document.getElementById("DeleteGp").value = DeleteLabel;
+	document.getElementById("DeleteAllGp").value = DeleteAllLabel;
+	document.getElementById("ImportContacts").value = Import;
+	document.getElementById("ExportContacts").value = Export;
+	document.getElementById("ImportBlackList").value = Import;
+	document.getElementById("ExportBlackList").value = Export;
+	document.getElementById("Reset1").value = document.getElementById("Reset2").value = CancelLabel;
+}
+
+function DisplayContactsData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrContName = f2.hcContactName.value.split(SplitSymbol);
+	var arrContOffice = f2.hcContactOfficeNum.value.split(SplitSymbol);
+	var arrContMobile = f2.hcContactMobileNum.value.split(SplitSymbol);
+	var arrContOther = f2.hcContactOtherNum.value.split(SplitSymbol);
+	var arrContAccount = f2.hcContactAccount.value.split(SplitSymbol);
+	var arrContGroup = f2.hcContactGroup.value.split(SplitSymbol);
+	var arrContId = f2.hcContactId.value.split(SplitSymbol);
+	
+	var arrContRing = f2.hcContactRing.value.split(SplitSymbol);
+	for(var i = 0; i < arrContRing.length; i++)
+	{
+		arrContRing[i] = ShowDecode(arrContRing[i]);
+	}
+	
+	for(var i=1; i <= f2.hcContactNumOfPage.value; i++)
+	{
+		var tmpDomName = "cContactName"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrContName[i-1]), 5);
+		tmpDomName = "cContactOfficeNum"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrContOffice[i-1]), 13);
+		tmpDomName = "cContactMobileNum"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrContMobile[i-1]), 13);
+		tmpDomName = "cContactOtherNum"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrContOther[i-1]), 13);
+		tmpDomName = "cContactAccount"+i;
+		var tmpLine;
+		if(arrContAccount[i-1] == "0")
+		{
+			tmpLine = Auto;
+		}
+		else
+		{
+			tmpLine = Account+arrContAccount[i-1];
+		}
+		document.getElementById(tmpDomName).innerHTML = tmpLine;
+		tmpDomName = "cContactGroup"+i;
+		var tmpGroup = arrContGroup[i-1];
+		if("" == arrContGroup[i-1] 
+		|| "Default" == arrContGroup[i-1])
+		{
+			tmpGroup = Default;
+		}
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(tmpGroup), 15);//解码群组
+		tmpDomName = "cContactRing"+i;
+		var tmpRing;
+		if("" == arrContRing[i-1] || "Auto" == arrContRing[i-1])
+		{
+			tmpRing = Auto;
+		}
+		else
+		{
+			tmpRing = arrContRing[i-1];
+		}
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(tmpRing, 11);
+	}
+	for(var i=Number(f2.hcContactNumOfPage.value)+1; i <=10; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		document.getElementById(tmpDomName).disabled = true;
+	}
+}
+
+function DisplayGroupsData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrGpId = f2.hcGroupIdList.value.split(SplitSymbol);
+	var arrGpName = f2.hcGroupNameList.value.split(SplitSymbol);
+	var arrGpRing = f2.hcGroupRingList.value.split(SplitSymbol);
+	var arrGpDescrip = f2.hcGroupDescripList.value.split(SplitSymbol);
+	
+	for(var i = 1; i <= f2.hcGroupNum.value; i++)
+	{
+		var tmpDomName = "cGroupName"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrGpName[i-1]), 15);
+		tmpDomName = "cGroupRing"+i;
+		var tmpRing;
+		if("" == arrGpRing[i-1] || "Auto" == arrGpRing[i-1])
+		{
+			tmpRing = Auto;
+		}
+		else
+		{
+			tmpRing = arrGpRing[i-1];
+		}
+		document.getElementById(tmpDomName).innerHTML = tmpRing;		
+		tmpDomName = "cGroupDescription"+i;
+		document.getElementById(tmpDomName).innerHTML = AbbreviationStr(ShowDecode(arrGpDescrip[i-1]), 25);
+
+	}
+	for(var i = Number(f2.hcGroupNum.value)+1; i <=PageGroupNum; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		document.getElementById(tmpDomName).disabled = true;
+	}	
+}
+
+function OnAllCheckClicked()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcContactNumOfPage.value);
+	if(document.getElementById("cCheck0").checked == true)
+	{
+		for(var i = 1; i<=st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = true;
+		}
+	}
+	else{
+		for(var i = 1; i<=st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = false;
+		}
+	}
+	CheckButtonStatus();
+	ContactEditMove();
+}
+
+function OnEachCheckClicked()
+{
+	CheckButtonStatus();
+	ContactEditMove();
+}
+
+function OnEachGpCheckClicked()
+{
+	CheckButtonStatus();
+	GroupEditMove();
+}
+
+function OnGpAllCheckClicked()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcGroupNum.value);
+	if(document.getElementById("cCheckGroup0").checked == true)
+	{
+		for(var i=1; i<=st; i++)
+		{
+			var tmpDomName = "cCheckGroup"+i;
+			document.getElementById(tmpDomName).checked = true;
+		}
+	}
+	else{
+		for(var i=1; i<=st; i++)
+		{
+			var tmpDomName = "cCheckGroup"+i;
+			document.getElementById(tmpDomName).checked = false;
+		}
+	}
+	CheckButtonStatus();
+	GroupEditMove();
+}
+
+function CheckCheckedNumofCont()
+{
+	var sum = 0;
+	for(var i = 1; i<=10; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			sum++;			
+		}
+	}
+	return sum;
+}
+
+function CheckCheckedNumofGroup()
+{
+	var sum = 0;
+	for(var i=1; i<=PageGroupNum; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			sum++;			
+		}
+	}
+	return sum;	
+}
+
+function FindNumOfChecked()
+{
+	for(var i = 1; i<=10; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			return i;
+		}
+	}		
+}
+
+function FindNumOfCheckedGroup()
+{
+	for(var i = 1; i<=5; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			return i;
+		}
+	}		
+}
+
+function ResetAllCheck()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcContactNumOfPage.value);
+	for(var i = 0; i<=st; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		document.getElementById(tmpDomName).checked = false;
+	}
+	CheckButtonStatus();
+}
+
+function OnAddContact()
+{
+	document.getElementById("ContactMType").value = "Add";
+	OnContactModify();
+}
+
+function ResetAllGpCheck()
+{
+	var f2 = document.forms["hiddenValForm"];
+	for(var i=0; i<=5; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		document.getElementById(tmpDomName).checked = false;
+	}
+	CheckButtonStatus();
+}
+
+function OnAddGroup()
+{
+	document.getElementById("GroupMType").value = "Add";
+	OnGroupModify();
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var tmpFlag = false;
+	var tmpArr = ["cEditName", "cEditMobile", "cEditOffice", "cEditOther"];
+	for(var i=0; i < tmpArr.length; i++)
+	{
+		if("" != document.getElementById(tmpArr[i]).value)
+		{
+			tmpFlag = true;
+			break;
+		}
+	}
+	if(0 != document.getElementById("cEditAccount").value)
+	{
+		tmpFlag = true;
+	}
+	
+	if(0 != document.getElementById("cEditRing").value)
+	{
+		tmpFlag = true;
+	}
+	if("" != document.getElementById("cEditGroupName").value ||
+		 "" != document.getElementById("cEditGroupDescription").value)
+	{
+		tmpFlag = true;
+	}
+	if(0 != document.getElementById("cEditGroupRing").value)
+	{
+		tmpFlag = true;
+	}
+	
+	if(true == tmpFlag)
+	{
+		strSubmData = strSubmData + "&AllModify=true";
+	}
+	return strSubmData;	
+}
+
+function OnCleanCont()
+{
+	document.getElementById("cEditName").value = document.getElementById("cEditOffice").value =
+	document.getElementById("cEditMobile").value = document.getElementById("cEditOther").value = "";
+	document.getElementById("cEditAccount").value = 0;
+	document.getElementById("cEditRing").value = 0;
+	CleanContactInputs();
+}
+
+function OnCleanGp()
+{
+	document.getElementById("cEditGroupName").value = document.getElementById("cEditGroupDescription").value = "";
+	document.getElementById("cEditGroupRing").value = 0;	
+	CleanGpInputs();	
+}
+
+function OnCancelContModify()
+{
+	OnCleanCont();
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcContactNumOfPage.value);
+	for(var i = 0; i <= st; i++)
+	{
+		var tmpDomName = "cCheck" + i;
+		document.getElementById(tmpDomName).checked = false;
+	}
+	CheckButtonStatus();
+}
+function OnCancelGpModify()
+{
+	OnCleanGp();
+	var f2 = document.forms["hiddenValForm"];
+	var st = Number(f2.hcGroupNum.value);
+	for(var i = 0; i <= st; i++)
+	{
+		var tmpDomName = "cCheckGroup" + i;
+		document.getElementById(tmpDomName).checked = false;
+	}
+	CheckButtonStatus();
+}
+
+function ContactEditMove()
+{
+	var f2 = document.forms["hiddenValForm"];
+	if("Favorites" == ShowDecode(f2.hcCurGroup.value))
+	{
+		return;
+	}
+	CleanContactInputs();
+	if(CheckCheckedNumofCont() <= 0 || CheckCheckedNumofCont() >= 2)
+	{
+		OnCleanCont();
+		return;
+	}
+	var findNum = FindNumOfChecked();
+	document.getElementById("divContactPanel").style.display = "";
+	var arrContName = f2.hcContactName.value.split(SplitSymbol);
+	var arrContOffice = f2.hcContactOfficeNum.value.split(SplitSymbol);
+	var arrContMobile = f2.hcContactMobileNum.value.split(SplitSymbol);
+	var arrContOther = f2.hcContactOtherNum.value.split(SplitSymbol);
+	var arrContAccount = f2.hcContactAccount.value.split(SplitSymbol);
+	var arrContGroup = f2.hcContactGroup.value.split(SplitSymbol);
+	var arrContId = f2.hcContactId.value.split(SplitSymbol);
+
+	var arrContRing = f2.hcContactRing.value.split(SplitSymbol);
+	for(var i = 0; i < arrContRing.length; i++)
+	{
+		arrContRing[i] = ShowDecode(arrContRing[i]);
+	}
+	findNum--;
+	document.getElementById("cEditName").value = ShowDecode(arrContName[findNum]);
+	document.getElementById("cEditOffice").value = ShowDecode(arrContOffice[findNum]);
+	document.getElementById("cEditMobile").value = ShowDecode(arrContMobile[findNum]);
+	document.getElementById("cEditOther").value = ShowDecode(arrContOther[findNum]);
+	document.getElementById("cEditAccount").value =  arrContAccount[findNum];
+	setSelectValueByText("cEditRing", arrContRing[findNum], Number(f2.hcRingerNum.value));
+	setSelectValueByText("cEditGroup", arrContGroup[findNum], Number(f2.hcGroupNum.value)+1);
+	document.getElementById("cEditContId").value = arrContId[findNum];	
+}
+
+function OnEditContact()
+{
+	if(CheckCheckedNumofCont() >= 2)
+	{
+		alert(DuplicatedChooseWarning);
+		return;
+	}
+	if(CheckCheckedNumofCont() <= 0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	document.getElementById("ContactMType").value = "Edit";
+	OnContactModify();
+}
+
+function GroupEditMove()
+{
+	CleanGpInputs();
+	if(CheckCheckedNumofGroup() <= 0 || CheckCheckedNumofGroup() >= 2)
+	{
+		OnCleanGp();
+		return;
+	}
+	document.getElementById("cEditGroupName").disabled = true;
+	var findNum = FindNumOfCheckedGroup();
+	var f2 = document.forms["hiddenValForm"];
+	var arrGpId = f2.hcGroupIdList.value.split(SplitSymbol);
+	var arrGpName = f2.hcGroupNameList.value.split(SplitSymbol);
+	var arrGpRing = f2.hcGroupRingList.value.split(SplitSymbol);
+	var arrGpDescrip = f2.hcGroupDescripList.value.split(SplitSymbol);
+	findNum--;
+	document.getElementById("cEditGroupId").value = arrGpId[findNum];
+	document.getElementById("cEditGroupName").value = ShowDecode(arrGpName[findNum]);
+	document.getElementById("cEditGroupDescription").value = ShowDecode(arrGpDescrip[findNum]);
+	setSelectValueByText("cEditGroupRing", arrGpRing[findNum], Number(f2.hcRingerNum.value));
+}
+
+function OnEditGroup()
+{
+	if(CheckCheckedNumofGroup() >= 2)
+	{
+		alert(DuplicatedChooseWarning);
+		return;
+	}
+	if(CheckCheckedNumofGroup() <= 0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	document.getElementById("GroupMType").value = "Edit";
+	OnGroupModify();
+}
+
+// value是数字
+function setSelectValueByText(selectDom, desText, itemNum)
+{
+	var i = 0;
+	while(i < itemNum)	
+	{
+		if(desText == document.getElementById(selectDom).options[i].text)
+		{
+			break;
+		}
+		i++;
+	}
+	if(i == itemNum)
+	{
+		document.getElementById(selectDom).value = 0;
+	}
+	else
+	{
+		document.getElementById(selectDom).value = i;
+	}
+}
+
+function OnContactModify()
+{
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	var ErrFlag = false;
+	if("Edit" == document.getElementById("ContactMType").value)
+	{
+		strSubmData += "&cContactEdit=";
+		strSubmData = strSubmData + document.getElementById("cEditContId").value + "/";
+	}
+	else if("Add" == document.getElementById("ContactMType").value)
+	{
+		strSubmData += "&cContactAdd=";
+	}
+	else
+	{
+		return;
+	}
+	if(document.getElementById("cEditName").value == "")
+	{
+		SetInputBGColor("cEditName");
+		alert(NameEmptyWarning);
+		return;
+	}
+	if(!IsContactOrGroupName(document.getElementById("cEditName").value))
+	{
+		SetInputBGColor("cEditName");
+		ErrFlag = true;
+	}
+	if(!IsAValidDialedNumber(document.getElementById("cEditOffice").value))
+	{
+		SetInputBGColor("cEditOffice");
+		ErrFlag = true;
+	}
+	if(!IsAValidDialedNumber(document.getElementById("cEditMobile").value))
+	{
+		SetInputBGColor("cEditMobile");
+		ErrFlag = true;
+	}
+	if(!IsAValidDialedNumber(document.getElementById("cEditOther").value))
+	{
+		SetInputBGColor("cEditOther");
+		ErrFlag = true;
+	}
+	
+	if(true == ErrFlag)
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditName").value) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditOffice").value) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditMobile").value) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditOther").value) + "/";
+	strSubmData = strSubmData + document.getElementById("cEditAccount").value + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditRing").value) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditGroup").value) + "/";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnGroupModify()
+{
+	var f3 = document.forms["groupSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	if("Edit" == document.getElementById("GroupMType").value)
+	{
+		strSubmData += "&cGroupEdit=";
+		strSubmData = strSubmData + document.getElementById("cEditGroupId").value + "/";
+	}
+	else if("Add" == document.getElementById("GroupMType").value)
+	{
+		strSubmData += "&cGroupAdd=";
+	}
+	else
+	{
+		return;
+	}
+	if(document.getElementById("cEditGroupName").value == "")
+	{
+		SetInputBGColor("cEditGroupName");
+		alert(NameEmptyWarning);
+		return;
+	}
+	
+	var tmpFlag = false;
+	if(!IsContactOrGroupName(document.getElementById("cEditGroupName").value))
+	{
+		SetInputBGColor("cEditGroupName");
+		tmpFlag = true;
+	}
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditGroupName").value) + "/";
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditGroupRing").value) + "/";
+	if(!IsGroupDescription(document.getElementById("cEditGroupDescription").value))
+	{
+		SetInputBGColor("cEditGroupDescription");
+		tmpFlag = true;
+	}
+	if(true == tmpFlag) { return; }
+	ProcessShow(ProcessNotice);
+	strSubmData = strSubmData + PostEncodeIncTimeSplit(document.getElementById("cEditGroupDescription").value) + "/";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.GroupSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+	
+}
+
+function OnDelContact()
+{
+	if(CheckCheckedNumofCont() <= 0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	if((document.getElementById("cCurGroup")).value == "BlackList")
+	{
+		strSubmData += "&cBlackListDelete=";
+	}
+	else
+	{
+		strSubmData += "&cContactDelete=";
+	}
+				
+	var tmpData = FindCheckedContactsId();
+	strSubmData += tmpData;
+	
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnDelGroup()
+{
+	if(CheckCheckedNumofGroup() <=0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	
+	var f3 = document.forms["groupSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cGroupDelete=";
+
+				
+	var tmpData = FindCheckedGroupsId();
+	strSubmData += tmpData;
+	
+	f3.GroupSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function FindCheckedContactsId()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var data = "";
+	var arrContId = f2.hcContactId.value.split(SplitSymbol);
+	for(var i = 1; i<=10; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			data = data + arrContId[i-1] + "/";
+		}
+	}
+	return data;
+}
+
+function FindCheckedGroupsId()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var data = "";
+	var arrGroupId = f2.hcGroupIdList.value.split(SplitSymbol);
+	for(var i = 1; i<=PageGroupNum; i++)
+	{
+		var tmpDomName = "cCheckGroup"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			data = data + arrGroupId[i-1] + "/";
+		}
+		
+	}
+	return data;	
+}
+
+function OnDelAllContact()
+{
+	if(!confirm(DeleteAllConfirm))
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	if((document.getElementById("cCurGroup")).value == "BlackList")
+	{
+		strSubmData += "&cBlackListDelete=AllBlackList";
+	}
+	else
+	{
+		strSubmData += "&cContactDelete=AllContacts";
+	}
+	
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnDelAllGroup()
+{	
+	if(!confirm(DeleteAllConfirm))
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["groupSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cGroupDelete=AllGroups";
+	
+	f3.GroupSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnMoveToBL()
+{
+	if(CheckCheckedNumofCont() <= 0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	if(!confirm(MoveToBLConfirm))
+	{
+		return;
+	}	
+	ProcessShow(ProcessNotice);
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cMoveToBlackList=";
+	
+	var tmpData = FindCheckedContactsId();
+	strSubmData += tmpData;	
+	
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnMoveFrBL()
+{
+	if(CheckCheckedNumofCont() <=0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	if(!confirm(MoveFrBLConfirm))
+	{
+		return;
+	}
+	ProcessShow(ProcessNotice);
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cMoveFromBlackList=";
+	
+	var tmpData = FindCheckedContactsId();
+	strSubmData += tmpData;
+	
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function ChangeContactPage()
+{
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	document.getElementById("cCurPage").disabled = true;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cCurPage=";
+	strSubmData += document.getElementById("cCurPage").value;
+	f3.ContactSubmitData.value = strSubmData;
+	ProcessShow(ProcessNotice);
+	DoForm3Submit(f3);
+}
+
+function OnNextPage()
+{
+	if(document.getElementById("cCurPage").value < 49)
+	{
+		document.getElementById("cCurPage").value++;
+		ChangeContactPage();
+	}
+}
+
+function OnPrevPage()
+{
+	if(document.getElementById("cCurPage").value > 0)
+	{
+		document.getElementById("cCurPage").value--;
+		ChangeContactPage();
+	}	
+}
+
+function ChangeContactGroup()
+{
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin";
+	document.getElementById("cCurGroup").disabled = true;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cCurGroup=";
+	strSubmData += PostEncode(document.getElementById("cCurGroup").value);
+	strSubmData += "&cCurPage=";
+	strSubmData += 0;
+	f3.ContactSubmitData.value = strSubmData;
+	ProcessShow(ProcessNotice);
+	DoForm3Submit(f3);
+}
+
+function CleanContactInputs()
+{
+	onInputEdit("cEditName");
+	onInputEdit("cEditOffice");
+	onInputEdit("cEditMobile");
+	onInputEdit("cEditOther");
+	document.getElementById("WarningDiv").innerHTML = "";
+}
+
+function CleanGpInputs()
+{
+	onInputEdit("cEditGroupName");
+	onInputEdit("cEditGroupDescription");
+	document.getElementById("WarningDiv").innerHTML = "";
+}
+
+//导入导出
+function OnImportCont()
+{
+	var fTmp = document.forms["uploadContactForm"];
+	fTmp.uploadType.value = "&Operation=Upload&DestUpFile=Contacts&";
+	var fileArr = fTmp.importContactsFile.value.split("\\");
+	importFileName = fileArr[fileArr.length-1];
+	ImportFileInPhoneBook(fTmp, importFileName, UploadContactsWarning, "Cont");
+}
+
+function ImportFileInPhoneBook(formTmp, importFileName, alertStr, thisFile)
+{
+	if(importFileName != "")
+	{
+		if(!CheckFileFormat(importFileName, ".XML", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		if(!confirm(alertStr))
+		{
+			return;
+		}
+		ProcessShow(ProcessNotice);
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		formTmp.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		formTmp.submit();
+		setTimeout("BeforeUpTO('/fcgi/do?id=5&id=1')", 20000);
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+
+function OnImportBlackList()
+{
+	var fTmp = document.forms["uploadBlackListForm"];
+	fTmp.uploadType.value = "&Operation=Upload&DestUpFile=BlackList&";
+	var fileArr = fTmp.importBlackListFile.value.split("\\");
+	importFileName = fileArr[fileArr.length-1];
+	ImportFileInPhoneBook(fTmp, importFileName, UploadContactsWarning, "BL");
+}
+
+function OnExportCont()
+{
+	// 只处理一个隐藏div变量，这样不太好
+	ProcessShow(ProcessNotice, "spec");
+	GetDivContent("divExportContact", 
+	"do?id=5&id=1&Operation=GetDivContent&DivName=divExportContact", "hcExportContact_Div");
+}
+
+function OnExportBlackList()
+{
+	ProcessShow(ProcessNotice, "spec");
+	GetDivContent("divExportBlackList", 
+	"do?id=5&id=1&Operation=GetDivContent&DivName=divExportBlackList", "hcExportBlackList_Div");	
+}
+
+function OnFindDivVarAction(hcDivVar, divVar)
+{
+	if(hcDivVar == "hcExportContact_Div" || "hcExportBlackList_Div" == hcDivVar)
+	{
+		ResetToNormalPage();
+		if(divVar == "")
+		{
+			if(GetPhoneUse4Export())	{	return;	}
+			alert(FileNotExistWarning);
+			return;
+		}
+		else if(divVar == "1")
+		{
+			alert(PhoneTalkingWarning);
+			return;
+		}		
+		location.replace(divVar);
+	}
+}
+
+var DisabledDOMs = ["cCurGroup", "cCurPage", "Prev", "Next", "MoveToWhere"
+										, "Contact_Delete", "DeleteAll", "cFavNumSelect", "SaveFav"
+										, "CancelFav", "Contact_Add", "Contact_Edit", "CancelContact"
+										, "DeleteGp", "DeleteAllGp", "ImportContacts", "ExportContacts"
+										, "ImportBlackList", "ExportBlackList", "Reset1", "Reset2"
+										, "AddGp", "EditGp", "CancelGroup"];
+function ProcessShow(destShow, spec)
+{
+	if(spec != "spec")
+	{
+		for(var i=0; i < DisabledDOMs.length; i++)
+		{
+			if(document.getElementById(DisabledDOMs[i]))
+			{
+				document.getElementById(DisabledDOMs[i]).disabled = true;
+			}
+		}
+		return;
+	}
+	document.getElementById("PageUL").style.display = "none";
+	document.getElementById("tShowForProcess").innerHTML = destShow;
+	scrollHei = (Number(document.getElementById("midWhole").scrollHeight-31)) + "px";
+	document.getElementById("mid_cont1").style.display = "";
+	document.getElementById("mid_cont2").style.display = "none";
+	document.getElementById("mid_cont1").style.height = scrollHei;
+}
+
+function ResetToNormalPage()
+{
+	document.getElementById("mid_cont1").style.display = "none";
+	document.getElementById("mid_cont2").style.display = "";
+	document.getElementById("PageUL").style.display = "";
+}
+
+function ResetImportConts()
+{
+	var f1 = document.forms["uploadContactForm"];
+	f1.reset();
+}
+
+function ResetImportBL()
+{
+	var f1 = document.forms["uploadBlackListForm"];
+	f1.reset();
+}
+
+function CheckDataChanged(destURL)
+{
+	return CheckDataChangedMulti(destURL);
+}
+
+function OnSearchContact()
+{
+	if(document.getElementById("cSearchWord").value == "") { alert(ConSearchPrompt);  return;	}
+	ProcessShow(ProcessNotice);
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin&Operation=Submit";
+	strSubmData += ("&cContactSearchWord=" + PostEncode(document.getElementById("cSearchWord").value));
+	strSubmData += "&SubmitData=end";
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+	return;
+}
+
+function OnCancelSearch()
+{
+	ProcessShow(ProcessNotice);
+	var f3 = document.forms["contactSubmitForm"];
+	var strSubmData = "begin&Operation=Submit";
+	strSubmData += "&cContactSearchCancel=";
+	strSubmData += "&SubmitData=end";
+	f3.ContactSubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+	return;
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu5", "tMenu51");
+});
+
+function OnClickContNumber(tmpID)
+{
+	var stdStr = "aOffic";
+	var tailLen = 1;
+	if(stdStr.length+1 == tmpID.length)
+	{
+		tailLen = 1;
+	}
+	else if(stdStr.length+2 == tmpID.length)
+	{
+		tailLen = 2;
+	}
+	var pref = tmpID.substr(0, tmpID.length-tailLen);
+	var tmpIndex = tmpID.substr(tmpID.length-tailLen, tailLen);
+	var f2 = document.forms["hiddenValForm"];
+	var lineID, dstNumber;
+	var arrContName = f2.hcContactName.value.split(SplitSymbol);
+	var arrContOffice = f2.hcContactOfficeNum.value.split(SplitSymbol);
+	var arrContMobile = f2.hcContactMobileNum.value.split(SplitSymbol);
+	var arrContOther = f2.hcContactOtherNum.value.split(SplitSymbol);
+	var arrContAccount = f2.hcContactAccount.value.split(SplitSymbol);
+	var arrDestNumber;
+	if("aOffic" == pref)
+	{
+		arrDestNumber = arrContOffice;
+	}
+	else if("aMobil" == pref)
+	{
+		arrDestNumber = arrContMobile;
+	}		
+	else if("aOther" == pref)
+	{
+		arrDestNumber = arrContOther;
+	}		
+	else
+	{
+		return;
+	}
+	g_ContName = arrContName[tmpIndex];
+	document.getElementById("cWebCallNumber").value = ShowDecode(arrDestNumber[tmpIndex]);
+	document.getElementById("cWebCallAccount").value = ShowDecode(arrContAccount[tmpIndex]);
+	
+	if(true == AccountNotRegisterd(ShowDecode(arrContAccount[tmpIndex])) && false == IsIPNumber(ShowDecode(arrDestNumber[tmpIndex])))
+	{
+		ClearWebCallData();
+		alert(AccountUnRegisteredWarn);
+		return;
+	}
+	var TextDest = OnDialOut();
+	if("NumberIsEmpty" == TextDest)
+	{
+		ClearWebCallData();
+	}
+}
+
+function ClearWebCallData()
+{
+	g_ContName = "";
+	document.getElementById("cWebCallNumber").value = "";
+	document.getElementById("cWebCallAccount").value = 0;	
+}
+var g_dial_status = 0;
+var g_ContName = "";
+function OnDialOut()
+{
+	if("" == document.getElementById("cWebCallNumber").value)
+	{
+		alert(NumberEmptyWarning);
+		return "NumberIsEmpty";
+	}
+	if(true == AccountNotRegisterd(document.getElementById("cWebCallAccount").value) &&
+		 false == IsIPNumber(document.getElementById("cWebCallNumber").value))
+	{
+		alert(AccountUnRegisteredWarn);
+		ClearWebCallData();
+		return;
+	}	
+	if(!confirm(MakeCallWarn))
+	{
+		return;
+	}
+	WebMakeCall(document.getElementById("cWebCallNumber").value, g_ContName, document.getElementById("cWebCallAccount").value);
+}
+function DoCallFailedAction()
+{
+	ClearWebCallData();
+	return;
+}
+function AccountNotRegisterd(destAccountID)
+{
+	var f2 = document.forms["hiddenValForm"];
+	var RegisteredList = f2.hcRegisteredAccountList.value.split(SplitSymbol);
+	var Len = Number(RegisteredList.length)/2;
+	if(3 >= RegisteredList.length)
+	{
+		return true;
+	}
+	for(i = 0; i<Len; i++)
+	{
+		if(destAccountID == RegisteredList[2*i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+function IsIPNumber(destNumber)
+{
+	return CheckIpAddr_Simp(destNumber);
+}
+function OnHangUp()
+{
+	WebCallEnd();
+}
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1" align="center" style="text-align: center; font-size: 25px"><table align="center"  height="150">
+				<tr style="text-align: center;"><td style="text-align: center;"><strong id="tShowForProcess"></strong></td></tr>
+				</table></div>
+			<div class="mid_cont" id="mid_cont2" style="display:none">  	
+				
+				<div class="div_border">
+				<table class="table_style">		
+    			<table>
+    				<tr>
+    					<td class="First_td"><label id='tContacts'>Contact</label></td>
+    					<td colspan='3'><select id='cCurGroup' class="Select_format" onChange="ChangeContactGroup()"></select></td>
+    				</tr>
+    				<tr id="trSearch" style="display:none">
+    					<td class="First_td"><label id='tSearch'></label></td>
+    					<td><input class="def_input" id='cSearchWord' type='text' onFocus="onInputEdit(this.id)" /></td>
+    					<td><input class='Nice_Btn' style='width:77px;' id='Contact_Search' type='button' value='Search' onClick='OnSearchContact()' /></td>
+    					<td><input class='Nice_Btn' style='width:85px;' id='Contact_Search_Cancel' type='button' value='Cancel' onClick='OnCancelSearch()'></td>
+    				</tr> 
+    				<tr id="trWebCall">
+    					<td class="First_td"><label id='tDial'>Dial</label></td>
+    					<td><input style='width:100px;' id='cWebCallNumber' type='text' onFocus="onInputEdit(this.id)" />&nbsp<select style='width:100px;' id='cWebCallAccount' type='text' onFocus="onInputEdit(this.id)"></select></td>
+    					<td><input class='Nice_Btn' style='width:77px;' id='DialOut' type='button' value='Dial' onClick='OnDialOut()' /></td>
+    					<td><input class='Nice_Btn' style='width:85px;' id='HangUp' type='button' value='HangUp' onClick='OnHangUp()' /></td>
+    				</tr> 
+    				<tr style="display:none" id='trSearchResult'><td colspan='4' class="long_First_td"><label id='tSearchResult'>SearchResult</label></td></tr>  			
+    			</table>	
+    		  <table width="98%" id="tableContacts" align="center" cellpadding="0" cellspacing="1">
+						<tr bgcolor='#a5a9af'>            	
+							<td align='center' height='20px' style="width:3%;"><label id='tIndex'></label></td>
+							<td id='tdName' class="td_Contact" style="width:11%;"><label id='tName'></label></td>
+							<td id='tdOfficeNum' class="td_Contact" style='width:17%;'><label id='tOfficeNum'></label></td>
+							<td id='tdMobileNum' class="td_Contact" style="width:17%;"><label id='tMobileNum'></label></td>
+							<td id='tdOtherNum' class="td_Contact" style="width:17%;"><label id='tOtherNum'></label></td>
+							<td id='tdGroup' class='td_Contact' style='width:11%;'><label id='tGroup'></label></td>
+							<td id='tdRing' class='td_Contact' style='width:8%;'><label id='tRing'></label></td>
+							<td id='PhoneBook_tdAccount' class="td_Contact" style="width:8%;"><label id='tAccount'></label></td>
+							<td id='tdCheck0' class="td_Contact" style="width:5%;"><input id='cCheck0' type='checkbox' onClick="OnAllCheckClicked()"></td>
+						</tr>
+            <script type="text/javascript">
+            	for(var i = 1; i <= 10; i++)
+            	{	
+            	if(i%2)
+            		document.write("<tr bgcolor='#F9FAFC'>"+
+					"<td width='2%' align='center' height='20px'><label id='cIndex" + i + "'></label></td>"+
+					"<td class='td_Contact'><label id='cContactName" + i + "'></label></td>"+
+					"<td class='td_Contact'><a href='#' id='aOffic" + (Number(i)-1) + "'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactOfficeNum"+i+"'></label></a></td>"+
+					"<td id='tdContactMobile" + i + "' class='td_Contact'><a href='#' id='aMobil" + (Number(i)-1) + "'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactMobileNum" + i + "'></label></a></td>"+
+					"<td id='tdContactOther"+i+"' class='td_Contact'><a href='#' id='aOther"+(Number(i)-1)+"'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactOtherNum"+i+"'></label></a></td>"+
+					"<td id='tdContactGroup"+i+"' class='td_Contact'><label id='cContactGroup"+i+"'></label></td>"+
+					"<td id='tdContactRing"+i+"' class='td_Contact'><label id='cContactRing"+i+"'></label></td>"+
+					"<td id='PhoneBook_tdContactAccount" + i + "' class='td_Contact'><label id='cContactAccount"+i+"'></label></td>"+
+					"<td class='td_Contact'><input id='cCheck"+i+"' type='checkbox' onClick='OnEachCheckClicked()' value='Check"+i+"'></td></tr>");
+            	else
+	            	document.write("<tr bgcolor='#DCE3E8'>"+
+					"<td width='2%' align='center' height='20px'><label id='cIndex" + i + "'></label></td>"+
+					"<td class='td_Contact'><label id='cContactName" + i + "'></label></td>"+
+					"<td class='td_Contact'><a href='#' id='aOffic" + (Number(i)-1) + "'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactOfficeNum"+i+"'></label></a></td>"+
+					"<td id='tdContactMobile" + i + "' class='td_Contact'><a href='#' id='aMobil" + (Number(i)-1) + "'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactMobileNum" + i + "'></label></a></td>"+
+					"<td id='tdContactOther"+i+"' class='td_Contact'><a href='#' id='aOther"+(Number(i)-1)+"'style='text-decoration:underline' onClick='OnClickContNumber(this.id)'><label id='cContactOtherNum"+i+"'></label></a></td>"+
+					"<td id='tdContactGroup"+i+"' class='td_Contact'><label id='cContactGroup"+i+"'></label></td>"+
+					"<td id='tdContactRing"+i+"' class='td_Contact'><label id='cContactRing"+i+"'></label></td>"+
+					"<td id='PhoneBook_tdContactAccount" + i + "' class='td_Contact'><label id='cContactAccount"+i+"'></label></td>"+
+					"<td class='td_Contact'><input id='cCheck"+i+"' type='checkbox' onClick='OnEachCheckClicked()' value='Check"+i+"'></td></tr>");
+          		}
+            </script>
+          </table>
+          <table width="98%" id="tableContactsModify" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor='#a5a9af'>
+            	<td align='center' height='20px'><label id='tPage'></label><select id='cCurPage' onChange="ChangeContactPage()"></select></td>
+              <td align='center' height='20px'><input class='Nice_Btn2' style='width:70px;' id='Prev' type='button' value="Prev" onClick="OnPrevPage()" /></td>
+              <td align='center' height='20px'><input class='Nice_Btn2' style='width:70px;' id='Next' type='button' value="Next" onClick="OnNextPage()" /></td>
+              <td align='center' height='20px'><label id="tMoveTo">Move To</label>&nbsp&nbsp<select id="MoveToWhere" onChange="OnSelectMoveTo()"></select></td>
+              <td align='center' height='20px'><input class='Nice_Btn' style='width:50px;' id='Contact_Delete' type='button' value='Delete' onClick='OnDelContact()' /></td>
+              <td align='center' height='20px'><input class='Nice_Btn' style='width:80px;' id='DeleteAll' type='button' value='DeleteAll' onClick='OnDelAllContact()' /></td> 
+            </tr>
+            <tr><td class="Gap_td1"></td> </tr>
+          </table>
+    			<table id="headContactHead">
+    				<tr id="FavShow1"><td class="First_td"><label id='tContactModify'>Contact Modify ></label></td></tr>
+    				<tr id="FavShow2" style="display:none"><td class="First_td" style="padding-top: 15px;"><label id='tSelectNumberF'>Select a Number First!</label></td>
+    					<td style="padding-top: 15px;"><select id='cFavNumSelect'></select></td>
+    					<td style="padding-top: 15px;"><input id="SaveFav" name="SaveFav" class='Nice_Btn2' style="width: 60px" type="button" value="Save" onClick ="OnSaveFavorite()" /></td>
+    					<td style="padding-top: 15px;"><input id="CancelFav" name="CancelFav" class='Nice_Btn2' style="width: 60px" type="button" value="Cancel" onClick ="OnCancelFavorite()" /></td></tr>
+    			</table>
+    			<div id="divContactPanel" align="center">
+          <table width="90%" id="tableContactPanel" align="center" style="text-align:center" cellpadding="0" cellspacing="0">
+            <tr id='trContactEdit1'>
+            	<td height='20px'><label id='tEditName'></label></td><td><input class="def_input" id='cEditName' type='text' onFocus="onInputEdit(this.id)" /></td>
+            	<td height='20px'><label id='tEditOffice'></label></td><td><input class="def_input" id='cEditOffice' type='text' onFocus="onInputEdit(this.id)" /></td> 
+            </tr>
+            <tr id='trContactEdit2'>
+            	<td height='20px'><label id='tEditMobile'></label></td><td><input class="def_input" id='cEditMobile' type='text' onFocus="onInputEdit(this.id)" /></td>
+            	<td height='20px'><label id='tEditOther'></label></td><td><input class="def_input" id='cEditOther' type='text' onFocus="onInputEdit(this.id)" /></td> 
+            </tr>
+            <tr id='trContactEdit3'>
+            	<td height='20px'><label id='tEditGroup'></label></td><td><select class="Select_format" id='cEditGroup'></select><input class="ip_input" id='cEditContId' type='hidden' /></td>
+            	<td height='20px'><label id='tEditRing'></label></td><td><select class="Select_format" id='cEditRing'></select></td> 
+            </tr>
+			<tr id='PhoneBook_trContactEdit4'>
+				<td id='tdEditAccountLabel' height='20px'><label id='tEditAccount'></label></td><td id='tdEditAccountValue'><select class="Select_format" id='cEditAccount'></select></td>
+            </tr>
+            <tr><td>&nbsp</td></tr>
+          </table>
+        	<table width="60%" id="tableContactPanel" align="center">
+<form method="post" name="contactSubmitForm" action="">
+	          <input type="hidden" name="ContactSubmitData" id="ContactSubmitData" value="" />
+	          <input type="hidden" name="ContactMType" id="ContactMType" value="" />
+	          <tr><td><input class='Nice_Btn2' style='width:80px;' id='Contact_Add' type='button' value="Add" onClick="OnAddContact()" /></td>
+	              <td align='center'><input class='Nice_Btn2' style='width:80px;' id='Contact_Edit' type='button' value="Edit" onClick="OnEditContact()" /></td>
+	              <td><input class='Nice_Btn2' style="width:80px" id="CancelContact" name="CancelContact"  type="button" value="Cancel" onClick ="OnCancelContModify()" /></td><td align='center' height='20px'></td>
+	          </tr>
+</form>
+	        </table>      
+	        </div> 
+			</table>
+			<div style="height:10px;"></div>	
+        </div>
+        	
+			<div class="div_border">
+			  <table class="table_style">	
+			  	<table><tr><td class="First_td"><label id='tGroups'>Group</label></td></tr></table>	
+          <table width="98%" id="tableGroups" align="center" cellpadding="0" cellspacing="1">
+            <tr bgcolor='#a5a9af'>            	
+              <td width='2%' align='center' height='20px'><label id='tGroupIndex'></label></td>
+              <td class="td_Contact" style='width: 24%;'><label id='tGroupName'></label></td>
+              <td class="td_Contact" style='width: 17%;'><label id='tGroupRing'></label></td>
+              <td class="td_Contact" style='width: 35%;'><label id='tGroupDescription'></label></td> 
+              <td class="td_Contact" style='width: 7%;'><input id='cCheckGroup0' type='checkbox' onClick="OnGpAllCheckClicked()" /></td>
+            </tr>
+            <script language="javascript">
+            	for(var i=1; i <= PageGroupNum; i++)
+            	{	
+	            	if(i%2)
+		            	document.write("<tr bgcolor='#F9FAFC'>" +
+			            	"<td width='2%' align='center' height='20px'><label id='cGroupIndex" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupName" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupRing" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupDescription" + i + "'></label></td>" +
+			              "<td class='td_Contact'><input id='cCheckGroup" + i + "' onClick='OnEachGpCheckClicked()' type='checkbox'></td></tr>");
+	            	else 
+		            	document.write("<tr bgcolor='#DCE3E8'>" +
+			            	"<td width='2%' align='center' height='20px'><label id='cGroupIndex" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupName" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupRing" + i + "'></label></td>" +
+			              "<td class='td_Contact'><label id='cGroupDescription" + i + "'></label></td>" +
+			              "<td class='td_Contact'><input id='cCheckGroup" + i + "' onClick='OnEachGpCheckClicked()' type='checkbox'></td></tr>");
+          		}
+            </script>
+          </table>
+          <table width="98%" id="tableGroupsModify" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor='#a5a9af'>
+            	<td align='center' height='20px'></td>
+              <td align='center' height='20px'><input class='Nice_Btn1' style="width:100px;" id='DeleteGp' type='button' value="Delete" onClick="OnDelGroup()" /></td>
+              <td align='center' height='20px'><input class='Nice_Btn1' style="width:100px;" id='DeleteAllGp' type='button' value="DeleteAll" onClick="OnDelAllGroup()" /></td> 
+            </tr>
+            <tr><td class="Gap_td1"></td></tr>
+          </table>
+    			<table>
+    				<tr><td class="First_td"><label id='tGroupModify'>Group Modify</label></td></tr>
+    			</table>
+    			<div id="divGroupPanel" align="center" style="text-align:center">
+          <table width="80%" id="tableGroupPanel" align="center" style="text-align:center" cellpadding="0" cellspacing="0">
+            <tr class="Second_td" align="center" style="text-align:center">
+            	<td height='20px'><label id='tEditGroupName'></label></td><td class="Third_td"><input class="def_input"" id='cEditGroupName' type='text' onFocus="onInputEdit(this.id)" /></td>
+            </tr>
+            <tr class="Second_td" align="center" style="text-align:center">
+            	<td height='20px'><label id='tEditGroupRing'></label></td><td class="Third_td"><select class="Select_format" id='cEditGroupRing'></select></td> 
+            </tr>
+            <tr class="Second_td" align="center" style="text-align:center">
+            	<td height='20px'><label id='tEditGroupDescription'></label></td><td class="Third_td"><input class="def_input" type='text' id='cEditGroupDescription' onFocus="onInputEdit(this.id)" />
+            	<input id='cEditGroupId' type='hidden' /></td>
+            </tr>
+            <tr><td>&nbsp</td></tr>
+          </table>
+          <table width="60%" id="tableGroupPanel" style="text-align:center" align="center" cellpadding="0" cellspacing="0">
+<form method="post" name="groupSubmitForm" action="">
+          <input type="hidden" name="GroupSubmitData" id="GroupSubmitData" value="" />
+          <input type="hidden" name="GroupMType" id="GroupMType" value="" />
+          <tr><td align='center' height='20px'><input class='Nice_Btn2' style="width:80px" id='AddGp' type='button' value="Add" onClick="OnAddGroup()" /></td>            	
+              <td align='center' height='20px'><input class='Nice_Btn2' style="width:80px" id='EditGp' type='button' value="Edit" onClick="OnEditGroup()" /></td>
+        	<td><input class='Nice_Btn2' style="width:80px" id="CancelGroup" name="CancelGroup" type="button" value="Cancel" onClick ="OnCancelGpModify()" /></td></tr>
+</form>
+					</table>
+        	</div>
+        </table>
+			<div style="height:10px;"></div>	
+        </div>	
+        
+        <div class="div_border" id="PhoneBook_divImportExport">
+        <div class="div_head"><label id='tImportExport'>ImportExport</label></div>
+			  <table class="table_style">		
+			  		
+
+			  <table width="85%" id="tableUpload" align="center" cellpadding="0" cellspacing="0">
+<form id="uploadContactForm" enctype="multipart/form-data" action="" method="post">
+ 	        <input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&" />
+ 	        <tr><td class="First_td"><label id='tContactsExportImport'></label></td>
+						  <td class="Second_td"><input name="importContactsFile" type="file" /></td><td><label id='tFormatOfContacts'>(.XML)</label></td></tr>
+		        <tr><td class="Second_td"></td><td class="Second_td"><input class="Nice_Btn3" type="button" id="ImportContacts" name="ImportContacts" value="Import" onClick ="OnImportCont()" />
+		        		<input class="Nice_Btn3" type="button" id="ExportContacts" name="ExportContacts" value="Export" onClick ="OnExportCont()" />&nbsp&nbsp<input class="Nice_Btn3" style="width:75px;" type="button" id="Reset1" name="Reset1" value="Cancel" onClick ="ResetImportConts()" /></td></tr>
+</form>
+				</table>
+				<table width="85%" id="tableUpload" align="center" cellpadding="0" cellspacing="0">
+<form id="uploadBlackListForm" enctype="multipart/form-data" action="" method="post">
+ 	        <input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&" />
+	        <tr><td class="First_td"><label id='tBlackListExportImport'></label></td>
+							<td class="Second_td"><input name="importBlackListFile" type="file" /></td><td><label id='tFormatOfBL'>(.XML)</label></td></tr>
+	        <tr><td class="Second_td"></td><td class="Second_td"><input class="Nice_Btn3" type="button" id="ImportBlackList" name="ImportBlackList" value="Import" onClick ="OnImportBlackList()" />
+	        		<input class="Nice_Btn3" type="button" id="ExportBlackList" name="ExportBlackList" value="Export" onClick ="OnExportBlackList()" />&nbsp&nbsp<input class="Nice_Btn3" style="width:75px;" type="button" id="Reset2" name="Reset2" value="Cancel" onClick ="ResetImportBL()" /></td></tr>      		        	
+</form>
+				</table>
+				</table>
+				<div style="height:10px;"></div>	
+        </div>
+				<div id="divExportContact" style="display:none"></div>
+				<div id="divExportBlackList" style="display:none"></div>
+				<div id="divWebCallRes" style="display:none"></div>
+			</div>
+	</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

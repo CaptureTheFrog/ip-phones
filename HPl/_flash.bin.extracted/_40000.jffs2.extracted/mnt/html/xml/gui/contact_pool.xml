@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu title="$(lang:lang_contactpool)" dtmf="off" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <MenuItem name="$(lang:lang_menu100_phone_book)">
+    <Action>addressbook</Action>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_menu100_ldap_book)">
+    <Action>ldap</Action>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_list_missed)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:cancel=abort&amp;var:calllist_type=Missed&amp;var:calllist_title=lang_list_missed</Url>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_list_taken)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:cancel=abort&amp;var:calllist_type=Received&amp;var:calllist_title=lang_list_taken</Url>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_list_dialed)">
+    <Url>file:///xml/gui/call_lists_list.xml#var:cancel=abort&amp;var:calllist_type=Dialed&amp;var:calllist_title=lang_list_dialed</Url>
+  </MenuItem>
+  <MenuItem name="$(lang:lang_buddies_title)">
+    <Action>buddies</Action>
+  </MenuItem>
+  <If condition="$(show_feature:FEATURE_PARK_ORBIT)">
+    <MenuItem name="$(lang:lang_enum_disp_func_key_orbit)">
+      <Action>parkorbit</Action>
+    </MenuItem>
+  </If>
+</SnomIPPhoneMenu>

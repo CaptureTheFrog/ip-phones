@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phone-settings e="2">
+<language perm="RW" c="1">English</language>
+<setting_server perm="R" c="1">http://provisioning.voicehost.co.uk/Snom.xml?mac={mac}&amp;key=MiT70N9H1YjLAUi29n6A</setting_server>
+<ip_adr perm="RW" c="1">10.112.7.103</ip_adr>
+<netmask perm="RW" c="1">255.255.255.0</netmask>
+<dns_domain perm="RW" c="1">etcvenues.co.uk</dns_domain>
+<dns_server1 perm="RW" c="1">91.143.64.55</dns_server1>
+<dns_server2 perm="RW" c="1">87.236.128.54</dns_server2>
+<gateway perm="RW" c="1">10.112.7.1</gateway>
+<utc_offset perm="" c="1">0</utc_offset>
+<ntp_server perm="R" c="1">0.uk.pool.ntp.org</ntp_server>
+<http_user perm="" c="1">admin</http_user>
+<http_pass perm="" c="1">1234</http_pass>
+<dst perm="" c="1">3600 03.05.07 02:00:00 10.05.07 03:00:00</dst>
+<timezone perm="RW" c="1">GBR-0</timezone>
+<sip_retry_t1 perm="RW" c="1">500</sip_retry_t1>
+<network_id_port perm="" c="1">6405</network_id_port>
+<challenge_response perm="RW" c="1">off</challenge_response>
+<filter_registrar perm="RW" c="1">off</filter_registrar>
+<admin_mode_password perm="" c="1">1234</admin_mode_password>
+<admin_mode_password_confirm perm="" c="1">1234</admin_mode_password_confirm>
+<tone_scheme perm="RW" c="1">GBR</tone_scheme>
+<logon_wizard perm="RW" c="1">off</logon_wizard>
+<dirty_host_ttl perm="" c="1">60</dirty_host_ttl>
+<update_policy perm="R" c="1">auto_update</update_policy>
+<transfer_on_hangup perm="RW" c="1">on</transfer_on_hangup>
+<ethernet_replug perm="RW" c="1">nothing</ethernet_replug>
+<require_prack perm="RW" c="1">off</require_prack>
+<offer_gruu perm="RW" c="1">off</offer_gruu>
+<firmware_status perm="R" c="1">http://provisioning.voicehost.co.uk/SnomFirmware.xml?mac={mac}</firmware_status>
+<firmware_interval perm="R" c="1">1440</firmware_interval>
+<firmware perm="" c="1">http://firmware.voicehost.co.uk:80/Snom300/snom300-8.7.3.25.5-SIP-f.bin</firmware>
+<update_host_f perm="R"></update_host_f>
+<date_us_format perm="RW" c="1">off</date_us_format>
+<call_join_xfer perm="RW" c="1">on</call_join_xfer>
+<ethernet_detect perm="" c="1">off</ethernet_detect>
+<answer_after_policy perm="RW" c="1">idle</answer_after_policy>
+<idle_cancel_key_action perm="" c="1">keyevent F_CANCEL</idle_cancel_key_action>
+<idle_up_key_action perm="" c="1">keyevent F_CALL_LIST</idle_up_key_action>
+<idle_down_key_action perm="" c="1">keyevent F_SETTINGS</idle_down_key_action>
+<idle_left_key_action perm="" c="1">keyevent F_PREV_ID</idle_left_key_action>
+<idle_right_key_action perm="" c="1">keyevent F_NEXT_ID</idle_right_key_action>
+<ntp_refresh_timer perm="R" c="1">86400</ntp_refresh_timer>
+<firmware_version perm="" c="1">snom300-SIP 8.7.3.25.5</firmware_version>
+<max_boot_delay perm="RW" c="1">2</max_boot_delay>
+<retry_after_failed_register perm="" c="1">60</retry_after_failed_register>
+<send_prack perm="RW" c="1">off</send_prack>
+<handsfree_mode perm="" c="1">quiet</handsfree_mode>
+<uboot_version perm="" c="1">1.1.3-u</uboot_version>
+<settings_refresh_timer perm="R" c="1">86400</settings_refresh_timer>
+<settings_cyclic_store_timer perm="R" c="1">5</settings_cyclic_store_timer>
+<ocip_port perm="" c="1"></ocip_port>
+<away_timeout perm="" c="1">60</away_timeout>
+<cancel_conference perm="" c="1">off</cancel_conference>
+<led_on perm="" c="1">ON BUSY IN_A_CALL IN_A_MEETING HOLDING DND UNAVAILABLE ACTIVE INACTIVE AWAY PhoneHasMissedCalls</led_on>
+<led_blink_slow perm="" c="1"> PhoneHasMailboxMessage</led_blink_slow>
+<led_red perm="" c="1">BUSY IN_A_CALL IN_A_MEETING HOLDING DND</led_red>
+<led_orange perm="" c="1">AWAY INACTIVE</led_orange>
+<led_message_usage perm="" c="1">PhoneHasCallInStateRinging PhoneHasMonitoringLineKeyInStateRinging PhoneHasMailboxMessage PhoneHasMissedCalls</led_message_usage>
+<dtmf_volume perm="" c="1">4</dtmf_volume>
+<allow_rtp_on_mute perm="RW" c="1">on</allow_rtp_on_mute>
+<disable_storing_changes perm="R">off</disable_storing_changes>
+<attended_transfer_on_ringing perm="" c="1">off</attended_transfer_on_ringing>
+<was_never_registered perm="" c="1">off</wa

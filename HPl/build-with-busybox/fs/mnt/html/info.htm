@@ -1,0 +1,95 @@
+<?ssi title info_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD width="30%"></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<TR><TD></TD><TD class="normalText"><B><?lng sysinfo_sysinfo?></B></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_phonetype?></TD><td class="normalText"><?ssi snom_type_long?></td></TR>
+<?ssi skipon NOT_VPN?>
+<TR><TD></TD><TD class="normalText">VPN:</TD><td class="normalText"><?ssi vpnstatus?></td></TR>
+<?ssi skipoff NOT_VPN?>
+<TR><TD></TD><TD class="normalText"><?lng info_macaddress?></TD><td class="normalText"><?ssi variable mac?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_ipaddress?></TD><td class="normalText"><?ssi variable ip_adr?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_firmware_version?></TD><td class="normalText"><?ssi snom_type_version?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_firmware_url?></TD><td class="normalText"><?ssi variable firmware?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_production_info?></TD><td class="normalText"><?ssi variable license_data?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_uptime_info?></TD><td class="normalText"><?ssi uptime?></td></TR>
+<TR><TD></TD><TD class="normalText">LCS:</TD><td class="normalText"><?ssi lcsuptime?> (<?ssi lcsexit?>)</td></TR>
+<TR><TD></TD><TD class="normalText"><?lng info_memfree_info?></TD><td class="normalText"><?ssi memfree?>&nbsp;K</td></TR>
+<TR><TD></TD><TD class="normalText">CPU:</TD><td class="normalText"><?ssi loadavg?>&nbsp;</td></TR>
+<?ssi skipon IS_MP?>
+<TR><TD></TD><TD class="normalText"><?lng info_uboot_version_info?></TD><td class="normalText"><?ssi variable uboot_version?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng fkeys_sidecar?>:</TD><td class="normalText"><?ssi variable extension_board?></td></TR>
+
+<?ssi skipoff IS_MP?>
+
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<TR><TD></TD><TD class="normalText"><B><?lng sysinfo_siplinestatus?></B></TD></TR>
+
+<TR><TD></TD><td class="normalText"><?lng leftnav_lineone?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line1?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linetwo?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line2?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linethree?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line3?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linefour?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line4?></td></TR>
+<?ssi skipon SNOM300?>
+<?ssi skipon SNOM710?>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linefive?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line5?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linesix?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line6?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_lineseven?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line7?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_lineeight?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line8?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linenine?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line9?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_lineten?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line10?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_lineeleven?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line11?></td></TR>
+<TR><TD></TD><td class="normalText"><?lng leftnav_linetwelve?>&nbsp;<?lng line_status?></TD><td class="normalText"><?ssi reg_state_line12?></td></TR>
+<?ssi skipoff SNOM710?>
+<?ssi skipoff SNOM300?>
+
+<?ssi skipon WITHOUT_ETH_STAT_CTRL?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<TR><TD></TD><TD class="normalText"><B><?lng sysinfo_ethernet_status?></B></TD></TR>
+
+<?ssi skipon SNOMPA1?>
+<TR><TD></TD><td class="normalText"><?lng advanced_ssi_eth_net_port?></TD><td class="normalText"><?lng sysinfo_ethernet_connection_type?>&nbsp;<?ssi eth_net_state?></td></TR>
+<?ssi skipoff SNOMPA1?>
+<?ssi skipon NOT_SNOMPA1?>
+<TR><TD></TD><td class="normalText">Port 1:</TD><td class="normalText"><?lng sysinfo_ethernet_connection_type?>&nbsp;<?ssi eth_net_state?></td></TR>
+<?ssi skipoff NOT_SNOMPA1?>
+
+<tr><TD></TD><td></TD><td class="normalText"><?lng sysinfo_ethernet_status2?>&nbsp;<?ssi eth_net_link?></td></TR>
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<?ssi skipon SNOM_MP?>
+<?ssi skipon SNOMPA1?>
+<TR><TD></TD><td class="normalText"><?lng advanced_ssi_eth_pc_port?></TD><td class="normalText"><?lng sysinfo_ethernet_connection_type?>&nbsp;<?ssi eth_pc_state?></td></tr>
+<?ssi skipoff SNOMPA1?>
+<?ssi skipon NOT_SNOMPA1?>
+<TR><TD></TD><td class="normalText">Port 2:</TD><td class="normalText"><?lng sysinfo_ethernet_connection_type?>&nbsp;<?ssi eth_pc_state?></td></tr>
+<?ssi skipoff NOT_SNOMPA1?>
+<tr><TD></TD><td></TD><td class="normalText"><?lng sysinfo_ethernet_status2?>&nbsp;<?ssi eth_pc_link?></td></tr>
+<?ssi skipoff SNOM_MP?>
+<?ssi skipoff WITHOUT_ETH_STAT_CTRL?>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	<?ssi file common9.htm?></HTML>

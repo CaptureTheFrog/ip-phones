@@ -1,0 +1,269 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<script>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>')
+</script>
+<style type="text/css">
+</style>
+
+<script language='javascript'>
+	
+function LoadCfg()
+{
+	var f2 = document.forms["hiddenValForm"];
+	DelayShow();
+	if(document.getElementById("hcSessionIdNow"))
+	{
+		var sessionId = document.getElementById("hcSessionIdNow").value;
+		if("" != sessionId)
+		{
+			setCookie("SessionId", sessionId, ClientSessionIdExistTime);
+			document.getElementById("hcSessionIdNow").value = "";
+		}
+	}
+	ClickSysLogByName("Messages");
+	document.getElementById("tCompanyLabel").innerHTML = CorpLabel;
+	return;
+}
+
+function GetSysLogByName(destSysMessage)
+{
+	destURL = 'do?id=6&id=5&Operation=GetDivContent&DivName=';
+	destURL = destURL + "div" + destSysMessage;
+	var WantToFilterFlag = false;
+	if(true == document.getElementById("cCheckFiltOfSysLog").checked
+		&& "" != document.getElementById("cFilterOfSysLog").value)
+	{WantToFilterFlag = true;}
+	document.getElementById("divSysLog").innerHTML = "";
+	document.getElementById("tmid_top_label").innerHTML = "SysLog";
+	$.ajax({
+		url: destURL,
+		cache: false,
+		success: function(html){
+			if(true == WantToFilterFlag)
+			{FilterLogsByLine(html, document.getElementById("cFilterOfSysLog").value);}
+			else
+			{
+				var destHTML = html.replace(new RegExp(/(\n)/g),'<br>');
+				$("#divSysLog").append(destHTML);
+				DelayShow();
+			}
+		}
+	});
+}
+
+function GetProcessInfo(desProcessInfoDiv)
+{
+	destURL = 'do?id=6&id=5&Operation=GetDivContent&DivName='+desProcessInfoDiv;
+	document.getElementById("divSysLog").innerHTML = "";
+	switch(desProcessInfoDiv)
+	{
+		case "divTopInfo":
+			document.getElementById("tmid_top_label").innerHTML = "Basic Information" ;
+			break;
+		case "divPsInfo": 
+			document.getElementById("tmid_top_label").innerHTML = "PS Information";
+			break;
+	}
+	$.ajax({
+		url: destURL,
+		cache: false,
+		success: function(html){
+			var destHTML = html.replace(new RegExp(/(\n)/g),'<br>');
+			$("#divSysLog").append(destHTML);
+			DelayShow();
+		}
+	});	
+}
+
+function ClickSysLogByName(destSysMessage)
+{
+	document.getElementById("tright_cont").style.display = "";
+	GetSysLogByName(destSysMessage);
+	return false;
+}
+
+function getAutoPFailedLog(tmpID)
+{
+	document.getElementById("tright_cont").style.display = "none";
+	if(0 == tmpID )
+		destURL = 'do?id=6&id=5&Operation=GetDivContent&DivName=' + 'divAutoPFailedInfoLast';
+	else if(1 == tmpID)
+		destURL = 'do?id=6&id=5&Operation=GetDivContent&DivName=' + 'divAutoPFailedInfoCur';
+	document.getElementById("divSysLog").innerHTML = "";
+	document.getElementById("tmid_top_label").innerHTML = "Auto Provisioning Failed Log";
+	
+	$.ajax({
+		url: destURL,
+		cache: false,
+		success: function(html)
+		{
+			var destHTML = html.replace(new RegExp(/(<)/g),'&lt;');
+			var destHTML = destHTML.replace(new RegExp(/(>)/g),'&gt;');
+			var destHTML = destHTML.replace(new RegExp(/(\n)/g),'<br/>');
+			$("#divSysLog").append(destHTML);
+			if("" == destHTML)
+				 alert("There is no requested Auto Provisioning Log!")
+			DelayShow();
+		}
+	});
+	return false;
+}
+
+function ClickTopInfo(destInfo)
+{
+	document.getElementById("tright_cont").style.display = "none";
+	if('top' == destInfo)
+	{
+		document.getElementById("tmid_top_label").innerHTML = "Basic";
+		GetProcessInfo('divTopInfo');}
+	else if('ps' == destInfo)
+	{
+		document.getElementById("tmid_top_label").innerHTML = "PS";
+		GetProcessInfo('divPsInfo');}
+	return false;
+}
+
+function ClickShowLogLevel()
+{
+	document.getElementById("tright_cont").style.display = "none";
+	document.getElementById("tmid_top_label").innerHTML = "SysLog Level";
+	ShowLogLevel();
+	return false;
+}
+
+function ShowLogLevel()
+{
+	document.getElementById("divSysLog").innerHTML = "<table><tr>"
+				+"<td class='First_td'><label id='tSystemLog'></label></td>"
+				+"</tr><tr><td class='Second_td'><label id='tSystemLogLevel'></label></td>"
+				 +"<td class='Third_td'><select id='cSystemLogLevel' name='cSystemLogLevel'"
+				  +"onChange='onLogLevelTuningChanged()'> </select></td></tr></table>";
+	document.getElementById("tSystemLog").innerHTML = "SysLogLevel";
+	document.getElementById("tSystemLogLevel").innerHTML = "Level Tuning";
+	for(var i=0; i <= 7; i++)
+	{
+		document.getElementById("cSystemLogLevel").options.add(new Option(i, i));
+	}
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("cSystemLogLevel").value = f2.hcLogLevelForTuning.value;
+	DelayShow();
+}
+
+function onLogLevelTuningChanged()
+{
+	var f3 = document.forms["submit_form"];
+	strSubmData = "&cLogLevelForTuning=" + document.getElementById("cSystemLogLevel").value;
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	f3.submit();
+	//setTimeout("Relocate('/fcgi/do?id=6&id=3')", timeGap4Refresh);	
+}
+
+function FilterLogsByLine(desHTML, destPat)
+{
+	var arrLogs = desHTML.split('\n');
+	for(var i=0; i < arrLogs.length; i++)
+	{
+		var tmpIdx = arrLogs[i].indexOf(destPat);
+		if(-1 != tmpIdx)
+		{$("#divSysLog").append(arrLogs[i]);
+			$("#divSysLog").append("<br>");}
+	}
+	
+}
+
+$(function() {
+
+    var menu_ul = $('.menu > li > ul'),
+           menu_a  = $('.menu > li > a');
+    
+    menu_ul.hide();
+
+    menu_a.click(function(e) {
+        e.preventDefault();
+        if(!$(this).hasClass('active')) {
+            menu_a.removeClass('active');
+            menu_ul.filter(':visible').slideUp('normal');
+            $(this).addClass('active').next().stop(true,true).slideDown('normal');
+        } else {
+            $(this).removeClass('active');
+            $(this).next().stop(true,true).slideUp('normal');
+        }
+    });
+
+});
+
+</script>
+
+<body onLoad="LoadCfg()">
+<form name="body_form">
+<div class="headline"></div>
+<div class="phone1">
+	<div class="top"></div>
+	<div class="head"></div>
+	<div class="main">
+		<div id="leftMenu" class="left">
+			<div id="wrapper">
+				<ul class="menu">
+					<li class="item4"><a class="menu_expand" href="#">SysLog</a>
+						<ul>
+							<li class="subitem1"><a id="tMenu41" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages');">Messages</a></li>
+							<li class="subitem2"><a id="tMenu42" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages.0');">Messages.0</a></li>
+							<li class="subitem3"><a id="tMenu43" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages.1');">Messages.1</a></li>
+							<li class="subitem4"><a id="tMenu44" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages.2');">Messages.2</a></li>
+							<li class="subitem5"><a id="tMenu45" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages.3');">Messages.3</a></li>
+							<li class="subitem6"><a id="tMenu46" href="/fcgi/do?id=1" onClick="javascript:return ClickSysLogByName('Messages.4');">Messages.4</a></li>
+						</ul>
+					</li>
+					<li class="item5"><a class="menu_expand" href="#">TopInfo</a>
+						<ul>
+							<li class="subitem1"><a id="tMenu51" href="/fcgi/do?id=1" onClick="javascript:return ClickTopInfo('top');">Basic</a></li>
+							<li class="subitem2"><a id="tMenu52" href="/fcgi/do?id=1" onClick="javascript:return ClickTopInfo('ps');">ps cmd</a></li>
+						</ul>
+					</li>
+					<li class="item5"><a class="menu_expand" href="#"><label id="tMenu60">LogLevel</label></a>
+						<ul>
+							<li class="subitem1"><a id="tMenu61" href="/fcgi/do?id=1" onClick="javascript:return ClickShowLogLevel();">Basic</a></li>
+						</ul>
+					</li>
+					<li class="item5"><a class="menu_expand" href="#"><label id="tMenu70">AutoP Log</label></a>
+						<ul>
+							<li class="subitem1"><a id="tMenu71"  href="/fcgi/do?id=1" onClick="javascript:return getAutoPFailedLog(0);">Last AutoP Log</a></li>
+							<li class="subitem1"><a id="tMenu72"  href="/fcgi/do?id=2" onClick="javascript:return getAutoPFailedLog(1);">Cur AutoP Log</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+				
+		<div class="corner"></div>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tmid_top_label">syslog</label></div>
+    	<div class="mid_cont" style="text-align: center">
+    	<div id="divSysLog" style="text-align: left" align="left" >
+			</div>
+			</div>
+		</div>
+
+		<div class="right">
+			<div class="right_top"><label id="tHelp">Help</label></div>
+			<div class="right_cont" id="tright_cont">
+			<label id="tHelpContent">This is phone log status page
+				<br>
+				<br><input id='cFilterOfSysLog' type='textbox' style="width: 130px;">
+				<br><input id='cCheckFiltOfSysLog' type='checkbox'><label>&nbsp&nbspEnable Filter</label>
+				<br>&nbsp
+			</label></div>
+		</div>
+	<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"> </div>		
+	</div>
+</div>
+</form>
+<div>
+<form method="post" name="submit_form" id="submit_form" action="">
+          <input type="hidden" name="SubmitData" value="">
+</form></div>
+<FCGI_INCLUDE FILE=bottom.html>

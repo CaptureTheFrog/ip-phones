@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" CombineData="%Param1VolumeSetting" LockIn="no">
+    <title wrap="no" showlistcount="yes" />
+    <MenuItem>
+        <Prompt>Handset Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeHandset.xml_%Param1</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Headset Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeHeadset.xml_%Param1</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Handfree Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeHandfree.xml_%Param1</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

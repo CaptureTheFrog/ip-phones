@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="ipaddr"
+        defaultIndex="1"
+        style="none"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="StaticIP"
+        InputType="123">
+    <Title showlistcount="yes">
+        Static IP Setting
+    </Title>
+
+		<Prompt>IP</Prompt>
+		<DataID>Combine_StaticIP_IPAddr</DataID>
+		<Default></Default>
+	    <InputField
+					type = "ipaddr">
+			<Prompt>Subnet Mask:</Prompt>
+			<DataID>Combine_StaticIP_SubnetMask</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "ipaddr">
+			<Prompt>Gateway:</Prompt>
+			<DataID>Combine_StaticIP_Gateway</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "ipaddr">
+			<Prompt>DNS 1:</Prompt>
+			<DataID>Combine_StaticIP_DNS1</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "ipaddr">
+			<Prompt>DNS 2:</Prompt>
+			<DataID>Combine_StaticIP_DNS2</DataID>
+			<Default></Default>
+	    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label>123</Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label>Delete</Label><URI>SoftKey:BackSpace</URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

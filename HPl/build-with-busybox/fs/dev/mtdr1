@@ -1,0 +1,35 @@
+#!/bin/sh
+
+module="keypad"
+device="keypad"
+
+case "$1" in
+  start)
+    echo Starting INCA-IP Keypad device driver...
+
+    if [ -e /dev/${device} ]; then
+      rm -f /dev/${device}*
+    fi
+    insmod $module $2 $3 || exit 1
+    major=`cat /proc/devices | awk "\\$2==\"$device\" {print \\$1}"`
+    mknod /dev/${device} c $major 0
+    ;;
+  stop)
+    echo Stopping INCA-IP Keypad device driver...
+
+    if [ -e /dev/${device} ]; then
+      rm -f /dev/${device}*
+    fi
+    rmmod $module
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart} [major=<n>]"
+    exit 1
+    ;;
+esac
+
+exit 0

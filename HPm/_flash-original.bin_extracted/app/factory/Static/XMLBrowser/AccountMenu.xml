@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        LockIn="no"
+        CombineData="AccountMenu">
+  <title wrap="no" showlistcount="yes">Accounts</title>
+	<MenuItem><Prompt>Combine_AccountMenu_NameX</Prompt><URI>local://app/factory/Static/XMLBrowser/AccountSetting.xml_AccountID</URI></MenuItem>
+
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Select</URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

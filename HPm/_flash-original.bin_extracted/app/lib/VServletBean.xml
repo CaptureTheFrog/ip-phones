@@ -1,0 +1,53 @@
+<?xml version= "1.0" ?>
+<lib path="/app/lib/libservlets.so">
+	<bean id="888" dispatcher="false" createfunction = "createHiddenView" type = "singleton" lazy = "false" />
+  <bean id="889" dispatcher="false" createfunction = "createWebCustomHiddenView" type = "singleton" lazy = "false" />
+  <bean id="8848" dispatcher="false" createfunction = "createInternalHiddenView" type = "singleton" lazy = "false" />
+	<bean id="1" dispatcher="false" createfunction ="createStatusView" type = "singleton" lazy= "false"/>
+	<bean id="2" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createNetworkBView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createNetworkAView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="3" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createAccountBView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createAccountAView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="4" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createPhoneTimeLangView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createPhoneCallFeatureView" type = "singleton" lazy= "false"/>
+		<bean id="3" dispatcher="false" createfunction ="createPhoneVoiceView" type = "singleton" lazy= "false"/>
+		<bean id="4" dispatcher="true">
+			<bean id="1" dispatcher="false" createfunction ="createPhoneKeyDisplayView" type = "singleton" lazy= "false"/>
+			<bean id="2" dispatcher="false" createfunction ="createPhoneDssKeyView" type = "singleton" lazy= "false"/>
+		</bean>
+		<bean id="5" dispatcher="false" createfunction ="createPhoneRingView" type = "singleton" lazy= "false"/>
+		<bean id="6" dispatcher="false" createfunction ="createPhoneToneView" type = "singleton" lazy= "false"/>
+		<bean id="7" dispatcher="false" createfunction ="createPhoneDialPlanView" type = "singleton" lazy= "false"/>
+		<bean id="8" dispatcher="false" createfunction ="createPhoneSMSView" type = "singleton" lazy= "false"/>
+		<bean id="9" dispatcher="false" createfunction ="createPhonePrefView" type = "singleton" lazy= "false"/>
+		<bean id="10" dispatcher="false" createfunction ="createPhoneActionURLView" type = "singleton" lazy= "false"/>
+		<bean id="11" dispatcher="false" createfunction ="createPhoneExtKeyView" type = "singleton" lazy= "false"/>
+		<bean id="12" dispatcher="false" createfunction ="createPhoneMultiCastView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="5" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createPhoneBookView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createPhoneCallLogView" type = "singleton" lazy= "false"/>
+		<bean id="4" dispatcher="false" createfunction ="createRemoteBookView" type = "singleton" lazy= "false"/>
+		<bean id="5" dispatcher="false" createfunction ="createLDAPView" type = "singleton" lazy= "false"/>
+		<bean id="6" dispatcher="false" createfunction ="createBSFTPhoneBookView" type = "singleton" lazy= "false"/>
+		<bean id="7" dispatcher="false" createfunction ="createBSFTCallLogView" type = "singleton" lazy= "false"/>
+		<bean id="9" dispatcher="false" createfunction ="createWebSimulatorView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="6" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createUpgradeBView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createUpgradeAView" type = "singleton" lazy= "false"/>
+		<bean id="3" dispatcher="false" createfunction ="createSysLogPageView" type = "singleton" lazy= "false"/>
+		<bean id="5" dispatcher="false" createfunction ="createLogDivView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="7" dispatcher="true">
+		<bean id="1" dispatcher="false" createfunction ="createSecurityView" type = "singleton" lazy= "false"/>
+		<bean id="2" dispatcher="false" createfunction ="createSecurityAView" type = "singleton" lazy= "false"/>
+	</bean>
+	<bean id="8" dispatcher="false" createfunction ="createLoginView" type = "singleton" lazy= "false"/>
+	<bean id="9" dispatcher="false" createfunction ="createTalkingView" type = "singleton" lazy= "false"/>
+</lib>

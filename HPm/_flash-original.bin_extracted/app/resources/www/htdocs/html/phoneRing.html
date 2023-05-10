@@ -1,0 +1,575 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	var PageRefDesURL = 'do?id=4&id=5';
+var Ringtonlist;
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var cntTextsFiles = f2.hcTextsRingsNum.value;
+	var cntRinger = document.forms["hiddenValForm"].hcRingNum.value;
+	var cSystemRingNum = f2.hcSystemRingNum.value;
+	var tmp = f2.hcInternalRingerText.value;
+	tmp = f2.hcTotalRingerFile.value;
+	tmp = ShowDecode(tmp);
+	var RingerFile = tmp.split(SplitSymbol);
+	Ringtonlist = RingerFile;
+
+	var i = 0;
+	var itemHtml;
+	
+	while(i < cntTextsFiles)
+	{
+		var gap = "&nbsp&nbsp&nbsp&nbsp&nbsp";
+		if(i>=9)	{ gap = "&nbsp&nbsp&nbsp&nbsp";	}
+    var itemHtml = "<tr bgcolor=\'#DCE3E8\' > <td height='10' style='text-align: center; width: 40px'>"+i+"</td>"
+          +"<td style='text-align: center; width: 160px'><input style='width: 160px' type='text' id='cInternalRingerText"+i+"' onFocus='onInputEdit(this.id)'/></td>"
+          +"<td style='text-align: center; width: 160px'><select style='width: 160px' id='cInternalRingerFile"+i+"'> </select></td></tr>"
+		$("#tableRingsTexts").append(itemHtml);	
+		i++;
+	}
+	
+	i = 0;
+	while(i < cntRinger)
+	{
+		var j = 0;
+		while(j < cntTextsFiles)
+		{
+			document.getElementById("cInternalRingerFile"+j).options.add(new Option(ShowDecode(RingerFile[i]), RingerFile[i]));
+			j++;
+		}
+		i++;
+	}
+	if(Number(cntRinger)<= Number(cSystemRingNum)){}  //document.getElementById("cDeleteFile").options.add(new Option(NoFileUploaded,100));
+	else 
+	{
+		for(i =Number(cSystemRingNum); i < Number(cntRinger); i++)	 
+		if(Number(cSystemRingNum) <= i)	document.getElementById("cDeleteFile").options.add(new Option(ShowDecode(RingerFile[i]), RingerFile[i]));
+	}
+	
+	for(var i=0; i<cSystemRingNum; i++)
+	{
+		document.getElementById("csysRingtones").options.add(new Option(RingerFile[i],RingerFile[i]));
+	}
+	
+	document.getElementById("cVsipIsOpenKeyTone").options.add(new Option(Disabled, 0));	
+	document.getElementById("cVsipIsOpenKeyTone").options.add(new Option(Enabled, 1));		
+	document.getElementById("cTouchSounds").options.add(new Option(Disabled, 0));	
+	document.getElementById("cTouchSounds").options.add(new Option(Enabled, 1));
+		
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+	document.getElementById("uploadSubmit").disabled = false;
+	// RING_UPLOAD_FILE_FORMAT_ERR = -4,
+	// RING_UPLOAD_FILE_MAX = -3,
+	// RING_UPLOAD_FILE_NAME_WRONG = -2,
+	// RING_UPLOAD_FAILED = -1,
+	// RING_UPLOAD_FINISHED = 0,
+	// RING_UPLOAD_SUCCESS = 1,	
+	if(-5 == f2.hcImportRing.value) { alert(RingFileTooManyWarning); }	
+	else if(-4 == f2.hcImportRing.value) { alert(FileFormatWarning); }
+	else if(-3 == f2.hcImportRing.value) { alert(FileSizeWarning);	}
+	else if(-2 == f2.hcImportRing.value) { alert(FileNameSizeWarning);	}
+	else if(-1 == f2.hcImportRing.value) { alert(FileUploadFailedWarning);	}	
+	else if(1 == f2.hcImportRing.value) { alert(FileUploadWarning);		} //上传成功
+	f2.hcImportRing.value = 0;
+	
+}
+function SubLoadCfg()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var cntRinger = document.forms["hiddenValForm"].hcRingNum.value;
+	var cSystemRingNum = f2.hcSystemRingNum.value;
+	var cntTextsFiles = f2.hcTextsRingsNum.value;
+	var tmp = f2.hcInternalRingerText.value;
+	var RingerText = tmp.split(SplitSymbol);
+	tmp = f2.hcInternalRingerFile.value;
+	var RingerFile = tmp.split(SplitSymbol);
+	j = 0;
+	while(j < cntTextsFiles)
+	{
+		document.getElementById("cInternalRingerText"+j).value = RingerText[j];
+		document.getElementById("cInternalRingerFile"+j).value = TransEmptyStrTo(RingerFile[j], "Ring1.wav");
+		j++;
+	}
+	if(Number(cntRinger)<= Number(cSystemRingNum))
+	{
+		document.getElementById("cDeleteFile").disabled = true;
+		document.getElementById("deleteRing").disabled = true;
+	}
+	document.getElementById("uploadCancel").disabled = true;
+//Android	
+	//document.getElementById("cKeyPressLevel").value = f2.hcKeyPressLevel.value;
+	//document.getElementById("cSPRingtoneVol").value = f2.hcSPRingtoneVol.value;
+	document.getElementById("cVsipIsOpenKeyTone").value = f2.hcVsipIsOpenKeyTone.value = TransEmptyStrTo0(f2.hcVsipIsOpenKeyTone.value);
+	document.getElementById("cMediaVolume").value = f2.hcMediaVolume.value;
+	document.getElementById("cRingtoneVolume").value = f2.hcRingtoneVolume.value;
+	document.getElementById("cAlarmVolume").value = f2.hcAlarmVolume.value;
+	document.getElementById("cTouchSounds").value = f2.hcTouchSounds.value = TransEmptyStrTo0(f2.hcTouchSounds.value);
+	
+	var ringtoneTemp = f2.hcRingTone.value;
+	for(var j=0; j<cSystemRingNum; j++)
+	{	
+		if(ringtoneTemp == Ringtonlist[j])
+		{
+			document.getElementById("csysRingtones").value = f2.hcRingTone.value;
+		}
+	}
+	ResetAllInputColor();
+}
+function LoadLang()
+{
+	LoadCommonResources(RingTones);
+	document.getElementById("tRingCustom").innerHTML = RingCustom;
+	document.getElementById("tUploadRingFile").innerHTML = Upload+"("+MaxSize+": 100K)";
+	document.getElementById("tSysRingtones").innerHTML = sysRingTones;
+	document.getElementById("uploadSubmit").value = SubmitLabel;
+	document.getElementById("uploadCancel").value = CancelLabel;
+	document.getElementById("tDeleteRingFile").innerHTML = UploadedRingtones;            //DeleteLabel;
+	document.getElementById("deleteRing").value = DeleteLabel;
+	document.getElementById("pageDescription").innerHTML = PhoneRingInfo1+"<br>"+PhoneRingInfo2+"<br>"+PhoneRingInfo3;
+	document.getElementById("tDistRing").innerHTML = DistinctiveRingers;
+	document.getElementById("tIndex").innerHTML = Index;
+	document.getElementById("tKeyWord").innerHTML = KeyWord;
+	document.getElementById("tRingTone").innerHTML = RingTone;
+//Android	
+	//document.getElementById("tSPRingtoneVol").innerHTML = Volume;
+	//document.getElementById("tRingtoneVolume").innerHTML = RingtoneVolume;
+	if("undefined" != typeof(Volume)){document.getElementById("tVolume").innerHTML = Volume};
+	if("undefined" != typeof(MediaVolume)){document.getElementById("tMediaVol").innerHTML = MediaVolume};
+	if("undefined" != typeof(RingTone)){document.getElementById("tRingtoneVol").innerHTML = RingTone};
+	if("undefined" != typeof(AlarmVolume)){document.getElementById("tAlarmVol").innerHTML = AlarmVolume};
+	if("undefined" != typeof(KeyTones)){document.getElementById("tKeyTones").innerHTML = KeyTones};
+	if("undefined" != typeof(TouchSounds)){document.getElementById("tTouchSounds").innerHTML = TouchSounds};
+	if("undefined" != typeof(DialPadTouchSound)){document.getElementById("tVsipIsOpenKeyTone").innerHTML = DialPadTouchSound};
+}
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var cntTextsFiles = f2.hcTextsRingsNum.value;
+	var RingerTexts = f2.hcInternalRingerText.value.split(SplitSymbol);
+	var RingerFiles = f2.hcInternalRingerFile.value.split(SplitSymbol);
+	var i=0;
+	var isKeyWordDup = isKeyWordUnique();
+	while(i < cntTextsFiles)
+	{
+		var obj = document.getElementById("cInternalRingerText"+i);
+		if(obj.value != RingerTexts[i])
+		{
+			if(!NotContainInvalid(obj.value))
+			{
+				SetInputBGColor("cInternalRingerText"+i);
+				ErrFlag = true;
+			}
+			strSubmData += ("&cInternalRingerText"+i+"=");
+			strSubmData += PostEncode(obj.value);
+		}
+
+		obj = document.getElementById("cInternalRingerFile"+i);
+		if(obj.value != RingerFiles[i]
+	 	&& TransToEmptyStr(obj.value, "Ring1.wav") != RingerFiles[i])
+		{
+			strSubmData += ("&cInternalRingerFile"+i+"=");
+			strSubmData += PostEncode(obj.value);
+		}
+		i++;
+	}
+//Android	
+	/*
+	if(f1.cKeyPressLevel.value != f2.hcKeyPressLevel.value)
+	{
+		if(!CheckRangeOfNumber(f1.cKeyPressLevel.value, 0, 15) || "" == f1.cKeyPressLevel.value)
+		{
+			SetInputBGColor("cKeyPressLevel");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cKeyPressLevel=" + Number(f1.cKeyPressLevel.value);
+	}
+	if(f1.cSPRingtoneVol.value != f2.hcSPRingtoneVol.value)
+	{
+		if(!CheckRangeOfNumber(f1.cSPRingtoneVol.value, 0, 15) || "" == f1.cSPRingtoneVol.value)
+		{
+			SetInputBGColor("cSPRingtoneVol");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cSPRingtoneVol=" + Number(f1.cSPRingtoneVol.value);
+	}
+	*/
+	if(f2.hcMediaVolume.value != f1.cMediaVolume.value || f2.hcRingtoneVolume.value != f1.cRingtoneVolume.value || f2.hcAlarmVolume.value != f1.cAlarmVolume.value)
+	{
+		if(!CheckRangeOfNumber(f1.cMediaVolume.value, 0, 15))
+		{
+			SetInputBGColor("cMediaVolume");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cMediaVolume=" + f1.cMediaVolume.value;
+
+		if(!CheckRangeOfNumber(f1.cRingtoneVolume.value, 0, 7))
+		{
+			SetInputBGColor("cRingtoneVolume");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cRingtoneVolume=" + f1.cRingtoneVolume.value;
+
+		if(!CheckRangeOfNumber(f1.cAlarmVolume.value, 0, 7))
+		{
+			SetInputBGColor("cAlarmVolume");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cAlarmVolume=" + f1.cAlarmVolume.value;
+	}
+	if(f2.hcVsipIsOpenKeyTone.value != f1.cVsipIsOpenKeyTone.value) 
+	{
+		strSubmData = strSubmData + "&cVsipIsOpenKeyTone=" + f1.cVsipIsOpenKeyTone.value;
+	}		
+	if(f2.hcTouchSounds.value != f1.cTouchSounds.value) 
+	{
+		strSubmData = strSubmData + "&cTouchSounds=" + f1.cTouchSounds.value;
+	}		
+	if (f1.csysRingtones.value != f2.hcRingTone.value)
+	{
+		strSubmData = strSubmData + "&cRingTone=" + PostEncode(f1.csysRingtones.value);
+	}
+	
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	if(1 == isKeyWordDup)
+	{
+		alert(KeyWordDuplicateWarning);	
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+function OnDeleteRingTone()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+
+	var tmp = f2.hcTotalRingerFile.value;
+	var RingerFile = tmp.split(SplitSymbol);
+	var cntSysRingerNum = f2.hcSystemRingNum.value;
+	
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	strSubmData += "&cDeleteFile=";
+	strSubmData += PostEncode(f1.cDeleteFile.value);
+	
+	strSubmData = strSubmData + "&Operation=Delete";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+function OnAddRingTone()
+{
+	var f1 = document.forms["uploadForm"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	var fileArr = f1.uploadFile.value.split("\\");
+	uploadFileName = fileArr[fileArr.length-1];
+	var tmp = f2.hcTotalRingerFile.value;
+	var RingerFile = tmp.split(SplitSymbol);
+	var cntRingerNum = f2.hcRingNum.value;
+	
+	if(uploadFileName != "")
+	{
+		if(uploadFileName.length >= 127)
+		{
+			alert(WarningFileNameTooLong);
+			OnCancelAdd();
+			return false;
+		}
+		var FileSizeFlag = CheckFileSize('uploadFile', 100, 0);
+		if("-1" == FileSizeFlag)
+		{
+			alert(FileNotExistWarning);
+			OnCancelAdd();
+			return false;
+		}
+		if("-2" == FileSizeFlag)
+		{
+			alert(UploadingFileTooLargeWarning);
+			OnCancelAdd();
+			return false;
+		}
+		if("-3" == FileSizeFlag)
+		{
+			alert(FileFormatWarning);
+			OnCancelAdd();
+			return false;
+		}
+		for(var i = 0; i < cntRingerNum; i++)
+		{
+			if(RingerFile[i].toUpperCase() == uploadFileName.toUpperCase())
+			{
+				alert(FileExistWarning);
+				return false;
+			}
+		}
+		if(!CheckFileFormat(uploadFileName, ".WAV", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		document.getElementById("uploadSubmit").disabled = true;
+		f1.uploadType.value = "&Operation=Upload&DestUpFile=";
+		f1.uploadType.value += PostEncode(uploadFileName);
+		f1.uploadType.value += "&";
+		MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+		f1.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+		f1.submit();
+		//setTimeout("BeforeUpTO('/fcgi/do?id=4&id=5')", 30000);
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnCancelAdd()
+{
+	var f1 = document.forms["uploadForm"];
+	f1.reset();
+}
+function isKeyWordUnique()
+{
+	var keyWordNum = document.forms["hiddenValForm"].hcTextsRingsNum .value;
+	var isKeyWordDup = 0;
+	for(var i = 0; i < keyWordNum; i ++)
+	{
+		var curID = "cInternalRingerText"+i;
+		var curValue = document.getElementById(curID).value;
+		for(var j = 0; j < keyWordNum; j++ )
+		{
+			var tmpID = "cInternalRingerText"+j;
+			var tmpValue = document.getElementById(tmpID).value;
+			if(curValue != "" && tmpValue != "")
+			{
+					if( i != j && curValue.toUpperCase() == tmpValue.toUpperCase())
+				{
+					isKeyWordDup = 1;	
+					document.getElementById(curID).style.backgroundColor = alertColor;
+					document.getElementById(tmpID).style.backgroundColor = alertColor;
+				}
+		 	}
+		 }
+	}
+	return isKeyWordDup;
+}
+function CheckDataChanged(destURL)
+{
+		var f1 = document.forms["body_form"];	
+		var f2 = document.forms["hiddenValForm"];
+		
+		var ringerFileNum = Number(f2.hcTextsRingsNum.value);
+		var tmpHRingerFile = "";          //f2.hcInternalRingerFile.value;
+		var ringerFile = f2.hcInternalRingerFile.value.split(SplitSymbol);
+		for(var i = 0; i < ringerFileNum; i++)
+		{
+			if( "" == ringerFile[i])
+				ringerFile[i] = "Ring1.wav";
+			if(0 == i)
+				tmpHRingerFile = ringerFile[i];
+			else tmpHRingerFile = tmpHRingerFile + SplitSymbol + ringerFile[i] ;
+		}
+		var tmpHRingerText = f2.hcInternalRingerText .value;
+		var tmpRingerFile = "";
+		var tmpRingerText = "";
+		var dataChangedWarnFlag = 0;	
+		
+		for(var i = 0; i < ringerFileNum; i++)
+		{
+			if(0 == i) tmpRingerFile = document.getElementById("cInternalRingerFile"+i).value;
+			else	tmpRingerFile = tmpRingerFile + SplitSymbol + document.getElementById("cInternalRingerFile"+i).value;
+			if(0 == i)  tmpRingerText = document.getElementById("cInternalRingerText"+i).value + SplitSymbol ;
+			else tmpRingerText = tmpRingerText + document.getElementById("cInternalRingerText"+i).value + SplitSymbol;
+		}
+
+		if("undefined" != typeof(MODELID))
+		{
+			if("47" != MODELID)
+			{
+				if(tmpHRingerFile != tmpRingerFile || tmpHRingerText != tmpRingerText)
+					dataChangedWarnFlag = 1;
+			}
+		}
+//Android
+/*	if(f1.cKeyPressLevel.value != f2.hcKeyPressLevel.value) 
+		{
+			dataChangedWarnFlag = 1;
+		}
+		if(f1.cSPRingtoneVol.value != f2.hcSPRingtoneVol.value) 
+		{
+			dataChangedWarnFlag = 1;
+		}		
+		*/  
+		if(f2.hcMediaVolume.value != f1.cMediaVolume.value)
+		{
+			dataChangedWarnFlag = 1;
+		}
+		if(f2.hcRingtoneVolume.value != f1.cRingtoneVolume.value)
+		{
+			dataChangedWarnFlag = 1;
+		}
+		if(f2.hcAlarmVolume.value != f1.cAlarmVolume.value)
+		{
+			dataChangedWarnFlag = 1;
+		}
+		if(f1.cVsipIsOpenKeyTone.value != f2.hcVsipIsOpenKeyTone.value) 
+		{
+			dataChangedWarnFlag = 1;
+		}			
+		if(f1.cTouchSounds.value != f2.hcTouchSounds.value) 
+		{
+			dataChangedWarnFlag = 1;
+		}	
+				
+		if(0 == dataChangedWarnFlag)
+		{
+			Relocate(destURL);
+			return false;
+		}
+		if(!confirm(SavePageConfirm))
+		{
+			return false;
+		}
+		else
+		{
+			Relocate(destURL);
+			return false;
+		}
+}
+$(function() { SetPageMenuAction("#aMenu4", "tMenu45"); });
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+		<div class="mid_cont" id="mid_cont2" style="display:none">
+
+			<div class="div_border">
+				<div class="div_head"><label id='tRingCustom'>Rings Custom</label></div>
+				<table id="PhoneRing_tableRingsModify" class="table_style">
+<form id="uploadForm" enctype="multipart/form-data" action="" method="post">
+				<input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+		
+					<tr><td class="Second_td"><label id='tUploadRingFile'>Upload(Support size: 100K)</label></td>
+							<td class="Third_td"><input name="uploadFile" id="uploadFile" type="file" onChange = "checkFileInputCancelSts(this.id,'uploadCancel')"></td></tr>							
+					<tr><td class="Second_td"></td><td class="Third_td"><input class="Nice_Btn" type="button" id='uploadSubmit' value="Upload" onClick ="OnAddRingTone()">
+					<input class="Nice_Btn" type="button" id='uploadCancel' value="Cancel" onClick ="OnCancelAdd(), checkFileInputCancelSts('uploadFile',this.id)"></td></tr>
+			<!--<tr><td class="Second_td"><label id='tRingFileLimit'></label></td></tr>-->
+</form>
+			</table>		
+<form name="body_form">
+			<table id="PhoneRing_tableRingsDelete" width="100%" class="table_style">
+				<tr><td class="Second_td"><label id='tDeleteRingFile'>Delete</label></td> 
+						<td class="Third_td"><select style="width:140px;" name="cDeleteFile" id="cDeleteFile"></select></td></tr>
+				<tr><td class="Second_td"></td>
+						<td class="Third_td"><input id='deleteRing' name="Delete" class="Nice_Btn" type="button" value="Delete" onClick ="OnDeleteRingTone()"></td></tr>
+			</table>
+			<table class="table_style">
+			<tr><td class="Second_td"><label id ="tSysRingtones">Systom Ringtones</label></td>
+					<td class="Third_td"><select style="width: 140px;" name="cSysRingtones" id="csysRingtones"></select></td>				
+			</tr>
+			</table>
+			
+			</table>		
+			</div>
+			
+	<div class="div_border" id="PhoneRing_divDistRing">
+		<div class="div_head"><label id='tDistRing'></label></div>
+		<table id="PhoneRing_tableRingsModify" class="table_style">		
+			
+		<div id="divImportRing" style="display:none"></div>
+	      <table id="tableRingsTexts" border="0" align="center" style="margin-bottom:10px;">
+	        <tr bgcolor='#a5a9af'>
+	          <td height="10" style='text-align: center; width: 40px'><label id='tIndex'>Index</label></td>
+	          <td style='text-align: center; width: 160px'><label id='tKeyWord'>Key Word</label></td>
+	          <td style='text-align: center; width: 160px'><label id='tRingTone'>Ring Tone</label></td>
+	        </tr>
+	      </table>
+     	</table>
+     </div>
+	 
+  	<div class="div_border" id="PhoneRing_divVolume">
+	<div class="div_head"><label id='tVolume'>Volume</label></div>
+		<table class="table_style">
+			<tr>
+			<td class="Second_td"><label id='tMediaVol'>Media Volume</label></td>
+			<td class="Third_td"><input type="text" id="cMediaVolume"/>(0~15)</td>
+			</tr>
+			<tr>
+				<td class="Second_td"><label id='tRingtoneVol'>Ringtone Volume</label></td>
+				<td class="Third_td"><input type="text" id="cRingtoneVolume"/>(0~7)</td>
+			</tr>
+			<tr>
+				<td class="Second_td"><label id='tAlarmVol'>Alarm Volume</label></td>
+				<td class="Third_td"><input type="text" id="cAlarmVolume"/>(0~7)</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="div_border" id="PhoneRing_divKeyTones">
+	<div class="div_head"><label id='tKeyTones'>Key Sounds</label></div>
+		<table class="table_style">	
+			<tr>
+				<td class="Second_td"><label id='tVsipIsOpenKeyTone'>Dial-pad touch tones</label></td>
+				<td class="Third_td"><select class="Select_format1" id='cVsipIsOpenKeyTone'></td>
+			</tr>
+			<tr>
+				<td class="Second_td"><label id='tTouchSounds'>Touch sounds</label></td>
+				<td class="Third_td"><select class="Select_format1" id="cTouchSounds"/></td>
+			</tr>	
+		</table>
+	</div>
+
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div align="center">
+				<table width="70%" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        			<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>
+        </div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

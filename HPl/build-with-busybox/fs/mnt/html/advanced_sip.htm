@@ -1,0 +1,110 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng advanced_sip?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_networkidentport network_id_port?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_sipt1 sip_retry_t1?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_enable_timer_support timer_support advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_sipsessiontimer session_timer?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_sipdirtyhostttl dirty_host_ttl?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_sipmaxforward max_forwards?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_enumsuffix enum_suffix?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_retryafterfailedregister retry_after_failed_register?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_useuserphone user_phone advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_refertobrackets refer_brackets advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_requireprack require_prack advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_sendprack send_prack advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_offer_gruu offer_gruu advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_offer_mpo offer_mpo advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_offer_outbound offer_outbound advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_sip_short_form short_form advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_tcp_listen tcp_listen advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_http_register register_http_contact advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_disable_blind_transfer disable_blind_transfer advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_disable_deflection disable_deflection advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_show_history_info show_history_info advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_show_diversion show_diversion advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_naptr_sip_uri naptr_sip_uri advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_encode_display_name encode_display_name advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_vq_report_collector vq_report_collector?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_rtcp_xr rtcp_xr?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_check_sdp_version sdp_version_check advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_release_xfer_on release_xferred_call_on?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_retrieve_xfer_on retrieve_xferred_call_on?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_allow_sip_settings allow_sip_settings advanced_ssi_on advanced_ssi_off?></TR>
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<?ssi skipon NOT_MINIBROWSER?>
+<TR><TD></TD><TD class="normalText"><B><?lng minibrowser_pref?></B></TD></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_xml_notify xml_notify advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<?ssi skipoff NOT_MINIBROWSER?>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_rtp?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_dynamicrtpstart rtp_port_start?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_dynamicrtpstop rtp_port_end?></td></TR>
+<?ssi skipon NO_DYNAMIC_CODEC?>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_payloadtype dtmf_payload_type?></td></TR>
+<?ssi skipoff NO_DYNAMIC_CODEC?>
+<TR><TD></TD><?ssi radio advanced_ssi_rtcp_support support_rtcp advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_rtp_keepalive rtp_keepalive advanced_ssi_on advanced_ssi_off?></TR>
+
+<?ssi skipon NO_INCA?>
+<TR><TD></TD><?ssi radio jb jb advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input jb_min jb_min?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input jb_max jb_max?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input jb_shrink jb_shrink?></td></TR>
+<?ssi skipoff NO_INCA?>
+
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_multicast?></B></TD></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_multicast_listen multicast_listen advanced_ssi_on advanced_ssi_off?></TR>
+
+<TR><TD></TD><td class="normalText">(1)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address1?></td></tr>
+<TR><TD></TD><td class="normalText">(2)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address2?></td></tr>
+<TR><TD></TD><td class="normalText">(3)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address3?></td></tr>
+<TR><TD></TD><td class="normalText">(4)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address4?></td></tr>
+<TR><TD></TD><td class="normalText">(5)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address5?></td></tr>
+<TR><TD></TD><td class="normalText">(6)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address6?></td></tr>
+<TR><TD></TD><td class="normalText">(7)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address7?></td></tr>
+<TR><TD></TD><td class="normalText">(8)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address8?></td></tr>
+<TR><TD></TD><td class="normalText">(9)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address9?></td></tr>
+<TR><TD></TD><td class="normalText">(10)&nbsp;<?ssi input advanced_ssi_multicast_address mc_address10?></td></tr>
+
+
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><B><?ssi inpass advanced_ssi_adminlogin admin_mode_login?></B></td></TR>
+<?ssi skipoff IN_ADMIN_MODE?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TD>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	
+	
+
+<?ssi file common9.htm?></HTML>

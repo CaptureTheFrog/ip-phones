@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="progress"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="%Param1HeadsetVolume">
+    <Title wrap="yes" showlistcount="yes">
+        %Param1 Headset Volume
+    </Title>
+
+		<Prompt></Prompt>
+		<DataID>Combine_%Param1HeadsetVolume_Progress</DataID>	
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

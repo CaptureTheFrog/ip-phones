@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<History>
+    <Call ID="1" CallID="200002" Type="1" Status="0" Date="2023-03-27" Time="15:57:19" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="0" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:13" />
+    <Call ID="2" CallID="200003" Type="1" Status="0" Date="2023-03-27" Time="15:57:40" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="101" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:07" />
+</History>

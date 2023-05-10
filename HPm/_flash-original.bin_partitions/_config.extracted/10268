@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        CombineData="VLANMenu"
+        LockIn="no">
+  <title showlistcount="yes">VLAN Setting</title>
+	<MenuItem><Prompt>LAN Port</Prompt><URI>local://app/factory/Static/XMLBrowser/VlanSetting.xml_LAN</URI></MenuItem>
+	<MenuItem><Prompt>PC Port</Prompt><URI>local://app/factory/Static/XMLBrowser/VlanSetting.xml_PC</URI></MenuItem>
+
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

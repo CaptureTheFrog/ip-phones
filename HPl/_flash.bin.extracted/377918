@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phone-settings e="2">
+<setting_server perm="RW" c="1">http://secure-provisioning.snom.com/_RDS/snom300/{mac}</setting_server>
+<ip_adr perm="RW" c="1">192.168.32.43</ip_adr>
+<netmask perm="RW" c="1">255.255.255.0</netmask>
+<dns_server1 perm="RW" c="1">192.168.32.1</dns_server1>
+<gateway perm="RW" c="1">192.168.32.1</gateway>
+<phone_name perm="RW" c="1">snom300-492E89</phone_name>
+<utc_offset perm="" c="1">0</utc_offset>
+<dst perm="" c="1">3600 03.05.07 02:00:00 10.05.07 03:00:00</dst>
+<timezone perm="" c="1">GBR-0</timezone>
+<tone_scheme perm="" c="1">GBR</tone_scheme>
+<firmware perm="" c="1">http://provisioning.snom.com/download/fw/snom300-8.7.3.25.5-SIP-f.bin</firmware>
+<update_host_f perm="" c="1">52.28.89.237:80</update_host_f>
+<firmware_version perm="" c="1">snom300-SIP 8.7.3.25.5</firmware_version>
+<uboot_version perm="" c="1">1.1.3-u</uboot_version>
+<was_never_registered perm="" c="1">off</was_never_registered>
+<user_name idx="1" perm="" c="1">207</user_name>
+<user_host idx="1" perm="" c="1">192.168.32.1</user_host>
+<user_pass idx="1" perm="" c="1">207</user_pass>
+<user_uid idx="1" perm="" c="1">7a80f5be-5ec2-4674-8c78-000413492E89</user_uid>
+<auth_tmp_pass idx="1" perm="" c="1"></auth_tmp_pass>
+<auth_tmp_realm idx="1" perm="" c="1"></auth_tmp_realm>
+</phone-settings>

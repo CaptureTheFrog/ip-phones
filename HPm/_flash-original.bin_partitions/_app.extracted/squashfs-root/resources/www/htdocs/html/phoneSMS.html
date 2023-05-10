@@ -1,0 +1,142 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var validLineNum = f2.hcSMSAccountCnt.value;
+	if( 0 == validLineNum )
+	{
+		document.getElementById("cSMSAccountName").options.add(new Option(None, 0));
+		document.getElementById("cSMSAccountName").disabled = true;
+	}
+	else
+	{
+		var arrLineName = (f2.cSMSAccountName.value).split(SplitSymbol);
+		var arrLineId = (f2.cSMSAccount.value).split(SplitSymbol);
+		for(var i=0; i < validLineNum; i++)
+		{
+			document.getElementById("cSMSAccountName").options.add(new Option(arrLineName[i], i));
+		}
+	}
+	LoadLang();
+	SubLoadCfg();
+}
+
+function SubLoadCfg()
+{
+	document.getElementById("cTargetNumber").value = "";
+	document.getElementById("cMessageContent").value = "";
+}
+
+function LoadLang()
+{
+	tmp = "SMS";
+	LoadCommonResources(tmp);
+	document.getElementById("tMessageSend").innerHTML = MessageSend;
+	document.getElementById("tAccount").innerHTML = Account;
+	document.getElementById("tTargetNumber").innerHTML = TargetNumber;
+	document.getElementById("tTargetMessage").innerHTML = TargetMessage;
+}
+	
+function OnSubmit()
+{	
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	
+	var validLineNum = f2.hcSMSAccountCnt.value;
+	if(validLineNum > 0)
+	{
+		var arrLineName = (f2.cSMSAccountName.value).split(SplitSymbol);
+		var arrLineId = (f2.cSMSAccount.value).split(SplitSymbol);		
+		strSubmData = strSubmData + "&cSMSAccountName=" + arrLineName[f1.cSMSAccountName.value];
+		strSubmData = strSubmData + "&cSMSAccount=" + arrLineId[f1.cSMSAccountName.value];
+	}
+//	else
+//	{
+//		return;
+//	}
+	if(f1.cTargetNumber.value != "")
+	{
+		strSubmData = strSubmData + "&cTargetNumber=" + f1.cTargetNumber.value;
+	}
+	
+	if(f1.cMessageContent.value != "")
+	{
+		alert(f1.cMessageContent.value);
+		var tmp = PostEncode(f1.cMessageContent.value);
+		alert(tmp);
+		strSubmData = strSubmData + "&cMessageContent=" + tmp;
+	}
+	
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	f3.submit();
+
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu48");
+});
+	
+</script>
+
+<body onLoad="LoadCfg()">
+
+<div class="headline"></div>
+<div class="phone1">
+	<div class="top"></div>
+	<div class="head"><a href="/fcgi/" id="tPageLogOut" class="logoff_styl" onClick="ClickLogOut()">LogOut</a>&nbsp</div>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+<form name="body_form">
+		<div class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+    	<div class="mid_cont">
+			<table>
+				<tr>
+				<td class="First_td"><label id='tMessageSend'></label></td>
+				</tr>
+				<tr>
+				<td class="Second_td"><label id='tAccount'></label></td>
+				<td class="Second_td"><select id='cSMSAccountName'></select></td>
+				</tr>
+				<tr>
+				<td class="Second_td"><label id='tTargetNumber'></label></td>
+				<td class="Second_td"><input id='cTargetNumber' type='text'></label></td>
+				</tr>				
+				<tr>
+				<td class="Second_td"><label id='tTargetMessage'></label></td>
+
+				<td class="Second_td"><textarea style="width: 300px; font-size: 12px" rows=10 cols=50 id='cMessageContent'></textarea></td>
+				</tr>
+			</table>
+</form>			
+			
+<form method="post" name="submit_form" action="">
+						          <div align="center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <input name="Submit" type="button" value="Submit" onClick ="OnSubmit()">
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp
+          <input type="button" name="Cancel" value="Cancel" onClick ="SubLoadCfg()">
+        </div>
+</form>
+
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"> </div>		
+	</div>
+	<div class="bottom"><label style="border-top: 40px;" id="tCompanyLabel"></label></div>
+</div>

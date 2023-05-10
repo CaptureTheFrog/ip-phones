@@ -1,1 +1,7 @@
-# ip-phones
+# Abstract
+
+IP phones are now commonplace in many business environments, and their relative complexity and computational resources compared to traditional analog telephones make them an attractive target for attackers. While users have been trained for decades to consider their standard workstation computers as potential entry points for an attack, keeping credentials private and taking care to restrict unauthorized physical access to their machine, they are unlikely to consider their IP phone as an equally significant device to physically secure.
+
+In this dissertation I conduct a broad analysis of IP phone hardware, and discover design and implementation vulnerabilities in both hardware and firmware that could be exploited by an attacker with ephemeral or prolonged physical access to the device. I developed several payloads for a narrower selection of devices which were deployed using the discovered vulnerabilities, being able to achieve denial-of-service (DoS) and perform both phone call and device microphone eavesdropping attacks on the devices investigated.
+
+I conclude that while the majority of IP phone devices are reasonably secure against hardware attacks, a significant number contain critical vulnerabilities and manufacturers should consider disabling hardware debug functionalities on production devices to limit potential entry points for attackers, as well as implementing secure-boot technologies to prevent physical firmware tampering attacks on devices.

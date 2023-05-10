@@ -1,0 +1,42 @@
+="1" perm="" c="1"> 16:46</callrecord_received_time>
+<callrecord_received_time idx="2" perm="" c="1"> 17:38</callrecord_received_time>
+<callrecord_received_date idx="0" perm="" c="1">28.1.2015</callrecord_received_date>
+<callrecord_received_date idx="1" perm="" c="1">20.1.2015</callrecord_received_date>
+<callrecord_received_date idx="2" perm="" c="1">30.1.2013</callrecord_received_date>
+<callrecord_received_duration idx="0" perm="" c="1"> 0:10</callrecord_received_duration>
+<callrecord_received_duration idx="1" perm="" c="1"> 0:32</callrecord_received_duration>
+<callrecord_received_duration idx="2" perm="" c="1"> 0:03</callrecord_received_duration>
+<callrecord_dialed_local idx="0" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_dialed_local>
+<callrecord_dialed_local idx="1" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_dialed_local>
+<callrecord_dialed_local idx="2" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_dialed_local>
+<callrecord_dialed_local idx="3" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_dialed_local>
+<callrecord_dialed_local idx="4" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_dialed_local>
+<callrecord_dialed_remote idx="0" perm="" c="1">sip:01793514514@sip.voicehost.co.uk</callrecord_dialed_remote>
+<callrecord_dialed_remote idx="1" perm="" c="1">sip:01793503508@sip.voicehost.co.uk</callrecord_dialed_remote>
+<callrecord_dialed_remote idx="2" perm="" c="1">sip:02076483200@sip.voicehost.co.uk</callrecord_dialed_remote>
+<callrecord_dialed_remote idx="3" perm="" c="1">sip:02076483022@sip.voicehost.co.uk</callrecord_dialed_remote>
+<callrecord_dialed_remote idx="4" perm="" c="1">sip:01793503611@sip.voicehost.co.uk</callrecord_dialed_remote>
+<callrecord_dialed_time idx="0" perm="" c="1"> 14:40</callrecord_dialed_time>
+<callrecord_dialed_time idx="1" perm="" c="1"> 12:14</callrecord_dialed_time>
+<callrecord_dialed_time idx="2" perm="" c="1"> 11:50</callrecord_dialed_time>
+<callrecord_dialed_time idx="3" perm="" c="1"> 11:40</callrecord_dialed_time>
+<callrecord_dialed_time idx="4" perm="" c="1"> 11:21</callrecord_dialed_time>
+<callrecord_dialed_date idx="0" perm="" c="1">17.3.2015</callrecord_dialed_date>
+<callrecord_dialed_date idx="1" perm="" c="1">17.3.2015</callrecord_dialed_date>
+<callrecord_dialed_date idx="2" perm="" c="1">17.3.2015</callrecord_dialed_date>
+<callrecord_dialed_date idx="3" perm="" c="1">17.3.2015</callrecord_dialed_date>
+<callrecord_dialed_date idx="4" perm="" c="1">17.3.2015</callrecord_dialed_date>
+<callrecord_dialed_duration idx="0" perm="" c="1"> 1:00</callrecord_dialed_duration>
+<callrecord_dialed_duration idx="1" perm="" c="1"> 0:04</callrecord_dialed_duration>
+<callrecord_dialed_duration idx="2" perm="" c="1"> 0:39</callrecord_dialed_duration>
+<callrecord_dialed_duration idx="3" perm="" c="1"> 0:02</callrecord_dialed_duration>
+<callrecord_dialed_duration idx="4" perm="" c="1"> 0:15</callrecord_dialed_duration>
+<codec_priority_list idx="1" perm="RW" c="1">pcma,pcmu,gsm,telephone-event</codec_priority_list>
+<codec_priority_list idx="2" perm="RW" c="1">pcma,pcmu,gsm,telephone-event</codec_priority_list>
+<codec_priority_list idx="3" perm="RW" c="1">pcma,pcmu,gsm,telephone-event</codec_priority_list>
+<codec_priority_list idx="4" perm="RW" c="1">pcma,pcmu,gsm,telephone-event</codec_priority_list>
+<retry_after_failed_subscribe idx="1" perm="RW" c="1">3600</retry_after_failed_subscribe>
+<retry_after_failed_subscribe idx="2" perm="RW" c="1">3600</retry_after_failed_subscribe>
+<retry_after_failed_subscribe idx="3" perm="RW" c="1">3600</retry_after_failed_subscribe>
+<retry_after_failed_subscribe idx="4" perm="RW" c="1">3600</retry_after_failed_subscribe>
+</phone-settings>

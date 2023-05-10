@@ -1,0 +1,1379 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script type='text/javascript'>
+	var ThisPage="upgradeA";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<style type='text/css'>
+	.checkboxclass{ display:inline-block; width:70px; text-indent:-1px}
+</style>
+<script type='text/javascript'>
+		
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+	var inUpgradeProc = 0;
+	var rebootflag = 0;
+	var PageRefDesURL = 'do?id=6&id=2';
+	var IsAlreadyReboot = 0;
+	var AutoPFailedReasonArr = ["GetConfigFailed", "CheckConfigFailed","DownloadConfigFailed", "GetMD5Failed","ConfigNotExist", 
+															"UpdateRingtoneFailed", "UpdateLanguageFailed", "UpdateContactFailed",];
+	//提交按下时应该处理的按键
+	var SubmitBtn = ["AutoPConfirmBtn", "ClearMD5Btn", "ExportTemplate", "BtnExportLog", "StartPCAP", "ExportPCAP",
+										"ExportConfig", "ImportConfig", "PageCancel", "CancelRange", "fPageCancel"];
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+function ConfirmF5Jump()
+{
+	if(1 == inUpgradeProc)
+	{
+		return false;
+	}
+	return true;
+}
+function DoTestJump()
+{
+	Relocate('do?id=6&id=2');
+}
+
+function LoadCheckWeekDay()
+{
+	var checkedVal = [];
+	checkedVal = document.getElementById("hcScheduleSomeDayOfWeek").value.split(',');
+	//先清为全不选
+	$("input:[name='cScheduleSomeDayOfWeek']").each(function(){
+  	$(this).attr('checked',false);
+	});
+	//再根据服务器传递的值勾选
+	for(i = 0; i < checkedVal.length; i++)
+	{
+		$("input:[name='cScheduleSomeDayOfWeek'][value='"+checkedVal[i]+"']").attr('checked','true');
+	}
+}
+
+function CheckWeekBoxChanged()
+{
+	var checkedVal = [];
+	var boxes = [];
+	checkedVal = document.getElementById("hcScheduleSomeDayOfWeek").value.split(',');
+	if(8 == $("#cScheduleDayOfWeek").val())
+	{
+		$("input:[name=cScheduleSomeDayOfWeek]:checked").each(function() {
+		boxes.push($(this).val());
+		});
+		//判断两个数组是否相等
+		if(boxes.sort().toString() == checkedVal.sort().toString())
+		{
+			return 0;
+		}
+		else{
+			return -1;
+		}
+	}
+	return 0;
+}
+
+function WeekdivDisplay()
+{
+	if($("#cScheduleDayOfWeek").is("disabled") == false && 8 == $("#cScheduleDayOfWeek").val())
+		{
+			$("#UpgradeA_divWeekDay").show();
+		}
+		else{
+			$("#UpgradeA_divWeekDay").hide();
+		}
+}
+		
+function LoadCfg()
+{
+	LoadLang();
+	DelayShow();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cDHCPCustomOptionType.options.add(new Option(DomainString, 0));
+	f1.cDHCPCustomOptionType.options.add(new Option(IPAddress, 1));
+	f1.cPNPConfig.options.add(new Option(Disabled, 0));
+	f1.cPNPConfig.options.add(new Option(Enabled, 1));
+	f1.cZeroSpTouchActive.options.add(new Option(Disabled, 0));
+	f1.cZeroSpTouchActive.options.add(new Option(Enabled, 1));
+	for(var i=0; i <= 7; i++)
+	{
+		document.getElementById("cSystemLogLevel").options.add(new Option(i, i));
+	}
+	document.getElementById("cRemoteSystemLog").options.add(new Option(Disabled, 0));
+	document.getElementById("cRemoteSystemLog").options.add(new Option(Enabled, 1));
+	document.getElementById("cPCAPEnableRefresh").options.add(new Option(Disabled, 0));
+	document.getElementById("cPCAPEnableRefresh").options.add(new Option(Enabled, 1));
+	f1.cWhenToCheckNewFirm.options.add(new Option(Disabled, 0));
+	f1.cWhenToCheckNewFirm.options.add(new Option(PowerOn, 1));
+	f1.cWhenToCheckNewFirm.options.add(new Option(Repeatedly, 2));
+	f1.cWhenToCheckNewFirm.options.add(new Option(PowerOn+"+"+Repeatedly, 3));
+	f1.cWhenToCheckNewFirm.options.add(new Option(RepeatedlyByHour, 4));
+	
+	f1.cScheduleDayOfWeek.options.add(new Option(EveryDay, 0));
+	var DayOfWeek = AllWeekDays.split(SplitSymbol);
+	var i = 0;
+	// schedule加入星期一到星期天，星期一序号为1，到星期天序号为7
+	for(i=1; i < 7; i++)
+	{
+		f1.cScheduleDayOfWeek.options.add(new Option(DayOfWeek[i], i));
+	}
+	f1.cScheduleDayOfWeek.options.add(new Option(DayOfWeek[0], 7));
+	f1.cScheduleDayOfWeek.options.add(new Option(SomeDay, 8));
+	
+	var tmp = "";
+	for(i=0; i < 7; i++)
+	{
+		tmp = "cDayOfWeek"+i;
+		document.getElementById(tmp).innerHTML = DayOfWeek[i];
+	}
+	
+//	f1.cLogPlace.options.add(new Option(Local, 0));
+//	f1.cLogPlace.options.add(new Option(Server, 0));
+	
+	var pcapStatus = f2.hcPCAPStatusNow.value;
+	if(1 == pcapStatus)
+	{
+		alert(PCAPStartedWarning);
+		setStartPCAPSts();
+	}
+	else
+	{
+		setStopPCAPSts();
+	}
+	
+	SubLoadCfg();
+	if("1" == f2.hcImportConfigResult.value)
+	{
+		AutoPProcess(ImportConfigSuccessWarning);
+		document.getElementById("ConfigReboot").style.display = "";
+		return;
+	}
+	else if("-1" == f2.hcImportConfigResult.value)
+	{
+		AutoPProcess(ImportConfigFailedWarning);
+		document.getElementById("ConfigReboot").style.display = "";
+		return;
+	}
+	
+  // AUTOP_STATE_SUCCESS = 0,
+  // AUTOP_STATE_FAILED, 1
+  // AUTOP_STATE_CHECK_ROM_FAILED, 2
+  // AUTOP_STATE_UPGRADING, 3
+  // TIMEOUT 4
+  // FINISHED 5
+  // TALKING -1
+  // WAITING -2
+	if(-1 == f2.hcAutoPStatus.value)
+	{
+		AutoPProcess(PhoneTalkingNotUpgradeWarning);
+		setTimeout("ResetToNormalPage()", 6500);
+	}
+	else if(0 == f2.hcAutoPStatus.value)
+	{
+		AutoPProcess(AUTOPFinishedNotice);
+		setTimeout("ResetToNormalPage()", 6500);
+	}
+	else if(1 == f2.hcAutoPStatus.value)
+	{
+		var tmp = f2.hcAutoPFaildReason.value.split(";");
+		var tmpLen = tmp.length;
+		var tmpShow = AUTOPFailedWarning+"<br>"+"Reason: ";
+		for(var i=0; i < tmpLen-1; i++)
+		{
+			if(tmp[i] == "undefined")
+			{
+				break;
+			}
+			tmpShow += AutoPFailedReasonArr[tmp[i]]+"<br>";
+		}
+		AutoPProcess(tmpShow);
+		setTimeout("ResetToNormalPage()", 6500);
+	}
+	else if(3 == f2.hcAutoPStatus.value)
+	{
+		inUpgradeProc = 1;
+		AutoPProcess(AUTOPGoingOnWarning);
+		ReStartCheckAutoP();
+		interObj[1] = setInterval("LongCheckStatus('divUpgradeStatus')", 4000);
+	}
+	else if(-2 == f2.hcAutoPStatus.value)
+	{
+		inUpgradeProc = 1;
+		AutoPProcess(AUTOPGoingOnWarning);
+		ReStartCheckAutoP();
+		interObj[1] = setInterval("LongCheckStatus('divUpgradeStatus')", 4000);
+	}
+	else
+	{
+		ResetToNormalPage();
+	}
+}
+
+// 0 started
+// 1 manual stopped
+// 2 auto stopped
+var PCAPStopType = 1;
+var mSecs0 = 10000;
+function IntervCheckStsOfPCAP()
+{
+	$.ajax({
+		url: '/fcgi/do?id=8&Operation=GetDivContent&DivName=divPCAPStatus',
+		cache: false,
+		success: function(html){
+			if(1 != PCAPStopType)
+			{OnStsOfPCAP(html);}
+			if(0 == PCAPStopType)
+			{setTimeout("IntervCheckStsOfPCAP()", mSecs0);}
+		}, 
+		error: function(html)
+		{
+			// do nothing because the phone maybe rebooted
+		}
+	});
+}
+
+function OnStsOfPCAP(html)
+{
+	$("#divPCAPStatus").append(html);
+	var f2 = document.forms["hiddenValForm_Div"];
+  if(!document.getElementById('hcPCAPStatus_Div'))
+  {
+  	return;
+  }
+  // PCAP_THR_STARTED 1
+  // PCAP_THR_FINISHED 0
+  if(0 == document.getElementById('hcPCAPStatus_Div').value)
+  {
+  	PCAPStopType = 2;
+  	setStopPCAPSts();
+  	alert(WarningPCAPFileOverSize);
+  	//alert("PCAP file is over 1MB, PCAP will be stopped");
+  }
+	
+	ResetDivInnerHTML("divPCAPStatus");
+}
+
+function OnConfigReboot()
+{
+	AutoPProcess(RebootingWarning+"<br>"+CheckIPWarning);
+	$.ajax({
+		url: '/fcgi/do?id=9&id=1&Operation=ForceReboot',
+		cache: false,
+		success: function(html){
+			ReStartCheckReboot();
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+		}, 
+		error: function(html)
+		{
+			ReStartCheckReboot();
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+		}
+	});
+	document.getElementById("ConfigReboot").style.display = "none";
+
+	return;
+}
+
+function ReStartCheckReboot()
+{
+	setTimeout("StatusCheck('divRebootStatus')", 3000);
+}
+
+function ReStartCheckAutoP()
+{
+	setTimeout("StatusCheck('divUpgradeStatus')", 3000);
+}
+
+function StatusCheck(strDivName)
+{
+	var desURL;
+	if("divRebootStatus" == strDivName)
+	{
+		desURL = 'do?id=6&id=1&Operation=GetDivContent&DivName=' + strDivName;
+	}
+	else if("divUpgradeStatus" == strDivName)
+	{
+		desURL = 'do?id=6&id=2&Operation=GetDivContent&DivName=' + strDivName;
+	}
+	else
+	{
+	}
+	$.ajax({
+		url: desURL,
+		cache: false,
+		success: function(html){
+			ResetNotGetResponse();
+			if("" == html)
+			{
+				if(strDivName == "divRebootStatus")
+				{
+					ReStartCheckReboot();
+				}
+				else if(strDivName == "divUpgradeStatus")
+				{
+					ReStartCheckAutoP();
+				}
+				return;
+			}
+			
+			if(strDivName == "divRebootStatus")
+			{
+				OnStsActOfReboot(html);
+				ReStartCheckReboot();
+			}
+			else if("divUpgradeStatus" == strDivName)
+			{
+				var thisRes = OnStsActOfAutoP(html);
+				if("NotGoOn" == thisRes)
+				{return;}
+				ReStartCheckAutoP();
+			}
+		},
+		error: function(html){
+			ResetNotGetResponse();
+			if(strDivName == "divRebootStatus")
+			{
+				ReStartCheckReboot();
+			}
+			else if(strDivName == "divUpgradeStatus")
+			{
+				ReStartCheckAutoP();
+			}
+		}
+	});
+}
+
+function OnStsActOfReboot(html)
+{
+	$("#divRebootStatus").append(html);
+	if(document.getElementById("hcRebootStatus_Div") && 
+	document.getElementById("hcRebootStatus_Div").value == 0)
+	{
+		SetPageCookie();
+		if(0 == rebootflag)
+		{
+			rebootflag = 1;
+			setTimeout("Relocate('/fcgi/do?id=6&id=2')", 7000);
+		}
+	}
+	ResetDivInnerHTML("divRebootStatus");
+}
+
+function OnStsActOfAutoP(html)
+{
+	$("#divUpgradeStatus").append(html);
+	var f2 = document.forms["hiddenValForm_Div"];
+	// AUTOP_STATE_CHECK_ROM_FAILED, 2
+  // AUTOP_STATE_UPGRADING, 3
+  // TIMEOUT 4
+  // FINISHED 5
+  if(!document.getElementById('hcAutoPStatus_Div'))
+  {
+  	return;
+  }
+  divVar = document.getElementById('hcAutoPStatus_Div').value;
+		if(2 == divVar)
+		{
+			setTimeout("Relocate('/fcgi/do?id=6&id=2')", 6500);
+		}
+		else if(1 == divVar)
+		{
+			var tmp = f2.hcAutoPFaildReason_Div.value.split(";");
+			var tmpLen = tmp.length;
+			var tmpShow = AUTOPFailedWarning+"<br>"+"Reason: ";
+			for(var i=0; i < tmpLen-1; i++)
+			{
+				if(tmp[i] == "undefined")
+				{
+					break;
+				}
+				tmpShow += AutoPFailedReasonArr[tmp[i]]+"<br>";
+			}
+			if(tmp[0] > 4) //Get config failed
+			{
+				return;
+			}
+			AutoPProcess(tmpShow);
+			clearInterval(interObj[1]);
+			setTimeout("Relocate('/fcgi/do?id=6&id=2')", 6000);
+			return "NotGoOn";
+		}
+		else if(3 == divVar)
+		{
+			AutoPProcess(PhoneUpgradingWarning);
+			//+ "<br> "+ RebootFromPhoneWarning
+		}
+		else if(-2 == divVar)
+		{
+			AutoPProcess(AUTOPGoingOnWarning);
+		}
+		else if(4 == divVar)
+		{
+			AutoPProcess(TimeOutWarning);
+			ResetNotGetResponse();
+			setTimeout("Relocate('/fcgi/do?id=6&id=2')", 6000);
+			return "NotGoOn";
+		}
+		else if(5 == divVar)
+		{
+			if("1" == IsAlreadyReboot)
+			{
+				return;
+			}
+			IsAlreadyReboot = "1";
+			AutoPProcess(AUTOPFinishedNotice);
+			setTimeout("DownCookie_Force('divRebootStatus')", 2000);
+			setTimeout("Relocate('/fcgi/do?id=6&id=2')", 7000);
+		}
+		
+		ResetDivInnerHTML("divUpgradeStatus");
+}
+
+function setStartPCAPSts()
+{
+	document.getElementById("StartPCAP").disabled = true;
+	document.getElementById("StopPCAP").disabled = false;
+	document.getElementById("ExportPCAP").disabled = true;	
+}
+
+function setStopPCAPSts()
+{
+	document.getElementById("StartPCAP").disabled = false;
+	document.getElementById("StopPCAP").disabled = true;
+	document.getElementById("ExportPCAP").disabled = false;
+}
+
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cCommonAESKey.value = "********";
+	f1.cDHCPCustomOption.value = f2.hcDHCPCustomOption.value;
+	f1.cDHCPCustomOptionType.value = TransEmptyStrTo0(f2.hcDHCPCustomOptionType.value);
+	f1.cDHCPOptionValue.value = f2.hcDHCPOptionValue.value;
+	f1.cMACAESKey.value = "********";
+	f1.cManualUpdateURL.value = f2.hcManualUpdateURL.value = ShowDecode(f2.hcManualUpdateURL.value);
+	f1.cPNPConfig.value = TransEmptyStrTo0(f2.hcPNPConfig.value);
+	document.getElementById("cSystemLogLevel").value = TransEmptyStrTo0(f2.hcSystemLogLevel.value);
+	document.getElementById("cRemoteSystemLog").value = f2.hcRemoteSystemLog.value = TransEmptyStrTo0(f2.hcRemoteSystemLog.value);
+	document.getElementById("cRemoteSystemServer").value = f2.hcRemoteSystemServer.value;
+	document.getElementById("cPCAPEnableRefresh").value = f2.hcPCAPEnableRefresh.value = TransEmptyStrTo0(f2.hcPCAPEnableRefresh.value);
+	f1.cServerUserName.value = f2.hcServerUserName.value;
+	f1.cServerPwd.value = "********";
+	f1.cWhenToCheckNewFirm.value = TransEmptyStrTo0(f2.hcWhenToCheckNewFirm.value);
+	f1.cZeroSpTouchActive.value = TransEmptyStrTo0(f2.hcZeroSpTouchActive.value);
+	f1.cZeroSpTouchWaitTime.value = f2.hcZeroSpTouchWaitTime.value;
+	f1.cScheduleDayOfWeek.value = TransEmptyStrTo0(f2.hcScheduleDayOfWeek.value);
+	WeekdivDisplay();
+	LoadCheckWeekDay();
+	f1.cScheduleHourOfDay.value = f2.hcScheduleHourOfDay.value;
+	f1.cScheduleMinOfHour.value = f2.hcScheduleMinOfHour.value;
+	f1.cScheduleSecOfMin.value = f2.hcScheduleSecOfMin.value;
+	onCheckCancelKeySts();
+	OnCheckScheduleAvail();
+	CheckExportLogAvailable();
+	OnCheckSystemServerAvail();
+	ResetAllInputColor();
+	for(var i=0; i < PwdKeyFirst.length; i++){ PwdKeyFirst[i] = true;	}
+}
+
+function SubLoadCfgOfRange()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("cRemoteSystemLog").value = TransEmptyStrTo0(f2.hcRemoteSystemLog.value);
+	document.getElementById("cRemoteSystemServer").value = f2.hcRemoteSystemServer.value;
+	OnCheckSystemServerAvail();
+}
+
+function LoadLang()
+{
+	var tmp = Upgrade+"-"+Advance;
+	LoadCommonResources(tmp);
+	document.getElementById("tDHCPCustomOption").innerHTML = CustomOption;
+	document.getElementById("tDHCPCustomOptionType").innerHTML = OptionType;
+	document.getElementById("tDHCPOptionValue").innerHTML = OptionValue;
+	document.getElementById("tServerAddress").innerHTML = "URL";
+	document.getElementById("tUpServerAccount").innerHTML = UserName;
+	document.getElementById("tUpServerPwd").innerHTML = PasswordLabel;
+	document.getElementById("tCommonAESKey").innerHTML = CommonAESKey;
+	document.getElementById("tMACAESKey").innerHTML = MACAESKey;
+	document.getElementById("tZeroSpTouchActive").innerHTML = ZeroSpTouchActive;
+	document.getElementById("tZeroSpTouchWaitTime").innerHTML = WaitTime;
+	document.getElementById("tPNPOption").innerHTML = PNPOption;
+	document.getElementById("tPNPConfig").innerHTML = PNPConfig;
+	document.getElementById("tCheckNewFirm").innerHTML = ModeLabel;
+	document.getElementById("tSystemLogLevel").innerHTML = LogLevel;
+	document.getElementById("tAutoPSchedule").innerHTML = Schedule;
+	
+	document.getElementById("tDHCPOption").innerHTML = DHCPOption;
+	document.getElementById("tDHCPCustomTips").innerHTML = ("undefined" != typeof(DHCPCustomTips))?"(" + DHCPCustomTips + ")":"(DHCP Option 66/43 is Enabled by Default)";
+	document.getElementById("tManualUpdateServer").innerHTML = ManualAutop;
+	document.getElementById("tZeroSpTouch").innerHTML = ZeroSpTouch;
+	document.getElementById("tAutoP").innerHTML = AutomaticAutop;
+	document.getElementById("tSystemLog").innerHTML = SystemLog;
+	document.getElementById("tRemoteSystemLog").innerHTML = ("undefined" != typeof(RemoteSystemLog))?RemoteSystemLog:"Remote System Log";
+	document.getElementById("tRemoteSystemServer").innerHTML = ("undefined" != typeof(RemoteSystemServer))?RemoteSystemServer:"Remote System Server";
+
+	document.getElementById("tPCAPAutoRefresh").innerHTML = ("undefined" != typeof(PCAPAutoRefresh))?PCAPAutoRefresh:"PCAP Auto Refresh";	
+	
+	document.getElementById("tOthers").innerHTML = Others;
+	document.getElementById("tConfigTar").innerHTML = ConfigFile;
+	document.getElementById("tConfigEncrypted").innerHTML = "(" + Encrypted + ")";
+	//document.getElementById("tConfigUnencrypted").innerHTML = "(" + Unencrypted + ")";
+	
+	document.getElementById("tExportLog").innerHTML = ExportLog;
+	document.getElementById("tExportTemplate").innerHTML = ExportAutopTemplate;
+	document.getElementById("tHour").innerHTML = Hour;
+	document.getElementById("tMinute").innerHTML = Minute;
+	document.getElementById("tSecond").innerHTML = Second;
+	document.getElementById('tClearMD5').innerHTML = ClearMD5;
+	
+	document.getElementById('AutoPConfirmBtn').value = AutoPNow;
+	document.getElementById('ClearMD5Btn').value = SubmitLabel;
+	document.getElementById('BtnExportLog').value = Export;
+	document.getElementById('ExportPCAP').value = Export;
+	document.getElementById('ExportTemplate').value = Export;
+	
+//	document.getElementById('ExportConfig').value = document.getElementById('ExportUnencryConfig').value = Export;
+	document.getElementById('ImportConfig').value = Import;
+	document.getElementById('ExportPCAP').value = Export;
+	document.getElementById('StartPCAP').value = StartLabel;
+	document.getElementById('StopPCAP').value = StopLabel;
+	
+	document.getElementById("ConfigReboot").value = RebootLabel;
+	var f1 = document.forms["body_form"];
+	f1.cManualUpdateURL.maxLength = 127;
+	document.getElementById('cRemoteSystemServer').maxLength = 127;
+	
+	document.getElementById("importConfigCancel").value = CancelLabel;
+	document.getElementById("SubmitRange").value = SubmitLabel;
+	document.getElementById("CancelRange").value = CancelLabel;
+}
+
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var bRemoteLogChanged = false;
+	
+	if(f1.cDHCPCustomOption.value != f2.hcDHCPCustomOption.value)
+	{
+		if(f1.cDHCPCustomOption.value != "" &&
+				!CheckRangeOfNumber(f1.cDHCPCustomOption.value, 128, 254))
+		{
+			SetInputBGColor("cDHCPCustomOption");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cDHCPCustomOption=" + f1.cDHCPCustomOption.value;
+	}
+//	if(f1.cDHCPCustomOptionType.value != f2.hcDHCPCustomOptionType.value)
+//	{
+//		strSubmData = strSubmData + "&cDHCPCustomOptionType=" + f1.cDHCPCustomOptionType.value;
+//	}
+//	if(f1.cDHCPOptionValue.value != f2.hcDHCPOptionValue.value)
+//	{
+//		strSubmData = strSubmData + "&cDHCPOptionValue=" + f1.cDHCPOptionValue.value;
+//	}
+	if(!PwdKeyFirst[1] && "********" != f1.cCommonAESKey.value)
+	{
+		if(!NotContainInvalid(f1.cCommonAESKey.value))
+		{
+			SetInputBGColor("cCommonAESKey");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cCommonAESKey=" + PostEncode(f1.cCommonAESKey.value);
+	}
+	if(!PwdKeyFirst[2] && "********" != f1.cMACAESKey.value)
+	{
+		if(!NotContainInvalid(f1.cMACAESKey.value))
+		{
+			SetInputBGColor("cMACAESKey");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cMACAESKey=" + PostEncode(f1.cMACAESKey.value);
+	}
+	if(f1.cManualUpdateURL.value != ShowDecode(f2.hcManualUpdateURL.value))
+	{
+		if(!CheckLengthOfData(f1.cManualUpdateURL.value, 0, 128))
+		{
+			SetInputBGColor("cManualUpdateURL");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cManualUpdateURL=" + PostEncode(f1.cManualUpdateURL.value);
+	}
+	if(f1.cPNPConfig.value != f2.hcPNPConfig.value)
+	{
+		strSubmData = strSubmData + "&cPNPConfig=" + f1.cPNPConfig.value;
+	}
+	if(f1.cScheduleDayOfWeek.value != f2.hcScheduleDayOfWeek.value)
+	{
+		strSubmData = strSubmData + "&cScheduleDayOfWeek=" + f1.cScheduleDayOfWeek.value;
+	}
+	if(8 == $("#cScheduleDayOfWeek").val())
+	{		
+		var boxes = [];
+		$("input:[name=cScheduleSomeDayOfWeek]:checked").each(function() {
+		boxes.push($(this).val());
+	});
+	
+	strSubmData = strSubmData + "&cScheduleSomeDayOfWeek=" + boxes;
+	}
+	
+	if(false == f1.cScheduleHourOfDay.disabled&&f1.cScheduleHourOfDay.value != f2.hcScheduleHourOfDay.value)
+	{
+		if(!IsHour(f1.cScheduleHourOfDay.value) || 0 == f1.cScheduleHourOfDay.value.length)
+		{
+			SetInputBGColor("cScheduleHourOfDay");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cScheduleHourOfDay=" + Number(f1.cScheduleHourOfDay.value);
+	}
+	if(false == f1.cScheduleMinOfHour.disabled&&f1.cScheduleMinOfHour.value != f2.hcScheduleMinOfHour.value)
+	{
+		if(!IsMinuteOrSec(f1.cScheduleMinOfHour.value) || 0 == f1.cScheduleMinOfHour.value.length)
+		{
+			SetInputBGColor("cScheduleMinOfHour");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cScheduleMinOfHour=" + Number(f1.cScheduleMinOfHour.value);
+	}
+	if(false == f1.cScheduleSecOfMin.disabled&&f1.cScheduleSecOfMin.value != f2.hcScheduleSecOfMin.value)
+	{
+		if(!IsMinuteOrSec(f1.cScheduleSecOfMin.value) || 0 == f1.cScheduleSecOfMin.value.length)
+		{
+			SetInputBGColor("cScheduleSecOfMin");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cScheduleSecOfMin=" + Number(f1.cScheduleSecOfMin.value);
+	}	
+	if(f1.cServerUserName.value != f2.hcServerUserName.value)
+	{
+		if(!NotContainInvalid(f1.cServerUserName.value))
+		{
+			SetInputBGColor("cServerUserName");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cServerUserName=" + PostEncode(f1.cServerUserName.value);
+	}
+	if(!PwdKeyFirst[0] && "********" != f1.cServerPwd.value)
+	{
+		if(!NotContainInvalid(f1.cServerPwd.value))
+		{
+			SetInputBGColor("cServerPwd");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cServerPwd=" + PostEncode(f1.cServerPwd.value);
+	}
+	if(f1.cWhenToCheckNewFirm.value != f2.hcWhenToCheckNewFirm.value)
+	{
+		strSubmData = strSubmData + "&cWhenToCheckNewFirm=" + f1.cWhenToCheckNewFirm.value;
+	}
+	
+	if(document.getElementById("cRemoteSystemLog").value != document.getElementById("hcRemoteSystemLog").value)
+	{
+		bRemoteLogChanged = true;
+		strSubmData = strSubmData + "&cRemoteSystemLog=" + PostEncode(document.getElementById("cRemoteSystemLog").value);
+	}	
+			
+	if(document.getElementById("cRemoteSystemServer").value != document.getElementById("hcRemoteSystemServer").value)
+	{
+		if(!CheckIpAddr_Simp(document.getElementById("cRemoteSystemServer").value))
+		{
+			SetInputBGColor("cRemoteSystemServer");
+			ErrFlag = true;
+		}
+		else
+		bRemoteLogChanged = true;
+		strSubmData = strSubmData + "&cRemoteSystemServer=" + PostEncode(document.getElementById("cRemoteSystemServer").value);					
+	}
+//	if(f1.cZeroSpTouchActive.value != f2.hcZeroSpTouchActive.value)
+//	{
+//		strSubmData = strSubmData + "&cZeroSpTouchActive=" + f1.cZeroSpTouchActive.value;
+//	}
+//	if(f1.cZeroSpTouchWaitTime.value != f2.hcZeroSpTouchWaitTime.value)
+//	{
+//		strSubmData = strSubmData + "&cZeroSpTouchWaitTime=" + f1.cZeroSpTouchWaitTime.value;
+//	}
+
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	if(bRemoteLogChanged)
+	{
+		if(!confirm(EffectAfterRebootWarning))
+		{
+			document.getElementById("cRemoteSystemLog").value = document.getElementById("hcRemoteSystemLog").value;
+			document.getElementById("cRemoteSystemServer").value = document.getElementById("hcRemoteSystemServer").value;
+			OnCheckSystemServerAvail();			
+			return DataCheckResult;
+		}
+	}
+	
+	return strSubmData;
+}
+
+function onSubmit1Param(Prm1, Prm2)
+{
+	if("undefined" != typeof(MODELID) && "47" != MODELID)
+	{
+		if(!confirm(EffectAfterRebootWarning))
+		{
+			document.getElementById(Prm1).value = document.getElementById(Prm2).value;
+			return;
+		}
+	}
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	var ErrFlag = false;
+	if(document.getElementById(Prm1).value != document.getElementById(Prm2).value)
+	{
+		strSubmData = strSubmData + "&" + Prm1 + "=" + document.getElementById(Prm1).value;
+	}
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function onSubmitOfRange(RangeArr, num)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	var ErrFlag = false;
+	var bChanged = false;
+	for(var i = 0; i < Number(num); i++)
+	{
+		if("cRemoteSystemLog" == RangeArr[i])
+		{
+			if(document.getElementById(RangeArr[i]).value != document.getElementById("h"+RangeArr[i]).value)
+			{
+				bChanged = true;							
+			}
+		}
+		if("cRemoteSystemServer" == RangeArr[i])
+		{
+			if(document.getElementById(RangeArr[i]).value != document.getElementById("h"+RangeArr[i]).value)
+			{
+				if(!CheckIpAddr_Simp(document.getElementById(RangeArr[i]).value))
+				{
+					SetInputBGColor("cRemoteSystemServer");
+					ErrFlag = true;
+				}
+				else
+				bChanged = true;							
+			}
+		}
+		if(true == ErrFlag)
+		{
+			return;
+		}
+		if(bChanged)
+		{
+			strSubmData = strSubmData + "&" + RangeArr[i] + "=" + PostEncode(document.getElementById(RangeArr[i]).value);
+		}
+	}
+	if(bChanged)
+	{
+		if(confirm(EffectAfterRebootWarning))
+		{
+			strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+		}
+		else
+		{
+			document.getElementById("cRemoteSystemLog").value = document.getElementById("hcRemoteSystemLog").value;
+			document.getElementById("cRemoteSystemServer").value = document.getElementById("hcRemoteSystemServer").value;
+			OnCheckSystemServerAvail();			
+			return;
+		}
+	}
+	else
+	{
+		strSubmData = "begin&Operation=Submit&SubmitData=end";
+	}
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function onSubmitPCAP(Prm1, Prm2)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	var ErrFlag = false;
+	if(document.getElementById(Prm1).value != document.getElementById(Prm2).value)
+	{
+		strSubmData = strSubmData + "&" + Prm1 + "=" + document.getElementById(Prm1).value;
+	}
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnCheckScheduleAvail()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var sts = true;
+	if(f1.cWhenToCheckNewFirm.value == 2 || 
+		 f1.cWhenToCheckNewFirm.value == 3)
+	{
+		sts = false;
+		if($("#cScheduleDayOfWeek").val() == 8)
+		{
+			$("#UpgradeA_divWeekDay").show();
+		}
+	}	
+	else{
+		$("#UpgradeA_divWeekDay").hide();
+	}
+	f1.cScheduleDayOfWeek.disabled = sts;
+	f1.cScheduleHourOfDay.disabled = sts;
+	f1.cScheduleMinOfHour.disabled = sts;
+	f1.cScheduleSecOfMin.disabled = sts;
+}
+
+function OnImportConfig()
+{
+	var fTmp = document.forms["importConfigForm"];
+	var fileArr = fTmp.importConfigFile.value.split("\\");
+	importCfgFileName = fileArr[fileArr.length-1];
+	
+	if(importCfgFileName != "")
+	{
+		if(importCfgFileName.length >= 127)
+		{
+			alert(WarningFileNameTooLong);
+			return false;
+		}
+		if(!((CheckFileFormat(importCfgFileName, ".TGZ", 4)) || (CheckFileFormat(importCfgFileName, ".CONF", 5)) || (CheckFileFormat(importCfgFileName, ".CFG", 4))))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		if(confirm(ImportConfigWarning))
+		{
+			AutoPProcess(ProcessNotice);
+			fTmp.uploadType.value = "&Operation=Upload&DestUpFile=";
+			fTmp.uploadType.value += PostEncode(importCfgFileName);
+			fTmp.uploadType.value += "&";
+			MathRandNum4Ref = Math.ceil(Math.random()*100000000+10);
+			fTmp.action = PageRefDesURL+"&RefRand="+MathRandNum4Ref;
+			fTmp.submit();
+			setTimeout("BeforeUpTO('/fcgi/do?id=6&id=2')", 60000);
+		}
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+
+function OnAutoPConfirm()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	if(0 == f1.cWhenToCheckNewFirm.value)
+	{
+		alert(AUTOPDisabledWarning);
+		return;
+	}
+	//if("" == f1.cDHCPCustomOption.value && "" == f1.cManualUpdateURL.value && 0 == f1.cPNPConfig.value)
+	//{
+		//alert(AUTOPLACKDHCPWarning);
+		//return;
+	//}
+	var strSubmData = CheckCommitData();
+	if(DataCheckResult == strSubmData)
+	{
+		alert(DataFormatWarning);
+		return;
+	}
+	if("" != strSubmData)
+	{
+		if(confirm(SaveAndAutoPConfirm))
+		{
+			// 提交数据并且立即autop
+			strSubmData = "begin&Operation=Submit" + strSubmData + "&cAUTOPNow=true&SubmitData=end";
+			f3.SubmitData.value = strSubmData;
+			f3.submit();
+		}
+		else
+		{
+			SubLoadCfg();
+		}
+	}
+	else
+	{
+		DoAutoPNow();
+	}
+}
+
+function OnClearMD5()
+{
+	var f3 = document.forms["submit_form"];	
+	var strSubmData = "";
+	strSubmData = strSubmData + "&cClearMD5=1";
+	strSubmData = "begin&Operation=Submit" + strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function DoAutoPNow()
+{
+	if(!confirm(AutoPConfirm))
+	{
+		return;
+	}
+	var f3 = document.forms["submit_form"];
+	AutoPProcess(ProcessNotice);
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData = strSubmData + "&cAUTOPNow=true";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	f3.submit();
+}
+
+var mid_cont2Height="-1";
+function AutoPProcess(destShow)
+{
+	SetLinkDisabled();
+	if("-1" == mid_cont2Height)
+	{mid_cont2Height = Number(document.getElementById("mid_cont2").scrollHeight);}
+	document.getElementById("tShowForAutoP").innerHTML = destShow;
+	document.getElementById("mid_cont1").style.display = "";
+	document.getElementById("mid_cont2").style.display = "none";
+	document.getElementById("mid_cont1").style.height=(mid_cont2Height)+"px";
+//	AutoHeightOfBody();
+}
+
+function ResetToNormalPage()
+{
+	document.getElementById("mid_cont1").style.display = "none";
+	document.getElementById("mid_cont2").style.display = "";
+	SetLinkEnabled();
+	clearInterval(interObj[1]);
+}
+
+function SetLinkDisabled()
+{
+	var divWrapMenu = document.getElementById("wrapper");
+	var LIObjs=divWrapMenu.getElementsByTagName("li");
+  for(i=0;i<LIObjs.length;i++)
+  {
+  	if("item_display_none" == LIObjs[i].className)
+  		continue;
+  	LIObjs[i].style.display = "none";
+  }
+}
+
+function SetLinkEnabled()
+{
+	
+	var divWrapMenu = document.getElementById("wrapper");
+	var LIObjs=divWrapMenu.getElementsByTagName("li");
+  for(i=0;i<LIObjs.length;i++)
+  {
+  	if("item_display_none" == LIObjs[i].className)
+  		continue;
+  	LIObjs[i].style.display = "";
+  }
+	document.getElementById('tPageLogOut').style.display = "";
+}
+
+function OnStartPCAP()
+{
+	GetDivContent("divStartPCAP",	"do?id=8&Operation=GetDivContent&DivName=divStartPCAP", "hcStartPCAP_Div");
+	setTimeout("StartPCAPCheck()", 500);
+}
+
+function StartPCAPCheck()
+{
+	IntervCheckStsOfPCAP();
+	PCAPStopType = 0;	
+}
+
+function OnStopPCAP()
+{
+	PCAPStopType = 1;
+	GetDivContent("divStopPCAP", "do?id=8&Operation=GetDivContent&DivName=divStopPCAP", "hcStopPCAP_Div");
+}
+
+function OnFindDivVarAction(hcDivVar, divVar)
+{
+	var f2 = document.forms["hiddenValForm_Div"];
+	if(hcDivVar == "hcExportLog_Div"
+	|| hcDivVar == "hcExportPCAP_Div"
+	|| hcDivVar == "hcExportConfig_Div")
+	{
+		ResetToNormalPage();
+		if(divVar == "")
+		{
+			if(GetPhoneUse4Export())
+			{return;}
+			alert(FileNotExistWarning);
+			return;
+		}
+		else if(divVar == "1")
+		{
+			alert(PhoneTalkingWarning);
+			return;
+		}
+		location.replace(divVar);
+	}
+	
+	if(hcDivVar == "hcStartPCAP_Div")
+	{
+		if(divVar == 0)
+		{
+			alert(StartPCAPWarning);
+			setStartPCAPSts();
+			return;
+		}
+		else
+		{
+			alert(StartPCAPFailedWarning);
+		}
+	}
+	
+	if(hcDivVar == "hcStopPCAP_Div")
+	{
+		if(divVar == 0)
+		{
+			alert(StopPCAPWarning);
+			setStopPCAPSts();
+			return;
+		}
+		else
+		{
+			alert("Stop PCAP Failed");
+		}		
+	}
+	
+}
+
+function OnExportLog()
+{
+	AutoPProcess(ProcessNotice);
+	// 只处理一个隐藏div变量，
+	GetDivContent("divExportLog", "do?id=6&id=2&Operation=GetDivContent&DivName=divExportLog", "hcExportLog_Div");
+}
+
+function OnExportPCAP()
+{
+	AutoPProcess(ProcessNotice);
+	GetDivContent("divExportPCAP", "do?id=6&id=2&Operation=GetDivContent&DivName=divExportPCAP", "hcExportPCAP_Div");	
+}
+
+function OnExportConfig(divName)
+{
+	if(!divName)
+	{
+		AutoPProcess(ProcessNotice);
+		GetDivContent("divExportConfig", "do?id=6&id=2&Operation=GetDivContent&DivName=divExportConfig", "hcExportConfig_Div");	
+	}
+	else if('divExportConfigUnencry' == divName)
+	{
+		AutoPProcess(ProcessNotice);
+		GetDivContent("divExportConfigUnencry", "do?id=6&id=2&Operation=GetDivContent&DivName=divExportConfigUnencry", "hcExportConfig_Div");	
+	}
+	else if('divExportAutopTemplate' == divName)
+	{
+		AutoPProcess(ProcessNotice);
+		GetDivContent("divExportAutopTemplate", "do?id=6&id=2&Operation=GetDivContent&DivName=divExportAutopTemplate", "hcExportConfig_Div");	
+	}	
+}
+function onCheckCancelKeySts()
+{
+	if(document.getElementById("importConfigFile").value == "")
+ 		document.getElementById("importConfigCancel").disabled = true;
+	else
+	 	document.getElementById("importConfigCancel").disabled = false;
+}
+function OnResetFileInput(fileInputForm)
+{
+	var tmpFileInputForm = document.forms[fileInputForm];
+	tmpFileInputForm.reset();
+}
+
+$(function() {	SetPageMenuAction("#aMenu6", "tMenu62"); });
+
+function CheckExportLogAvailable()
+{
+	if(document.getElementById("hcRemoteSystemLog").value == 0)
+		document.getElementById("BtnExportLog").disabled = false;
+	else
+		document.getElementById("BtnExportLog").disabled = true;
+}
+
+function OnCheckSystemServerAvail()
+{
+	if(document.getElementById("cRemoteSystemLog").value == 0)
+		document.getElementById("cRemoteSystemServer").disabled = true;
+	else
+		document.getElementById("cRemoteSystemServer").disabled = false;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+
+	var dataChangedWarnFlag = 0;
+	
+	if(f1.cDHCPCustomOption.value != f2.hcDHCPCustomOption.value)
+		dataChangedWarnFlag = 1;
+	if(!PwdKeyFirst[1] && "********" != f1.cCommonAESKey.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(!PwdKeyFirst[2] && "********" != f1.cMACAESKey.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cManualUpdateURL.value != ShowDecode(f2.hcManualUpdateURL.value))
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cPNPConfig.value != f2.hcPNPConfig.value)
+		dataChangedWarnFlag = 1;
+	if(f1.cScheduleDayOfWeek.value != f2.hcScheduleDayOfWeek.value)
+		dataChangedWarnFlag = 1;
+	if(-1 == CheckWeekBoxChanged())
+		dataChangedWarnFlag = 1;
+	if(false == f1.cScheduleHourOfDay.disabled&&f1.cScheduleHourOfDay.value != f2.hcScheduleHourOfDay.value)
+		dataChangedWarnFlag = 1;
+	if(false == f1.cScheduleMinOfHour.disabled&&f1.cScheduleMinOfHour.value != f2.hcScheduleMinOfHour.value)
+		dataChangedWarnFlag = 1;
+	if(false == f1.cScheduleSecOfMin.disabled&&f1.cScheduleSecOfMin.value != f2.hcScheduleSecOfMin.value)
+		dataChangedWarnFlag = 1;
+	if(f1.cServerUserName.value != f2.hcServerUserName.value)
+		dataChangedWarnFlag = 1;
+	if(!PwdKeyFirst[0] && "********" != f1.cServerPwd.value)
+		dataChangedWarnFlag = 1;
+	if(f1.cWhenToCheckNewFirm.value != f2.hcWhenToCheckNewFirm.value)
+		dataChangedWarnFlag = 1;
+	if(document.getElementById('cRemoteSystemLog').value != document.getElementById('h'+'cRemoteSystemLog').value)
+		dataChangedWarnFlag = 1;
+	if(document.getElementById('cRemoteSystemServer').value != document.getElementById('h'+'cRemoteSystemServer').value)
+		dataChangedWarnFlag = 1;
+	
+	if( 0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+	<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+		<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+			<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+				<div class="mid_cont" id="mid_cont1" style="text-align: center; font-size: 25px">
+					<table align="center" height="150">
+						<tr style="text-align: center;"><td style="text-align: center;"><strong id="tShowForAutoP"></strong></td></tr>
+						<tr style="text-align: center;"><td style="text-align: center;"><input style="display:none;" class='Nice_Btn' type="button" id="ConfigReboot" name="ConfigReboot" value="Reboot" onClick="OnConfigReboot()"></td></tr>
+					</table>
+				</div>
+			<div class="mid_cont" id="mid_cont2" style="display:none">
+<form method="post" name="body_form" action="">
+	
+		<div class="div_border" id="UpgradeA_divPNP">
+			<div class="div_head"><label id='tPNPOption'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tPNPConfig'></label></td><td class="Third_td"><select class="Select_format3" name="cPNPConfig"> </select></td></tr>
+			</table>
+		</div>
+				
+		<div class="div_border" id="UpgradeA_divDHCP">
+			<div class="div_head"><label id='tDHCPOption'></label></div>
+			<table class="table_style">	
+				<tr style="display:none"><td class="Second_td"><label id='tDHCPCustomOptionType'></label></td> <td class="Third_td"><select name="cDHCPCustomOptionType"> </select></td></tr>
+				<tr><td class="Second_td"><label id='tDHCPCustomOption'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDHCPCustomOption" value="" id="1"><label>(128~254)</label></td></tr>
+				<tr><td colspan="2" class="Second_td"><label id="tDHCPCustomTips"></label></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDHCPOptionValue'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cDHCPOptionValue" value=""></td></tr>
+			</table>
+		</div>
+		
+		<div class="div_border" id="UpgradeA_divManualUpdateServer">
+			<div class="div_head"><label id='tManualUpdateServer'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tServerAddress'></label></td> <td class="Third_td"><input style="width: 260px;" type="text" name="cManualUpdateURL" value="" id="2"></td></tr>
+				<tr><td class="Second_td"><label id='tUpServerAccount'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cServerUserName" id="4" value=""></td></tr>
+				<tr><td class="Second_td"><label id='tUpServerPwd'></label></td> <td class="Third_td"><input class="def_input" type="password" name="cServerPwd" value="********" id="5" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)"></td></tr>
+				<tr><td class="Second_td"><label id='tCommonAESKey'></label></td> <td class="Third_td"><input class="def_input" type="password" name="cCommonAESKey" value="********" id="6" oncontextmenu="KeyFirstDelete(this.id, 1)" onKeyDown="KeyFirstDelete(this.id, 1)"></td></tr>
+				<tr><td class="Second_td"><label id='tMACAESKey'></label></td> <td class="Third_td"><input class="def_input" type="password" name="cMACAESKey" value="********" id="7" oncontextmenu="KeyFirstDelete(this.id, 2)" onKeyDown="KeyFirstDelete(this.id, 2)"></td></tr>
+			</table>
+			<span style="display:block; text-align:center; margin-left:30px; margin-bottom:10px;"><input id="AutoPConfirmBtn" class='Nice_Btn' style="width:130px" type="button" value="Submit" onClick="OnAutoPConfirm()"></span>
+		</div>
+		
+		<div style="display:none" class="div_border">
+			<div class="div_head"><label id='tZeroSpTouch'></label></div>
+			<table class="table_style">			  
+				<tr style="display:none"><td class="Second_td"><label id='tZeroSpTouchActive'></label></td> <td class="Third_td"><select name="cZeroSpTouchActive"> </select></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tZeroSpTouchWaitTime'></label></td> <td class="Third_td"><input class="def_input" type="text" name="cZeroSpTouchWaitTime" value=""><label>(s)</label></td></tr>
+			</table>
+		</div>
+
+		<div class="div_border" id="UpgradeA_divAutoP">
+		<div class="div_head"><label id='tAutoP'></label></div>
+		<table class="table_style">					
+			<tr><td class="Second_td"><label id='tCheckNewFirm'></label></td> <td class="Third_td"><select name="cWhenToCheckNewFirm" onChange="OnCheckScheduleAvail()"> </select></td></tr>
+			<tr><td class="Second_td"><label id='tAutoPSchedule'></label></td> <td class="Third_td"><select class="Select_format3" name="cScheduleDayOfWeek" id="cScheduleDayOfWeek" onChange="WeekdivDisplay()"></select></td></tr>	
+			<tr>
+				<td class="Second_td"></td>
+				<td class="Third_td">
+					<div id="UpgradeA_divWeekDay"; style="margin-left: -5px;">
+					<ul>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="7"/><label class="checkboxclass"; id='cDayOfWeek0'></label>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="1"/><label class="checkboxclass"; id='cDayOfWeek1'></label>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="2"/><label class="checkboxclass"; id='cDayOfWeek2'></label>
+					</ul>
+					<ul>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="3"/><label class="checkboxclass"; id='cDayOfWeek3'></label>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="4"/><label class="checkboxclass"; id='cDayOfWeek4'></label>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="5"/><label class="checkboxclass"; id='cDayOfWeek5'></label>
+					</ul>
+					<ul>
+						<input type="checkbox" name="cScheduleSomeDayOfWeek" value="6"/><label class="checkboxclass"; id='cDayOfWeek6'></label>
+					</ul>
+					</div>
+				</td>
+			</tr>
+			<tr><td class="Second_td"></td><td class="Third_td"><input style="width:100px;" type="text" name="cScheduleHourOfDay" value="" id="cScheduleHourOfDay"/><label style="margin-left:10px;" id='tHour'></label>(0~23)</td></tr>
+			<tr><td class="Second_td"></td><td class="Third_td"><input style="width:100px;" type="text" name="cScheduleMinOfHour" value="" id="cScheduleMinOfHour"/><label style="margin-left:10px;" id='tMinute'></label>(0~59)</td></tr>
+			<tr style="display:none"><td class="Second_td"></td><td class="Third_td"><input style="width:100px;" type="text" name="cScheduleSecOfMin" value="" id="cScheduleSecOfMin"/><label style="margin-left:10px;" id='tSecond'></label>(0~59)</td></tr>
+			<tr><td class="Second_td"><label id='tClearMD5'></label></td> <td class="Third_td"><input id="ClearMD5Btn" class='Nice_Btn' style="width:130px" type="button" value="Submit" onClick="OnClearMD5()"></td></tr>
+			<tr id='UpgradeA_trExportAutopT'><td class="Second_td"><label id='tExportTemplate'></label></td> <td class="Third_td"><input id="ExportTemplate" class='Nice_Btn' style="width:130px" type="button" value="Submit" onClick="OnExportConfig('divExportAutopTemplate')"></td></tr>
+		</table>
+		</div>
+</form>
+<div id="UpgradeA_divSubmitForm">
+<form method="post" name="submit_form" id="submit_form" action="">
+		<table width="100%">
+			<tr><td><input type="hidden" name="SubmitData" value=""></td></tr>
+			<tr><td class="First_td">&nbsp<input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick="OnSubmit()">&nbsp&nbsp
+				<input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfg()" /></td>
+			</tr>
+        </table>
+</form>
+</div>
+			
+		<div id="UpgradeA_divSystemLog" class="div_border" style="margin-top:28px;">
+			<div class="div_head"><label id='tSystemLog'></label></div>
+			<table class="table_style">	
+				<tr><td class="Second_td"><label id='tSystemLogLevel'></label></td><td class="Third_td"><select id="cSystemLogLevel" name="cSystemLogLevel" onChange="onSubmit1Param('cSystemLogLevel', 'hcSystemLogLevel')"> </select></td></tr>
+				<tr id="UpgradeA_divExportLog"><td class="Second_td"><label id='tExportLog'></label></td> 
+					<td class="Third_td"><input id="BtnExportLog" class='Nice_Btn' type="button" value="Export" onClick="OnExportLog()"></td>
+				</tr>
+				<tr id="UpgradeA_divRemoteSystemLog"><td class="Second_td"><label id='tRemoteSystemLog'></label></td><td class="Third_td"><select id="cRemoteSystemLog" name="cRemoteSystemLog" onChange="OnCheckSystemServerAvail()"> </select></td></tr>
+				<tr id="UpgradeA_divRemoteSystemServer"><td class="Second_td"><label id='tRemoteSystemServer'></label></td><td class="Third_td"><input class="def_input" type="text" id="cRemoteSystemServer" name="cRemoteSystemServer" value=""> </td></tr>
+			</table>
+		</div>
+<div id="UpgradeA_divSubmitForm1">
+<form method="post" name="submit_form1" id="submit_form1" action="">
+  		<table width="100%" id="UpgradeA_tableSubmitRange">
+			<tr><td class="First_td">&nbsp<input id="SubmitRange" name="SubmitRange" class="Nice_Btn" type="button" value="Submit" onClick="onSubmitOfRange(['cRemoteSystemLog', 'cRemoteSystemServer'], 2)">&nbsp&nbsp
+				<input id="CancelRange" name="CancelRange" class="Nice_Btn" type="button" value="Cancel" onClick="SubLoadCfgOfRange()" /></td>
+			</tr>
+		</table>
+</form>
+</div>
+
+		<div class="div_border" id="UpgradeA_divPCAP" style="margin-top:28px;">
+			<div class="div_head"><label id='tPCAP'>PCAP</label></div>
+			<table class="table_style">				
+				<tr><td class="Second_td"><label id='tPCAP'>PCAP</label></td><td class="Third_td">
+					<input id="StartPCAP" class='Nice_Btn' type="button" value="Start" onClick="OnStartPCAP()">
+					<input id="StopPCAP" class='Nice_Btn' type="button" value="Stop" onClick="OnStopPCAP()">
+					<input id="ExportPCAP" class='Nice_Btn' type="button" value="Export" onClick="OnExportPCAP()"></td>
+				</tr>
+				<tr>
+					<td class="Second_td"><label id='tPCAPAutoRefresh'></label></td>
+					<td class="Third_td"><select id="cPCAPEnableRefresh" name="cPCAPEnableRefresh" onChange="onSubmitPCAP('cPCAPEnableRefresh', 'hcPCAPEnableRefresh')"> </select></td>
+				</tr>
+			</table>
+		</div>	
+			
+		<div class="div_border" id="UpgradeA_divOthers">
+		<div class="div_head"><label id='tOthers'></label></div>
+		<table id="tableImportExportConfig" class="table_style">		
+
+<form id="importConfigForm" enctype="multipart/form-data" action="" method="post">
+ 	      <input type="hidden" name="uploadType" id="uploadType" value="&Operation=Upload&">
+				<tr>
+					<td class="Second_td"><label id='tConfigTar'></label><label>(.tgz/.conf/.cfg)</label></td>
+					<td class="Third_td"><input name="importConfigFile" id="importConfigFile" type="file" onChange="onCheckCancelKeySts()"/></td>
+				</tr>
+	      <tr>
+	      	<td class="Second_td"></td>
+	      	<td class='Third_td'>
+	      		<input class='Nice_Btn' type="button" id="ExportConfig" name="ExportConfig" value="Export" onClick="OnExportConfig()" /><label id='tConfigEncrypted'></label>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<td class="Second_td"></td>
+	      	<td class='Third_td'>
+	      		<input class='Nice_Btn' type="button" id="ImportConfig" name="ImportConfig" value="Import" onClick="OnImportConfig()"/>
+	       		<input class='Nice_Btn'  type='button' id='importConfigCancel' value='Cancel'  onClick="OnResetFileInput('importConfigForm') , onCheckCancelKeySts()"/>
+	       	</td>
+	      </tr>
+</form>
+		</table>
+		</div>
+	<FCGI_INCLUDE FILE=authorityWarning.html>
+		
+<div id="divExportLog" style="display:none"></div>
+<div id="divExportPCAP" style="display:none"></div>
+<div id="divExportConfig" style="display:none"></div>
+<div id="divExportConfigUnencry" style="display:none"></div>
+<div id="divExportAutopTemplate" style="display:none"></div>
+<div id="divStartPCAP" style="display:none"></div>
+<div id="divStopPCAP" style="display:none"></div>
+<div id="divPCAPStatus" style="display:none"></div>
+<div id="divAutoPNow" style="display:none"></div>
+<div id="divRebootStatus" style="display:none"></div>
+<div id="divForceReboot" style="display:none"></div>
+		</div>
+			<div id="divUpgradeStatus" style="display:none"></div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+		</div>	
+	</div>
+<FCGI_INCLUDE FILE=bottom.html>

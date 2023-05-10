@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LockIn="no">
+    <title wrap="no" showlistcount="yes">Audio Setting</title>
+    <MenuItem>
+        <Prompt>Talk Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeSetting.xml_Talk</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Tone Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeSetting.xml_Tone</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Mic Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeSetting.xml_Mic</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Key Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeKey.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Ring Volume</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VolumeRing.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Headset Ring Mode</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/AudioOption.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>Handsfree sound input</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/HFSoundInput.xml</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

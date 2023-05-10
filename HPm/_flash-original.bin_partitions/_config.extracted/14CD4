@@ -1,0 +1,511 @@
+[ GENERAL ]
+Url =https://auto.wildixin.com:443/?action=setaps
+UserName =
+Pwd =
+Priority =0
+
+CustomEnable=
+[ MODE ]
+Mode =1
+
+[ SCHEDULE ]
+DayOfWeek =7
+SomeDayOfWeek=7
+HourOfDay =22
+MinuteOfHour=0
+SecondOfMinute=0
+
+[ REBOOT_MODE ]
+Mode =0
+
+[ REBOOT_SCHEDULE ]
+Edit =0
+DayOfWeek =0
+HourOfDay =0
+
+[ AES ]
+Key16 =
+Key16Mac =
+	
+[ PNP ]
+Enable =0
+Url =
+
+[ MD5 ]
+GenConfMd5 =
+UrlConfMd5 =
+
+[ DHCP_OPTION ]
+Enable =1
+CustomId =
+CustomValue =
+
+[ RETRY_TIMES ]
+Times =0
+
+[ REDIRECT ]
+Url =
+Enable =0
+TransMac =0
+
+[ 01 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 02 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 03 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 04 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 05 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 06 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 07 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 08 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 09 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 10 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 11 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 12 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 13 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 14 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 15 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 16 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 17 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 18 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 19 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 20 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 21 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 22 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 23 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 24 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 25 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 26 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 27 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 28 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 29 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 30 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 31 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 32 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 33 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 34 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 35 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 36 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 37 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 38 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 39 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 40 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 41 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 42 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 43 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 44 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 45 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 46 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 47 ]

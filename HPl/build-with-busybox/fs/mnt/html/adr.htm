@@ -1,0 +1,471 @@
+<?ssi title adr_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+
+<?ssi skipon USER_ADMIN_MODE_1_AND_ADMIN?>
+
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+
+<TR>
+<td></td>
+<TD>
+<table border="0" cellpadding="1" cellspacing="1" width="100%" class="normalText">
+<TR><TD class="normalText"><B><a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Directory#Editing_an_entry><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng adr_ssi_title?></B></TD></TR>
+<tr>
+<td width="100"><b><?lng adr_name?></b></td>
+<td><b><?lng adr_number?></b></td>
+<td><b><?lng adr_contacttype?></b></td>
+<td><b><?lng adr_outgoingid?></b></td>
+<td align="center"><b><?lng adr_edit?></b></td>
+<td align="center"><b><?lng adr_delete?></b></td>
+</tr>
+<?ssi tbook en?>
+</table>
+</td>
+</TR>
+
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+
+
+
+</TBODY></TABLE></FORM>
+</TD></TR>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post" 
+<?ssi skipon SMALL_ADR_BOOK?>
+      			enctype="multipart/form-data"
+<?ssi skipoff SMALL_ADR_BOOK?>
+			>
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD width="30%"></TD>
+	<TD></TD>
+	<TD></TD>
+<?ssi skipon NOT_SNOM8XX?>
+  <!--only 8xx has photo and thus is one column wider-->
+  <TD></TD>
+<?ssi skipoff NOT_SNOM8XX?>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<TR><TD></TD><TD class="normalText"><B><a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Directory#Adding_an_entry><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng adr_addeditentry?></B></TD></TR>
+
+<!--#####################-->
+<!--# EDIT ENTRY! #######-->
+<!--#####################-->
+
+<?ssi skipon MULTINUMBER?>
+<!--##############-->
+<!--# name #######-->
+<tr><TD></TD>
+<td class="normalText"><?lng adr_name?></td>
+<td width="150">
+<input type="text" id="tbook_name" name="tbook_name" value="<?ssi edit name?>" class="inputbig">
+</td>
+</tr>
+<?ssi skipoff MULTINUMBER?>
+
+<!--##############-->
+<!--# number #####-->
+<tr><TD></TD>
+<td class="normalText"><?lng adr_number?></td>
+<td>
+<input type="text" id="tbook_number" name="tbook_number" value="<?ssi edit number?>" class="inputbig">
+</td>
+</tr>
+
+<?ssi skipon SMALL_ADR_BOOK?>
+<!--###############-->
+<!--# number type #-->
+<tr><TD></TD>
+<td class="normalText"><?lng adr_number_type?></td>
+<td>
+<select name="tbook_nr_type" size="1" class="select4" ID="Select0">
+<option value="sip"<?ssi selected tbook_nr_type sip?>><?lng adr_nrtype_sip?></option>
+<option value="mobile"<?ssi selected tbook_nr_type mobile?>><?lng adr_nrtype_cell?></option>
+<?ssi skipon BRIA_NOW?>
+<option value="fixed"<?ssi selected tbook_nr_type fixed?>><?lng adr_nrtype_fixed?></option>
+<?ssi skipoff BRIA_NOW?>
+<option value="home"<?ssi selected tbook_nr_type home?>><?lng adr_nrtype_privat?></option>
+<option value="business"<?ssi selected tbook_nr_type business?>><?lng adr_nrtype_business?></option>
+</select>
+</td>
+</tr>
+<?ssi skipoff SMALL_ADR_BOOK?>
+
+<!--###############-->
+<!--# contacttype #-->
+<tr><TD></TD>
+<td class="normalText"><?lng adr_contacttype?></td>
+<td>
+<select name="tbook_contact" size="1" class="select4" ID="Select1">
+<option value="none"<?ssi selected tbook_contact none?>><?lng adr_ctnone?></option>
+<option value="vip"<?ssi selected tbook_contact vip?>><?lng adr_ctvip?></option>
+<option value="deny"<?ssi selected tbook_contact deny?>><?lng adr_ctdeny?></option>
+</select>
+</td>
+</tr>
+
+<!--###############-->
+<!--# outgoing ID #-->
+<tr><TD></TD>
+<td class="normalText"><?lng adr_outgoingid?></td>
+<td>
+<select name="tbook_outgoingid" size="1" class="select4" ID="Select2">
+<option value="active"<?ssi selected tbook_outgoingid active?>><?lng adr_lineid_active?></option>
+<?ssi tbook_selection_outgoing_line?>
+</select>
+</td>
+</tr>
+
+<?ssi skipon SMALL_ADR_BOOK?>
+<!--##################################################-->
+<!--# EDIT ENTRY new stuff from here downwards #######-->
+<!--##################################################-->
+
+
+
+
+<!--##############-->
+<!--# group ######-->
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_group?></td>
+<td>
+<select name="tbook_group" size="1" class="select4" ID="Select3">
+<option value="none"<?ssi selected tbook_group none?>><?lng adr_ctnone?></option>
+<option value="friend"<?ssi selected tbook_group friend?>><?lng adr_ctfriends?></option>
+<option value="family"<?ssi selected tbook_group family?>><?lng adr_ctfamily?></option>
+<option value="work"<?ssi selected tbook_group work?>><?lng adr_work?></option>
+<option value="colleague"<?ssi selected tbook_group colleague?>><?lng adr_ctcolleagues?></option>
+</select>
+</td>
+<td>&nbsp;</td>
+<?ssi skipon NOT_SNOM8XX?>
+  <!--##############-->
+  <!--# photo-img ##-->
+  <TD rowspan=7 align="right"><IMG height="155" src="<?ssi edit photoFileName?>" </TD>
+<?ssi skipoff NOT_SNOM8XX?>
+<td>&nbsp;</td>
+</tr>
+
+<?ssi skipon MULTINUMBER?>
+  <!--##############-->
+  <!--# first_name #-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_first_name?></td>
+  <td>
+  <input type="text" id="tbook_first_name" name="tbook_first_name" value="<?ssi edit first_name?>" class="inputbig">
+  </td>
+  </tr>
+  <!--##############-->
+  <!--# last_name ##-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_last_name?></td>
+  <td>
+  <input type="text" id="tbook_last_name" name="tbook_last_name" value="<?ssi edit last_name?>" class="inputbig">
+  </td>
+  </tr>
+  <!--##############-->
+  <!--# birthday ###-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_birthday?></td>
+  <td>
+  <input type="text" id="tbook_birthday" name="tbook_birthday" value="<?ssi edit birthday?>" class="inputbig">
+  </td>
+  </tr>
+<?ssi skipoff MULTINUMBER?>
+
+<!--##############-->
+<!--# title ######-->
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_title?></td>
+<td>
+<input type="text" id="tbook_title" name="tbook_title" value="<?ssi edit title?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<!--################-->
+<!--# organization #-->
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_organization?></td>
+<td>
+<input type="text" id="tbook_organization" name="tbook_organization" value="<?ssi edit organization?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<!--##############-->
+<!--# email ######-->
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_email?></td>
+<td>
+<input type="text" id="tbook_email" name="tbook_email" value="<?ssi edit email?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<!--##############-->
+<!--# note #######-->
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_note?></td>
+<td>
+<input type="text" id="tbook_note" name="tbook_note" value="<?ssi edit note?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<!--##############-->
+<!--# photo-file #-->
+<?ssi skipon NOT_SNOM8XX?>
+<tr 
+<?ssi skipon NO_MULTINUMBER?>
+bgcolor="#d6dff5"
+<?ssi skipoff NO_MULTINUMBER?>
+><TD></TD>
+<td class="normalText"><?lng adr_photo?></td>
+<td>
+<input type="file" id="tbook_photo" name="tbook_photo" size="18" class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<!--##############-->
+<!--# action url #######-->
+<tr bgcolor="#d6dff5"><TD></TD>
+<td class="normalText"><?lng adr_action_url?></td>
+<td width="150">
+<input type="text" id="tbook_action_url" name="tbook_action_url" value="<?ssi edit action_url?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<?ssi skipoff NOT_SNOM8XX?>
+<?ssi skipon NO_MULTINUMBER?>
+<!--##############-->
+<!--# nick name #######-->
+<tr bgcolor="#d6dff5"><TD></TD>
+<td class="normalText"><?lng adr_nickname?></td>
+<td width="150">
+<input type="text" id="tbook_name" name="tbook_name" value="<?ssi edit name?>" class="inputbig">
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<?ssi skipoff NO_MULTINUMBER?>
+<?ssi skipon NO_MULTINUMBER?>
+  <!--##############-->
+  <!--# first_name #-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_first_name?></td>
+  <td>
+  <input type="text" id="tbook_first_name" name="tbook_first_name" value="<?ssi edit first_name?>" class="inputbig">
+  </td>
+  </tr>
+  <!--##############-->
+  <!--# last_name ##-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_last_name?></td>
+  <td>
+  <input type="text" id="tbook_last_name" name="tbook_last_name" value="<?ssi edit last_name?>" class="inputbig">
+  </td>
+  </tr>
+  <!--##############-->
+  <!--# birthday ###-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_birthday?></td>
+  <td>
+  <input type="text" id="tbook_birthday" name="tbook_birthday" value="<?ssi edit birthday?>" class="inputbig">
+  </td>
+  </tr>
+  <!--##############-->
+  <!--# favorit ####-->
+  <tr><TD></TD>
+  <td class="normalText"><?lng adr_favorite?></td>
+  <td><input class="checkbox" type="checkbox" hidefocus value="1" <?ssi finalize_checkbox_tag tbook_is_favorit?>></td>
+  </tr>
+<?ssi skipoff NO_MULTINUMBER?>
+                 
+
+<?ssi skipoff SMALL_ADR_BOOK?>
+
+
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD>
+
+<!--################################-->
+<!--# add/change/newSub buttons ####-->
+<TD><input type="submit" value="<?lng adr_addeditbutton?>" name="ADD_BOOK" class="button"></TD>
+<TD><?ssi button tbook_addsub?></TD>
+<TD><?ssi button tbook_change?></TD>
+<?ssi set_internal tbook_index?>
+</TR>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+<?ssi skipon NOT_SNOM8XX?>
+  <!--only 8xx has photo and thus is one column wider-->
+  <TD></TD>
+<?ssi skipoff NOT_SNOM8XX?>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<form enctype="multipart/form-data" method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0" ID="Table1">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD width="30%"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+
+
+<!--#####################-->
+<!--# IMPORT TBOOK ######-->
+<!--#####################-->
+<?ssi hidden_tag?>
+<TR><TD></TD><TD class="normalText"><B><a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Directory#Import><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng adr_importadrbook?></B></TD></TR>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+
+<TR>
+<TD></TD>
+<TD class="normalText"><b><?lng adr_load_file?></b></TD>
+</TR>
+
+<tr><TD></TD>
+<!--#################-->
+<!--# filename ######-->
+<td class="normalText"><?lng adr_filename?></td>
+<td width="150">
+<input type="file" id="user_file" name="user_file" size="25" class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+</tr>
+
+<!--#################-->
+<!--# filetype ######-->
+<TR>
+<TD></TD>
+<TD class="normalText"><?lng adr_file_type?></TD>
+<td class="normalText">
+<input type="radio" value="csv" name="file_type" class="radio" checked><?lng adr_file_csv?></td>
+</tr>
+<TR><TD></TD><TD></TD>
+<td class="normalText"><input type="radio" value="unicode" name="file_type" class="radio"><?lng adr_file_unicode?></td>
+</tr>
+<!--#################-->
+<!--# skip 1st line #-->
+<TR><TD></TD><td class="normalText"><?lng adr_skip_first_line?></td><td class="normalText">
+<input type="radio" class="radio" name="first_line" value="on"><?lng advanced_ssi_on?>
+<input type="radio" class="radio" name="first_line" value="off" checked><?lng advanced_ssi_off?>
+</td>
+</TR>
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD><input type="hidden" value="adr_preview.htm" name="redirect_page">
+<input type="submit" value="<?lng adr_loadbutton?>" name="LOAD_TBOOK" class="button"></TD></TR>
+
+
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD></TD>
+<?ssi skipon NOT_SNOM8XX?>
+  <!--only 8xx has photo and thus is one column wider-->
+  <TD></TD>
+<?ssi skipoff NOT_SNOM8XX?>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+	<TR><TD></TD><TD class="normalText"><B><a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Directory#Delete_address_book><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng adr_deleteadrbook?></B></TD></TR>
+	<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+	<TR><TD></TD><TD><input type="submit" value="<?lng adr_deletebutton?>" name="CONFIRM_DEL_TBOOK" class="button"></TD></TR>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+
+<?ssi skipoff USER_ADMIN_MODE_1_AND_ADMIN?>
+
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+<?ssi skipon USER_ADMIN_MODE_1_AND_ADMIN?>
+<TR>
+<TD class="normalText"><?lng adr_saveadrpart1?><a href="tbook.csv" target="_blank"><?lng adr_herelink?></a><?lng adr_saveadrpart2?></TD>
+	</TR>
+<tr><td class="normalText"><br></td></tr>
+
+<TR>
+<TD class="normalText"><?lng adr_saveadrpart1?><a href="tbook.xml" target="_blank"><?lng adr_herelink?></a><?lng set_savedirectorypart3?></TD>
+</TR>
+
+<?ssi skipoff USER_ADMIN_MODE_1_AND_ADMIN?>
+
+	<?ssi file common9.htm?></HTML>

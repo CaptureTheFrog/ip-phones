@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="combox"
+        style="none"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        InputType="123"
+        SaveNext="local://app/factory/Static/XMLBrowser/AlwaysForwardSetting.xml">
+    <Title wrap="yes" showlistcount="yes">
+        Select
+    </Title>
+
+		<Prompt>Account:</Prompt>
+		<DataID>DID_XMLControl_FORWARDACCOUNT_select</DataID>
+		<option text="Phone">0</option>
+		<option text="Account All">1</option>
+		<Default>0</Default>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Select</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

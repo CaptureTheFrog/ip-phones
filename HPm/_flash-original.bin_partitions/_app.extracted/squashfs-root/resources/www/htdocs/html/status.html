@@ -1,0 +1,251 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+	<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	var PageRefDesURL = 'do?id=1';	
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+function LoadCfg()
+{
+	LoadLang();
+	var accountHtml;
+	var i = 0;
+	
+	document.getElementById("cProductName").innerHTML = document.forms["hiddenValForm"].hcProductName.value;
+	document.getElementById("cHardwareModel").innerHTML = document.forms["hiddenValForm"].hcHardwareModel.value;
+	document.getElementById("cMACAddress").innerHTML = document.forms["hiddenValForm"].hcMACAddress.value.replace(/:/g, "");
+	document.getElementById("cFirmwareVersion").innerHTML = document.forms["hiddenValForm"].hcFirmwareVersion.value;
+	document.getElementById("cHardwareVersion").innerHTML = document.forms["hiddenValForm"].hcHardwareVersion.value;	
+	document.getElementById("cDomainName").innerHTML = document.forms["hiddenValForm"].hcDomainName.value;
+	document.getElementById("cHostName").innerHTML = AbbreviationStr(document.forms["hiddenValForm"].hcHostName.value, 25);
+	document.getElementById("cLANGateWay").innerHTML = document.forms["hiddenValForm"].hcLANGateWay.value;
+	document.getElementById("cLANIPAddr").innerHTML = document.forms["hiddenValForm"].hcLANIPAddr.value;
+	if(document.forms["hiddenValForm"].hcLANLinkStatus.value == 1)
+	{
+		document.getElementById("cLANLinkStatus").innerHTML = Connected;
+	}
+	else
+	{
+		document.getElementById("cLANLinkStatus").innerHTML = Disconnect;
+	}
+	document.getElementById("cLANSubnetMask").innerHTML = document.forms["hiddenValForm"].hcLANSubnetMask.value;
+	document.getElementById("cPCPortIPAddr").innerHTML = document.forms["hiddenValForm"].hcPCPortIPAddr.value;
+	document.getElementById("cPrimaryDNS").innerHTML = document.forms["hiddenValForm"].hcPrimaryDNS.value;
+	document.getElementById("cPrimaryNTP").innerHTML = document.forms["hiddenValForm"].hcPrimaryNTP.value;
+	document.getElementById("cSecondryDNS").innerHTML = document.forms["hiddenValForm"].hcSecondryDNS.value;
+	document.getElementById("cSecondryNTP").innerHTML = document.forms["hiddenValForm"].hcSecondryNTP.value;
+	
+	var LANPortTypeVal = DHCPAUTO;
+	if(document.forms["hiddenValForm"].hcLANPortType.value == "0")
+	{
+		LANPortTypeVal = DHCPAUTO;
+	}
+	else if(document.forms["hiddenValForm"].hcLANPortType.value == "1")
+	{
+		LANPortTypeVal = PPPOE;
+	}
+	else if(document.forms["hiddenValForm"].hcLANPortType.value == "2")
+	{
+		LANPortTypeVal = StaticIP;
+	}
+	document.getElementById("cLANPortType").innerHTML = LANPortTypeVal;
+	
+	var PCDeviceTypeVal = Bridge;
+	if(document.forms["hiddenValForm"].hcPCDeviceType.value == "0")
+	{
+		PCDeviceTypeVal = Bridge;
+	}
+	else if(document.forms["hiddenValForm"].hcPCDeviceType.value == "1")
+	{
+		PCDeviceTypeVal = Router;
+	}
+	document.getElementById("cPCDeviceType").innerHTML = PCDeviceTypeVal;
+	
+	var DHCPServerStatusVal = Disabled;
+	if(document.forms["hiddenValForm"].hcDHCPServerStatus.value == "0")
+	{
+		DHCPServerStatusVal = Disabled;
+	}
+	else if(document.forms["hiddenValForm"].hcDHCPServerStatus.value == "1")
+	{
+		DHCPServerStatusVal = Enabled;
+	}
+	document.getElementById("cDHCPServerStatus").innerHTML = DHCPServerStatusVal;
+		
+	var cnt = document.forms["hiddenValForm"].hcAccountNum.value;
+	var tmpAccountName = document.forms["hiddenValForm"].hcAccountName.value;
+	var tmpAccountServer = document.forms["hiddenValForm"].hcAccountServer.value;
+	var tmpAccountStatus = document.forms["hiddenValForm"].hcAccountStatus.value;
+	var AccountName = tmpAccountName.split(SplitSymbol);
+	for(var i = 0; i < AccountName.length; i++)
+	{
+		AccountName[i] = ShowDecode(AccountName[i]);
+	}
+	var AccountServer = tmpAccountServer.split(SplitSymbol);
+	var AccountStatus = tmpAccountStatus.split(SplitSymbol);
+	i = 0;
+	var accountStatusStr = Unknown;
+	
+	while(i < cnt)
+	{
+		accountHtml = "<tr><td class='Second_td'>" + Account + (i+1);
+		if(AccountServer[i] == "")
+		{
+			AccountServer[i] = "None";
+		}
+		if("" == AccountName[i])
+		{
+			AccountName[i] = "None";
+		}
+		
+		accountHtml += "</td><td class='Third_td'>"
+		accountHtml += SegToLineOfStr(AccountName[i], 20, 15) + "@" + AbbreviationStr(AccountServer[i], 15);
+		accountHtml += "</td></tr>";
+		
+		if(AccountStatus[i] == "2")
+		{
+			accountStatusStr = Registered;
+		}
+		else if(AccountStatus[i] == "1")
+		{
+			accountStatusStr = Registering;			
+		}
+		else if(AccountStatus[i] == "3")
+		{
+			accountStatusStr = RegistrationFailed;			
+		}
+		else if(AccountStatus[i] == "0")
+		{
+			accountStatusStr = Disabled;			
+		}
+		else
+		{
+			accountStatusStr = UnRegistered;
+		}
+		
+		accountHtml += "<tr><td class='Second_td'></td><td class='Third_td'>" + accountStatusStr + "</td></tr>";
+		$("#tableStatus3").append(accountHtml);
+		i++;
+	}
+	accountHtml = "<tr><td class='InnerGap_td1'></td></tr>";
+	$("#tableStatus3").append(accountHtml);
+	DelayShow();
+	if(document.getElementById("tDivShortcut"))
+	{
+		document.getElementById("tDivShortcut").style.display = "none";
+	}
+}
+function LoadLang()
+{
+	var tmp = Status;
+	LoadCommonResources(tmp);
+	document.getElementById("tProductInfo").innerHTML = ProductInfo;
+	document.getElementById("tProductName").innerHTML = ProductReleaseName;
+	document.getElementById("tHardwareModel").innerHTML = ("undefined" != typeof(HardwareModel))?HardwareModel:"Hardware Model";
+	document.getElementById("tMACAddress").innerHTML = MACAddress;
+	document.getElementById("tFirmwareVersion").innerHTML = FirmwareVersion;
+	document.getElementById("tHardwareVersion").innerHTML = HardwareVersion;
+	document.getElementById("tNetworkInfo").innerHTML = NetworkInfo;
+	document.getElementById("tHostName").innerHTML = HostName;
+	
+	document.getElementById("tLANPortType").innerHTML = LANPortType;
+	document.getElementById("tLANIPAddr").innerHTML = LANIPAddr;
+	document.getElementById("tLANSubnetMask").innerHTML = LANSubnetMask;
+	document.getElementById("tLANGateWay").innerHTML = LANGateWay;
+	document.getElementById("tLANLinkStatus").innerHTML = LANLinkStatus;
+	
+	document.getElementById("tDomainName").innerHTML = DomainName;
+	document.getElementById("tPrimaryDNS").innerHTML = PrimaryDNS;
+	document.getElementById("tSecondryDNS").innerHTML = SecondaryDNS;
+
+	document.getElementById("tPrimaryNTP").innerHTML = PrimaryNTP;
+	document.getElementById("tSecondryNTP").innerHTML = SecondryNTP;
+
+	document.getElementById("tPCDeviceType").innerHTML = PCDeviceType;
+
+	document.getElementById("tPCPortIPAddr").innerHTML = PCPortIPAddr;
+
+	document.getElementById("tDHCPServerStatus").innerHTML = DHCPServerStatus;
+	document.getElementById("tAccountInfo").innerHTML = AccountInfo;
+	return;
+}
+$(function() { SetPageMenuAction("#aMenu1", "tMenu11");});
+function CheckCommitData() {	return ""; }
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">
+
+			<div class="div_border">
+			<div class="div_head"><label id='tProductInfo'></label></div>
+			<table class="table_style" id='tableStatus1'>			
+				<tr><td class="Second_td"><label id='tProductName'></label></td><td class="Third_td"><label id="cProductName"></label></td></tr>
+				<tr id="Status_trHardwareModel"><td class="Second_td"><label id='tHardwareModel'></label></td><td class="Third_td"><label id="cHardwareModel"></label></td></tr>
+				<tr><td class="Second_td"><label id='tMACAddress'></label></td><td class="Third_td"><label id="cMACAddress"></label></td></tr>
+				<tr><td class="Second_td"><label id='tFirmwareVersion'></label></td><td class="Third_td"><label id="cFirmwareVersion"></label></td></tr>
+				<tr><td class="Second_td"><label id='tHardwareVersion'></label></td><td class="Third_td"><label id="cHardwareVersion"></label></td></tr>
+			</table>	
+			</div>
+			
+			<div class="div_border">	
+			<div class="div_head"><label id='tNetworkInfo'></label></div>
+			<table class="table_style" id='tableStatus2'>	
+				<tr style="display:none"><td class="Second_td"><label id='tHostName'></label></td><td class="Third_td"><label id="cHostName"></label></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDomainName'></label></td><td class="Third_td"><label id="cDomainName"></label></td></tr>
+				<td class="Gap_td1"><label></label></td>
+				<tr><td class="Second_td"><label id='tLANPortType'></label></td><td class="Third_td"><label id="cLANPortType"></label></td></tr>
+				<tr><td class="Second_td"><label id='tLANLinkStatus'></label></td><td class="Third_td"><label id="cLANLinkStatus"></label></td></tr>
+				<tr><td class="Second_td"><label id='tLANIPAddr'></label></td><td class="Third_td"><label id="cLANIPAddr"></label></td></tr>
+				<tr><td class="Second_td"><label id='tLANSubnetMask'></label></td><td class="Third_td"><label id="cLANSubnetMask"></label></td></tr>
+				<tr><td class="Second_td"><label id='tLANGateWay'></label></td><td class="Third_td"><label id="cLANGateWay"></label></td></tr>
+				<tr><td class="Second_td"><label id='tPrimaryDNS'></label></td><td class="Third_td"><label id="cPrimaryDNS"></label></td></tr>
+				<tr><td class="Second_td"><label id='tSecondryDNS'></label></td><td class="Third_td"><label id="cSecondryDNS"></label></td></tr>
+				<td class="Gap_td1"><label></label></td>
+				<tr id="Status_trPrimaryNTP"><td class="Second_td"><label id='tPrimaryNTP'></label></td><td class="Third_td"><label id="cPrimaryNTP"></label></td></tr>
+				<tr id="Status_trSecondryNTP"><td class="Second_td"><label id='tSecondryNTP'></label></td><td class="Third_td"><label id="cSecondryNTP"></label></td></tr>
+			</table>	
+			</div>
+			
+			<div class="div_border">	
+			<div class="div_head"><label id='tAccountInfo'></label></div>
+			<table class="table_style" id='tableStatus3'>	
+			 <div id="divPCPortStatus" style="display:none">
+				<td style="display:none"class="Gap_td1"><label></label></td>
+				<tr style="display:none"><td class="Second_td"><label id='tPCDeviceType'></label></td><td class="Third_td"><label id="cPCDeviceType"></label></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tDHCPServerStatus'></label></td><td class="Third_td"><label id="cDHCPServerStatus"></label></td></tr>
+				<tr style="display:none"><td class="Second_td"><label id='tPCPortIPAddr'></label></td><td class="Third_td"><label id="cPCPortIPAddr"></label></td></tr>
+			 </div>				
+			</table>
+		</div>
+</form>			
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+	</div>
+</div>
+	<FCGI_INCLUDE FILE=bottom.html>

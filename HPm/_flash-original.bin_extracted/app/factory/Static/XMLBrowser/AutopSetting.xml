@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IPPhoneInputScreen
+        type="edit"
+        defaultIndex="1"
+        style="none"
+        Timeout="0"
+        LockIn="no"
+        LocalData="yes"
+        CombineData="AutopSetting"
+        InputType="1aB">
+    <Title wrap="yes" showlistcount="yes">
+        Autoprovision
+    </Title>
+
+		<Prompt>URL:</Prompt>
+		<DataID>Combine_AutopSetting_URL</DataID>
+		<Default></Default>
+	    <InputField
+					type = "edit">
+			<Prompt>User Name:</Prompt>
+			<DataID>Combine_AutopSetting_UserName</DataID>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "edit"
+					password="yes">
+			<Prompt>Password:</Prompt>
+			<DataID>Combine_AutopSetting_Password</DataID>
+			<Default></Default>
+	    </InputField>	    
+	    <InputField
+					type = "combox">
+			<Prompt>Mode:</Prompt>
+			<DataID>Combine_AutopSetting_Mode</DataID>
+			<Default>0</Default>
+			<option text="Disable">0</option>
+			<option text="Power On">1</option>
+			<option text="Repeatedly">2</option>
+			<option text="Power On + Repeatedly">3</option>
+			<option text="Hourly repeat">4</option>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "combox">
+			<Prompt>Week:</Prompt>
+			<DataID>Combine_AutopSetting_Week</DataID>
+			<Default>7</Default>
+			<option text="Monday">1</option>
+			<option text="Tuesday">2</option>
+			<option text="Wednesday">3</option>
+			<option text="Thursday">4</option>
+			<option text="Friday">5</option>
+			<option text="Saturday">6</option>
+			<option text="Sunday">7</option>
+			<option text="Everyday">0</option>
+			<Default></Default>
+	    </InputField>
+	    <InputField
+					type = "combox"
+					password = "no"
+					editable = "yes"
+					is_interger = "yes"
+					min="0"
+					max="23"
+					step="1">
+			<Prompt>Hour:</Prompt>
+			<DataID>Combine_AutopSetting_Hour</DataID>
+			<Default>22</Default>
+			<option text="0">0</option>
+	    </InputField>
+		<InputField
+					type = "edit"
+					password = "no"
+					editable = "yes"
+					is_interger = "yes">
+			<Prompt>Min:</Prompt>
+			<DataID>Combine_AutopSetting_Minute</DataID>
+			<Default>0</Default>
+	    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1"><Label>Save</Label><URI>SoftKey:Submit</URI></SoftKey>
+<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>

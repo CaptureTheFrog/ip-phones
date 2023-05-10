@@ -1,0 +1,24 @@
+~ # arecord -l
+**** List of CAPTURE Hardware Devices ****
+card 0: dspgdvf99css [dspg-dvf99-css], device 1: PCMFD1 PCMFD1_codec_dai-1 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 2: PCMFD2 PCMFD2_codec_dai-2 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 3: TRACE1 TRACE1_codec_dai-3 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 4: CSS_USB_plug USB_plug-4 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 5: TRACE2 TRACE2_codec_dai-5 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 6: TRACE3 TRACE3_codec_dai-6 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: dspgdvf99css [dspg-dvf99-css], device 7: ANYFD ANYFD_codec_dai-7 []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+~ #

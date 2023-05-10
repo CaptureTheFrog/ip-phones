@@ -1,0 +1,59 @@
+fer_on_ringing>
+<was_never_registered perm="" c="1">off</was_never_registered>
+<user_active idx="2" perm="RW" c="1">off</user_active>
+<user_active idx="3" perm="RW" c="1">off</user_active>
+<user_active idx="4" perm="RW" c="1">off</user_active>
+<user_realname idx="1" perm="RW" c="1">AL</user_realname>
+<user_name idx="1" perm="RW" c="1">207</user_name>
+<user_host idx="1" perm="RW" c="1">sip.voicehost.co.uk</user_host>
+<user_pass idx="1" perm="RW" c="1">207</user_pass>
+<user_expiry idx="1" perm="RW" c="1">60</user_expiry>
+<user_expiry idx="2" perm="RW" c="1">60</user_expiry>
+<user_expiry idx="3" perm="RW" c="1">60</user_expiry>
+<user_expiry idx="4" perm="RW" c="1">60</user_expiry>
+<user_mailbox idx="1" perm="RW" c="1">1571</user_mailbox>
+<user_mailbox idx="2" perm="RW" c="1">1571</user_mailbox>
+<user_mailbox idx="3" perm="RW" c="1">1571</user_mailbox>
+<user_mailbox idx="4" perm="RW" c="1">1571</user_mailbox>
+<user_srtp idx="1" perm="RW" c="1">off</user_srtp>
+<user_srtp idx="2" perm="RW" c="1">off</user_srtp>
+<user_srtp idx="3" perm="RW" c="1">off</user_srtp>
+<user_srtp idx="4" perm="RW" c="1">off</user_srtp>
+<user_idle_text idx="1" perm="RW" c="1">SP Client x283 (283)</user_idle_text>
+<user_sipusername_as_line idx="1" perm="RW" c="1">on</user_sipusername_as_line>
+<user_sipusername_as_line idx="2" perm="RW" c="1">on</user_sipusername_as_line>
+<user_sipusername_as_line idx="3" perm="RW" c="1">on</user_sipusername_as_line>
+<user_sipusername_as_line idx="4" perm="RW" c="1">on</user_sipusername_as_line>
+<stun_server idx="1" perm="RW" c="1"></stun_server>
+<stun_binding_interval idx="1" perm="RW" c="1">3600</stun_binding_interval>
+<stun_binding_interval idx="2" perm="RW" c="1">3600</stun_binding_interval>
+<stun_binding_interval idx="3" perm="RW" c="1">3600</stun_binding_interval>
+<stun_binding_interval idx="4" perm="RW" c="1">3600</stun_binding_interval>
+<keepalive_interval idx="1" perm="RW" c="1">0</keepalive_interval>
+<keepalive_interval idx="2" perm="RW" c="1">0</keepalive_interval>
+<keepalive_interval idx="3" perm="RW" c="1">0</keepalive_interval>
+<keepalive_interval idx="4" perm="RW" c="1">0</keepalive_interval>
+<user_dtmf_info idx="1" perm="R">off</user_dtmf_info>
+<user_dtmf_info idx="2" perm="R">off</user_dtmf_info>
+<user_dtmf_info idx="3" perm="R">off</user_dtmf_info>
+<user_dtmf_info idx="4" perm="R">off</user_dtmf_info>
+<is_voice_identity idx="1" perm="" c="1">true</is_voice_identity>
+<is_voice_identity idx="2" perm="" c="1">true</is_voice_identity>
+<is_voice_identity idx="3" perm="" c="1">true</is_voice_identity>
+<is_voice_identity idx="4" perm="" c="1">true</is_voice_identity>
+<hide_identity idx="1" perm="" c="1">false</hide_identity>
+<hide_identity idx="2" perm="" c="1">false</hide_identity>
+<hide_identity idx="3" perm="" c="1">false</hide_identity>
+<hide_identity idx="4" perm="" c="1">false</hide_identity>
+<callrecord_missed_local idx="0" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_missed_local>
+<callrecord_missed_remote idx="0" perm="" c="1">sip:07977997210@37.157.54.194</callrecord_missed_remote>
+<callrecord_missed_time idx="0" perm="" c="1"> 20:39</callrecord_missed_time>
+<callrecord_missed_date idx="0" perm="" c="1">28.1.2015</callrecord_missed_date>
+<callrecord_missed_duration idx="0" perm="" c="1"> 0:00</callrecord_missed_duration>
+<callrecord_received_local idx="0" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_received_local>
+<callrecord_received_local idx="1" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_received_local>
+<callrecord_received_local idx="2" perm="" c="1">11953*283@sip.voicehost.co.uk</callrecord_received_local>
+<callrecord_received_remote idx="0" perm="" c="1">sip:07977997210@37.157.54.194</callrecord_received_remote>
+<callrecord_received_remote idx="1" perm="" c="1">sip:204@37.157.54.194</callrecord_received_remote>
+<callrecord_received_remote idx="2" perm="" c="1">sip:02079890830@sip.voicehost.co.uk</callrecord_received_remote>
+<callrecord_received_time idx="0" perm="" c="1"> 20:42</callrecord_received_tim

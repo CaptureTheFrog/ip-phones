@@ -1,0 +1,8 @@
+eDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:00" />
+    <Call ID="16" CallID="200012" Type="1" Status="0" Date="2023-03-27" Time="16:43:18" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="*98" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:05" />
+    <Call ID="17" CallID="200013" Type="1" Status="0" Date="2023-03-27" Time="16:43:25" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="*97" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:06" />
+    <Call ID="18" CallID="6" Type="2" Status="0" Date="2023-03-27" Time="16:46:08" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="Eddie" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:01" />
+    <Call ID="19" CallID="200014" Type="1" Status="0" Date="2023-03-27" Time="15:47:24" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="0" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:07" />
+    <Call ID="20" CallID="200015" Type="1" Status="0" Date="2023-03-27" Time="15:47:36" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:23" />
+    <Call ID="21" CallID="200016" Type="1" Status="0" Date="2023-03-27" Time="15:48:02" LocalSipName="207" LocalSipServer="192.168.32.1" LocalSipPort="5060" RemoteSipName="200" RemoteDisplayName="" RemoteSipServer="192.168.32.1" RemoteSipPort="5060" CallDuration="00:00:03" />
+</History>

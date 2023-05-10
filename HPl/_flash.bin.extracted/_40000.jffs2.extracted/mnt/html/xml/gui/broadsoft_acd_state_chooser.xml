@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <SnomIPPhoneMenu track="no" id="presence" speedselect="enter" dtmf="off">
+    <Title>$(lang:change_state_to) ($(var:current_state))</Title>
+    <Repeat values="$(broadsoft_acd_states:$(var:next_state_options))" token="|__NAME__|__STATE__|__URL__|">
+      <MenuItem name="__NAME__" id="__STATE__">
+        <Url>__URL__</Url>
+      </MenuItem>
+    </Repeat>
+  </SnomIPPhoneMenu>    
+</SnomIPPhoneBatch>

@@ -1,0 +1,1220 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<style type='text/css'>
+	.ext_No_Mod_Warning_Div {
+			text-align: center; width:610px; _height:610px; min-height:610px;
+			font-weight:bold;	font-size:20px; color:red;
+			vertical-align:middle; float:left; }
+	.ext_Exp_First_Td   { text-align:left; width:200px; }
+	.ext_Exp_Second_Td  { text-align:left; width:60px; }
+	.ext_Exp_Second_3Td { text-align:left; width:200px; white-space:nowrap;}
+	.ext_Exp_Third_Td   { text-align:left; width:40px; }
+	.ext_Exp_Fourth_Td  { text-align:left; width:60px; }
+	.ext_Exp_Btn        { width:60px; border: 1px solid;}
+	.ext_Key_First_Td   {	text-align:left; width:80px; }
+	.ext_Key_Sec_Td     { text-align:left; width:90px; }
+	.ext_Key_Third_Td   {	text-align:left; width:90px; }
+	.ext_Key_Fourth_Td  {	text-align:left; width:90px; }
+	.ext_Key_Fifth_Td   {	text-align:left; width:90px; }
+	.ext_Key_Six_Td     {	text-align:left; width:90px; }
+</style>
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}
+
+	var LineNum = 0;
+	var ExtKeyNum = 20;
+	var TotalBackLightLevel = 5;
+	var CurPageID;
+	var TotalPageNum;
+	var TotalExtModNum;
+	var arrExtKeyType;
+	var arrExtKeyLabel;
+	var arrExtKeyValue;
+	var arrExtKeyCode;
+	var arrExtKeyLine;
+	var rebootflag = 0;
+	var PageRefDesURL = 'do?id=4&id=11';
+	var tmpSplitSymbol = "&$"
+	//book下拉框
+	var Book_SelectText = ["all","local","all contacts","local group1","local group2","local group3","local group4","local group5",
+												 "remote","remote group1","remote group2","remote group3","remote group4", "remote group5",
+												 "broadsoft","broadsoft group1","broadsoft group2","broadsoft group3","broadsoft group4","broadsoft group5","broadsoft group6",
+												 "LDAP"];
+	var Book_SelectValue = ["0","10","11","12","13","14","15","16","20","21","22","23","24","25","30","31","32","33","34","35","36","40"];
+	
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+
+function InputToSelect(typeObj, valueObj)
+{
+	if(typeof(typeObj) == "object")
+		{typeid = typeObj.id;}
+	else
+		{typeid = typeObj;}
+	if(typeof(valueObj) == "object")
+		{valueid = valueObj.id;}
+	else
+		{valueid = valueObj;}
+		
+	tmpT = document.getElementById(typeid).value;
+	tmpT = getExtKeyTypeByID(tmpT);
+	if(tmpT == "Book")
+	{
+		//将输入框变为下拉框
+		itemHtml ="<select style='width: 90px;' id='"+ valueid +"' type='text' onFocus='onInputEdit(this.id)'></select>"
+		$("#"+valueid).replaceWith(itemHtml);
+		for(var i=0 ;i<Book_SelectText.length; i++)
+		{
+			document.getElementById(valueid).options.add(new Option(Book_SelectText[i], Book_SelectValue[i]));
+		}
+	}
+	else
+	{
+		itemHtml ="<input style='width: 90px;' id='"+ valueid +"' type='text' onFocus='onInputEdit(this.id)'></input>"
+		$("#"+valueid).replaceWith(itemHtml);
+	}
+}
+
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	
+	document.getElementById("cFirmwareVersion").innerHTML = f2.hcFirmwareVersion.value;
+	//Load exp module options
+	TotalExtModNum = f2.hcTotalExtModNum.value = TransEmptyStrTo0(f2.hcTotalExtModNum.value);
+	for(var i = 1; i <= TotalExtModNum; i ++)
+	{
+		f1.cCurExtModID.options.add(new Option(i,i));
+	}
+	//load backlight level and time options
+	for(var i = 1; i <= TotalBackLightLevel; i ++)
+	{
+		f1.cEMBackLightLevel.options.add(new Option(i, i));		
+	}
+	var arrEMBackLightTime = [AlwaysOn,"15","30","60","120","300","600","1800","3600"];
+	var arrEMBackLightTimeVal = ["0","15","30","60","120","300","600","1800","3600"];
+	for(var i = 0; i < arrEMBackLightTime.length; i ++)
+	{
+		f1.cEMBackLightTime.options.add(new Option(arrEMBackLightTime[i],arrEMBackLightTimeVal[i]));
+	}
+	f1.cEMPageMode.options.add(new Option("SinglePage", 0));
+	f1.cEMPageMode.options.add(new Option("MultiPage", 1));
+	//load ext keys 
+	for(var i = 0; i < ExtKeyNum; i ++)
+	{
+		var curValue = "cExtKeyValue"+i;
+		var itemHtml = "<tr><td class=''><label class='ext_Key_First_Td' id='tExtKey" + i + "'></label></td>" + 
+          												"<td class=''><select class='ext_Key_Sec_Td' id='cExtKeyType" + i + "' name='cExtKeyType" + i + "' onChange='InputToSelect(this.id, "+curValue+"), OnChangeKeyType(this.id)'></select></td>" +
+          				          			"<td class=''><input class='ext_Key_Third_Td' id='cExtKeyLabel" + i + "' name='cExtKeyLabel" + i + "' /></td>" +
+          												"<td class=''><input class='ext_Key_Fourth_Td' id='cExtKeyValue" + i + "' name='cExtKeyValue" + i + "' /></td>" +
+          												"<td class=''><select class='ext_Key_Six_Td' id='cExtKeyLine" + i + "' name='cExtKeyLine" + i + "'></select></td>" +
+          												"<td class=''><input class='ext_Key_Fifth_Td' id='cExtKeyCode" + i + "' name='cExtKeyCode" + i + "' /></td></tr>";
+		$("#tableExtKey").append(itemHtml);
+	}
+	//load types options
+	var arrExtKeyTypeIDs = f2.hcExtKeyTypeIDs.value.split(tmpSplitSymbol); //(SplitSymbol);
+	var arrExtKeyTypeList = f2.hcExtKeyTypeList.value.split(tmpSplitSymbol); //(tmpSplitSymbol); 
+	var ExtKeyTypeNum = f2.hcExtKeyTypeNum.value;
+	var tmpID;
+	var tmpOptions;
+	for(var i = 0; i < ExtKeyNum; i ++)
+	{
+		tmpID =  "cExtKeyType" + i;
+		for(var j = 0; j < ExtKeyTypeNum; j ++)
+		{
+			tmpOptions = getOptionsByType(arrExtKeyTypeList[j]);
+			document.getElementById(tmpID).options.add(new Option(tmpOptions,arrExtKeyTypeIDs[j])); 
+		}
+	}
+	//load account options
+	LineNum = f2.hcLineNum.value;
+	for(var i = 0; i < ExtKeyNum; i ++)
+	{
+		tmpLineID= "cExtKeyLine" + i ;
+		for(var j = 0; j <= LineNum; j++)
+		{
+			if(0 == j)
+			{ tmpLine = Auto; }
+			else
+			{
+				tmpLine= Line + " " + j; 
+			}
+			document.getElementById(tmpLineID).options.add(new Option(tmpLine,j));
+		}		
+	}
+	if(document.getElementById("hcEMPageMode") && "1" == document.getElementById("hcEMPageMode").value)
+	{
+		document.getElementById("tableExtPageExp").style.display = "";
+	}
+	else
+	{
+		document.getElementById("tableExtPageExp").style.display = "none";
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+	HideMainContent();
+	if("1" == document.getElementById("hcUploadResult").value)
+	{
+		ShowRebootWithWarning(true);
+	}
+	else if(document.getElementById("hcUploadResult") && document.getElementById("hcUploadResult").value == "-1")
+	{
+		alert(WarningUploadFailed);
+	}
+	else if(document.getElementById("hcUploadResult") && document.getElementById("hcUploadResult").value == "-4")
+	{
+		alert(UploadTimeOutWarning);
+	}
+}
+function HideMainContent()
+{
+	if( 0 == TotalExtModNum )
+	{
+		document.getElementById("mid_cont2").style.display = "none";
+		document.getElementById("tDivModNoExist").style.display = "";	
+	}	
+}
+function SubLoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	arrExtKeyType = document.getElementById("hcExtKeyType").value.split(tmpSplitSymbol); //(tmpSplitSymbol); 
+	arrExtKeyLabel = document.getElementById("hcExtKeyLabel").value.split(tmpSplitSymbol); //(SplitSymbol);
+	arrExtKeyValue = document.getElementById("hcExtKeyValue").value.split(tmpSplitSymbol); //(SplitSymbol);
+	arrExtKeyCode = document.getElementById("hcExtKeyCode").value.split(tmpSplitSymbol); //(SplitSymbol);
+	arrExtKeyLine = document.getElementById("hcExtKeyLine").value.split(tmpSplitSymbol); //(SplitSymbol);
+	
+	f2.hcCurExtModID.value = TransEmptyStrTo(f2.hcCurExtModID.value,"1");
+	f1.cCurExtModID.value = f2.hcCurExtModID.value;
+	f2.hcEMBackLightLevel.value = TransEmptyStrTo(f2.hcEMBackLightLevel.value,"3");
+	f1.cEMBackLightLevel.value = f2.hcEMBackLightLevel.value;
+	f2.hcEMBackLightTime.value = TransEmptyStrTo(f2.hcEMBackLightTime.value,"30");
+	f1.cEMBackLightTime.value = f2.hcEMBackLightTime.value;
+	f1.cEMPageMode.value = f2.hcEMPageMode.value = TransEmptyStrTo0(f2.hcEMPageMode.value);
+
+	var tmpID; //load type, label, value, code, account
+	for(var i = 0; i < ExtKeyNum; i ++)
+	{
+		tmpID = "cExtKeyType" + i;
+		document.getElementById(tmpID).value = arrExtKeyType[i] = TransEmptyStrTo0(arrExtKeyType[i]);
+		
+		if(getExtKeyTypeByID(arrExtKeyType[i]) == "Book")
+		{
+			//将输入框变为下拉框
+			itemHtml ="<select class='ext_Key_Fourth_Td' id='cExtKeyValue" + i + "' name='cExtKeyValue" + i + "'></select>"
+			$("#cExtKeyValue"+i).replaceWith(itemHtml);
+			for(var j=0 ;j<Book_SelectText.length; j++)
+			{
+				document.getElementById("cExtKeyValue"+i).options.add(new Option(Book_SelectText[j], Book_SelectValue[j]));
+			}
+		}
+		else
+		{
+			itemHtml ="<input class='ext_Key_Fourth_Td' id='cExtKeyValue" + i + "' name='cExtKeyValue" + i + "'></input>"
+			$("#cExtKeyValue"+i).replaceWith(itemHtml);
+		}
+		optionsReset(tmpID);
+		tmpID = "cExtKeyLabel" + i;
+		document.getElementById(tmpID).value = arrExtKeyLabel[i];
+		tmpID = "cExtKeyValue" + i;
+		document.getElementById(tmpID).value = arrExtKeyValue[i];
+		tmpID = "cExtKeyCode" + i;
+		document.getElementById(tmpID).value = arrExtKeyCode[i];	
+		tmpID = "cExtKeyLine" + i;
+		document.getElementById(tmpID).value = arrExtKeyLine[i] = TransEmptyStrTo(arrExtKeyLine[i],"1");
+	}
+	ResetAllInputColor();
+	CheckPKeySts();
+}
+function LoadLang()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	tmp = ExtKey;
+	LoadCommonResources(tmp);
+	CurPageID = f2.hcCurPageID.value = TransEmptyStrTo(f2.hcCurPageID.value, "1");
+	TotalPageNum = f2.hcTotalPageNum.value = TransEmptyStrTo(f2.hcTotalPageNum.value, "3");
+	document.getElementById("tNoEMWarningLabel").innerHTML = WarningNoEMConnected;
+	document.getElementById("tExtModule").innerHTML = ExtModule;
+	document.getElementById("tEMBackLightLevel").innerHTML = BacklightIntens;
+	document.getElementById("tEMBackLightTime").innerHTML = BacklightTime;
+	document.getElementById("tEMPageMode").innerHTML = (("undefined" != typeof(PageMode))?PageMode:"Page Mode");
+	//document.getElementById("tEMContrast").innerHTML = LCDContrast;
+	//document.getElementById("tEMInterval").innerHTML = Interval;
+	document.getElementById("tPageLabel").innerHTML = CurrentPage;
+	document.getElementById("tPrePage").value = PrePage;
+	document.getElementById("cPageID").innerHTML = CurPageID + " " + "/" + " " + TotalPageNum;
+	document.getElementById("tNextPage").value = NextPage;
+	document.getElementById("tExtKeyName").innerHTML = Key;
+	document.getElementById("tExtKeyType").innerHTML = Type;
+	document.getElementById("tExtKeyLabel").innerHTML = Label;
+	document.getElementById("tExtKeyValue").innerHTML = Value;
+	document.getElementById("tExtKeyCode").innerHTML = Extension;
+	document.getElementById("tExtKeyAccount").innerHTML = Account;
+	
+	document.getElementById("tUploadFinishedLabel").innerHTML = WarningUploadEMFirmwareFinished;
+	document.getElementById("tUploadWarningLabel").innerHTML = WarningUploadEMFirmwareWarning;
+	document.getElementById("tUpload").innerHTML = ("undefined" != typeof(UploadExt))?UploadExt:"Upload Firmware";
+	
+	document.getElementById("GoToReboot").value = RebootLabel;
+	document.getElementById("UploadConfirmBtn").value = SubmitLabel;
+	document.getElementById("UploadCancel").value = CancelLabel;	
+	
+	document.getElementById('tFirmwareVersion').innerHTML = FirmwareVersion;	
+	document.getElementById('tExtUpgrade').innerHTML = (("undefined" != typeof(ExtUpgrade))?ExtUpgrade:"Ext Upgrade");
+	document.getElementById('tExtSetting').innerHTML = (("undefined" != typeof(ExtSetting))?ExtSetting:"Ext Setting");
+	document.getElementById('tExtKey').innerHTML = (("undefined" != typeof(ExtKey))?ExtKey:"Ext Key");
+	for(var i = 0; i < ExtKeyNum; i++)
+	{
+		var tmpKeyID = "tExtKey" + i;
+		document.getElementById(tmpKeyID).innerHTML = Key + " " + (i+1);
+	}
+	return;
+}
+
+function GetPrmsDisabled(tmpT)
+{
+	//此处flag的值是以disable的四个项的规则来定的。
+	//如：disable all 为4个true，1111即值为15
+	switch(tmpT)
+	{
+		case "N/A":					flag = 15; break;		//disable all
+		case "Speed Dial": 																		
+		case "FeatureCode": 
+		case "PickUp":
+		case "Group PickUp":
+		case "Intercom":			flag = 2; break;		//disable code
+		case "XML Browser":     flag = 8; break;            //disable code account
+		case "DTMF":
+		case "Multicast Paging":
+		case "Book":
+		case "Voice Message":
+		case "Call Park":				flag = 3; break;						//disable code account
+		case "BLFList":
+		case "ACD":
+		case "Account":   		  flag = 6 ; break;              //disable Value&Code
+		case "History":
+		case "DND":
+		case "Menu":
+		case "MSG":
+		case "Status":
+		case "Fwd":
+		case "Redial":
+		case "Favorites":
+		case "PreAccount":
+		case "NextAccount":
+		case "PreIdlePage":
+		case "CallReturn":
+		case "NextIdlePage":
+		case "HotDesking": 
+		case "Record":
+		case "Simple Menu":
+		case "Transfer":
+		case "XML PhoneBook":
+		case "XML History":
+		case "XML VoiceMail":					  flag = 7; break;             //Disable Value ,Account,Code
+		 		  								  //flag = 14;break;        //Disable Label,Value,Code
+		default : flag = 0; 	
+	}
+	return flag;
+}
+
+function setDisabled(DOMObj, f)
+{
+	DOMObj.disabled = f;
+	DOMObj.style.backgroundColor = f ? "#EDEDED" : "";
+}
+function getExtKeyTypeByID(tmpT)
+{
+ var f1 = document.forms["body_form"]
+ var f2 = document.forms["hiddenValForm"];
+ var tmpKeyType
+ var arrExtKeyTypeIDs = f2.hcExtKeyTypeIDs.value.split(tmpSplitSymbol); //(SplitSymbol);
+ var arrExtKeyTypeList = f2.hcExtKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+ var ExtKeyTypeNum = f2.hcExtKeyTypeNum.value;
+ for(var k = 0; k < ExtKeyTypeNum; k++)
+ {
+ 	if(tmpT == arrExtKeyTypeIDs[k])  
+ 	{
+ 		tmpKeyType = arrExtKeyTypeList[k]; 
+ 	}
+ }
+ return tmpKeyType;
+}
+function isValueValid(tmpValue,tmpNum)
+{
+ tmpNum =  Number(tmpNum);
+ if(tmpValue > 0 && tmpValue <= tmpNum)	return true;
+ else return false; 		
+}
+function optionsReset(tmpID)
+{	
+	var tmpTypeID;
+	var tmpLineID;
+	for(var i = 0;i < ExtKeyNum; i++)
+	{
+		tmpTypeID = "cExtKeyType" + i;
+		tmpLineID = "cExtKeyLine" + i;
+ 		tmpType = document.getElementById(tmpID).value;	
+ 		if(tmpID == tmpTypeID)
+ 		{
+ 			var tmpLineType = getExtKeyTypeByID(tmpType);
+			switch(tmpLineType)
+			{	
+				case "BLFList":
+				case "Account":
+				case "BLF":
+				case "ACD":
+				{			
+					for(var k=0; k <= LineNum; k++)
+					{
+						document.getElementById(tmpLineID).options.remove(0);
+					}
+					for(var j = 1; j <= LineNum; j++)
+					{ 
+						var tmpLine = Line + " "+ (j);
+						document.getElementById(tmpLineID).options.add(new Option(tmpLine, j));
+					}
+			 		if(!isValueValid(arrExtKeyLine[i], LineNum))
+			 		document.getElementById(tmpLineID).value = tmpLine;
+			 		else  document.getElementById(tmpLineID).value = arrExtKeyLine[i];
+					break;	
+				}
+				default: 
+				{		
+					for(var k=0; k <= LineNum; k++) {document.getElementById(tmpLineID).options.remove(0);}
+					for(var j = 0; j <= LineNum; j++)
+					{	
+						var tmpLine = Line + " "+ (j);
+						if(0==j){tmpLine=Auto;}
+						document.getElementById(tmpLineID).options.add(new Option(tmpLine, j));
+					}
+		 			if(isValueValid(arrExtKeyLine[i], LineNum)||(0 == arrExtKeyLine[i]&&""!=arrExtKeyLine[i]))
+		 			document.getElementById(tmpLineID).value = arrExtKeyLine[i];
+		 			else	document.getElementById(tmpLineID).value = tmpLine;
+					break;
+				}
+			}
+		}	
+	}			
+}
+function CheckPKeySts()
+{	
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+ 	var tmpID;
+ 	var tmpType;
+	var arrExtKeyTypeIDs = f2.hcExtKeyTypeIDs.value.split(tmpSplitSymbol); //(SplitSymbol);
+  var arrExtKeyTypeList = f2.hcExtKeyTypeList.value.split(tmpSplitSymbol); //(SplitSymbol);
+	for(var i=0; i < ExtKeyNum; i++)
+ 	{	
+ 		tmpID = "cExtKeyType"+i;
+ 		tmpType = document.getElementById(tmpID).value;	
+ 		tmpType = getExtKeyTypeByID(tmpType);
+ 		switch(GetPrmsDisabled(tmpType))
+ 		{	
+ 			case 2:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyValue" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyCode" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyLine" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			break;
+	 		}	 		
+	 		case 3:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyValue" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyCode" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyLine" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			break;
+	 		}
+	 		case 6: 
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyValue" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyCode" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyLine" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			break;
+	 		}
+	 		case 7:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+			 	tmpID = "cExtKeyValue" + i;		
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	tmpID = "cExtKeyCode" + i;
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	tmpID = "cExtKeyLine" + i;
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	break;
+	 		}
+	 		case 8:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyValue" + i;
+	 			setDisabled(document.getElementById(tmpID),false);
+	 			tmpID = "cExtKeyCode" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyLine" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			break;
+	 		}
+	 		case 14:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	tmpID = "cExtKeyValue" + i;		
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	tmpID = "cExtKeyCode" + i;
+			 	setDisabled(document.getElementById(tmpID), true);
+			 	tmpID = "cExtKeyLine" + i;
+			 	setDisabled(document.getElementById(tmpID), false);
+			 	break;
+	 		}
+			case 15:
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyValue" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyCode" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			tmpID = "cExtKeyLine" + i;
+	 			setDisabled(document.getElementById(tmpID),true);
+	 			break;
+	 		}
+	 		default :
+	 		{	
+	 			tmpID = "cExtKeyLabel" + i;
+			 	setDisabled(document.getElementById(tmpID), false);
+	 			tmpID = "cExtKeyValue" + i;		
+			 	setDisabled(document.getElementById(tmpID), false);
+			 	tmpID = "cExtKeyCode" + i;
+			 	setDisabled(document.getElementById(tmpID), false);
+			 	tmpID = "cExtKeyLine" + i;
+		 		setDisabled(document.getElementById(tmpID), false);
+		 		break;
+		 	}
+		} 			
+  }
+}
+function prmsReset(tmpID)
+{	
+	var f1 = document.forms["body_form"]
+	var f2 = document.forms["hiddenValForm"];
+	for(var i = 0; i < ExtKeyNum; i++)
+	{
+		curTypeID = "cExtKeyType" + i;
+		curType = document.getElementById(curTypeID).value;
+		curLabelID = "cExtKeyLabel" + i;
+		curValueID = "cExtKeyValue" + i;
+		curCodeID = "cExtKeyCode" + i;		
+		curLineID = "cExtKeyLine" + i;
+		if(curTypeID == tmpID && curType != arrExtKeyType[i])
+		{	
+			document.getElementById(curLabelID).value = "";
+			if("Book" != getExtKeyTypeByID(curType))
+			{
+				document.getElementById(curValueID).value= "";
+			}
+			document.getElementById(curCodeID).value= "";
+			document.getElementById(curLineID).value = 1;
+		}
+		if(curTypeID == tmpID && curType == arrExtKeyType[i])
+		{	
+			document.getElementById(curLabelID).value = arrExtKeyLabel[i];
+			document.getElementById(curValueID).value = arrExtKeyValue[i];
+			document.getElementById(curCodeID).value = arrExtKeyCode[i];
+			document.getElementById(curLineID).value = arrExtKeyLine[i];				
+		}
+	}	
+}
+
+function getOptionsByType(tmptype)
+{
+	switch(tmptype)
+	{
+		case "N/A": return NA; 
+		case "DND" : return DND; 
+		case "Menu": return Menu; 
+		case "MSG":  return MSG; 
+		case "Status":  return Status ; 
+		case "Book":  return Book ;
+		case "Fwd":  return Fwd ;
+		case "PickUp":  return PickUp ;
+		
+		case "Group PickUp":  return GroupPickUp ;
+		case "Intercom":  return Intercom ;
+		case "Speed Dial":  return SpeedDial ;
+		case "History":  return tHistory ;
+		case "Favorites":  return Favorite ;
+		case "Redial":  return Redial ;
+		case "Account":  return Account ;
+		case "ACD":  return ACD ;
+		case "BLF":  return BLF ;
+		case "BLFList":  return BLFList;
+		case "CallReturn": return CallReturn;
+		case "HotDesking": return HotDesking;
+		case "Record": return Record;
+		case "XML Browser": return XMLBrowser;
+		case "DTMF": return DTMF;
+		case "Multicast Paging": return MulticastPaging;
+		case "Simple Menu": return ("undefined" != typeof(SimpleMenu))?SimpleMenu:"Simple Menu";
+		case "Voice Message": return ("undefined" != typeof(VoiceMessage))?VoiceMessage:"Voice Message";
+		case "Transfer": return ("undefined" != typeof(Transfer))?Transfer:"Transfer";
+		case "Call Park": return ("undefined" != typeof(CallPark))?CallPark:"Call Park";
+		case "XML PhoneBook": return XMLPhoneBook;
+		case "XML History": return XMLHistory;
+		case "XML VoiceMail": return ("undefined" != typeof(XMLVoiceMail))?XMLVoiceMail:"XML VoiceMail";
+		default : return NA;
+	}	
+}
+
+function OnGotoDstEXT()
+{
+	CurExtID = Number(CurExtID);
+	var CurExtID = Number(document.getElementById("cCurExtModID").value);
+	if( 1 > CurExtID || CurExtID > 6)
+	{	return;	}
+	CurPageID = 1;
+	document.getElementById("cPageID").innerHTML = CurPageID + " " + "/" + " " + TotalPageNum;
+	OnSwitchToDstPage(CurExtID);
+}
+function OnGotoNextPage()
+{
+	if(document.getElementById("hcEMPageMode") && "1" != document.getElementById("hcEMPageMode").value)
+	{ return;	}
+	CurPageID = Number(CurPageID);
+	if(TotalPageNum <= Number(CurPageID))
+	{ return;	}
+	CurPageID += 1;
+	document.getElementById("cPageID").innerHTML = CurPageID + " " + "/" + " " + TotalPageNum;
+	var CurExtID = document.getElementById("cCurExtModID").value;
+	OnSwitchToDstPage(CurExtID);	
+}
+function OnGotoPrePage()
+{
+	if(document.getElementById("hcEMPageMode") && "1" != document.getElementById("hcEMPageMode").value)
+	{ return;	}
+	CurPageID = Number(CurPageID);
+	if(1 >= Number(CurPageID))
+	{ return ;}
+	CurPageID -= 1;
+	document.getElementById("cPageID").innerHTML = CurPageID + " " + "/" + " " + TotalPageNum;
+	var CurExtID = document.getElementById("cCurExtModID").value;
+	OnSwitchToDstPage(CurExtID);
+}
+//go to dst page on dst ext
+function OnSwitchToDstPage(CurExtID)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "begin";
+
+	strSubmData = strSubmData + "&cCurExtModID=" + CurExtID + SplitSymbol + "cCurPageID=" + CurPageID;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+function OnChangeKeyType(thisID)
+{
+	CheckPKeySts();
+	optionsReset(thisID);
+	prmsReset(thisID);
+}
+function CheckCommitData(tmpFlag)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["submit_form"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var tmpID;
+	var tmpKeyType;
+
+	var GetBLFNum = 0;
+	var RltBLF = true;
+	var BLFFlag = true;
+	if(f1.cEMBackLightLevel.value != f2.hcEMBackLightLevel.value)
+	{
+		strSubmData = strSubmData + SplitSymbol+ "cEMBackLightLevel=" + f1.cEMBackLightLevel.value;
+	}
+	if(f1.cEMBackLightTime.value != f2.hcEMBackLightTime.value)
+	{
+		strSubmData = strSubmData + SplitSymbol+ "cEMBackLightTime=" + f1.cEMBackLightTime.value;
+	}
+	if(f1.cEMPageMode.value != f2.hcEMPageMode.value)
+	{
+		strSubmData = strSubmData + SplitSymbol+ "cEMPageMode=" + f1.cEMPageMode.value;
+	}	
+	for(var i = 0; i < ExtKeyNum; i++)
+	{
+		tmpID = "cExtKeyType" + i;
+		tmpKeyType = document.getElementById(tmpID).value;
+/*		if(16 == Number(tmpKeyType))
+		{
+			GetBLFNum++;
+			RltBLF = CulBLFNum(GetBLFNum, f2.hcProgramBLFKeyNum.value, f2.hcMaxBLFNum.value);
+			if(false == RltBLF)
+			{
+				BLFFlag = false;
+			}
+		}*/
+		if(document.getElementById(tmpID).value != arrExtKeyType[i])
+		{
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+		}
+		tmpID = "cExtKeyLabel" + i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!CheckLengthOfData((document.getElementById(tmpID).value), 0, 31))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			if(document.getElementById(tmpID).value != arrExtKeyLabel[i])
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if(document.getElementById(tmpID).value != arrExtKeyLabel[i] && arrExtKeyLabel[i] != "")
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cExtKeyValue" + i;	
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			//Book's value can be set as none
+			if("Book" == getExtKeyTypeByID(tmpKeyType))
+			{
+				if("" == document.getElementById(tmpID).value)
+				{
+					document.getElementById(tmpID).value = 0;
+				}
+			}
+			if("" == document.getElementById(tmpID).value)	
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+				document.getElementById("WarningDiv").innerHTML += "<br>:"+ValueEmptyWarning;
+			}		
+			if(document.getElementById(tmpID).value != arrExtKeyValue[i])
+			{					
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+			}
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getExtKeyTypeByID(tmpKeyType) && "" != arrExtKeyValue[i])
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			if("BLFList" == getExtKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrExtKeyType[i]))
+			{
+			 	strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}		
+		tmpID = "cExtKeyCode"+i;
+		if(document.getElementById(tmpID).disabled == false)
+		{
+			if(!NotContainInvalid(document.getElementById(tmpID).value))
+			{
+				SetInputBGColor(tmpID);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + PostEncode(document.getElementById(tmpID).value);
+		}
+		if(document.getElementById(tmpID).disabled == true)
+		{
+			if("BLFList" != getExtKeyTypeByID(tmpKeyType) && "" != arrExtKeyCode[i])
+					strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			if("BLFList" == getExtKeyTypeByID(tmpKeyType) && Number(tmpKeyType) !=  Number(arrExtKeyType[i]))
+			{
+			 	strSubmData = strSubmData + SplitSymbol+ tmpID + "=";
+			}
+		}
+		tmpID = "cExtKeyLine"+i;
+		if(false == document.getElementById(tmpID).disabled)
+		{
+			if((document.getElementById(tmpID).value != arrExtKeyLine[i]) || Number(tmpKeyType) != Number(arrExtKeyType[i]))
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + document.getElementById(tmpID).value;
+			}
+		}
+		if(true == document.getElementById(tmpID).disabled )
+		{
+			var tmpLine = 1;
+			if(arrExtKeyLine[i] != tmpLine)
+			{
+				strSubmData = strSubmData + SplitSymbol+ tmpID + "=" + tmpLine;
+			}
+		}
+	}
+/*	if(false == BLFFlag)
+	{
+		alert("BLF used too much");
+		return DataCheckResult;
+	}*/
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = 0;		
+	var tmpID;
+	if(f1.cEMBackLightLevel.value != f2.hcEMBackLightLevel.value || f1.cEMBackLightTime.value != f2.hcEMBackLightTime.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	if(f1.cEMPageMode.value != f2.hcEMPageMode.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	for(var i = 0; i < ExtKeyNum; i++)
+	{
+		tmpID = "cExtKeyType" + i;
+		if(document.getElementById(tmpID).value != arrExtKeyType[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cExtKeyLabel" + i;
+		if(document.getElementById(tmpID).value != arrExtKeyLabel[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cExtKeyValue" + i;
+		if(document.getElementById(tmpID).value != arrExtKeyValue[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cExtKeyCode" + i;
+		if(document.getElementById(tmpID).value != arrExtKeyCode[i])
+			dataChangedWarnFlag = 1 ;
+		tmpID = "cExtKeyLine" + i;
+		if(document.getElementById(tmpID).value != arrExtKeyLine[i])
+			dataChangedWarnFlag = 1 ;
+	}
+
+	if(0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+//to upload firmware file for EM
+function OnStartUpgradeExp()
+{	
+	var f1 = document.forms["upload_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var fileArr = f1.uploadFile.value.split("\\");
+	upLoadFileName = fileArr[fileArr.length-1];
+	
+	if("" != upLoadFileName )
+	{
+		if(!CheckFileFormat(upLoadFileName, ".ROM", 4))
+		{
+			alert(FileFormatWarning);
+			return false;
+		}
+		if(!confirm(WarningUpgradeEXPConfirm))
+		{
+			return;
+		}
+		
+		inUpgradeProc = 1;
+		SetAllPartsDisabled();
+		SetCheckStatusBeforeUpload(UploadingWarning+" <br>"+CloseWindowWarning);
+		setTimeout("CheckUploadSts()", 1000*30);
+		enterUpgradeExpBefore = true;
+		$.ajax({
+			url: 'do?id=4&id=11&Operation=GetDivContent&DivName=divStartUpgradeExp',
+			cache: false,
+			success: function(html){
+				$("#divStartUpgradeExp").append(html);
+				//先判断session超时
+				SetPageCookie();
+				var tmp;
+				if(!document.getElementById("hcStartUpgradeExp_Div"))
+				{
+					tmp = "";
+				}
+				else
+				{
+					tmp = document.getElementById("hcStartUpgradeExp_Div").value;
+				}
+				if("0" == tmp)
+				{
+					enterUpgradeExpBefore = false;
+					UploadFile();
+				}
+				else if("-1" == tmp)
+				{
+					SetAllPartsDisabled();
+					SetCheckStatusBeforeUpload(PhoneTalkingNotUpgradeWarning);
+					setTimeout("Relocate('/fcgi/do?id=4&id=11')", 2500);
+				}
+				else if("-2" == tmp)
+				{
+					SetAllPartsDisabled();
+					SetCheckStatusBeforeUpload(AUTOPConflictWarning);
+					setTimeout("Relocate('/fcgi/do?id=4&id=11')", 2500);
+				}
+				else if("-3" == tmp)
+				{
+					SetAllPartsDisabled();
+					SetCheckStatusBeforeUpload(PhoneUpgradingWarning);
+					setTimeout("Relocate('/fcgi/do?id=4&id=11')", 2500);
+				}
+				else if("-4" == tmp)//session time out
+				{
+					SetAllPartsDisabled();
+					SetCheckStatusBeforeUpload(SessionTimeOut);
+					setTimeout("Relocate('/fcgi/do?id=4&id=11')", 2500);
+				}
+				else
+				{
+					SetAllPartsDisabled();
+					SetCheckStatusBeforeUpload(NoteUploadFile4EMFinished);
+					setTimeout("Relocate('/fcgi/do?id=4&id=11')", 4000);
+				}
+			}
+		});
+		ResetDivInnerHTML("divStartUpgradeExp");
+	}
+	else
+	{
+		alert(FileEmptyWarning);
+	}
+}
+function OnCancelUpgradeExp()
+{
+	var f1 = document.forms["upload_form"];
+	f1.reset();
+}
+function SetAllPartsDisabled()
+{
+	SetCont1Disp();
+	SetAllLiElementDisabled(true);
+}
+function SetCheckStatusBeforeUpload(destStr)
+{
+	SetCont1Disp();
+	document.getElementById('tCheckDuringUpgrade').innerHTML = destStr;
+}
+function SetCont1Disp()
+{
+	document.getElementById('mid_cont1').style.display = "";
+	document.getElementById('mid_cont2').style.display = "none";
+}
+function UploadFile()
+{
+	var f1 = document.forms["upload_form"];
+	f1.submit();
+}
+function CheckUploadSts()
+{
+	setTimeout("StatusCheck('divUploadStatus', 1)", 3000);
+}
+function StatusCheck(strDivName, stsCallBackId)
+{
+	var desURL = 'do?id=4&id=11&Operation=GetDivContent&DivName=' + strDivName;
+	$.ajax({
+		url: desURL,
+		cache: false,
+		success: function(html){
+			ResetNotGetResponse();
+			if("" == html)
+			{
+				if(strDivName == "divRebootStatus")
+				{
+					CheckRebootSts();
+				}
+				else if("divUploadStatus" == strDivName)
+				{
+					CheckUploadSts();
+				}
+				return;
+			}
+			
+			if(strDivName == "divRebootStatus")
+			{
+				OnStsActOfReboot(html);
+			}
+			if(strDivName == "divUploadStatus")
+			{
+				OnStsActOfUpload(html);
+			}
+		},
+		error: function(html){
+			ResetNotGetResponse();
+			if(strDivName == "divRebootStatus")
+			{
+				CheckRebootSts();
+			}
+		}
+	});
+
+}
+
+function OnStsActOfReboot(html)
+{
+	$("#divRebootStatus").append(html);
+	if(document.getElementById("hcRebootStatus_Div") && document.getElementById("hcRebootStatus_Div").value == 0)
+	{
+		SetPageCookie();
+		if(0 == rebootflag)
+		{
+			rebootflag = 1;
+			setTimeout("Relocate('/fcgi/do?id=4&id=11')", 7000);
+		}
+	}
+}
+function OnStsActOfUpload(html)
+{
+	$("#divStartUpgradeExp").append(html);
+	var tmpRes = "";
+	if(document.getElementById("hcUploadResult_div") ) tmpRes = Number(document.getElementById("hcUploadResult_div").value);
+	if(-1 == tmpRes || -4 == tmpRes || 1 == tmpRes )
+	{
+		setTimeout("Relocate('/fcgi/do?id=4&id=11')", 2500);
+	}
+	else
+	{
+		ResetDivInnerHTML("divStartUpgradeExp");
+		setTimeout("StatusCheck('divUploadStatus', 1)", 3000);	
+	}	
+}
+
+function GoToReboot()
+{
+	var f3 = document.forms["submit_form"];
+	if(!confirm(RebootConfirm))
+	{
+		return;
+	}
+	desURL = 'do?id=9&id=1&Operation=ForceReboot';
+	
+	SetCheckStatusBeforeUpload(ProcessNotice);
+	ShowRebootWithWarning(false);
+	SetAllPartsDisabled();
+	$.ajax({
+		url: desURL,
+		cache: false,
+		success: function(html){
+			CheckRebootSts();
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+			DoRebootNotConflict();
+		},
+		error: function(html)
+		{
+			interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+			DoRebootNotConflict();
+		}
+	});
+	return;
+}
+function ResetNotGetResponse()
+{
+	clearInterval(interObj[1]);
+	interObj[1] = setInterval("LongCheckStatus('divRebootStatus')", 4000);
+	NotGetResponse = 0;
+	NotGetResponseNum = 0;
+}
+
+function DoRebootNotConflict()
+{	
+	SetCheckStatusBeforeUpload(RebootingWarning);
+	SetAllPartsDisabled();
+}
+function ShowRebootWithWarning(flag)
+{
+	SetCont1Disp();
+	document.getElementById("tableReboot").style.display = flag ? "" : "none";
+	SetAllLiElementDisabled(flag);
+	HideAllLiElement();
+}
+function HideAllLiElement()
+{	
+	var li_list = document.getElementsByTagName("li");
+	
+	for(var i = 0; i < document.getElementsByTagName("li").length; i ++)
+	{
+		if(li_list[i]) li_list[i].style.display = "none";
+	}		
+}
+function CheckRebootSts()
+{
+	setTimeout("StatusCheck('divRebootStatus')", 3000);
+}
+
+$(function() {
+	SetPageMenuAction("#aMenu4", "tMenu59");
+});
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+				<table align="center" height="150" id="divUploading" style="text-align: center; font-size: 25px">
+					<tr style="text-align: center;"><td style="text-align: center;"><strong id="tCheckDuringUpgrade"></strong></td></tr>
+				</table>
+				<table id='tableReboot' align="center" style="display:none; text-align:center;">
+					<tr><td><label id='tUploadFinishedLabel' style="text-align:center; color:red; font-size:25px;">Upload Finished:</label></td></tr>
+					<tr><td><label id='tUploadWarningLabel' style="text-align:left; font-size:20px;">Upload Finished:</label></td></tr>
+					<tr><td><input class='Nice_Btn' type='button' id='GoToReboot' value='Reboot' onClick="GoToReboot()" /></td></tr>
+				</table>
+			</div>	
+			<div class='ext_No_Mod_Warning_Div' id='tDivModNoExist' name='tDivModNoExist' style="display:none;">
+				<div style='width:auto; height:200px;'></div>
+				<label id='tNoEMWarningLabel'>No Expansion Module Connected, please check!</label>
+    	</div> 				
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+    		
+			<div class="div_border" id="PhoneExt_divUpgrade">
+			<div class="div_head"><label id="tExtUpgrade">Ext Upgrade</label></div>
+			<table class="table_style">	
+    		<table id='tableUpload' class='TablePadding1'>
+<form name='upload_form' id='upload_form' enctype="multipart/form-data" action="" method="post">
+					<input type="hidden" name="uploadType" id="uploadType" value="&Operation=UpgradeEM&" />
+					<tr>
+						<td class="Second_td2"><label id='tUpload'>Upload</label></td>
+						<td class="Second_td2"><input name="uploadFile" type="file" /></td>
+					</tr>
+		      <tr>
+		        <td class="ext_Exp_First_Td"></td>
+		        <td class="Second_td2"><input class="Nice_Btn" type="button" id="UploadConfirmBtn" name="UploadConfirmBtn" value="Submit" onClick ="OnStartUpgradeExp()" />
+		        <input class="Nice_Btn" type="button" id="UploadCancel" name="UploadCancel" value="Cancel" onClick ="OnCancelUpgradeExp()"></td>
+		      </tr>		
+</form>
+				</table>
+			</table>
+			</div>	
+<form name="body_form">
+			<div class="div_border" id="PhoneExt_divSetting">
+			<div class="div_head"><label id="tExtSetting">Ext Setting</label></div>
+			<table class="table_style">	
+				<table id='tableExtModSetting' class='TablePadding1' style="padding-left:90px">
+					<tr>
+						<td class="ext_Exp_Second_3Td"><label id='tFirmwareVersion'></label></td> <td class="Third_td"><label id='cFirmwareVersion'></label></td>
+					</tr>
+					<tr>
+    				<td class='ext_Exp_Second_3Td'><label id='tExtModule'>Exapansion Module</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cCurExtModID'  name='cCurExtModID' onChange='OnGotoDstEXT()'></select></td>
+    			</tr>
+    			<tr>
+    				<td class='ext_Exp_Second_3Td'><label id='tEMBackLightLevel'>BackLight Level</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cEMBackLightLevel'  name='cEMBackLightLevel'></select></td>
+    			</tr>
+    			<tr>
+    				<td class='ext_Exp_Second_3Td'><label id='tEMBackLightTime'>BackLight Time</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cEMBackLightTime'  name='cEMBackLightTime'></select></td>
+    			</tr>
+				<tr>
+					<td class='ext_Exp_Second_3Td'><label id='tEMPageMode'>Page Mode</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cEMPageMode'  name='cEMPageMode'></select></td>
+    			</tr>
+    			<tr style='display:none;'>
+    				<td class='ext_Exp_Second_3Td'><label id='tEMContrast'>Contrast</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cEMContrast'  name='cEMContrast'></select></td>
+    			</tr>
+    			<tr style='display:none;'>
+    				<td class='ext_Exp_Second_3Td'><label id='tEMInterval'>Interval</label></td>
+    				<td class="Third_td"><select class='Select_format' id='cEMInterval'  name='cEMInterval'></select></td>
+    			</tr>    			
+				</table>
+			</table>
+			</div>
+				<div class="div_border" id="PhoneExt_divKey">
+				<div class="div_head"><label id="tExtKey">Ext Key</label></div>
+				<table class="table_style">	
+    		<table id='tableExtPageExp' border="0" class="TablePadding1">
+    			<tr>
+    				<td class='ext_Exp_First_Td'><label id='tPageLabel'>Page</label></td>
+	    			<td class='ext_Exp_Second_Td'><input type='button' class='ext_Exp_Btn' id='tPrePage' name='tPrePage' value='Pre' onClick='OnGotoPrePage()' /></td>
+	    			<td class='ext_Exp_Third_Td'>&nbsp<label class='' id='cPageID' name='cPageID'> 1/2</labe></td>
+	    			<td class='ext_Exp_Fourth_Td'><input type='button' class='ext_Exp_Btn' id='tNextPage' name='tNextPage' value='Next' onClick='OnGotoNextPage()' /></td>
+    			</tr>
+    		</table>
+        <table id="tableExtKey"  border="0" class="TablePadding1">
+        	<tr bgcolor='#a5a9af'>     
+          	<td class='ext_Key_First_Td' style='text-align:center;'><label  id='tExtKeyName'>Key</label></td>
+            <td class='ext_Key_Sec_Td' style='text-align:center;'><label  id='tExtKeyType'>Type</label></td>
+            <td class='ext_Key_Third_Td' style='text-align:center;'><label  id='tExtKeyLabel'>Label</label></td>
+            <td class='ext_Key_Fourth_Td' style='text-align:center;'><label  id='tExtKeyValue'>Value</label></td>
+            <td class='ext_Key_Six_Td' style='text-align:center;'><label  id='tExtKeyAccount'>Account</label></td>
+            <td class='ext_Key_Fifth_Td' style='text-align:center;'><label  id='tExtKeyCode'>Extension</label></td>
+          </tr>
+    		</table>
+    		</table>
+    		</div>
+</form>		
+<form method="post" name="submit_form" id="submit_form" action="">
+				<div style="text-align:center" align="center">
+				<table width="70%" align="center" style="text-align:center">
+          <br/>
+          <input type="hidden" name="SubmitData" value="">
+          <tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+        <td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td></tr>
+        </table>  
+        </div>
+</form>
+			</div>
+		</div>
+		<div id="divRebootStatus" style="display:none"></div>
+	<div id="divStartUpgradeExp" style="display:none"></div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

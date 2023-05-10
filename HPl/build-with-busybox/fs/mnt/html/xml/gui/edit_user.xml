@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneBatch  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/minibrowser.xsd">
+  <SnomIPPhoneMenu id="identities" dtmf="off">
+    <Title>$(lang:sel100_edit_line)</Title>
+    <Repeat values="$(enum:$(max_registrations))" token="|__REG__|">
+      <MenuItem name="$(user_displayname:__REG__)">
+        <Url>file:///xml/gui/edit_user.xml#sub=*[@id="properties"]&amp;var:identity=__REG__</Url>
+      </MenuItem>
+    </Repeat>
+  </SnomIPPhoneMenu>
+  <SnomIPPhoneMenu track="no" id="properties" dtmf="off">
+    <Title>Login</Title>
+    <MenuItem name="$(lang:active) [$(yes_no:$(set:user_active[$(var:identity)]))]">
+      <Url>file:///xml/gui/edit_user.xml#sub=*[@id="properties"]&amp;toggleset:user_active[$(var:identity)]</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_realname)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_realname)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_realname[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_realname[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_name)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_name)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_name[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_name[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_pass)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_pass)&amp;var:input_token=__Y__&amp;var:input_flags=p&amp;var:input_default=$(set:user_pass[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_pass[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_host)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_host)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_host[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_host[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_outbound)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_outbound)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_outbound[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_outbound[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_pname)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_pname)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_pname[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_pname[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+    <MenuItem name="$(lang:user_mailbox)">
+      <Url>file:///xml/gui/templates.xml#sub=*[@id="input_template"]&amp;var:input_displayname=$(lang:user_mailbox)&amp;var:input_token=__Y__&amp;var:input_flags=a&amp;var:input_default=$(set:user_mailbox[$(var:identity)])&amp;var:input_url=file:///xml/gui/edit_user.xml%23sub=*[@id="properties"]%26set:user_mailbox[$(var:identity)]=__Y__</Url>
+    </MenuItem>
+  </SnomIPPhoneMenu>
+</SnomIPPhoneBatch>

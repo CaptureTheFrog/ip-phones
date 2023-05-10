@@ -1,0 +1,15 @@
+#
+::sysinit:/etc/init.d/rcS
+
+#:2345:respawn:/sbin/getty -L tty0 38400 vt100
+
+# Start an "askfirst" shell on the console (whatever that may be)
+#::askfirst:-/bin/sh
+::askfirst:-/bin/login
+
+# Stuff to do before rebooting
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r 2>/dev/null
+::shutdown:hwclock -w 2>/dev/null
+
+

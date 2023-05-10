@@ -1,0 +1,570 @@
+<?ssi title prefs_ssi_title?>
+<?ssi file common1.htm?>
+  <TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+  <TR>
+    <TD vAlign="top">
+      <FORM method="post">
+        <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+          <TBODY>
+<TR>
+  <TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+  <TD></TD>
+  <TD></TD>
+  <TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_generalinfo?></B></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_web_language?></TD></TD>
+<TD><?ssi language web?><?ssi help web_language?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_language?></TD></TD>
+<TD><?ssi language gui?><?ssi help language?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_displaystyle?></TD><TD><select <?ssi disabled display_method?> name="display_method" <?ssi tabindex?> size="1" class="select3">
+<option value="full_contact"<?ssi selected display_method full_contact?>><?lng prefs_dsfullcontact?></option>
+<option value="display_name"<?ssi selected display_method display_name?>><?lng prefs_dsname?></option>
+<option value="display_number"<?ssi selected display_method display_number?>><?lng prefs_dsnumber?></option>
+<option value="display_name_number"<?ssi selected display_method display_name_number?>><?lng prefs_dsnamenumber?></option>
+<option value="display_number_name"<?ssi selected display_method display_number_name?>><?lng prefs_dsnumbername?></option>
+</select><?ssi help display_method?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_tonescheme?></TD><TD>
+<select name="tone_scheme" ID="Select1" <?ssi disabled tone_scheme?> <?ssi tabindex?> size="1" class="select3">
+<option value="AUS"<?ssi selected tone_scheme AUS?>><?lng prefs_tsaustralia?></option>
+<option value="AUT"<?ssi selected tone_scheme AUT?>><?lng prefs_tsaustria?></option>
+<option value="CHN"<?ssi selected tone_scheme CHN?>><?lng prefs_tschina?></option>
+<option value="CZE"<?ssi selected tone_scheme CZE?>><?lng prefs_tsczech?></option>
+<option value="DNK"<?ssi selected tone_scheme DNK?>><?lng prefs_tsdenmark?></option>
+<option value="FRA"<?ssi selected tone_scheme FRA?>><?lng prefs_tsfrance?></option>
+<option value="GER"<?ssi selected tone_scheme GER?>><?lng prefs_tsgermany?></option>
+<option value="GBR"<?ssi selected tone_scheme GBR?>><?lng prefs_tsgreatbritain?></option>
+<option value="IND"<?ssi selected tone_scheme IND?>><?lng prefs_tsindia?></option>
+<option value="ITA"<?ssi selected tone_scheme ITA?>><?lng prefs_tsitaly?></option>
+<option value="JPN"<?ssi selected tone_scheme JPN?>><?lng prefs_tsjapan?></option>
+<option value="MEX"<?ssi selected tone_scheme MEX?>><?lng prefs_tsmexico?></option>
+<option value="NLD"<?ssi selected tone_scheme NLD?>><?lng prefs_tsnetherlands?></option>
+<option value="NOR"<?ssi selected tone_scheme NOR?>><?lng prefs_tsnorway?></option>
+<option value="NZL"<?ssi selected tone_scheme NZL?>><?lng prefs_tsnewzealand?></option>
+<option value="ESP"<?ssi selected tone_scheme ESP?>><?lng prefs_tsspain?></option>
+<option value="SWE"<?ssi selected tone_scheme SWE?>><?lng prefs_tssweden?></option>
+<option value="SWI"<?ssi selected tone_scheme SWI?>><?lng prefs_tsswitzerland?></option>
+<option value="USA"<?ssi selected tone_scheme USA?>><?lng prefs_tsus?></option>
+</select><?ssi help tone_scheme?>
+</TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_mwinotifi?></td><td>
+<select size="1" <?ssi disabled mwi_notification?>name="mwi_notification" <?ssi tabindex?> class="select3">
+<option value="silent"<?ssi selected mwi_notification silent?>><?lng prefs_mwisilent?></option>
+<option value="beep"<?ssi selected mwi_notification beep?>><?lng prefs_mwibeep?></option>
+<option value="reminder"<?ssi selected mwi_notification reminder?>><?lng prefs_mwireminder?></option>
+</select><?ssi help mwi_notification?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_mwidialtone?></td>
+<td>
+<select size="1" <?ssi disabled mwi_dialtone?>name="mwi_dialtone" <?ssi tabindex?> class="select3">
+<option value="normal"<?ssi selected mwi_dialtone normal?>><?lng prefs_mwidialnormal?></option>
+<option value="stutter"<?ssi selected mwi_dialtone stutter?>><?lng prefs_mwidialstutter?></option>
+</select><?ssi help mwi_dialtone?></TD></TR>
+<?ssi skipon SNOM870?>
+<?ssi skipon SNOM820?>
+<?ssi skipon SNOM370?>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_use_backlight?></TD><TD><select <?ssi disabled use_backlight?>name="use_backlight" <?ssi tabindex?> size="1" class="select3">
+<option value="on"<?ssi selected use_backlight on?>><?lng advanced_ssi_on?></option>
+<option value="off"<?ssi selected use_backlight off?>><?lng advanced_ssi_off?></option>
+<?ssi skipon REAL360?>
+<option value="all"<?ssi selected use_backlight all?>><?lng advanced_answer_after_always?></option>
+<?ssi skipoff REAL360?>
+</select><?ssi help use_backlight?></TD></TR>
+<?ssi skipoff SNOM370?>
+<?ssi skipoff SNOM820?>
+<?ssi skipoff SNOM870?>
+<?ssi skipon REAL360?>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_dim_timer dim_timer?></td></TR>
+<?ssi skipoff REAL360?>
+<TR><TD></TD><?ssi radio prefs_ssi_date_us_format date_us_format advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_time_24_format time_24_format advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_show_clock show_clock advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_dialnumber_us_format dialnumber_us_format advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_with_flash with_flash advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipon SNOM870?>
+<TR><TD></TD><?ssi radio prefs_ssi_redundant_softkeys show_redundant_context_keys advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipoff SNOM870?>
+<?ssi skipon SMALL_DISPLAY?>
+<?ssi skipon SNOM870?>
+<?ssi skipon SNOM820?>
+<?ssi skipon SNOM720710?>
+<TR><TD></TD><?ssi radio prefs_ssi_ringer_animation ringer_animation advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipoff SNOM720710?>
+<?ssi skipoff SNOM820?>
+<?ssi skipon NOT_SNOM820?>
+<TR><TD></TD><TD class="normalText"><?lng prefs_show_image_in_call?></td><td>
+<select name="show_image_in_call" <?ssi disabled show_image_in_call?>size="1" <?ssi tabindex?> class="select3">
+<option value="on" <?ssi selected show_image_in_call on?>><?lng advanced_ssi_on?></option>
+<option value="photo_only" <?ssi selected show_image_in_call photo_only?>><?lng prefs_show_only_photo?></option>
+<option value="off" <?ssi selected show_image_in_call off?>><?lng advanced_ssi_off?></option>
+</select><?ssi help show_image_in_call?></TD></TR>
+<?ssi skipoff NOT_SNOM820?>
+<?ssi skipoff SNOM870?>
+<?ssi skipoff SMALL_DISPLAY?>
+<TR><TD></TD><?ssi radio prefs_ssi_show_ivr_digits show_ivr_digits advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_global_missed_counter global_missed_counter advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipon SNOM870?>
+<TR><TD></TD><?ssi radio prefs_ssi_scroll_outgoing scroll_outgoing advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_scroll_text_interval scroll_text_interval?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_scroll_text_wait_multiplier scroll_text_wait_multiplier?></td></TR>
+<?ssi skipon NOT_SNOM8XX?>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_scroll_text_step_count scroll_text_step_count?></td></TR>
+<?ssi skipoff NOT_SNOM8XX?>
+<?ssi skipoff SNOM870?>
+<TR><TD></TD><?ssi radio prefs_ssi_show_local_line show_local_line advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_show_call_status show_call_status advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_advertisement advertisement advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<?ssi skipon NOT_SNOMPA1?>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_pa1_controls?></B></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_reset_button_for_dialing pa1_reset_button_for_dialing advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipon NOT_SNOMPA1DP?>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_nr_to_dial pa1_nr_to_dial?></td></TR>
+<?ssi skipoff NOT_SNOMPA1DP?>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_call_timeout pa1_call_timeout?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_speaker_volume vol_headset?></td></TR>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_amp_gain pa1_amp_gain?></td></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_spkr pa1_spkr advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_pin1 pa1_pin1 advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_pin2 pa1_pin2 advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_pin3 pa1_pin3 advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_pa1_pin4 pa1_pin4 advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_pin1_time pin1_time?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_pin2_time pin2_time?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_pin3_time pin3_time?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_pa1_pin4_time pin4_time?></td></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<?ssi skipoff NOT_SNOMPA1?>
+
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_redirection?></B></TD></TR>
+<TR><TD></TD><?ssi radio prefs_redirection_always$bi redirect_allways advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_redirect_number redirect_number?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_on_code redirect_always_on_code?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_off_code redirect_always_off_code?></td></TR>
+<TR><TD></TD><?ssi radio prefs_redirection_busy$bi redirect_on_busy advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_redirect_number redirect_busy_number?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_on_code redirect_busy_on_code?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_off_code redirect_busy_off_code?></td></TR>
+<TR><TD></TD><?ssi radio prefs_redirection_time$bi redirect_on_timeout advanced_ssi_on advanced_ssi_off?></TD></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_timeout redirect_time?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_redirect_number redirect_time_number?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_on_code redirect_time_on_code?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_off_code redirect_time_off_code?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><b><?lng prefs_dnd?></b></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_on_code dnd_on_code?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_redirect_off_code dnd_off_code?></td></TR>
+<?ssi skipon NOT_NTLM?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><b><?lng prefs_status?></b></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_inactive_timeout inactive_timeout?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_away_timeout away_timeout?></td></TR>
+<?ssi skipoff NOT_NTLM?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_ringtone_defaults?></B></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ringdeviceheadset?></td><td>
+<select name="ringer_headset_device" ID="Select4" <?ssi disabled ringer_headset_device?>size="1" <?ssi tabindex?> class="select3">
+<option value="speaker" <?ssi selected ringer_headset_device speaker?>><?lng prefs_ringspeaker?></option>
+<option value="headset" <?ssi selected ringer_headset_device headset?>><?lng prefs_ringheadset?></option>
+<?ssi skipon NOT_HAS_RINGER_OPENL?>
+<option value="headsetloud" <?ssi selected ringer_headset_device headsetloud?>><?lng prefs_ringheadsetloud?></option>
+<?ssi skipoff NOT_HAS_RINGER_OPENL?>
+</select><?ssi help ringer_headset_device?></TD></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_alert_info_ringer?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_alert_internal_text alert_internal_ring_text?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_alert_internal_sound?></TD><TD>
+<select name="alert_internal_ring_sound" ID="Select2" <?ssi disabled alert_internal_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected alert_internal_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected alert_internal_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected alert_internal_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected alert_internal_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected alert_internal_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected alert_internal_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected alert_internal_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected alert_internal_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected alert_internal_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected alert_internal_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected alert_internal_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help alert_internal_ring_sound?>
+</TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_alert_external_text alert_external_ring_text?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_alert_external_sound?></TD><TD>
+<select name="alert_external_ring_sound" ID="Select3" <?ssi disabled alert_external_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected alert_external_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected alert_external_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected alert_external_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected alert_external_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected alert_external_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected alert_external_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected alert_external_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected alert_external_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected alert_external_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected alert_external_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected alert_external_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help alert_external_ring_sound?>
+</TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_alert_group_text alert_group_ring_text?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_alert_group_sound?></TD><TD>
+<select name="alert_group_ring_sound" ID="Select6" <?ssi disabled alert_group_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected alert_group_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected alert_group_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected alert_group_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected alert_group_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected alert_group_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected alert_group_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected alert_group_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected alert_group_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected alert_group_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected alert_group_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected alert_group_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help alert_group_ring_sound?>
+</TD></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_ringtone_addressbook?></B></TD></TR>
+<TR><TD></TD><TD class="normalText">"<?lng prefs_friends?>":</TD><TD>
+<select name="friends_ring_sound" <?ssi disabled friends_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected friends_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected friends_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected friends_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected friends_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected friends_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected friends_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected friends_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected friends_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected friends_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected friends_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected friends_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+<option value="Custom"<?ssi selected friends_ring_sound Custom?>><?lng line_custom?></option>
+</select><?ssi help friends_ring_sound?>
+</TD></TR>
+
+<TR><TD></TD><TD class="normalText">"<?lng prefs_family?>":</TD><TD>
+<select name="family_ring_sound" <?ssi disabled family_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected family_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected family_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected family_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected family_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected family_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected family_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected family_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected family_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected family_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected family_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected family_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+<option value="Custom"<?ssi selected family_ring_sound Custom?>><?lng line_custom?></option>
+</select><?ssi help family_ring_sound?>
+</TD></TR>
+
+<TR><TD></TD><TD class="normalText">"<?lng prefs_colleagues?>":</TD><TD>
+<select name="colleagues_ring_sound" <?ssi disabled colleagues_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected colleagues_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected colleagues_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected colleagues_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected colleagues_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected colleagues_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected colleagues_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected colleagues_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected colleagues_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected colleagues_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected colleagues_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected colleagues_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+<option value="Custom"<?ssi selected colleagues_ring_sound Custom?>><?lng line_custom?></option>
+</select><?ssi help colleagues_ring_sound?>
+</TD></TR>
+
+<?ssi skipon SMALL_ADR_BOOK?>
+<TR><TD></TD><TD class="normalText"><?lng adr_work?>:</TD><TD>
+<select name="work_ring_sound" <?ssi disabled work_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected work_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected work_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected work_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected work_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected work_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected work_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected work_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected work_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected work_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected work_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected work_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+<option value="Custom"<?ssi selected work_ring_sound Custom?>><?lng line_custom?></option>
+</select><?ssi help work_ring_sound?>
+</TD></TR>
+<?ssi skipoff SMALL_ADR_BOOK?>
+
+<TR><TD></TD><TD class="normalText">"<?lng prefs_vip?>":</TD><TD>
+<select name="vip_ring_sound" <?ssi disabled vip_ring_sound?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected vip_ring_sound Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected vip_ring_sound Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected vip_ring_sound Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected vip_ring_sound Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected vip_ring_sound Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected vip_ring_sound Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected vip_ring_sound Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected vip_ring_sound Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected vip_ring_sound Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected vip_ring_sound Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected vip_ring_sound Silent?>><?lng prefs_ringersilent?></option>
+<option value="Custom"<?ssi selected vip_ring_sound Custom?>><?lng line_custom?></option>
+</select><?ssi help vip_ring_sound?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_custommelody custom_melody_url?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_custom_internal_alert_info?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text0?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file0" ID="Select7" <?ssi disabled internal_ringer_file0?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file0 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file0 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file0 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file0 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file0 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file0 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file0 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file0 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file0 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file0 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file0 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file0?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text1?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file1" ID="Select8" <?ssi disabled internal_ringer_file1?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file1 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file1 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file1 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file1 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file1 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file1 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file1 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file1 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file1 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file1 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file1 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file1?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text2?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file2" ID="Select9" <?ssi disabled internal_ringer_file2?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file2 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file2 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file2 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file2 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file2 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file2 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file2 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file2 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file2 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file2 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file2 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file2?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text3?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file3" ID="Select10" <?ssi disabled internal_ringer_file3?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file3 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file3 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file3 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file3 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file3 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file3 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file3 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file3 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file3 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file3 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file3 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file3?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text4?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file4" ID="Select11" <?ssi disabled internal_ringer_file4?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file4 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file4 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file4 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file4 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file4 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file4 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file4 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file4 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file4 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file4 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file4 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file4?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text5?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file5" ID="Select12" <?ssi disabled internal_ringer_file5?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file5 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file5 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file5 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file5 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file5 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file5 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file5 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file5 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file5 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file5 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file5 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file5?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text6?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file6" ID="Select13" <?ssi disabled internal_ringer_file6?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file6 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file6 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file6 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file6 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file6 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file6 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file6 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file6 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file6 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file6 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file6 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file6?>
+</TD></TR>
+
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text7?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file7" ID="Select14" <?ssi disabled internal_ringer_file7?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file7 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file7 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file7 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file7 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file7 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file7 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file7 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file7 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file7 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file7 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file7 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file7?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text8?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file8" ID="Select15" <?ssi disabled internal_ringer_file8?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file8 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file8 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file8 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file8 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file8 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file8 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file8 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file8 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file8 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file8 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file8 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file8?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text9?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file9" ID="Select16" <?ssi disabled internal_ringer_file9?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file9 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file9 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file9 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file9 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file9 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file9 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file9 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file9 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file9 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file9 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file9 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file9?>
+</TD></TR>
+
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ca_ringer_text internal_ringer_text10?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng prefs_ssi_ca_ringer_file?></TD><TD>
+<select name="internal_ringer_file10" ID="Select18" <?ssi disabled internal_ringer_file10?>size="1" <?ssi tabindex?> class="select3">
+<option value="Ringer1"<?ssi selected internal_ringer_file10 Ringer1?>><?lng prefs_ringer1?></option>
+<option value="Ringer2"<?ssi selected internal_ringer_file10 Ringer2?>><?lng prefs_ringer2?></option>
+<option value="Ringer3"<?ssi selected internal_ringer_file10 Ringer3?>><?lng prefs_ringer3?></option>
+<option value="Ringer4"<?ssi selected internal_ringer_file10 Ringer4?>><?lng prefs_ringer4?></option>
+<option value="Ringer5"<?ssi selected internal_ringer_file10 Ringer5?>><?lng prefs_ringer5?></option>
+<option value="Ringer6"<?ssi selected internal_ringer_file10 Ringer6?>><?lng prefs_ringer6?></option>
+<option value="Ringer7"<?ssi selected internal_ringer_file10 Ringer7?>><?lng prefs_ringer7?></option>
+<option value="Ringer8"<?ssi selected internal_ringer_file10 Ringer8?>><?lng prefs_ringer8?></option>
+<option value="Ringer9"<?ssi selected internal_ringer_file10 Ringer9?>><?lng prefs_ringer9?></option>
+<option value="Ringer10"<?ssi selected internal_ringer_file10 Ringer10?>><?lng prefs_ringer10?></option>
+<option value="Silent"<?ssi selected internal_ringer_file10 Silent?>><?lng prefs_ringersilent?></option>
+</select><?ssi help internal_ringer_file10?>
+</TD></TR>
+
+
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_autoanswer?></B></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_aaindication auto_connect_indication advanced_ssi_on advanced_ssi_off?></TR>
+
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_privacysetting?></B></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_privclip privacy_out prefs_hide prefs_show?></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_privclir privacy_in prefs_reject prefs_accept?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_inactivitytimeout presence_timeout?></td></TR>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_keyboard_lock?></B></TD></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_enable_keyboard_lock enable_keyboard_lock advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_keyboard_lock keyboard_lock advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass prefs_ssi_keyboard_lock_pw keyboard_lock_pw?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_keyboard_lock_timeout keyboard_lock_timeout?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_keyboard_lock_dp keyboard_lock_emergency?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_emergency_proxy emergency_proxy?></td></TR>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+
+<TR><TD></TD><TD class="normalText"><B><?lng prefs_character_settings?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_0 chars_in_upper_case0?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_1 chars_in_upper_case1?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_2 chars_in_upper_case2?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_3 chars_in_upper_case3?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_4 chars_in_upper_case4?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_5 chars_in_upper_case5?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_6 chars_in_upper_case6?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_7 chars_in_upper_case7?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_8 chars_in_upper_case8?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_upper_chars_9 chars_in_upper_case9?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_0 chars_in_lower_case0?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_1 chars_in_lower_case1?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_2 chars_in_lower_case2?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_3 chars_in_lower_case3?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_4 chars_in_lower_case4?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_5 chars_in_lower_case5?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_6 chars_in_lower_case6?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_7 chars_in_lower_case7?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_8 chars_in_lower_case8?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_lower_chars_9 chars_in_lower_case9?></td></TR>
+<TR><TD></TD><TD></TD></TR>
+
+
+<TR><TD></TD><TD></TD></TR>
+
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+  <TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+  <TD></TD>
+  <TD></TD>
+  <TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+          </TBODY></TABLE>
+      </FORM>
+    </TD>
+  </TR>
+  <?ssi file common9.htm?></HTML>

@@ -1,0 +1,129 @@
+
+<?ssi title line$l_ssi_title?>
+
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+<?ssi hidden_tag?>
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<?ssi file tab_line.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng line_logininfo?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<!--<TR><TD></TD><td class="normalText"><?lng leftnav_status?></TD><td class="normalText"><?ssi reg_state_line$?></td></TR>-->
+<TR><TD></TD><?ssi radio line_ssi_active user_active$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_name user_realname$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_account user_name$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass line_ssi_password user_pass$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_registrar user_host$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_outboundproxy user_outbound$l?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_failover_identity?></TD><TD><select name="user_failover_identity<?ssi line?>" ID="Select1" <?ssi disabled user_failover_identity$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="none"<?ssi selected user_failover_identity$l none?>><?lng line_none?></option>
+ <option value="1"<?ssi selected user_failover_identity$l 1?>><?lng adr_lineid1?></option>
+ <option value="2"<?ssi selected user_failover_identity$l 2?>><?lng adr_lineid2?></option>
+ <option value="3"<?ssi selected user_failover_identity$l 3?>><?lng adr_lineid3?></option>
+ <option value="4"<?ssi selected user_failover_identity$l 4?>><?lng adr_lineid4?></option>
+<?ssi skipon SNOM300?>
+<?ssi skipon SNOM710?>
+ <option value="5"<?ssi selected user_failover_identity$l 5?>><?lng adr_lineid5?></option>
+ <option value="6"<?ssi selected user_failover_identity$l 6?>><?lng adr_lineid6?></option>
+ <option value="7"<?ssi selected user_failover_identity$l 7?>><?lng adr_lineid7?></option>
+ <option value="8"<?ssi selected user_failover_identity$l 8?>><?lng adr_lineid8?></option>
+ <option value="9"<?ssi selected user_failover_identity$l 9?>><?lng adr_lineid9?></option>
+ <option value="10"<?ssi selected user_failover_identity$l 10?>><?lng adr_lineid10?></option>
+ <option value="11"<?ssi selected user_failover_identity$l 11?>><?lng adr_lineid11?></option>
+ <option value="12"<?ssi selected user_failover_identity$l 12?>><?lng adr_lineid12?></option>
+<?ssi skipoff SNOM710?>
+<?ssi skipoff SNOM300?>
+</select><?ssi help user_failover_identity?>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_pname user_pname$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_mailbox user_mailbox$l?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_ringtone?></TD><TD><select name="user_ringer<?ssi line?>" <?ssi disabled user_ringer$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="Ringer1"<?ssi selected user_ringer$l Ringer1?>><?lng line_ringer1?></option>
+ <option value="Ringer2"<?ssi selected user_ringer$l Ringer2?>><?lng line_ringer2?></option>
+ <option value="Ringer3"<?ssi selected user_ringer$l Ringer3?>><?lng line_ringer3?></option>
+ <option value="Ringer4"<?ssi selected user_ringer$l Ringer4?>><?lng line_ringer4?></option>
+ <option value="Ringer5"<?ssi selected user_ringer$l Ringer5?>><?lng line_ringer5?></option>
+ <option value="Ringer6"<?ssi selected user_ringer$l Ringer6?>><?lng line_ringer6?></option>
+ <option value="Ringer7"<?ssi selected user_ringer$l Ringer7?>><?lng line_ringer7?></option>
+ <option value="Ringer8"<?ssi selected user_ringer$l Ringer8?>><?lng line_ringer8?></option>
+ <option value="Ringer9"<?ssi selected user_ringer$l Ringer9?>><?lng line_ringer9?></option>
+ <option value="Ringer10"<?ssi selected user_ringer$l Ringer10?>><?lng line_ringer10?></option>
+ <option value="Silent"<?ssi selected user_ringer$l Silent?>><?lng line_silent?></option>
+ <option value="Custom"<?ssi selected user_ringer$l Custom?>><?lng line_custom?></option>
+</select><?ssi help user_ringer?>
+<?ssi skipon NOT_NTLM?>
+<TR><TD></TD><TD class="normalText"><?lng line_ringtone_private_line?></TD><TD><select name="user_ringer_private_line<?ssi line?>" <?ssi disabled user_ringer_private_line$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="Ringer1"<?ssi selected user_ringer_private_line$l Ringer1?>><?lng line_ringer1?></option>
+ <option value="Ringer2"<?ssi selected user_ringer_private_line$l Ringer2?>><?lng line_ringer2?></option>
+ <option value="Ringer3"<?ssi selected user_ringer_private_line$l Ringer3?>><?lng line_ringer3?></option>
+ <option value="Ringer4"<?ssi selected user_ringer_private_line$l Ringer4?>><?lng line_ringer4?></option>
+ <option value="Ringer5"<?ssi selected user_ringer_private_line$l Ringer5?>><?lng line_ringer5?></option>
+ <option value="Ringer6"<?ssi selected user_ringer_private_line$l Ringer6?>><?lng line_ringer6?></option>
+ <option value="Ringer7"<?ssi selected user_ringer_private_line$l Ringer7?>><?lng line_ringer7?></option>
+ <option value="Ringer8"<?ssi selected user_ringer_private_line$l Ringer8?>><?lng line_ringer8?></option>
+ <option value="Ringer9"<?ssi selected user_ringer_private_line$l Ringer9?>><?lng line_ringer9?></option>
+ <option value="Ringer10"<?ssi selected user_ringer_private_line$l Ringer10?>><?lng line_ringer10?></option>
+ <option value="Silent"<?ssi selected user_ringer_private_line$l Silent?>><?lng line_silent?></option>
+ <option value="Custom"<?ssi selected user_ringer_private_line$l Custom?>><?lng line_custom?></option>
+</select><?ssi help user_ringer_private_line?>
+<TR><TD></TD><TD class="normalText"><?lng line_ringtone_forwarded_calls?></TD><TD><select name="user_ringer_forwarded_calls<?ssi line?>" <?ssi disabled user_ringer_forwarded_calls$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="Ringer1"<?ssi selected user_ringer_forwarded_calls$l Ringer1?>><?lng line_ringer1?></option>
+ <option value="Ringer2"<?ssi selected user_ringer_forwarded_calls$l Ringer2?>><?lng line_ringer2?></option>
+ <option value="Ringer3"<?ssi selected user_ringer_forwarded_calls$l Ringer3?>><?lng line_ringer3?></option>
+ <option value="Ringer4"<?ssi selected user_ringer_forwarded_calls$l Ringer4?>><?lng line_ringer4?></option>
+ <option value="Ringer5"<?ssi selected user_ringer_forwarded_calls$l Ringer5?>><?lng line_ringer5?></option>
+ <option value="Ringer6"<?ssi selected user_ringer_forwarded_calls$l Ringer6?>><?lng line_ringer6?></option>
+ <option value="Ringer7"<?ssi selected user_ringer_forwarded_calls$l Ringer7?>><?lng line_ringer7?></option>
+ <option value="Ringer8"<?ssi selected user_ringer_forwarded_calls$l Ringer8?>><?lng line_ringer8?></option>
+ <option value="Ringer9"<?ssi selected user_ringer_forwarded_calls$l Ringer9?>><?lng line_ringer9?></option>
+ <option value="Ringer10"<?ssi selected user_ringer_forwarded_calls$l Ringer10?>><?lng line_ringer10?></option>
+ <option value="Silent"<?ssi selected user_ringer_forwarded_calls$l Silent?>><?lng line_silent?></option>
+ <option value="Custom"<?ssi selected user_ringer_forwarded_calls$l Custom?>><?lng line_custom?></option>
+</select><?ssi help user_ringer_forwarded_calls?>
+<?ssi skipoff NOT_NTLM?>
+</TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input prefs_ssi_custommelody user_custom$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_idle_text user_idle_text$l?></td></TR>
+<?ssi skipon SNOM720710?>
+<?ssi skipon SMALL_DISPLAY?>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_xml_screen_url user_xml_screen_url$l?></td></TR>
+<?ssi skipoff SMALL_DISPLAY?>
+<?ssi skipoff SNOM720710?>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_ring_after_delay ring_after_delay$l?></td></TR>
+<TR><TD></TD><?ssi radio line_ssi_record_missed_calls record_missed_calls$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio line_ssi_record_dialed_calls record_dialed_calls$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio line_ssi_record_received_calls record_received_calls$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_hide_identity hide_identity$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD>
+<input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button">
+<input type="submit" value="<?lng line_reregister?>" name="REREGISTER:<?ssi line?>" <?ssi tabindex?> class="button" ID="Submit1">
+<input type="submit" value="<?lng line_play?>" name="PLAY_RINGER:<?ssi line?>" <?ssi tabindex?> class="button" ID="Submit2"></TD></TR>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD>
+<input type="submit" value="<?lng advanced_logoffline?>" name="LOGOFFLINE:<?ssi line?>" <?ssi tabindex?> class="button" ID="Submit1">
+<input type="submit" value="<?lng advanced_logoffall?>" name="CONFIRM_LOGOFFALL:<?ssi line?>" <?ssi tabindex?> class="button" ID="Submit1">
+</TD></TR>
+</TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	<?ssi file common9.htm?></HTML>

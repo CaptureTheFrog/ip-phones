@@ -1,0 +1,38 @@
+﻿
+[ GENERAL ]
+NameList=ABC,abc
+
+[ KEYMAP1 ]
+Category=0
+Input0=
+Input1=
+Input2=ÁÀÂÄÃÅÆÇ
+Input3=ÉÈÊË
+Input4=ÍÌÎÏ
+Input5=
+Input6=ÑÓÒÔÖÕØ
+Input7=Œß
+Input8=ÚÙÛÜ
+Input9=
+Input10=
+Input11=
+Input12=
+Input13=
+
+[ KEYMAP2 ]
+Category=0
+Input0=
+Input1=
+Input2=áàâäãåæç
+Input3=éèêë
+Input4=íìîï
+Input5=
+Input6=ñóòôöõø
+Input7=œ
+Input8=úùûü
+Input9=
+Input10=
+Input11=
+Input12=
+Input13=
+

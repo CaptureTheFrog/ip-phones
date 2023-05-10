@@ -1,0 +1,142 @@
+<?ssi title advanced_ssi_title?>
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi file tab_advanced.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng advanced_qos?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_typeofservice codec_tos?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_sig_tos signaling_tos?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_vlan?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_vlan_id vlan_id?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_vlan_priority vlan_qos?></td></TR>
+<?ssi skipon SNOM_MP?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_vlan_port_tagging vlan_port_tagging advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><TD class="normalText"><i><b><?lng advanced_ssi_eth_pc_port?></b></i></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_vlan_id vlan_pc_id?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_vlan_priority vlan_pc_priority?></td></TR>
+<?ssi skipoff SNOM_MP?>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<TR><TD></TD><TD class="normalText"><B>IEEE 8021x Authentication</B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_user ieee8021x_eap_md5_username?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_password ieee8021x_eap_md5_password?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_security?></B></TD></TR>
+<?ssi skipon NOT_VPN?>
+<TR><TD></TD><?ssi radio vpn_ssi_vpn_on vpn_on advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon VPN_ON?>
+<TR><TD></TD><td class="normalText"><?ssi input vpn_ssi_tarball_url vpn_tarball_url?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input vpn_netcat_server vpn_netcatserver?></td></TR>
+<?ssi skipoff VPN_ON?>
+<?ssi skipoff NOT_VPN?>
+<TR><TD></TD><?ssi radio advanced_ssi_ignore_warning ignore_security_warning advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_use_hidden_tags use_hidden_tags advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_restrict_uri_queries restrict_uri_queries advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_csta_control csta_control advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_empty_tls_client_cert empty_tls_client_cert advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_filter_registrar filter_registrar advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_challenge_reboot challenge_reboot advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_challenge_checksync challenge_checksync advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipon NOT_NTLM?>
+<TR><TD></TD><?ssi radio advanced_ssi_use_NTLMv2 use_NTLMv2 advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_server_enforced_kb_lock server_enforced_kb_lock advanced_ssi_on advanced_ssi_off?></TR>
+<?ssi skipoff NOT_NTLM?>
+<TR><TD></TD><?ssi radio advanced_ssi_adminmode admin_mode advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_adminpassword admin_mode_password?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_adminpassconf admin_mode_password_confirm?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_min_pin_length min_pin_length?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_max_pin_retry max_pin_retry?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_USER_MODE?>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_http_server?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_user http_user?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_password http_pass?></td></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_auth_scheme http_scheme advanced_ssi_digest advanced_ssi_basic?></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<?ssi skipoff IN_USER_MODE?>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_http_client?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_user http_client_user?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_password http_client_pass?></td></TR>
+<TR><TD></TD><TD>&nbsp;</TD></TR>
+<TR><TD></TD><TD class="normalText"><B><?lng advanced_ssi_httpproxy?></B></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_user http_proxy_user?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi inpass advanced_ssi_password http_proxy_pass?></td></TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+<?ssi skipon IN_ADMIN_MODE?>
+<TR><TD></TD><td class="normalText"><B><?ssi inpass advanced_ssi_adminlogin admin_mode_login?></B></td></TR>
+<?ssi skipoff IN_ADMIN_MODE?>
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	
+	
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+		<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM enctype="multipart/form-data" method="post">
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0" ID="Table1">
+					<TBODY>
+<TR>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ul?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<?ssi hidden_tag?>
+<tr><td></td><td width="50%"/><td width="50%"/></tr>
+<TR>
+<TD></TD>
+<TD class="normalText"><?lng advanced_load_certs?></TD>
+<td>
+<input type="file" id="user_file" name="cert_file" <?ssi tabindex?> class="inputbig" onFocus="formHilite(this.id,'focus');" onBlur="formHilite(this.id,'blur');">
+</td>
+</tr>
+<TR>
+<TD></TD>
+<td>
+<input type="submit" value="<?lng adr_loadbutton?>" name="load_cert" <?ssi tabindex?> class="button">
+</td>
+</tr>
+
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD></TD>
+	<TD></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+
+<?ssi file common9.htm?></HTML>

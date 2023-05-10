@@ -1,0 +1,464 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<style type="text/css">
+	.td_Log{	text-indent:6px;	height:20px;	text-align:center;	}
+</style>
+<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script type='text/javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+	var PageRefDesURL = 'do?id=5&id=2';
+	var LogNumPerPage = 15;
+	var gpNum = 5;
+
+function DoF5Jump()
+{
+	Relocate(PageRefDesURL);
+}
+function LoadCfg()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrGroups = new Array(All, Dialed, Received, Missed, Forwarded);
+	for(var i=0; i < f2.hcCallLogCurPageNum.value; i++)
+	{
+		document.getElementById("cCurPage").options.add(new Option(i+1, i));
+	}
+	for(var i=0; i < gpNum; i++)
+	{
+		document.getElementById("cCurGroup").options.add(new Option(arrGroups[i], i));
+	}
+	if(document.getElementById("tDivShortcut"))
+	{
+		document.getElementById("tDivShortcut").style.display = "none";
+	}
+	LoadLang();
+	DelayShow();
+	SubLoadCfg();
+}
+	
+function SubLoadCfg()
+{	
+	var f2 = document.forms["hiddenValForm"];
+	document.getElementById("cCurPage").value = f2.hcCurPage.value;
+	var pageNow = f2.hcCurPage.value;
+	document.getElementById("cCurGroup").value = f2.hcCurGroup.value;
+	for(var i=1; i <= LogNumPerPage; i++)
+	{
+		var tmpDomName = "cIndex"+i;
+		document.getElementById(tmpDomName).innerHTML = i+pageNow*LogNumPerPage;
+	}
+	DisplayLogsData();
+	CheckButtonStatus();
+	document.getElementById("cCurPage").disabled = false;
+	document.getElementById("cCurGroup").disabled = false;
+	AutoHeightOfBody();
+
+}
+
+function LoadLang()
+{
+	LoadCommonResources(CallLog);
+	LoadButtonText();
+	document.getElementById("tIndex").innerHTML = Index;
+	document.getElementById("tName").innerHTML = Name;
+	document.getElementById("tPage").innerHTML = Page;
+	document.getElementById("tType").innerHTML = Type;
+	document.getElementById("tLocalIdentity").innerHTML = LocalIdentity;
+	document.getElementById("tNumber").innerHTML = NumberLabel;
+	document.getElementById("tDate").innerHTML = DateLabel;
+	document.getElementById("tTime").innerHTML = Time;
+	document.getElementById("tCallHistory").innerHTML = CallHistory;
+	document.getElementById("tWebCall").innerHTML = WebCall;
+	document.getElementById("HangUp").value = HangUpText;
+	return;
+}
+
+function LoadButtonText()
+{
+	document.getElementById("Prev").value = PrevLabel;
+	document.getElementById("Next").value = NextLabel;
+	document.getElementById("Delete").value = DeleteLabel;
+	document.getElementById("DeleteAll").value = DeleteAllLabel;
+}
+
+function CheckButtonStatus()
+{
+	var f2 = document.forms["hiddenValForm"];	
+	if(0 == CheckCheckedNum())
+	{
+		document.getElementById("Delete").disabled = true;
+		if(0 == f2.hcCallLogCurNum.value)
+		{
+			document.getElementById("DeleteAll").disabled = true;
+		}
+		else
+		{
+			document.getElementById("DeleteAll").disabled = false;			
+		}
+	}
+	else
+	{
+		document.getElementById("Delete").disabled = false;
+		document.getElementById("DeleteAll").disabled = false;
+	}
+	
+	if(f2.hcCallLogCurPageNum.value-1 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = true;
+		document.getElementById("Prev").disabled = false;
+	}
+	else if(0 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = false;
+		document.getElementById("Prev").disabled = true;
+	}	
+	
+	if(f2.hcCallLogCurPageNum.value-1 == f2.hcCurPage.value && 0 == f2.hcCurPage.value)
+	{
+		document.getElementById("Next").disabled = true;
+		document.getElementById("Prev").disabled = true;
+	}
+}
+
+function DisplayLogsData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrGroups = new Array(All, Dialed, Received, Missed, Forwarded);
+	for(var i=Number(f2.hcCallLogCurNum.value)+1; i <=LogNumPerPage; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		document.getElementById(tmpDomName).disabled = true;
+	}	
+	var arrDates = f2.hcCallLogDate.value.split(SplitSymbol);
+	var arrTimes = f2.hcCallLogTime.value.split(SplitSymbol);
+	var arrWeeks = f2.hcCallLogWeek.value.split(SplitSymbol);
+	var arrLocalIdentitys = f2.hcCallLogLocalIdentity.value.split(SplitSymbol);
+	var arrNames = f2.hcCallLogName.value.split(SplitSymbol);
+	var arrNumbers = f2.hcCallLogNumber.value.split(SplitSymbol);
+	var arrIds = f2.hcCallLogId.value.split(SplitSymbol);
+	var arrTypes = f2.hcCallLogType.value.split(SplitSymbol);
+	for(var i=1; i <= f2.hcCallLogCurNum.value; i++)
+	{
+		var tmpDomName = "cType"+i;
+		document.getElementById(tmpDomName).innerHTML = arrGroups[arrTypes[i-1]];
+
+		tmpDomName = "cDate"+i;
+		document.getElementById(tmpDomName).innerHTML = arrDates[i-1];
+		tmpDomName = "cTime"+i;
+		document.getElementById(tmpDomName).innerHTML = arrTimes[i-1];
+		tmpDomName = "cLocalIdentity"+i;
+		document.getElementById(tmpDomName).innerHTML = SegToLineOfStr(arrLocalIdentitys[i-1], 20, 12);;
+		tmpDomName = "cName"+i;
+		var tmpS = Unknown;
+		if(arrNames[i-1] != "")
+		{tmpS = arrNames[i-1];}
+		document.getElementById(tmpDomName).innerHTML = SegToLineOfStr(tmpS, 20, 12);
+		tmpDomName = "cNumber"+i;
+		document.getElementById(tmpDomName).innerHTML = SegToLineOfStr(ShowDecode(arrNumbers[i-1]), 20, 12);
+
+	}
+}
+
+function OnClickLogItem(tmpID)
+{
+	var stdStr = "aLogNumber";
+	var tailLen = 1;
+	if(stdStr.length+1 == tmpID.length)
+	{
+		tailLen = 1;
+	}
+	else if(stdStr.length+2 == tmpID.length)
+	{
+		tailLen = 2;
+	}
+	var pref = tmpID.substr(0, tmpID.length-tailLen);
+	var tmpIndex = tmpID.substr(tmpID.length-tailLen, tailLen);
+	var f2 = document.forms["hiddenValForm"];
+	var lineID, dstNumber;
+	var arrLogName = f2.hcCallLogName.value.split(SplitSymbol);
+	var arrLogNumber = f2.hcCallLogNumber.value.split(SplitSymbol);
+	var arrLogAccount = f2.hcCallLogLocalIdentity.value.split(SplitSymbol);
+	var arrDestNumber;
+	if("aLogNumber" == pref)
+	{
+		arrDestNumber = arrLogNumber;
+	}		
+	else
+	{
+		return;
+	}
+	destAccount = (arrLogAccount[tmpIndex].split("@"))[0];
+	destNumber = (arrLogNumber[tmpIndex].split("@"))[0];
+	if(!confirm(MakeCallWarn))
+	{
+		return;
+	}
+	WebMakeCall(destNumber, arrLogName[tmpIndex], destAccount, true);
+}
+
+function OnAllCheckClicked()
+{
+	var f2 = document.forms["hiddenValForm"];	
+	var st = Number(f2.hcCallLogCurNum.value);
+	if(document.getElementById("cCheck0").checked == true)
+	{
+		for(var i=1; i<=st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = true;
+		}
+	}
+	else{
+		for(var i=1; i<=st; i++)
+		{
+			var tmpDomName = "cCheck"+i;
+			document.getElementById(tmpDomName).checked = false;
+		}
+	}
+	
+	CheckButtonStatus();
+}
+
+function OnEachCheckClicked()
+{
+	CheckButtonStatus();
+}
+
+function CheckCheckedNum()
+{
+	var sum = 0;
+	for(var i=1; i<=LogNumPerPage; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			sum++;			
+		}
+	}
+	return sum;
+}
+
+function FindNumOfChecked()
+{
+	for(var i=1; i<=LogNumPerPage; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			return i;
+		}
+	}		
+}
+
+function OnDelCallLog()
+{
+	if(CheckCheckedNum() <=0)
+	{
+		alert(ValueMustSelectedWarning);
+		return;
+	}
+	
+	if(!confirm(DeleteSelectedConfirm))
+	{
+		return;
+	}
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["pageSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cLogDelete=";
+				
+	var tmpData = FindCheckedLogsId();
+	strSubmData += tmpData;
+	
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function FindCheckedLogsId()
+{
+	var f2 = document.forms["hiddenValForm"];
+	var data = "";
+	var arrCallLogId = f2.hcCallLogId.value.split(SplitSymbol);
+	for(var i=1; i<=LogNumPerPage; i++)
+	{
+		var tmpDomName = "cCheck"+i;
+		if(document.getElementById(tmpDomName).checked == true)
+		{
+			data = data + arrCallLogId[i-1] + "/";
+		}
+	}
+	return data;
+}
+
+function OnDelAllLogs()
+{
+	if(!confirm(DeleteAllConfirm))
+	{
+		return;
+	}
+	var f2 = document.forms["hiddenValForm"];
+	var f3 = document.forms["pageSubmitForm"];
+	var strSubmData = "begin";
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cLogDelete=";
+				
+	var tmpData = "PageAllLogs";
+	strSubmData += tmpData;	
+	strSubmData = strSubmData + "&SubmitData=end";
+	
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function ChangeLogPage()
+{
+	var f3 = document.forms["pageSubmitForm"];
+	var strSubmData = "begin";
+	document.getElementById("cCurPage").disabled = true;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cCurPage=";
+	strSubmData += document.getElementById("cCurPage").value;
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function OnNextPage()
+{
+	var f2 = document.forms["hiddenValForm"];
+	if(Number(document.getElementById("cCurPage").value)+1 < f2.hcCallLogCurPageNum.value)
+	{
+		document.getElementById("cCurPage").value++;
+		ChangeLogPage();
+	}
+}
+
+function OnPrevPage()
+{
+	if(document.getElementById("cCurPage").value > 0)
+	{
+		document.getElementById("cCurPage").value--;
+		ChangeLogPage();
+	}
+}
+
+function ChangeContactGroup()
+{
+	var f3 = document.forms["pageSubmitForm"];
+	var strSubmData = "begin";
+	document.getElementById("cCurGroup").disabled = true;
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData += "&cCurGroup=";
+	strSubmData += document.getElementById("cCurGroup").value;
+	strSubmData += "&cCurPage=";
+	strSubmData += 0;
+	f3.SubmitData.value = strSubmData;
+	DoForm3Submit(f3);
+}
+
+function CheckCommitData()
+{
+	return "";
+}
+
+$(function() { SetPageMenuAction("#aMenu5", "tMenu52"); });
+function OnHangUp()
+{
+	WebCallEnd();
+}
+</script>
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1"></div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">   		
+    		
+    		<div class="div_border">
+				<table class="table_style">		
+    			<table>
+    				<tr><td class="First_td"><label id='tCallHistory'></label></td><td><select id='cCurGroup' onChange="ChangeContactGroup()"></select></td>
+    					<td id="PhoneCL_tdHangUp"><input class='Nice_Btn' style='width:85px;' id='HangUp' type='button' value='HangUp' onClick='OnHangUp()' /></td>
+					</tr>
+    			</table>	
+          <table width="98%" id="tableContacts" align="center" cellpadding="0" cellspacing="1">
+            <tr bgcolor='#a5a9af'>            	
+              <td width='2%' style='font-size:13px' align='center' height='20px'><label id='tIndex'></label></td>
+              <td width='10%' style='font-size:13px' class="td_Log"><label id='tType'></label></td>
+              <td width='17%' style='font-size:13px' class="td_Log"><label id='tDate'></label></td>
+              <td width='12%' style='font-size:13px' class="td_Log"><label id='tTime'></label></td>
+              <td width='18%' style='font-size:13px' class="td_Log"><label id='tLocalIdentity'></label></td>
+              <td width='18%' style='font-size:13px' class="td_Log"><label id='tName'></label></td>
+              <td width='19%' style='font-size:13px' class="td_Log"><label id='tNumber'></label></td>              
+              <td width='2%' style='font-size:13px' class="td_Log"><input id='cCheck0' type='checkbox' onClick="OnAllCheckClicked()"></td>
+            </tr>
+            <script type="text/javascript">
+            	for(var i=1; i <= LogNumPerPage; i++)
+            	{
+	            	if(i%2)	
+	            	document.write("<tr bgcolor=\'#F9FAFC\' height='22px'>"+
+	            	"<td width='2%' align='center' height='20px'><label id='cIndex"+i+"'></label></td>"+
+	              "<td width='10%' style='font-size:13px' class='td_Log'><label id='cType"+i+"'></label></td>"+
+	              "<td width='17%' style='font-size:13px' class='td_Log'><label id='cDate"+i+"'></label></td>"+
+	              "<td width='12%' style='font-size:13px' class='td_Log'><label id='cTime"+i+"'></label></td>"+
+	              "<td width='18%' style='font-size:13px' class='td_Log'><label id='cLocalIdentity"+i+"'></label></td>"+
+	              "<td width='18%' style='font-size:13px' class='td_Log'><label id='cName"+i+"'></label></td>"+
+	              "<td width='19%' style='font-size:13px' class='td_Log'><a href='#' id='aLogNumber"+(Number(i)-1)+"'style='text-decoration:underline' onClick='OnClickLogItem(this.id)'><label id='cNumber"+i+"'></label></a></td>"+
+	              "<td width='2%' style='font-size:13px' class='td_Log'><input id='cCheck"+i+"' type='checkbox' onClick='OnEachCheckClicked()' value='Check"+i+"'></td>" + "</tr>");
+            	else
+            		document.write("<tr bgcolor=\'#DCE3E8\' height='22px'>"+
+	            	"<td width='2%' align='center' height='20px'><label id='cIndex"+i+"'></label></td>"+
+	              "<td width='10%' style='font-size:13px' class='td_Log'><label id='cType"+i+"'></label></td>"+
+	              "<td width='17%' style='font-size:13px' class='td_Log'><label id='cDate"+i+"'></label></td>"+
+	              "<td width='12%' style='font-size:13px' class='td_Log'><label id='cTime"+i+"'></label></td>"+
+	              "<td width='18%' style='font-size:13px' class='td_Log'><label id='cLocalIdentity"+i+"'></label></td>"+
+	              "<td width='18%' style='font-size:13px' class='td_Log'><label id='cName"+i+"'></label></td>"+
+	              "<td width='19%' style='font-size:13px' class='td_Log'><a href='#' id='aLogNumber"+(Number(i)-1)+"'style='text-decoration:underline' onClick='OnClickLogItem(this.id)'><label id='cNumber"+i+"'></label></a></td>"+
+	              "<td width='2%' style='font-size:13px' class='td_Log'><input id='cCheck"+i+"' type='checkbox' onClick='OnEachCheckClicked()' value='Check"+i+"'></td>"+"</tr>");
+          	}
+            </script>
+          </table>
+          <table width="98%" id="tableCallLogDelete" align="center" cellpadding="0" cellspacing="0">
+            <tr bgcolor='#a5a9af'>
+            	<td  align='center' height='20px'><label id='tPage'></label><select id='cCurPage' onChange="ChangeLogPage()"></select></td>
+              <td  align='center' height='20px'><input class="Nice_Btn2" style="width:70px;" id='Prev' type='button' value="Prev" onClick="OnPrevPage()"></td>
+              <td  align='center' height='20px'><input class="Nice_Btn2" style="width:70px;" id='Next' type='button' value="Next" onClick="OnNextPage()"></td>
+              <td  align='center' height='20px'><input class="Nice_Btn" style="width : 75px;" id='Delete' type='button' value="Delete" onClick="OnDelCallLog()"></td>
+              <td  align='center' height='20px'><input class="Nice_Btn" style="width : 100px;" id='DeleteAll' type='button' value="DeleteAll" onClick="OnDelAllLogs()"></td>
+              
+            </tr>
+          </table>
+        </table>
+        <div style="height:8px;"></div>
+        </div> 
+         
+    	 <table><tr style="display:none"><td class="First_td"><label id='tWebCall'></label></td></tr></table>
+<form method="post" name="pageSubmitForm" action="">
+          <input type="hidden" name="SubmitData" id="SubmitData" value="">
+</form>
+<div id="divWebCallRes" style="display:none"></div>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>
+<FCGI_INCLUDE FILE=bottom.html>

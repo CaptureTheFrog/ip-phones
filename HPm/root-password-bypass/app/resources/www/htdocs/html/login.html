@@ -1,0 +1,283 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>
+<script type='text/javascript'>
+	var ThisPage="";	
+	document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>')
+	document.write('<script src="../lang/LANGUAGELIST.js"></s'+'cript>')
+</script>
+
+<script type='text/javascript'>
+	
+var PageRefDesURL = 'do?id=1&id=8';	
+
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+	
+var check=function(e, destURL){	e = e||window.event;
+					   if((e.which||e.keyCode)==116){
+						 	if(e.preventDefault) {	e.preventDefault();	}
+						 	else {	event.keyCode = 0;	e.returnValue=false;	}
+					   }
+			}
+
+function StripTailSpace(desStr)
+{
+	return desStr.replace(/\s+$/g, "");
+}
+
+function onRemCookies()
+{
+	var userName = getCookie("UserName");
+	var onRemCookieSt = getCookie("onRemCookie");
+	if("true" == onRemCookieSt)
+	{
+		document.getElementById("cCheckSaveCookie").checked = true;
+		document.getElementById("username").value = unescape(userName);
+	}
+	else
+	{
+		document.getElementById("cCheckSaveCookie").checked = false;
+		document.getElementById("password").value = "";
+	}
+}
+function LoadCfg()
+{
+	//TouchDivInnerHTML("divLogin");
+	var arrWebLangListTemp = document.getElementById("hcWebLanguageList").value;
+	var arrWebLangList = arrWebLangListTemp.split(SplitSymbol);
+	var WebLangNum = document.getElementById("hcWebLanguageNum").value;
+	for(var i=0; i<WebLangNum; i++)
+	{
+		var j;
+		for(j=0; j<(arrLangStringMap.length/3); j++)
+		{
+			if(arrWebLangList[2*i+1] == arrLangStringMap[3*j+1])
+			{
+				document.getElementById("cWebLanguage").options.add(new Option(arrLangStringMap[3*j], arrWebLangList[2*i]));
+				break;
+			}
+		}
+	}
+	
+	document.getElementById("cWebLanguage").value = document.getElementById("hcWebLanguage").value;
+	
+	for(var i=0; i < PwdKeyFirst.length; i++) { PwdKeyFirst[i] = true; }
+	LoadLang();
+	
+	if(document.getElementById("hcLoginStatus")
+	&& "-1" == document.getElementById("hcLoginStatus").value)
+	{
+		ResetDivInnerHTML("divLogin");
+		document.getElementById("tLoginStatus").innerHTML = LoginStatus;
+		document.getElementById("cLoginResult").innerHTML = LoginFailedWarning;
+		//delCookie("UserName");
+		//delCookie("Password");
+	}
+	else if(document.getElementById("hcLoginStatus")
+	&& "-2" == document.getElementById("hcLoginStatus").value)
+	{
+		//限制登录
+		alert(LoginLimitedWarning);
+	}
+	
+	onRemCookies();
+	delCookie("LogOutCookieFlag");
+	DelayShow();
+	Cursor();
+}
+function Cursor()
+{
+	document.getElementById("username").focus();
+}
+function LoadLang()
+{
+	LoadCompLabel();
+	document.getElementById("tUserName").innerHTML = UserName;
+	document.getElementById("tPassword").innerHTML = PasswordLabel;
+	document.getElementById("tSave").innerHTML = SaveUserNamePwd;
+	document.getElementById("tHelp").innerHTML = Help;
+	document.getElementById("tHelpContent").innerHTML = LoginPage;
+	document.getElementById("tInnerTitle").innerHTML = LoginLabel;
+	document.getElementById("Login").value = LoginLabel;
+	document.getElementById("tLoginStatus").innerHTML = LoginStatus;
+	document.getElementById("tWebLanguage").innerHTML = Language;
+	AttachKeyEvent();
+}
+
+function OnLogin()
+{
+	var userName = document.getElementById("username").value;
+	var pwd = document.getElementById("password").value;
+	var onRemCookieSt = document.getElementById("cCheckSaveCookie").checked;
+	//var destRequest = "/fcgi/do?id=8&Operation=CreateSession&DivName=divLogin";
+	if(false == document.getElementById("cCheckSaveCookie").checked)
+	{
+		EncryptCookie(userName, pwd, "s2", true);
+	}
+	else
+	{
+		//先看密码处是否有修改
+		if(!PwdKeyFirst[0])
+		{
+			EncryptCookie(userName, pwd, UserNameExistTime, true);
+			return;
+		}
+		//看用户名处是否有修改
+		if(UserNameChangeFlag)
+		{
+			UserNameChangeFlag =false;
+			setCookie("UserName", StripTailSpace(userName), UserNameExistTime);
+		}
+		var f3 = document.getElementById("submit_form");
+		var strSubmData = "begin";
+		strSubmData = strSubmData + "&Operation=CreateSession";
+		strSubmData = strSubmData + "&DestURL=" + document.getElementById("hcDestURL").value;
+		strSubmData = strSubmData + "&SubmitData=end";
+		f3.SubmitData.value = strSubmData;
+		f3.submit();
+	}
+	
+}
+
+function OnCheckSaveCookie()
+{
+	if(true == document.getElementById("cCheckSaveCookie").checked)
+	{
+		var userName = document.getElementById("username").value;
+		var pwd = document.getElementById("password").value;
+		EncryptCookie(userName, pwd, UserNameExistTime, false);
+	}
+	else
+	{
+		delCookie("UserName");
+		delCookie("Password");
+		document.getElementById("password").value = "";
+	}
+	var onRemCookieSt = document.getElementById("cCheckSaveCookie").checked;
+	setCookie("onRemCookie",onRemCookieSt, UserNameExistTime);
+}
+
+function ChangeLangRemCookies()
+{
+	var userName = document.getElementById("username").value;
+	var pwd = document.getElementById("password").value;
+
+	if("" != userName || "" != pwd)
+	{
+		setCookie("UserName", StripTailSpace(userName), "s2");
+		setCookie("Password", pwd, "s2");
+	}
+}
+
+function ChangeLang()
+{		
+	var userName = getCookie("UserName");
+	var pwd = getCookie("Password");	
+	
+	var f3 = document.getElementById("submit_form");
+	var strSubmData = "begin";
+	var targetCfg = "cWebLanguage";
+
+	strSubmData = strSubmData + "&cWebLanguage=" + document.getElementById(targetCfg).value;
+	
+	strSubmData = strSubmData + "&Password=" + document.getElementById("password").value;
+	strSubmData = strSubmData + "&UserName=" + document.getElementById("username").value;
+	
+	strSubmData = strSubmData + "&Operation=Submit";
+	strSubmData = strSubmData + "&SubmitData=end";
+	f3.SubmitData.value = strSubmData;
+
+	DoForm3Submit(f3);
+	
+	ChangeLangRemCookies();
+}
+
+/********************************************
+* author:Zalman
+* function:encrypt password befor set cookie
+********************************************/
+function EncryptCookie(UserName, PassWord, cookieTime, submitFlag)
+{	
+	ResetDivInnerHTML("divEncryptRes");
+	request="do?action=Encrypt&UserName="+PostEncode(UserName)+"&Password="+PostEncode(PassWord);
+	$.ajax({  
+		url: request,  
+		cache: false, 
+		success: function(html){
+					$(divEncryptRes).append(html);
+			var f2 = document.forms["hiddenValForm_Div"];
+			if(document.getElementById("hcSingleResult"))
+			{
+				if("-1" == document.getElementById("hcSingleResult").value)
+				{
+					//do nothing
+				}
+				else
+				{
+					if(submitFlag)
+					{
+						setCookie("UserName", StripTailSpace(UserName), cookieTime);
+						setCookie("Password", document.getElementById("hcSingleResult").value, cookieTime);						
+						var f3 = document.getElementById("submit_form");
+						var strSubmData = "begin";
+						strSubmData = strSubmData + "&Operation=CreateSession";
+						strSubmData = strSubmData + "&DestURL=" + document.getElementById("hcDestURL").value;
+						strSubmData = strSubmData + "&SubmitData=end";
+						f3.SubmitData.value = strSubmData;
+						f3.submit();
+					}
+					else
+					{
+						setCookie("UserName", StripTailSpace(UserName), cookieTime);
+						setCookie("Password", document.getElementById("hcSingleResult").value, cookieTime);						
+					}
+					setCookie("RebootUserName", PostEncode(UserName), "s3600");
+				}
+			}
+		}
+	});	
+}
+</script>
+
+<body onLoad="LoadCfg()" onkeypress="if(event.keyCode == 13){OnLogin();}">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="phone1">
+	<div id="Login_Top" class="top"></div>
+	<div id="Login_Head" class="head"></div>
+<div class="main">
+	<div id="Login_LeftMenu" class="left"><div id="wrapper"></div></div>
+	<div class="corner"></div>
+	<div id="Login_MidWhole" class="mid">
+		<div id="Login_MidTop" class="mid_top"><label id="tInnerTitle"></label></div>		
+		<div class="mid_cont" id="mid_cont2">
+			<div class="logo"></div>
+			<table id="LoginTable">
+				<tr><td class="Login_td1"><label id="tUserName"></label></td><td class="Login_td2"><input class="login_input" type="text" id="username" onKeyDown="UserNameChange()"/><br /></td></tr>
+				<tr><td class="Login_td1"><label id="tPassword"></label></td><td class="Login_td2"><input class="login_input" type="password" id="password" value="********" oncontextmenu="KeyFirstDelete(this.id, 0)" onKeyDown="KeyFirstDelete(this.id, 0)"/><br></td></tr>
+				<tr id="Login_ChangeLang"><td class="Login_td1"><label id='tWebLanguage'></label></td><td class="Login_td2"><select style='width:155px;' class="Select_format" id="cWebLanguage" onChange="ChangeLang()"></select></td></tr>
+				<tr id="Login_CheckSaveCookie"><td class="Login_td1"></td><td class="Login_td2"><input id='cCheckSaveCookie' type='checkbox' onClick='OnCheckSaveCookie()' /><label id="tSave"></label></td></tr>
+				<tr><td class="Login_td1"></td><td class="Login_td2"><input class="Login_Btn" type="submit" id="Login" value="Login" onClick ="OnLogin()" /><br /></td></tr>
+				<tr id="trOfLoginResult"><td class="Login_td1"><label style="display:none" id="tLoginStatus"></label></td><td font-weight: bold;" class="Login_td2"><label id="cLoginResult"></label></td></tr>
+			</table>
+		</div>
+	</div>
+	<div id="Login_Right" class="right">
+		<div class="right_top"><label id="tHelp"></label></div>
+		<div id="rightHelpCont" style="text-align:center" class="right_cont"><label style="text-align:center" id="tHelpContent"></label></div>
+	</div>
+	<div class="corner_mir"></div>
+	<div id="rightMir" class="right_mir"></div>		
+</div>
+<div id="Login_Bottom" class="bottom"><label style="display:none;" id="tCompanyLabel"></label></div>
+</div>
+<form method="post" id="submit_form" name="submit_form" action="">
+	<input type="hidden" name="SubmitData" value="" />
+</form>
+<div id="divLogin"></div>
+<div id="divEncryptRes" style="display:none"></div>

@@ -1,0 +1,48 @@
+.flyoutMenu {
+	BORDER-RIGHT: #999999 0px solid; BORDER-TOP: #999999 0px solid; BORDER-LEFT: #999999 0px solid; BORDER-BOTTOM: #999999 0px solid; BACKGROUND-COLOR: #ffffff
+}
+.flyoutHeading {
+	PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 70%; PADDING-BOTTOM: 4px; CURSOR: default; PADDING-TOP: 2px; FONT-FAMILY: Verdana, Arial, Helvetica; BACKGROUND-COLOR: #ffffff
+}
+.flyoutLink {
+	BORDER-RIGHT: #ffffff 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 70%; BORDER-LEFT: #ffffff 1px solid; CURSOR: hand; PADDING-TOP: 0px; BORDER-BOTTOM: #ffffff 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica
+}
+.flyoutLink A {
+	WIDTH: 100%; HEIGHT: 100%
+}
+.flyoutMenu TD.flyoutLink {
+	PADDING-RIGHT: 2px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 70%; PADDING-BOTTOM: 2px; BORDER-LEFT: #ffffff 1px solid; CURSOR: hand; PADDING-TOP: 0px; BORDER-BOTTOM: #ffffff 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica
+}
+.flyoutLink A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutLink A:hover {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutLink A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutLink A:active {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutSubHeading {
+	PADDING-LEFT: 7px; FONT-WEIGHT: bold; FONT-SIZE: 70%; PADDING-BOTTOM: 4px; CURSOR: default; PADDING-TOP: 2px; FONT-FAMILY: Verdana, Arial, Helvetica; BACKGROUND-COLOR: #ffffff
+}
+.flyoutSubLink {
+	BORDER-RIGHT: #ffffff 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 11px; FONT-SIZE: 70%; PADDING-BOTTOM: 2px; BORDER-LEFT: #ffffff 1px solid; CURSOR: hand; PADDING-TOP: 1px; BORDER-BOTTOM: #ffffff 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica
+}
+.flyoutSubLink A {
+	WIDTH: 100%; HEIGHT: 100%
+}
+.flyoutSubLink A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutSubLink A:hover {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutSubLink A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.flyoutSubLink A:active {
+	COLOR: black; TEXT-DECORATION: none
+}

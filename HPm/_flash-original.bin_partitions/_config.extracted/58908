@@ -1,0 +1,43 @@
+[ GENERAL ]
+Vendor =Wildix
+Model =WP480GR4
+DeviceID =65
+AutopFile =r000000000065.cfg
+ExtdItemLabelLen=1
+MultiPageMode =0
+
+DirectionKeyTurnPage=1
+NumKeyProgramable=1
+[ FEATURE ]
+UserAgentProtection =1
+HasHomeKey =0
+HasForwardKey =0
+HasTransferKey =1
+LocalDndFwd =0
+AccountLabelType =1
+ListFrameType =0
+
+[ BLFLED ]
+Terminated =0
+Confirmed =1
+Proceeding =2
+
+[ FUNCTIONSWITCH ]
+SRTP =1
+VPN =1
+PCPort =1
+
+[ LANGUAGE ]
+WebLangList =0-ENGLISH,5-PORTUGUESE,6-SPANISH,8-DUTCH,9-FRENCH,10-GERMAN,13-POLISH,14-TURKISH,
+PhoneLangList =0-English,5-Portuguese,6-Spanish,7-Italian,8-Netherlands,9-French,10-German,13-Polish,14-Turkish,
+
+
+[ AUTOPPRIORITY ]
+Priority_count=6
+Priority_5=1
+Priority_4=0
+Priority_3=5
+Priority_2=4
+Priority_1=3
+Priority_0=2
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu defaultIndex="1" style="numbered" Timeout="0" LocalData="yes" CombineData="NetworkSetting" LockIn="no">
+    <title showlistcount="yes">Network Settings</title>
+    <MenuItem>
+        <Prompt>LAN Port</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/WanSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>VPN</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VpnSetting.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>VLAN Port</Prompt>
+        <URI>local://app/factory/Static/XMLBrowser/VlanMenu.xml</URI>
+    </MenuItem>
+    <MenuItem>
+        <Prompt>WLAN</Prompt>
+        <URI>local_real://WlanSettingDlg</URI>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label>Enter</Label>
+        <URI>SoftKey:Enter</URI>
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

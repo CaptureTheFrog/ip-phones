@@ -1,0 +1,48 @@
+
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 48 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 49 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ 50 ]
+Name =
+Code =
+Url =
+User =
+Password =
+ComAes =
+MacAes =
+NeedPop-up =1
+
+[ PRIVIDER  ]                       
+completed =0
+
+[ Cache ]
+Url=
+UserName=
+Pwd=
+Key16=
+Key16Mac=
+

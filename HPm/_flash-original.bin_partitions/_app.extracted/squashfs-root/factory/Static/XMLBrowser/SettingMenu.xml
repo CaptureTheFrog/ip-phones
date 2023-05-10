@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu
+	defaultIndex="1"
+        style="numbered"
+        Timeout="0"
+        LocalData="yes"
+        LockIn="no">
+  <title wrap="no" showlistcount="yes">Settings</title>
+	<MenuItem><Prompt>Basic Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/BasicSetting.xml</URI></MenuItem>
+	<MenuItem><Prompt>Advanced Setting</Prompt><URI>local://app/factory/Static/XMLBrowser/CheckPassword.xml</URI></MenuItem>
+	
+	<SoftKey index="1"><Label>Enter</Label><URI>SoftKey:Enter</URI></SoftKey>
+	<SoftKey index="2"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="3"><Label></Label><URI></URI></SoftKey>
+	<SoftKey index="4"><Label>Back</Label><URI>SoftKey:Back</URI></SoftKey>
+</IPPhoneTextMenu>

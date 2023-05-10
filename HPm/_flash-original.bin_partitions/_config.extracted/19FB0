@@ -1,0 +1,39 @@
+[ GENERAL ]
+VAD =0
+CNG =1
+SideTone =-32768
+EchoCanceller =1
+HeadsetSend =8
+HandsetSend =8
+HandfreeSend =8
+
+HsTxEq=
+AgcTarget=
+AgcRecv=
+AgcSend=
+[ JITTER ]
+Enable =1
+Adaptive =1
+Min =0
+Max =300
+Nominal =120
+
+[ DTMF ]
+Repetition =10
+Duration =150
+
+[ TONE ]
+Country =1
+
+[ RTCP ]
+Enable =1
+Interval =5
+RTCPXR =0
+
+[ G726 ]
+Coding =0
+
+[ SIDETONE ]
+Handset=0
+Headset=0
+

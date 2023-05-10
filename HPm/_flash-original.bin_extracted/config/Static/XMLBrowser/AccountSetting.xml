@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IPPhoneInputScreen type="combox" defaultIndex="1" style="none" Timeout="0" LockIn="no" LocalData="yes" CombineData="AccountSetting%Param1" InputType="1aB">
+    <Title wrap="yes" showlistcount="yes">Account %Param1</Title>
+    <Prompt>Active:</Prompt>
+    <DataID>Combine_AccountSetting_Enable</DataID>
+    <Default>0</Default>
+    <option text="Disable">0</option>
+    <option text="Enable">1</option>
+    <InputField type="edit">
+        <Prompt>Label:</Prompt>
+        <DataID>Combine_AccountSetting_Label</DataID>
+        <Default />
+        <option text="0" />
+    </InputField>
+    <InputField type="edit">
+        <Prompt>Display Name:</Prompt>
+        <DataID>Combine_AccountSetting_DisplayName</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit">
+        <Prompt>Register Name:</Prompt>
+        <DataID>Combine_AccountSetting_RegisterName</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit">
+        <Prompt>User Name:</Prompt>
+        <DataID>Combine_AccountSetting_UserName</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" password="yes" editable="yes">
+        <Prompt>Password:</Prompt>
+        <DataID>Combine_AccountSetting_Password</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" startodot="yes">
+        <Prompt>Sip Server 1:</Prompt>
+        <DataID>Combine_AccountSetting_SipServer1</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" password="no" editable="yes" is_interger="yes" min="1" max="65535">
+        <Prompt>Sip Port 1(%d-%d):</Prompt>
+        <DataID>Combine_AccountSetting_SipPort1</DataID>
+        <option text="0">5060</option>
+        <Default />
+    </InputField>
+    <InputField type="edit" startodot="yes">
+        <Prompt>Sip Server 2:</Prompt>
+        <DataID>Combine_AccountSetting_SipServer2</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" password="no" editable="yes" is_interger="yes" min="1" max="65535">
+        <Prompt>Sip Port 2(%d-%d):</Prompt>
+        <DataID>Combine_AccountSetting_SipPort2</DataID>
+        <option text="0">5060</option>
+        <Default />
+    </InputField>
+    <InputField type="combox">
+        <Prompt>Outbound Active:</Prompt>
+        <DataID>Combine_AccountSetting_OutboundEnable</DataID>
+        <Default>0</Default>
+        <option text="Disable">0</option>
+        <option text="Enable">1</option>
+    </InputField>
+    <InputField type="edit" startodot="yes">
+        <Prompt>Outbound Server 1:</Prompt>
+        <DataID>Combine_AccountSetting_OutboundServer1</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" password="no" editable="yes" is_interger="yes" min="1" max="65535">
+        <Prompt>Outbound Port 1(%d-%d):</Prompt>
+        <DataID>Combine_AccountSetting_OutboundPort1</DataID>
+        <option text="0">5060</option>
+        <Default />
+    </InputField>
+    <InputField type="edit" startodot="yes">
+        <Prompt>Outbound Server 2:</Prompt>
+        <DataID>Combine_AccountSetting_OutboundServer2</DataID>
+        <Default />
+    </InputField>
+    <InputField type="edit" password="no" editable="yes" is_interger="yes" min="1" max="65535">
+        <Prompt>Outbound Port 2(%d-%d):</Prompt>
+        <DataID>Combine_AccountSetting_OutboundPort2</DataID>
+        <option text="0">5060</option>
+        <Default />
+    </InputField>
+    <InputField type="combox">
+        <Prompt>Auto Answer Active:</Prompt>
+        <DataID>Combine_AccountSetting_AutoAnswerEnable</DataID>
+        <Default>0</Default>
+        <option text="Disable">0</option>
+        <option text="Enable">1</option>
+    </InputField>
+</IPPhoneInputScreen>
+<SoftKey index="1">
+    <Label>Save</Label>
+    <URI>SoftKey:Submit</URI>
+</SoftKey>
+<SoftKey index="2">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="3">
+    <Label />
+    <URI />
+</SoftKey>
+<SoftKey index="4">
+    <Label>Back</Label>
+    <URI>SoftKey:Back</URI>
+</SoftKey>

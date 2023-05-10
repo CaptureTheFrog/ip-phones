@@ -1,0 +1,295 @@
+﻿<FCGI_INCLUDE FILE=header.html>
+<FCGI_INCLUDE FILE=langjs>	
+<script language='javascript'>
+var ThisPage="";	
+document.write('<script src="../js/version.js?ver='+Math.random()+'"></s'+'cript>');	
+</script>
+<script language='javascript'>
+	
+document.onreadystatechange = newF;
+function newF()
+{
+	if(document.readyState == "complete")
+	{
+		document.getElementById("div_1").style.display = "none";
+	}
+}	
+
+var PageRemoteNum = 5;
+if(MODELID)
+	{
+		if("50" == MODELID)
+		{
+			PageRemoteNum = 2;
+		}	
+	}
+var MaxID = PageRemoteNum;
+function DoF5Jump()
+{
+	Relocate('do?id=5&id=4');
+}
+var PageRefDesURL = 'do?id=5&id=4';
+$(function() {
+	SetPageMenuAction("#aMenu5", "tMenu54");
+});
+function LoadLang()
+{
+	var tmp = RemoteBook;
+	LoadCommonResources(tmp);
+	document.getElementById("tRemotePhoneBook").innerHTML = RemoteBook;
+	document.getElementById("tRemoteIndex").innerHTML = Index;
+	document.getElementById("tRemoteURL").innerHTML = AddressBook+" URL";
+	document.getElementById("tRemoteName").innerHTML = AddressBook+" "+Name;
+	for(var i=0; i < PageRemoteNum; i++)
+	{document.getElementById("cRemotePhoneBookURL"+i).maxLength=127;}
+	
+	document.getElementById("tSearchRemotePhonebookNameEnableLabel").innerHTML = ("undefined" != typeof(SearchRemotePhonebookNameEnableLabel))?SearchRemotePhonebookNameEnableLabel:"Search Remote Phonebook Name";
+	document.getElementById("tRefreshIntervalLabel").innerHTML = ("undefined" != typeof(RefreshInterval))?RefreshInterval:"Refresh Interval";
+	document.getElementById("tRefreshIntervalRange").innerHTML = "(120~2592000"+SecondAbbr+")";
+}
+function LoadCfg()
+{
+	LoadLang();
+	DelayShow();
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	f1.cSearchRemotePhonebookNameEnable.options.add(new Option(Disabled, 0));
+	f1.cSearchRemotePhonebookNameEnable.options.add(new Option(Enabled, 1));
+	SubLoadCfg();
+}
+function SubLoadCfg()
+{
+	for(var i=0; i < PageRemoteNum; i++)
+	{
+		var tmpDomName = "cRemoteIndex"+i;
+		document.getElementById(tmpDomName).innerHTML = i+1;
+	}
+	LoadRemoteBookData();
+	ResetAllInputsColor();
+}
+function LoadRemoteBookData()
+{
+	var f1 = document.forms["body_form"];
+	var f2 = document.forms["hiddenValForm"];
+	var arrRemoteURL = f2.hcRemotePhoneBookURL.value.split(SplitSymbol);
+	var arrRemoteName = f2.hcRemotePhoneBookName.value.split(SplitSymbol);
+	for(var i=0; i < PageRemoteNum; i++)
+	{
+		document.getElementById("cRemotePhoneBookURL"+i).value = ShowDecodeIncTimeSplit(arrRemoteURL[i]);
+		document.getElementById("cRemotePhoneBookName"+i).value = arrRemoteName[i];
+	}
+	
+	f1.cSearchRemotePhonebookNameEnable.value = f2.hcSearchRemotePhonebookNameEnable.value = TransEmptyStrTo(f2.hcSearchRemotePhonebookNameEnable.value, "0");
+	f1.cSearchFlashInterval.value = f2.hcSearchFlashInterval.value;
+}
+function CheckCommitData()
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var strSubmData = "";
+	var ErrFlag = false;
+	var arrRemoteURL = f2.hcRemotePhoneBookURL.value.split(SplitSymbol);
+	var arrRemoteName = f2.hcRemotePhoneBookName.value.split(SplitSymbol);
+	for(var i=0; i < PageRemoteNum; i++)
+	{
+		var tmpD = document.getElementById("cRemotePhoneBookURL"+i).value;
+		tmpD1 = tmpD;
+		arrRemoteURL[i] = ShowDecodeIncTimeSplit(arrRemoteURL[i]);
+		if(tmpD != arrRemoteURL[i])
+		{
+			if(!CheckLengthOfData(tmpD, 0, 127))
+			{
+				SetInputBGColor("cRemotePhoneBookURL"+i);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + "&cRemotePhoneBookURL"+i+"="
+			+ PostEncode(tmpD);
+		}
+		tmpD = document.getElementById("cRemotePhoneBookName"+i).value;
+		if(tmpD != arrRemoteName[i])
+		{
+			if(!NotContainInvalid(tmpD))
+			{
+				SetInputBGColor("cRemotePhoneBookName"+i);
+				ErrFlag = true;
+			}
+			strSubmData = strSubmData + "&cRemotePhoneBookName"+i+"="
+			+ PostEncode(tmpD);
+		}
+		if("" == tmpD1 && "" != tmpD)
+		{
+			SetInputBG_2Exits("cRemotePhoneBookURL"+i);
+			ErrFlag = true;
+		}
+		else if("" == tmpD && "" != tmpD1)
+		{
+			SetInputBG_2Exits("cRemotePhoneBookName"+i);
+			ErrFlag = true;
+		}
+	}
+	if(f1.cSearchRemotePhonebookNameEnable.value != f2.hcSearchRemotePhonebookNameEnable.value)
+	{
+		strSubmData = strSubmData + "&cSearchRemotePhonebookNameEnable=" + f1.cSearchRemotePhonebookNameEnable.value;
+	}
+	if(f1.cSearchFlashInterval.value != f2.hcSearchFlashInterval.value)
+	{
+		if(!NotContainInvalid(f1.cSearchFlashInterval.value) || !CheckRangeOfNumber(f1.cSearchFlashInterval.value, 120, 2592000) || "" == f1.cSearchFlashInterval.value)    
+		{
+			SetInputBGColor("cSearchFlashInterval");
+			ErrFlag = true;
+		}
+		strSubmData = strSubmData + "&cSearchFlashInterval=" + Number(f1.cSearchFlashInterval.value);
+	}
+	if(true == ErrFlag)
+	{
+		return DataCheckResult;
+	}
+	return strSubmData;
+}
+
+function CheckDataChanged(destURL)
+{
+	var f1 = document.forms["body_form"];	
+	var f2 = document.forms["hiddenValForm"];
+	var dataChangedWarnFlag = false;
+	var arrRemoteURL = f2.hcRemotePhoneBookURL.value.split(SplitSymbol);
+	var arrRemoteName = f2.hcRemotePhoneBookName.value.split(SplitSymbol);
+	
+	for(var i=0; i < PageRemoteNum; i++)
+	{
+		var tmpD = document.getElementById("cRemotePhoneBookURL"+i).value;
+		tmpD1 = tmpD;
+		arrRemoteURL[i] = ShowDecodeIncTimeSplit(arrRemoteURL[i]);
+		if(tmpD != arrRemoteURL[i])
+		{
+			dataChangedWarnFlag = true;
+		}
+		tmpD = document.getElementById("cRemotePhoneBookName"+i).value;
+		if(tmpD != arrRemoteName[i])
+		{
+			dataChangedWarnFlag = true;
+		}
+		if("" == tmpD1 && "" != tmpD)
+		{
+			SetInputBG_2Exits("cRemotePhoneBookURL"+i);
+			dataChangedWarnFlag = true;
+		}
+		else if("" == tmpD && "" != tmpD1)
+		{
+			SetInputBG_2Exits("cRemotePhoneBookName"+i);
+			dataChangedWarnFlag = true;
+		}
+	}
+	
+	if(f1.cSearchRemotePhonebookNameEnable.value != f2.hcSearchRemotePhonebookNameEnable.value
+			|| f1.cSearchFlashInterval.value != f2.hcSearchFlashInterval.value)
+	{
+		dataChangedWarnFlag = 1;
+	}
+	
+	if(0 == dataChangedWarnFlag)
+	{
+		Relocate(destURL);
+		return false;
+	}
+	
+	if(!confirm(SavePageConfirm))
+	{
+		return false;
+	}
+	else
+	{
+		Relocate(destURL);
+		return false;
+	}
+}
+
+function SetInputBG_2Exits(idStr)
+{
+	SetInputBGColor(idStr);
+	var tSave = document.getElementById("WarningDiv").innerHTML;
+	document.getElementById("WarningDiv").innerHTML += ("<br>"+Remote2itemsWarning);
+}
+function ResetAllInputsColor()
+{
+	var i = 0;
+	for(; i < MaxID; i++)
+	{
+		tmp = "cRemotePhoneBookURL"+i;
+		onInputEdit(tmp);
+		tmp = "cRemotePhoneBookName"+i;
+		onInputEdit(tmp);
+	}
+	onInputEdit("cSearchFlashInterval");
+	document.getElementById("WarningDiv").innerHTML = "";
+}
+</script>
+
+<body onLoad="LoadCfg()">
+<div id="div_1" style="width:105%; height:105%; z-index:999; position:absolute; background-color:#FFFFFF;"></div>
+<div class="headline"></div>
+<div class="phone1">
+	<FCGI_INCLUDE FILE=top.html>
+	<div class="main">
+		<FCGI_INCLUDE FILE=left.html>
+		<div id="midWhole" class="mid">
+			<div class="mid_top"><label id="tInnerTitle"></label></div>
+			<div class="mid_cont" id="mid_cont1">
+			</div>			
+    	<div class="mid_cont" id="mid_cont2" style="display:none">
+<form name="body_form">		
+	<div class="div_border">
+	<div class="div_head"><label id='tRemotePhoneBook'></label></div>
+		<table class="table_style">		
+
+			<table width="95%" id="tableRemoteBook" align="center" cellpadding="0" cellspacing="1">
+				<tr bgcolor='#a5a9af'>            	
+				<td style='text-align: center;' align='center' height='20px'><label id='tRemoteIndex'></label></td>
+				<td style='text-align: center; width: 350px;' ><label id='tRemoteURL'></label></td>
+				<td style='text-align: center; width: 130px;' ><label id='tRemoteName'></label></td>
+				</tr>
+          
+				<script language="javascript">
+				for(var i=0; i < PageRemoteNum; i++)
+				{	
+					if(0 == i%2)
+				document.write("<tr bgcolor=\'#F9FAFC\'><td style='text-align: center;' align='center' height='20px'><label id='cRemoteIndex"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 350px;'><input style='width: 350px;' id='cRemotePhoneBookURL"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+				"<td style='text-align: center; width: 130px;'><input style='width: 130px;' id='cRemotePhoneBookName"+i+"' type='text' onFocus='onInputEdit(this.id)'></td></tr>");
+				 else
+				 	document.write("<tr bgcolor=\'#DCE3E8\'><td style='text-align: center;' align='center' height='20px'><label id='cRemoteIndex"+i+"'></label></td>"+
+				"<td style='text-align: center; width: 350px;'><input style='width: 350px;' id='cRemotePhoneBookURL"+i+"' type='text' onFocus='onInputEdit(this.id)'></td>"+
+				"<td style='text-align: center; width: 130px;'><input style='width: 130px;' id='cRemotePhoneBookName"+i+"' type='text' onFocus='onInputEdit(this.id)'></td></tr>");
+				}
+				</script>
+
+			</table>
+		</table>
+	<div style="height:12px;"></div>
+	</div> 
+    	
+	<div class="div_border">
+		<table class="table_style">
+			<tr><td class="Second_td"><label id='tSearchRemotePhonebookNameEnableLabel'></label></td> <td class="Third_td"><select class="Select_format1" name="cSearchRemotePhonebookNameEnable"></select></td></tr>
+			<tr><td class="Second_td"><label id='tRefreshIntervalLabel'></label></td> <td class="Third_td"><input class="def_input" id="cSearchFlashInterval" name="cSearchFlashInterval" onClick="onInputEdit(this.id)" /><label id="tRefreshIntervalRange">(120~2592000s)</label></td></tr>
+		</table>
+	</div>
+</form>
+<form method="post" name="submit_form" id="submit_form" action="">
+	<div align="center">
+		<table width="70%" style="text-align:center">
+			<br/>
+			<input type="hidden" name="SubmitData" value="">
+			<tr><td><input id="PageSubmit" name="PageSubmit" class="Nice_Btn" type="button" value="Submit" onClick ="OnSubmit()"></td>
+				<td><input id="PageCancel" name="PageCancel" class="Nice_Btn" type="button" value="Cancel" onClick ="SubLoadCfg()"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+			</div>
+		</div>
+	<FCGI_INCLUDE FILE=help.html>
+	<FCGI_INCLUDE FILE=rightMir.html>
+</div>
+</div>	
+<FCGI_INCLUDE FILE=bottom.html>

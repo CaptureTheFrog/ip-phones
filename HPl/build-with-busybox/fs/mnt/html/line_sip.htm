@@ -1,0 +1,130 @@
+
+<?ssi title line$l_ssi_title?>
+
+<?ssi file common1.htm?>
+	<TR><TD vAlign="top" height="16"><IMG height="16" src="img/clr.gif" width="16"></TD></TR>
+	<TR>
+		<TD vAlign="top">
+			<FORM method="post" name="linesip" onsubmit="return validate()">
+<?ssi hidden_tag?>
+				<TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+					<TBODY>
+<?ssi skipon NOT_IN_ADMIN_MODE?>
+<?ssi file tab_line.htm?>
+<TR>
+	<TD width="12" height="5"><IMG height="12" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ur?> width="12"></TD>
+</TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD class="normalText" width="50%"><B><?lng line_sipsettings?></B></TD><TD class="normalText" width="50%"></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_musiconholdserver user_moh$l?></td></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_hold_inactive user_hold_inactive$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_alert_info user_alert_info$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input advanced_ssi_user_pic user_pic$l?></td></TR>
+<TR><TD></TD><TD></TD><td class="normalText">
+<?ssi hidden_tag?>
+<?ssi button get_photo_uri?>
+</td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_dialplan user_dp_str$l?></td></TR>
+<TR><TD></TD><?ssi radio dialplan_count_failed_match_groups dialplan_count_failed_match_groups advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><?ssi radio advanced_ssi_enum user_dp_exp$l multiple_setting 0 advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD></TD><td class="normalText"><?ssi input_field line_ssi_country user_dp_exp$l 1?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input_field line_ssi_area user_dp_exp$l 2?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_proxyrequire user_proxy_require$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_additional_supported_headers user_additional_supported_header$l?></td></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_qvalue?></TD><TD><select <?ssi disabled user_q$l?>name="user_q<?ssi line?>" size="1" <?ssi tabindex?> class="select2"><?ssi qvalue user_q$l?></select><?ssi help user_q?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_expire user_expiry$l?></td></TR>
+<TR><TD></TD><?ssi radio prefs_ssi_aaautoanswer user_auto_connect$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_descr_contact user_descr_contact$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_sipusername_as_line user_sipusername_as_line$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_shared_line user_shared_line$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_publish_presence_bootup user_publish_presence_bootup$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_ssi_dtmf_info?></TD><TD><select <?ssi disabled user_dtmf_info$l?>name="user_dtmf_info<?ssi line?>" size="1" <?ssi tabindex?> class="select1">
+ <option value="on"<?ssi selected user_dtmf_info$l on?>><?lng advanced_on?></option>
+ <option value="sip_info_only"<?ssi selected user_dtmf_info$l sip_info_only?>><?lng line_ssi_dtmf_info_sip_info_only?></option>
+ <option value="off"<?ssi selected user_dtmf_info$l off?>><?lng advanced_off?></option>
+</select><?ssi help user_dtmf_info?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_send_local_name user_send_local_name$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input_field line_ssi_event_list_uri user_event_list_uri$l?></td></TR>
+<TR><TD></TD><?ssi radio line_ssi_presence_subscription user_presence_subscription$l advanced_ssi_on advanced_ssi_off?></TR>
+<TR><TD class="normalText"><?ssi radio advanced_ssi_publishpresence publish_presence$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input_field line_ssi_presence_buddy_list_uri user_presence_buddy_list_uri$l?></td></TR>
+<TR><TD class="normalText"><?ssi radio sip_force_sendrecv_no_sdp sip_force_sendrecv_on_invite_wo_sdp$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_ssi_server_type?></TD>
+<TD><select <?ssi disabled user_server_type$l?>name="user_server_type<?ssi line?>" size="1" <?ssi tabindex?> class="select1">
+ <option value="default"<?ssi selected user_server_type$l default?>><?lng line_default?></option>
+ <option value="asterisk"<?ssi selected user_server_type$l asterisk?>><?lng line_asterisk?></option>
+ <option value="bria"<?ssi selected user_server_type$l bria?>>bria</option>
+ <option value="broadsoft"<?ssi selected user_server_type$l broadsoft?>><?lng line_broadsoft?></option>
+ <option value="ccm"<?ssi selected user_server_type$l ccm?>><?lng line_ccm?></option>
+ <option value="metaswitch"<?ssi selected user_server_type$l metaswitch?>><?lng line_metaswitch?></option>
+ <option value="nortel"<?ssi selected user_server_type$l nortel?>><?lng line_nortel?></option>
+<?ssi skipon NOT_NTLM?>
+ <option value="ocs"<?ssi selected user_server_type$l ocs?>><?lng line_ocs?></option>
+<?ssi skipoff NOT_NTLM?>
+ <option value="pbxnsip"<?ssi selected user_server_type$l pbxnsip?>><?lng line_pbxnsip?></option>
+ <option value="snomone"<?ssi selected user_server_type$l snomone?>><?lng line_snomone?></option>
+ <option value="sutus"<?ssi selected user_server_type$l sutus?>><?lng line_sutus?></option>
+ <option value="sylantro"<?ssi selected user_server_type$l sylantro?>><?lng line_sylantro?></option>
+ <option value="telepo"<?ssi selected user_server_type$l telepo?>><?lng line_telepo?></option>
+ <option value="teles"<?ssi selected user_server_type$l teles?>><?lng line_teles?></option>
+ </select><?ssi help user_server_type?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_remove_all_bindings user_remove_all_bindings$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_subscription_expiry user_subscription_expiry$l?></td></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_subscription_expiry_after_failed retry_after_failed_subscribe$l?></td></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_enable_hookflash user_enable_hookflash$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<?ssi skipon NOT_NTLM?>
+<TR><TD></TD><TD class="normalText"><?lng line_presence_identity?></TD>
+<TD><select name="user_presence_identity<?ssi line?>"  <?ssi disabled user_presence_identity$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="none"<?ssi selected user_presence_identity$l none?>><?lng line_none?></option>
+ <option value="1"<?ssi selected user_presence_identity$l 1?>><?lng adr_lineid1?></option>
+ <option value="2"<?ssi selected user_presence_identity$l 2?>><?lng adr_lineid2?></option>
+ <option value="3"<?ssi selected user_presence_identity$l 3?>><?lng adr_lineid3?></option>
+ <option value="4"<?ssi selected user_presence_identity$l 4?>><?lng adr_lineid4?></option>
+<?ssi skipon SNOM300?>
+<?ssi skipon SNOM710?>
+ <option value="5"<?ssi selected user_presence_identity$l 5?>><?lng adr_lineid5?></option>
+ <option value="6"<?ssi selected user_presence_identity$l 6?>><?lng adr_lineid6?></option>
+ <option value="7"<?ssi selected user_presence_identity$l 7?>><?lng adr_lineid7?></option>
+ <option value="8"<?ssi selected user_presence_identity$l 8?>><?lng adr_lineid8?></option>
+ <option value="9"<?ssi selected user_presence_identity$l 9?>><?lng adr_lineid9?></option>
+ <option value="10"<?ssi selected user_presence_identity$l 10?>><?lng adr_lineid10?></option>
+ <option value="11"<?ssi selected user_presence_identity$l 11?>><?lng adr_lineid11?></option>
+ <option value="12"<?ssi selected user_presence_identity$l 12?>><?lng adr_lineid12?></option>
+<?ssi skipoff SNOM710?>
+<?ssi skipoff SNOM300?>
+</select><?ssi help user_presence_identity?>
+<TR><TD class="normalText"><?ssi radio line_ssi_report_machine_state user_report_machine_state$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_report_phone_state user_report_phone_state$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><TD class="normalText"><?lng line_default_contact_uri?></TD>
+<TD><select name="user_default_contact_uri<?ssi line?>"  <?ssi disabled user_default_contact_uri$l?>size="1" <?ssi tabindex?> class="select4">
+ <option value="none"<?ssi selected user_default_contact_uri$l none?>><?lng contact_none?></option>
+ <option value="work"<?ssi selected user_default_contact_uri$l work?>><?lng contact_work?></option>
+ <option value="mobile"<?ssi selected user_default_contact_uri$l mobile?>><?lng contact_mobile?></option>
+ <option value="home"<?ssi selected user_default_contact_uri$l home?>><?lng contact_home?></option>
+ <option value="other"<?ssi selected user_default_contact_uri$l other?>><?lng contact_other?></option>
+</select><?ssi help user_default_contact_uri?>
+<?ssi skipoff NOT_NTLM?>
+<TR><TD class="normalText"><?ssi radio line_ssi_is_voice_identity is_voice_identity$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD class="normalText"><?ssi radio line_ssi_allow_inc_dialog_subscribe user_allow_inc_dialog_subscribe$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+<TR><TD></TD><td class="normalText"><?ssi input line_ssi_extension_monitoring_group extension_monitoring_group$l?></td></TR>
+<TR><TD class="normalText"><?ssi radio advanced_dfks dfks$l advanced_ssi_on advanced_ssi_off?></TD></TR>
+
+<TR><TD></TD><TD class="normalText">&nbsp;</TD></TR>
+<TR><TD></TD><TD></TD></TR>
+<TR><TD></TD><TD><input type="submit" value="<?lng apply_button?>" name="Settings" <?ssi tabindex?> class="button"></TD></TR>
+<TR>
+	<TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif ll?> width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+	<TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src=<?ssi img-corner-gif lr?> width="12"></TD>
+</TR>
+<?ssi skipoff NOT_IN_ADMIN_MODE?>
+					</TBODY></TABLE>
+			</FORM>
+		</TD>
+	</TR>
+	<?ssi file common9.htm?></HTML>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPPhoneTextMenu style="none" Timeout="0" LocalData="yes" RollMode="no" LockIn="no">
+    <title wrap="no" showlistcount="yes">Network Status</title>
+    <MenuItem LocalData="yes">
+        <Prompt>MAC:</Prompt>
+        <DataID>DID_Status_NETWORK_MAC</DataID>
+        <option text="DHCP" />
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>LAN Type:</Prompt>
+        <DataID>DID_Network_LAN_Type</DataID>
+        <option text="DHCP">0</option>
+        <option text="PPPOE">1</option>
+        <option text="StaticIP">2</option>
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>LAN IP:</Prompt>
+        <DataID>DID_Status_NETWORK_LANIPAddr</DataID>
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>LAN Mask:</Prompt>
+        <DataID>DID_Status_NETWORK_LANSubnetMask</DataID>
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>Gateway:</Prompt>
+        <DataID>DID_Status_NETWORK_LANGateWay</DataID>
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>LAN DNS1:</Prompt>
+        <DataID>DID_Status_NETWORK_LANDNS1</DataID>
+    </MenuItem>
+    <MenuItem LocalData="yes">
+        <Prompt>LAN DNS2:</Prompt>
+        <DataID>DID_Status_NETWORK_LANDNS2</DataID>
+    </MenuItem>
+    <SoftKey index="1">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="2">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="3">
+        <Label />
+        <URI />
+    </SoftKey>
+    <SoftKey index="4">
+        <Label>Back</Label>
+        <URI>SoftKey:Back</URI>
+    </SoftKey>
+</IPPhoneTextMenu>

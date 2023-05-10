@@ -1,0 +1,273 @@
+<?ssi title fkeys_ssi_title?>
+<?ssi file common2.htm?>
+<TR>
+  <TD>
+  </TD>
+  <TD class="normalText">
+    &nbsp;
+  </TD>
+</TR>
+<!--######################-->
+<!--# fix size of boxes  #-->
+<!--######################-->
+<!--ensure that whatever the language, the combo-boxes don't get too big and thus destroy our page design-->
+<style type="text/css">
+.select_std
+{
+width:140px;
+}
+.select_blue
+{
+width:140px;
+}
+</style>
+<!--######################-->
+<!--# TITLE with helpBtn #-->
+<!--######################-->
+<TR>
+  <TD class="normalText">
+    <B>
+      <a href=http://wiki.snom.com<?ssi snom_type_wiki?>/Web_Interface/V8/Function_Keys><img src="img/help.gif" border="0" alt="edit"></a>&nbsp;<?lng fkeys_keysettings?>
+    </B>
+  </TD>
+</TR>
+<TR>
+ <TD vAlign="top" height="16">
+  <IMG height="16" src="img/clr.gif" width="16">
+ </TD>
+</TR>
+<!--######################-->
+<!--# INFO TEXT          #-->
+<!--######################-->
+<TR>
+ <TD>
+  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 ID="Table1">
+   <TBODY>
+    <TR>
+     <TD>
+      <SPAN class=pageInfoText>
+       <?lng fkey_info?>
+       <br>
+       </br>
+      </SPAN>
+     </TD>
+    </TR>
+   </TBODY>
+  </TABLE>
+ </TD>
+</TR>
+<TR>
+ <TD vAlign="top">
+  <FORM method="post">
+   <?ssi hidden_tag?>
+   <TABLE class="bubbleTable" cellSpacing="0" cellPadding="0" width="100%" border="0">
+    <TBODY>
+     <TR>
+       <TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src="img/corul.gif" width="12"></TD>
+       <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+       <TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src="img/corur.gif" width="12"></TD>
+     </TR>
+     
+     <!--######################-->
+     <!--# LINE KEYS          #-->
+     <!--# pKeys / virtual k. #-->
+     <!--######################-->
+     <TR height="1"><TD width="1%"></TD><TD width="98%"></TD><TD width="1%"></TD></TR>
+     <TR>
+      <TD></TD>
+      <TD>
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="linekeyTable" name="linekeyTable">
+        <tr>
+         <td width="22%"></td><td width="1%"></td><td width="22%"></td><td width="1%"></td>
+         <td width="22%"></td><td width="1%"></td><td width="22%"></td><td width="1%"></td>
+         <td width="8%"></td>
+        </tr>
+        <TR>
+         <TD class="normalText"><?lng fkeys_ssi_context?></TD>
+         <td></td>
+         <TD class="normalText"><?lng fkeys_ssi_type?></TD>
+         <td></td>
+         <TD class="normalText"><?lng fkeys_ssi_number?></TD>
+         <td></td>
+         <TD class="normalText"><?lng fkeys_ssi_replacement_label_header?></TD>     
+         <td></td>
+         <td></td>
+        </TR>
+        <?ssi fkeys?>
+       </table>
+      </TD>
+      <TD></TD>
+     </TR>
+     <!--######################-->
+     <!--# KEYS BELOW DISPLAY #-->
+     <!--######################-->
+<?ssi skipon SNOM870?>
+     <tr height="20"></tr>
+     <TR>
+      <TD></TD>
+      <TD>
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="fkeyTable" name="fkeyTable">
+        <tr>
+         <td align="right"><img src="img/softkey_grey.png"></td><TD align="left"><?ssi softkey1 ?></TD>
+         <td align="right"><img src="img/softkey_grey.png"></td><TD align="left"><?ssi softkey2 ?></TD>
+         <td align="right"><img src="img/softkey_grey.png"></td><TD align="left"><?ssi softkey3 ?></TD>
+         <td align="right"><img src="img/softkey_grey.png"></td><TD align="left"><?ssi softkey4 ?></TD>
+        </tr>
+       </table>
+      </TD>
+      <TD></TD>
+     </TR>
+<?ssi skipoff SNOM870?>
+     <!--######################-->
+     <!--# NAVI KEYS          #-->
+     <!--######################-->
+     <tr height="20"></tr>
+     <TR>
+      <TD></TD>
+      <TD>
+
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="navikeyTable" name="navikeyTable">
+        <tr><td width="4%"></td><td width="37%"></td><td width="16%"></td><td width="37%"></td><td width="4%"></td></tr>
+        <tr>
+         <td></td>
+         <td colspan="3" align="center">
+          <?ssi upkey ?>
+         </td>
+         <td></td>
+        </tr>
+        <tr>
+         <td rowspan="3" align="left">
+          <img src="img/okay_button.png">
+         </td>
+         <td height="25">
+         </td>
+         <td rowspan="3" align="center">
+          <img src="img/navikey.png">
+         </td>
+         <td>
+         </td>
+         <td rowspan="3" align="right">
+          <img src="img/cancel_button.png">
+         </td>
+        </tr>
+        <tr>
+         
+         <td align="right">
+          <?ssi leftkey ?>
+         </td>
+                 
+         <td align="left">
+          <?ssi rightkey ?>
+         </td>
+                
+        </tr>
+        <tr>
+         
+         <td align="left">
+          <?ssi okkey ?>
+         </td>
+                 
+         <td align="right">
+          <?ssi cancelkey ?>
+         </td>
+                
+        </tr>
+        <tr>
+         <td></td>
+         <td colspan="3" align="center">
+          <?ssi downkey ?>
+         </td>
+         <td></td>
+        </tr>
+       </table>
+      </TD>
+      <TD></TD>
+     </TR>
+     <!--######################-->
+     <!--# QUICK ACCESS KEYS  #-->
+     <!--######################-->
+     <tr height="20"></tr>
+     <TR>
+      <TD></TD>
+      <TD>
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="fkey2Table" name="fkey2Table">
+        <tr>
+         <td width="28%"></td><td width="1%"></td><td width="23%"></td><td width="1%"></td>
+         <td width="24%"></td><td width="16%"></td><td width="1%"></td><td width="5%"></td>
+        </tr>      
+        <TR>
+         <td></td>
+         <td></td>
+         <TD class="normalText"><?lng fkeys_ssi_type?></TD>
+         <td></td>
+         <TD class="normalText"><?lng fkeys_ssi_number?></TD>
+         <td></td>
+         <td></td>
+         <td></td>
+        </TR>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey_blue dkey_retrieve recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right" bgcolor="#d6dff5"><?lng fkeyname_retrieve?></td><td></td>
+         <td><img src="img/quickkey_mail.png"></td>
+        </tr>
+<?ssi skipon SNOM710?>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey dkey_dnd recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right"><?lng fkeyname_dnd?></td><td></td>
+         <td><img src="img/quickkey_dnd.png"></td>
+        </tr>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey_blue dkey_directory recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right" bgcolor="#d6dff5"><?lng leftnav_addressbook?></td><td></td>
+         <td><img src="img/quickkey_directory.png"></td>
+        </tr>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey dkey_menu recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right"><?lng fkeyname_menu?></td><td></td>
+         <td><img src="img/quickkey_menu.png"></td>
+        </tr>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey_blue dkey_transfer recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right" bgcolor="#d6dff5"><?lng fkeyname_transfer?></td><td></td>
+         <td><img src="img/quickkey_transfer.png"></td>
+        </tr>
+        <tr>
+         <td></td><td></td>
+         <?ssi dkey dkey_hold recorder fkeys_ssi_voicerecorder dtmf fkeys_ssi_dtmf url fkeys_ssi_url keyevent fkeys_ssi_keyevent speed fkeys_ssi_speed button fkeys_ssi_button ivr fkeys_ssi_ivr conference wlang_fkeys_ssi_conference_server transfer fkeys_ssi_transfer redirect fkeys_ssi_redirect auto_answer fkeys_ssi_auto_answer xml fkeys_ssi_xml none fkeys_ssi_none?>
+         <td class="normalText" align="right"><?lng fkeyname_hold?></td><td></td>
+         <td><img src="img/quickkey_onhold.png"></td>
+        </tr>
+<?ssi skipoff SNOM710?>
+       </table>
+      </TD>
+      <TD></TD>
+     </TR>
+     <TR>
+      <TD></TD>
+      <TD height="30"></TD>
+      <TD></TD>
+     </TR>
+     <TR>
+      <TD></TD>
+      <TD><input type="submit" value="<?lng apply_button?>" name="Settings" class="button"></TD>
+      <TD></TD>
+     </TR>
+
+
+     <TR>
+       <TD class="background" vAlign="bottom" align="left" width="12" height="5"><IMG height="12" src="img/corll.gif" width="12"></TD>
+       <TD width="12" height="5"><IMG height="5" src="img/clr.gif" width="12"></TD>
+       <TD class="background" vAlign="bottom" align="right" width="12" height="5"><IMG height="12" src="img/corlr.gif" width="12"></TD>
+     </TR>
+    </TBODY>
+   </TABLE>
+  </FORM>
+ </TD>
+</TR>
+<?ssi file common9.htm?>
+</HTML>

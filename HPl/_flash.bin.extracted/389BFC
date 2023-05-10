@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialplan e="2">
+<template match="0[1-9]........." timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="1410[1-9]........." timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="0800......" timeout="2" scheme="sip" user="Phone" rewrite="" />
+<template match="1410800......" timeout="2" scheme="sip" user="Phone" rewrite="" />
+<template match="118..." timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="999" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="112" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="111" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="101" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="001.........." timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="141001.........." timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="1471" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="1571" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="1572" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="160" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="150" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="151" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="154" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="155" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="123" timeout="2" scheme="sip" user="Phone" rewrite="" />
+<template match="1234" timeout="0" scheme="sip" user="Phone" rewrite="" />
+<template match="[2-9].." timeout="1" scheme="sip" user="Phone" rewrite="" />
+<template match="*" timeout="10" scheme="sip" user="Phone" rewrite="" />
+</dialplan>
